@@ -1,0 +1,25 @@
+{
+  "name": "protobuf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "types": "proto/generated/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:proto": "./protoc-build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lamquangmanh/protobuf.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lamquangmanh/protobuf/issues"
+  },
+  "homepage": "https://github.com/lamquangmanh/protobuf#readme",
+  "dependencies": {
+    "protobufjs": "^7.4.0",
+    "ts-proto": "^2.7.0"
+  }
+}
