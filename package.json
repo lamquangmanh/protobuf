@@ -1,5 +1,5 @@
 {
-  "name": "protobuf",
+  "name": "@lamquangmanh/protobuf",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -25,6 +25,6 @@
     "ts-protoc-gen": "^0.15.0"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   }
 }
