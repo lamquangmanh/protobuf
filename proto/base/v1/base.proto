@@ -1,0 +1,77 @@
+syntax = "proto3";
+package base.v1;
+
+// import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+// define enum
+enum FilterOperator {
+  EQUAL = 0;
+  NOT_EQUAL = 1;
+  GREATER_THAN = 2;
+  LESS_THAN = 3;
+  GREATER_THAN_OR_EQUAL = 4;
+  LESS_THAN_OR_EQUAL = 5;
+  LIKE = 6;
+  IN = 7;
+  NOT_IN = 8;
+}
+
+enum SortOrder {
+  UNSPECIFIED = 0;
+  ASC = 1;
+  DESC = 2;
+}
+
+// define message
+message PaginationRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 limit = 2;
+  int32 totalItems = 3;
+  int32 totalPages = 4;
+  int32 itemCount = 5;
+}
+
+message Sort {
+  string field = 1; // created_at, updated_at
+  SortOrder order = 2; // "ASC" or "DESC"
+}
+
+message Filter {
+  string field = 1;
+  FilterOperator operator = 2; // "eq", "ne", "gt", "lt", "gte", "lte", "like", "in", "nin"
+  google.protobuf.Any value = 3;
+  // oneof value {
+  //   string string_value = 3;
+  //   int32 int_value = 4;
+  //   double double_value = 5;
+  //   bool bool_value = 6;
+  //   google.protobuf.Timestamp timestamp_value = 7;
+  //   repeated string array_string_value = 8;
+  //   repeated int32 array_int_value = 9;
+  //   repeated double array_double_value = 10;
+  // }
+  
+}
+
+message FilterGroup {
+  repeated Filter filters = 1;
+  repeated FilterGroup groups = 2;
+  string operator = 3; // "and" or "or"
+}
+
+message QueryRequest {
+  PaginationRequest pagination = 1;
+  repeated Sort sort = 2;
+  FilterGroup filter = 3;
+}
+
+message QueryResponse {
+  PaginationResponse pagination = 1;
+  repeated string data = 2; // JSON string
+}

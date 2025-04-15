@@ -1,12 +1,13 @@
 {
   "name": "protobuf",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "types": "proto/generated/index.d.ts",
+  "types": "build/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:proto": "./protoc-build.sh"
+    "build:proto": "buf generate",
+    "build": "./build_proto.sh"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,11 @@
   },
   "homepage": "https://github.com/lamquangmanh/protobuf#readme",
   "dependencies": {
-    "protobufjs": "^7.4.0",
-    "ts-proto": "^2.7.0"
+    "@bufbuild/protobuf": "^2.2.5",
+    "ts-proto": "^2.7.0",
+    "ts-protoc-gen": "^0.15.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }

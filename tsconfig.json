@@ -13,5 +13,6 @@
       "@proto/*": ["proto/generated/*"]
     }
   },
-  "include": ["proto/**/**/*.proto"]
+  "include": ["proto/**/**/*.proto"],
+  "exclude": ["node_modules", "dist", "build"]
 }

@@ -1,0 +1,34 @@
+# # For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
+# version: v2
+# modules:
+#   - path: proto
+#     lint:
+#       use:
+#         - DEFAULT
+#         - FIELD_DEFAULT_NAME
+#         - FIELD_HAS_JSON_NAME
+#         - FILE_HAS_BOM
+#         - FILE_LOWER_SNAKE_CASE
+#         - FILE_HAS_OWN_PACKAGE
+#         - PACKAGE_LOWER_SNAKE_CASE
+#         - PACKAGE_DIRECTORY_MATCHES_PACKAGE_NAME
+#         - PACKAGE_DIRECTORY_IS_DOT
+#         - PACKAGE_DIRECTORY_IS_SNAKE_CASE
+#         - PACKAGE_IS_PUBLIC
+# lint:
+#   use:
+#     - STANDARD
+# breaking:
+#   use:
+#     - FILE
+
+# -----------------------
+
+version: v1
+name: lamquangmanh/protobuf # change to your GitHub org/repo name
+deps:
+  - buf.build/googleapis/googleapis
+
+build:
+  roots:
+    - proto

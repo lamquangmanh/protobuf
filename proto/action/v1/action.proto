@@ -1,0 +1,23 @@
+
+syntax = "proto3";
+import "base/v1/base.proto";
+
+package action.v1;
+
+message Action {
+  int32 id = 1;
+}
+
+message HeroById {
+  int32 id = 1;
+}
+
+message Hero {
+  int32 id = 1;
+  string name = 2;
+  base.v1.PaginationRequest pagination = 3;
+}
+
+service ActionService {
+  rpc FindOne (HeroById) returns (Hero) {}
+}
