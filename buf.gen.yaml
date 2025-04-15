@@ -18,7 +18,7 @@
 
 version: v2
 plugins:
-  - remote: buf.build/namely/protoc-gen-ts
+  - remote: buf.build/lamquangmanh/protoc-gen-ts
     out: build
-    strategy: all
+    # strategy: all
     opt: nestJs=true,env=node,useExactTypes=false,esModuleInterop=true,forceLong=string,outputServices=grpc-js

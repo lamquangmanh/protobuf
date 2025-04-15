@@ -24,11 +24,10 @@
 
 # -----------------------
 
-version: v1
-name: lamquangmanh/protobuf # change to your GitHub org/repo name
+version: v2
+name: buf.build/lamquangmanh/protobuf # change to your GitHub org/repo name
 deps:
   - buf.build/googleapis/googleapis
-
-build:
-  roots:
-    - proto
+# build:
+#   roots:
+#     - proto

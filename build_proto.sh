@@ -1,23 +1,23 @@
 # #!/bin/bash
 
-# protoc \
-#     -I=proto \
-#     --plugin=$(pwd)/node_modules/.bin/protoc-gen-ts_proto \
-#     --ts_proto_opt=esModuleInterop=true \
-#     --ts_proto_out="./build" \
-#     proto/**/**/*.proto
+protoc \
+    -I=proto \
+    --plugin=$(pwd)/node_modules/.bin/protoc-gen-ts_proto \
+    --ts_proto_opt=esModuleInterop=true \
+    --ts_proto_out="./build" \
+    proto/**/**/*.proto
 
 # -----------------------
 
-#!/bin/bash
-set -e
+# #!/bin/bash
+# set -e
 
-echo "Generating TypeScript code using buf..."
+# echo "Generating TypeScript code using buf..."
 
-# Clean up previous output
-rm -rf build
+# # Clean up previous output
+# rm -rf build
 
-# Run buf generate
-buf generate
+# # Run buf generate
+# buf generate
 
-echo "✅ Proto files compiled to ./build"
+# echo "✅ Proto files compiled to ./build"
