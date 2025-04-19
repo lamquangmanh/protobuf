@@ -10,7 +10,7 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@proto/*": ["proto/generated/*"]
+      "@proto/*": ["proto/*"]
     }
   },
   "include": ["proto/**/**/*.proto"],

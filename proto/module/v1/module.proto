@@ -1,0 +1,34 @@
+
+syntax = "proto3";
+import "base/v1/base.proto";
+
+package module.v1;
+
+message Module {
+  string module_id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message GetModuleRequest {
+  string module_id = 1;
+}
+
+message GetModulesRequest {
+  base.v1.PaginationRequest pagination = 1;
+  repeated base.v1.Sort sort = 2;
+  repeated base.v1.Filter filter = 3;
+}
+
+message GetModulesResponse {
+  base.v1.PaginationResponse pagination = 1;
+  repeated Module data = 2;
+}
+
+service ModuleService {
+  rpc GetModule (GetModuleRequest) returns (Module) {}
+  rpc GetModules (GetModulesRequest) returns (GetModulesResponse) {}
+  rpc CreateModule (Module) returns (base.v1.CreateSuccess) {}
+  rpc UpdateModule (Module) returns (base.v1.UpdateSuccess) {}
+  rpc DeleteModule (GetModuleRequest) returns (base.v1.DeleteSuccess) {}
+}

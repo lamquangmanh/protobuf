@@ -5,5 +5,456 @@
 // source: permission/v1/permission.proto
 
 /* eslint-disable */
+import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import {
+  CreateSuccess,
+  DeleteSuccess,
+  Filter,
+  PaginationRequest,
+  PaginationResponse,
+  Sort,
+  UpdateSuccess,
+} from "../../base/v1/base";
 
-export const protobufPackage = "";
+export const protobufPackage = "permission.v1";
+
+export interface Permission {
+  permissionId: string;
+  roleId: string;
+  resourceId: string;
+  actionId: string;
+}
+
+export interface GetPermissionRequest {
+  permissionId: string;
+}
+
+export interface GetPermissionsRequest {
+  pagination: PaginationRequest | undefined;
+  sort: Sort[];
+  filter: Filter[];
+}
+
+export interface GetPermissionsResponse {
+  pagination: PaginationResponse | undefined;
+  data: Permission[];
+}
+
+function createBasePermission(): Permission {
+  return { permissionId: "", roleId: "", resourceId: "", actionId: "" };
+}
+
+export const Permission: MessageFns<Permission> = {
+  encode(message: Permission, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.permissionId !== "") {
+      writer.uint32(10).string(message.permissionId);
+    }
+    if (message.roleId !== "") {
+      writer.uint32(18).string(message.roleId);
+    }
+    if (message.resourceId !== "") {
+      writer.uint32(26).string(message.resourceId);
+    }
+    if (message.actionId !== "") {
+      writer.uint32(34).string(message.actionId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): Permission {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePermission();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.permissionId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.roleId = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.resourceId = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.actionId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Permission {
+    return {
+      permissionId: isSet(object.permissionId) ? globalThis.String(object.permissionId) : "",
+      roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
+      resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
+      actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : "",
+    };
+  },
+
+  toJSON(message: Permission): unknown {
+    const obj: any = {};
+    if (message.permissionId !== "") {
+      obj.permissionId = message.permissionId;
+    }
+    if (message.roleId !== "") {
+      obj.roleId = message.roleId;
+    }
+    if (message.resourceId !== "") {
+      obj.resourceId = message.resourceId;
+    }
+    if (message.actionId !== "") {
+      obj.actionId = message.actionId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Permission>, I>>(base?: I): Permission {
+    return Permission.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Permission>, I>>(object: I): Permission {
+    const message = createBasePermission();
+    message.permissionId = object.permissionId ?? "";
+    message.roleId = object.roleId ?? "";
+    message.resourceId = object.resourceId ?? "";
+    message.actionId = object.actionId ?? "";
+    return message;
+  },
+};
+
+function createBaseGetPermissionRequest(): GetPermissionRequest {
+  return { permissionId: "" };
+}
+
+export const GetPermissionRequest: MessageFns<GetPermissionRequest> = {
+  encode(message: GetPermissionRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.permissionId !== "") {
+      writer.uint32(10).string(message.permissionId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetPermissionRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetPermissionRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.permissionId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetPermissionRequest {
+    return { permissionId: isSet(object.permissionId) ? globalThis.String(object.permissionId) : "" };
+  },
+
+  toJSON(message: GetPermissionRequest): unknown {
+    const obj: any = {};
+    if (message.permissionId !== "") {
+      obj.permissionId = message.permissionId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetPermissionRequest>, I>>(base?: I): GetPermissionRequest {
+    return GetPermissionRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetPermissionRequest>, I>>(object: I): GetPermissionRequest {
+    const message = createBaseGetPermissionRequest();
+    message.permissionId = object.permissionId ?? "";
+    return message;
+  },
+};
+
+function createBaseGetPermissionsRequest(): GetPermissionsRequest {
+  return { pagination: undefined, sort: [], filter: [] };
+}
+
+export const GetPermissionsRequest: MessageFns<GetPermissionsRequest> = {
+  encode(message: GetPermissionsRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.pagination !== undefined) {
+      PaginationRequest.encode(message.pagination, writer.uint32(10).fork()).join();
+    }
+    for (const v of message.sort) {
+      Sort.encode(v!, writer.uint32(18).fork()).join();
+    }
+    for (const v of message.filter) {
+      Filter.encode(v!, writer.uint32(26).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetPermissionsRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetPermissionsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PaginationRequest.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.sort.push(Sort.decode(reader, reader.uint32()));
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.filter.push(Filter.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetPermissionsRequest {
+    return {
+      pagination: isSet(object.pagination) ? PaginationRequest.fromJSON(object.pagination) : undefined,
+      sort: globalThis.Array.isArray(object?.sort) ? object.sort.map((e: any) => Sort.fromJSON(e)) : [],
+      filter: globalThis.Array.isArray(object?.filter) ? object.filter.map((e: any) => Filter.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: GetPermissionsRequest): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PaginationRequest.toJSON(message.pagination);
+    }
+    if (message.sort?.length) {
+      obj.sort = message.sort.map((e) => Sort.toJSON(e));
+    }
+    if (message.filter?.length) {
+      obj.filter = message.filter.map((e) => Filter.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetPermissionsRequest>, I>>(base?: I): GetPermissionsRequest {
+    return GetPermissionsRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetPermissionsRequest>, I>>(object: I): GetPermissionsRequest {
+    const message = createBaseGetPermissionsRequest();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PaginationRequest.fromPartial(object.pagination)
+      : undefined;
+    message.sort = object.sort?.map((e) => Sort.fromPartial(e)) || [];
+    message.filter = object.filter?.map((e) => Filter.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseGetPermissionsResponse(): GetPermissionsResponse {
+  return { pagination: undefined, data: [] };
+}
+
+export const GetPermissionsResponse: MessageFns<GetPermissionsResponse> = {
+  encode(message: GetPermissionsResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.pagination !== undefined) {
+      PaginationResponse.encode(message.pagination, writer.uint32(10).fork()).join();
+    }
+    for (const v of message.data) {
+      Permission.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetPermissionsResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetPermissionsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PaginationResponse.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.data.push(Permission.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetPermissionsResponse {
+    return {
+      pagination: isSet(object.pagination) ? PaginationResponse.fromJSON(object.pagination) : undefined,
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => Permission.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: GetPermissionsResponse): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PaginationResponse.toJSON(message.pagination);
+    }
+    if (message.data?.length) {
+      obj.data = message.data.map((e) => Permission.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetPermissionsResponse>, I>>(base?: I): GetPermissionsResponse {
+    return GetPermissionsResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetPermissionsResponse>, I>>(object: I): GetPermissionsResponse {
+    const message = createBaseGetPermissionsResponse();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PaginationResponse.fromPartial(object.pagination)
+      : undefined;
+    message.data = object.data?.map((e) => Permission.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+export interface PermissionService {
+  GetPermission(request: GetPermissionRequest): Promise<Permission>;
+  GetPermissions(request: GetPermissionsRequest): Promise<GetPermissionsResponse>;
+  CreatePermission(request: Permission): Promise<CreateSuccess>;
+  UpdatePermission(request: Permission): Promise<UpdateSuccess>;
+  DeletePermission(request: GetPermissionRequest): Promise<DeleteSuccess>;
+}
+
+export const PermissionServiceServiceName = "permission.v1.PermissionService";
+export class PermissionServiceClientImpl implements PermissionService {
+  private readonly rpc: Rpc;
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || PermissionServiceServiceName;
+    this.rpc = rpc;
+    this.GetPermission = this.GetPermission.bind(this);
+    this.GetPermissions = this.GetPermissions.bind(this);
+    this.CreatePermission = this.CreatePermission.bind(this);
+    this.UpdatePermission = this.UpdatePermission.bind(this);
+    this.DeletePermission = this.DeletePermission.bind(this);
+  }
+  GetPermission(request: GetPermissionRequest): Promise<Permission> {
+    const data = GetPermissionRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetPermission", data);
+    return promise.then((data) => Permission.decode(new BinaryReader(data)));
+  }
+
+  GetPermissions(request: GetPermissionsRequest): Promise<GetPermissionsResponse> {
+    const data = GetPermissionsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetPermissions", data);
+    return promise.then((data) => GetPermissionsResponse.decode(new BinaryReader(data)));
+  }
+
+  CreatePermission(request: Permission): Promise<CreateSuccess> {
+    const data = Permission.encode(request).finish();
+    const promise = this.rpc.request(this.service, "CreatePermission", data);
+    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+  }
+
+  UpdatePermission(request: Permission): Promise<UpdateSuccess> {
+    const data = Permission.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdatePermission", data);
+    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+  }
+
+  DeletePermission(request: GetPermissionRequest): Promise<DeleteSuccess> {
+    const data = GetPermissionRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "DeletePermission", data);
+    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+  }
+}
+
+interface Rpc {
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+}
+
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
+}
+
+export interface MessageFns<T> {
+  encode(message: T, writer?: BinaryWriter): BinaryWriter;
+  decode(input: BinaryReader | Uint8Array, length?: number): T;
+  fromJSON(object: any): T;
+  toJSON(message: T): unknown;
+  create<I extends Exact<DeepPartial<T>, I>>(base?: I): T;
+  fromPartial<I extends Exact<DeepPartial<T>, I>>(object: I): T;
+}

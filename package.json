@@ -1,13 +1,14 @@
 {
   "name": "@lamquangmanh/protobuf",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "",
-  "main": "index.js",
+  "main": "proto",
   "types": "build/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:proto": "buf generate",
-    "build": "./build_proto.sh"
+    "build": "./build_proto.sh",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",

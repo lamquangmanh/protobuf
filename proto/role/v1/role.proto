@@ -1,0 +1,35 @@
+
+syntax = "proto3";
+import "base/v1/base.proto";
+
+package role.v1;
+
+message Role {
+  string role_id = 1;
+  string name = 2;
+  string description = 3;
+  string module_id = 4;
+}
+
+message GetRoleRequest {
+  string role_id = 1;
+}
+
+message GetRolesRequest {
+  base.v1.PaginationRequest pagination = 1;
+  repeated base.v1.Sort sort = 2;
+  repeated base.v1.Filter filter = 3;
+}
+
+message GetRolesResponse {
+  base.v1.PaginationResponse pagination = 1;
+  repeated Role data = 2;
+}
+
+service RoleService {
+  rpc GetRole (GetRoleRequest) returns (Role) {}
+  rpc GetRoles (GetRolesRequest) returns (GetRolesResponse) {}
+  rpc CreateRole (Role) returns (base.v1.CreateSuccess) {}
+  rpc UpdateRole (Role) returns (base.v1.UpdateSuccess) {}
+  rpc DeleteRole (GetRoleRequest) returns (base.v1.DeleteSuccess) {}
+}

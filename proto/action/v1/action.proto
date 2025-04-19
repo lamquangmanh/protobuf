@@ -4,20 +4,43 @@ import "base/v1/base.proto";
 
 package action.v1;
 
+enum ActionRequestType {
+  VIEW = 0;
+  HTTP = 1;
+  GRAPHQL = 2;
+  GRPC = 3;
+  WEBSOCKET = 4;
+}
+
 message Action {
-  int32 id = 1;
+  string action_id = 1;
+  string resource_id = 2;
+  string name = 3;
+  string description = 4;
+  string ActionRequestType = 5;
+  string url = 6;
+  string method = 7;
 }
 
-message HeroById {
-  int32 id = 1;
+message GetActionRequest {
+  string action_id = 1;
 }
 
-message Hero {
-  int32 id = 1;
-  string name = 2;
-  base.v1.PaginationRequest pagination = 3;
+message GetActionsRequest {
+  base.v1.PaginationRequest pagination = 1;
+  repeated base.v1.Sort sort = 2;
+  repeated base.v1.Filter filter = 3;
+}
+
+message GetActionsResponse {
+  base.v1.PaginationResponse pagination = 1;
+  repeated Action data = 2;
 }
 
 service ActionService {
-  rpc FindOne (HeroById) returns (Hero) {}
+  rpc GetAction (GetActionRequest) returns (Action) {}
+  rpc GetActions (GetActionsRequest) returns (GetActionsResponse) {}
+  rpc CreateAction (Action) returns (base.v1.CreateSuccess) {}
+  rpc UpdateAction (Action) returns (base.v1.UpdateSuccess) {}
+  rpc DeleteAction (GetActionRequest) returns (base.v1.DeleteSuccess) {}
 }

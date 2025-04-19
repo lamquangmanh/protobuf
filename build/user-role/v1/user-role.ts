@@ -2,7 +2,7 @@
 // versions:
 //   protoc-gen-ts_proto  v2.7.0
 //   protoc               v5.29.3
-// source: user/v1/user.proto
+// source: user-role/v1/user-role.proto
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
@@ -16,78 +16,38 @@ import {
   UpdateSuccess,
 } from "../../base/v1/base";
 
-export const protobufPackage = "user.v1";
+export const protobufPackage = "user_role.v1";
 
-export enum UserStatus {
-  ACTIVE = 0,
-  DEACTIVATED = 1,
-  DELETED = 2,
-  UNRECOGNIZED = -1,
-}
-
-export function userStatusFromJSON(object: any): UserStatus {
-  switch (object) {
-    case 0:
-    case "ACTIVE":
-      return UserStatus.ACTIVE;
-    case 1:
-    case "DEACTIVATED":
-      return UserStatus.DEACTIVATED;
-    case 2:
-    case "DELETED":
-      return UserStatus.DELETED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return UserStatus.UNRECOGNIZED;
-  }
-}
-
-export function userStatusToJSON(object: UserStatus): string {
-  switch (object) {
-    case UserStatus.ACTIVE:
-      return "ACTIVE";
-    case UserStatus.DEACTIVATED:
-      return "DEACTIVATED";
-    case UserStatus.DELETED:
-      return "DELETED";
-    case UserStatus.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
-  }
-}
-
-export interface User {
+export interface UserRole {
   userId: string;
   username: string;
   email: string;
   password: string;
   phone: string;
   avatar: string;
-  status: UserStatus;
 }
 
-export interface GetUserRequest {
+export interface GetUserRoleRequest {
   userId: string;
 }
 
-export interface GetUsersRequest {
+export interface GetUserRolesRequest {
   pagination: PaginationRequest | undefined;
   sort: Sort[];
   filter: Filter[];
 }
 
-export interface GetUsersResponse {
+export interface GetUserRolesResponse {
   pagination: PaginationResponse | undefined;
-  data: User[];
+  data: UserRole[];
 }
 
-function createBaseUser(): User {
-  return { userId: "", username: "", email: "", password: "", phone: "", avatar: "", status: 0 };
+function createBaseUserRole(): UserRole {
+  return { userId: "", username: "", email: "", password: "", phone: "", avatar: "" };
 }
 
-export const User: MessageFns<User> = {
-  encode(message: User, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const UserRole: MessageFns<UserRole> = {
+  encode(message: UserRole, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.userId !== "") {
       writer.uint32(10).string(message.userId);
     }
@@ -106,16 +66,13 @@ export const User: MessageFns<User> = {
     if (message.avatar !== "") {
       writer.uint32(50).string(message.avatar);
     }
-    if (message.status !== 0) {
-      writer.uint32(56).int32(message.status);
-    }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): User {
+  decode(input: BinaryReader | Uint8Array, length?: number): UserRole {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUser();
+    const message = createBaseUserRole();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -167,14 +124,6 @@ export const User: MessageFns<User> = {
           message.avatar = reader.string();
           continue;
         }
-        case 7: {
-          if (tag !== 56) {
-            break;
-          }
-
-          message.status = reader.int32() as any;
-          continue;
-        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -184,7 +133,7 @@ export const User: MessageFns<User> = {
     return message;
   },
 
-  fromJSON(object: any): User {
+  fromJSON(object: any): UserRole {
     return {
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
       username: isSet(object.username) ? globalThis.String(object.username) : "",
@@ -192,11 +141,10 @@ export const User: MessageFns<User> = {
       password: isSet(object.password) ? globalThis.String(object.password) : "",
       phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
       avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
-      status: isSet(object.status) ? userStatusFromJSON(object.status) : 0,
     };
   },
 
-  toJSON(message: User): unknown {
+  toJSON(message: UserRole): unknown {
     const obj: any = {};
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -216,44 +164,40 @@ export const User: MessageFns<User> = {
     if (message.avatar !== "") {
       obj.avatar = message.avatar;
     }
-    if (message.status !== 0) {
-      obj.status = userStatusToJSON(message.status);
-    }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<User>, I>>(base?: I): User {
-    return User.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<UserRole>, I>>(base?: I): UserRole {
+    return UserRole.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<User>, I>>(object: I): User {
-    const message = createBaseUser();
+  fromPartial<I extends Exact<DeepPartial<UserRole>, I>>(object: I): UserRole {
+    const message = createBaseUserRole();
     message.userId = object.userId ?? "";
     message.username = object.username ?? "";
     message.email = object.email ?? "";
     message.password = object.password ?? "";
     message.phone = object.phone ?? "";
     message.avatar = object.avatar ?? "";
-    message.status = object.status ?? 0;
     return message;
   },
 };
 
-function createBaseGetUserRequest(): GetUserRequest {
+function createBaseGetUserRoleRequest(): GetUserRoleRequest {
   return { userId: "" };
 }
 
-export const GetUserRequest: MessageFns<GetUserRequest> = {
-  encode(message: GetUserRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const GetUserRoleRequest: MessageFns<GetUserRoleRequest> = {
+  encode(message: GetUserRoleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.userId !== "") {
       writer.uint32(10).string(message.userId);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): GetUserRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): GetUserRoleRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetUserRequest();
+    const message = createBaseGetUserRoleRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -274,11 +218,11 @@ export const GetUserRequest: MessageFns<GetUserRequest> = {
     return message;
   },
 
-  fromJSON(object: any): GetUserRequest {
+  fromJSON(object: any): GetUserRoleRequest {
     return { userId: isSet(object.userId) ? globalThis.String(object.userId) : "" };
   },
 
-  toJSON(message: GetUserRequest): unknown {
+  toJSON(message: GetUserRoleRequest): unknown {
     const obj: any = {};
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -286,22 +230,22 @@ export const GetUserRequest: MessageFns<GetUserRequest> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GetUserRequest>, I>>(base?: I): GetUserRequest {
-    return GetUserRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<GetUserRoleRequest>, I>>(base?: I): GetUserRoleRequest {
+    return GetUserRoleRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GetUserRequest>, I>>(object: I): GetUserRequest {
-    const message = createBaseGetUserRequest();
+  fromPartial<I extends Exact<DeepPartial<GetUserRoleRequest>, I>>(object: I): GetUserRoleRequest {
+    const message = createBaseGetUserRoleRequest();
     message.userId = object.userId ?? "";
     return message;
   },
 };
 
-function createBaseGetUsersRequest(): GetUsersRequest {
+function createBaseGetUserRolesRequest(): GetUserRolesRequest {
   return { pagination: undefined, sort: [], filter: [] };
 }
 
-export const GetUsersRequest: MessageFns<GetUsersRequest> = {
-  encode(message: GetUsersRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const GetUserRolesRequest: MessageFns<GetUserRolesRequest> = {
+  encode(message: GetUserRolesRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.pagination !== undefined) {
       PaginationRequest.encode(message.pagination, writer.uint32(10).fork()).join();
     }
@@ -314,10 +258,10 @@ export const GetUsersRequest: MessageFns<GetUsersRequest> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): GetUsersRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): GetUserRolesRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetUsersRequest();
+    const message = createBaseGetUserRolesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -354,7 +298,7 @@ export const GetUsersRequest: MessageFns<GetUsersRequest> = {
     return message;
   },
 
-  fromJSON(object: any): GetUsersRequest {
+  fromJSON(object: any): GetUserRolesRequest {
     return {
       pagination: isSet(object.pagination) ? PaginationRequest.fromJSON(object.pagination) : undefined,
       sort: globalThis.Array.isArray(object?.sort) ? object.sort.map((e: any) => Sort.fromJSON(e)) : [],
@@ -362,7 +306,7 @@ export const GetUsersRequest: MessageFns<GetUsersRequest> = {
     };
   },
 
-  toJSON(message: GetUsersRequest): unknown {
+  toJSON(message: GetUserRolesRequest): unknown {
     const obj: any = {};
     if (message.pagination !== undefined) {
       obj.pagination = PaginationRequest.toJSON(message.pagination);
@@ -376,11 +320,11 @@ export const GetUsersRequest: MessageFns<GetUsersRequest> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GetUsersRequest>, I>>(base?: I): GetUsersRequest {
-    return GetUsersRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<GetUserRolesRequest>, I>>(base?: I): GetUserRolesRequest {
+    return GetUserRolesRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GetUsersRequest>, I>>(object: I): GetUsersRequest {
-    const message = createBaseGetUsersRequest();
+  fromPartial<I extends Exact<DeepPartial<GetUserRolesRequest>, I>>(object: I): GetUserRolesRequest {
+    const message = createBaseGetUserRolesRequest();
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PaginationRequest.fromPartial(object.pagination)
       : undefined;
@@ -390,25 +334,25 @@ export const GetUsersRequest: MessageFns<GetUsersRequest> = {
   },
 };
 
-function createBaseGetUsersResponse(): GetUsersResponse {
+function createBaseGetUserRolesResponse(): GetUserRolesResponse {
   return { pagination: undefined, data: [] };
 }
 
-export const GetUsersResponse: MessageFns<GetUsersResponse> = {
-  encode(message: GetUsersResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const GetUserRolesResponse: MessageFns<GetUserRolesResponse> = {
+  encode(message: GetUserRolesResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.pagination !== undefined) {
       PaginationResponse.encode(message.pagination, writer.uint32(10).fork()).join();
     }
     for (const v of message.data) {
-      User.encode(v!, writer.uint32(18).fork()).join();
+      UserRole.encode(v!, writer.uint32(18).fork()).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): GetUsersResponse {
+  decode(input: BinaryReader | Uint8Array, length?: number): GetUserRolesResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetUsersResponse();
+    const message = createBaseGetUserRolesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -425,7 +369,7 @@ export const GetUsersResponse: MessageFns<GetUsersResponse> = {
             break;
           }
 
-          message.data.push(User.decode(reader, reader.uint32()));
+          message.data.push(UserRole.decode(reader, reader.uint32()));
           continue;
         }
       }
@@ -437,85 +381,85 @@ export const GetUsersResponse: MessageFns<GetUsersResponse> = {
     return message;
   },
 
-  fromJSON(object: any): GetUsersResponse {
+  fromJSON(object: any): GetUserRolesResponse {
     return {
       pagination: isSet(object.pagination) ? PaginationResponse.fromJSON(object.pagination) : undefined,
-      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => User.fromJSON(e)) : [],
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => UserRole.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: GetUsersResponse): unknown {
+  toJSON(message: GetUserRolesResponse): unknown {
     const obj: any = {};
     if (message.pagination !== undefined) {
       obj.pagination = PaginationResponse.toJSON(message.pagination);
     }
     if (message.data?.length) {
-      obj.data = message.data.map((e) => User.toJSON(e));
+      obj.data = message.data.map((e) => UserRole.toJSON(e));
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GetUsersResponse>, I>>(base?: I): GetUsersResponse {
-    return GetUsersResponse.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<GetUserRolesResponse>, I>>(base?: I): GetUserRolesResponse {
+    return GetUserRolesResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GetUsersResponse>, I>>(object: I): GetUsersResponse {
-    const message = createBaseGetUsersResponse();
+  fromPartial<I extends Exact<DeepPartial<GetUserRolesResponse>, I>>(object: I): GetUserRolesResponse {
+    const message = createBaseGetUserRolesResponse();
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PaginationResponse.fromPartial(object.pagination)
       : undefined;
-    message.data = object.data?.map((e) => User.fromPartial(e)) || [];
+    message.data = object.data?.map((e) => UserRole.fromPartial(e)) || [];
     return message;
   },
 };
 
-export interface UserService {
-  GetUser(request: GetUserRequest): Promise<User>;
-  GetUsers(request: GetUsersRequest): Promise<GetUsersResponse>;
-  CreateUser(request: User): Promise<CreateSuccess>;
-  UpdateUser(request: User): Promise<UpdateSuccess>;
-  DeleteUser(request: GetUserRequest): Promise<DeleteSuccess>;
+export interface UserRoleService {
+  GetUserRole(request: GetUserRoleRequest): Promise<UserRole>;
+  GetUserRoles(request: GetUserRolesRequest): Promise<GetUserRolesRequest>;
+  CreateUserRole(request: UserRole): Promise<CreateSuccess>;
+  UpdateUserRole(request: UserRole): Promise<UpdateSuccess>;
+  DeleteUserRole(request: GetUserRoleRequest): Promise<DeleteSuccess>;
 }
 
-export const UserServiceServiceName = "user.v1.UserService";
-export class UserServiceClientImpl implements UserService {
+export const UserRoleServiceServiceName = "user_role.v1.UserRoleService";
+export class UserRoleServiceClientImpl implements UserRoleService {
   private readonly rpc: Rpc;
   private readonly service: string;
   constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || UserServiceServiceName;
+    this.service = opts?.service || UserRoleServiceServiceName;
     this.rpc = rpc;
-    this.GetUser = this.GetUser.bind(this);
-    this.GetUsers = this.GetUsers.bind(this);
-    this.CreateUser = this.CreateUser.bind(this);
-    this.UpdateUser = this.UpdateUser.bind(this);
-    this.DeleteUser = this.DeleteUser.bind(this);
+    this.GetUserRole = this.GetUserRole.bind(this);
+    this.GetUserRoles = this.GetUserRoles.bind(this);
+    this.CreateUserRole = this.CreateUserRole.bind(this);
+    this.UpdateUserRole = this.UpdateUserRole.bind(this);
+    this.DeleteUserRole = this.DeleteUserRole.bind(this);
   }
-  GetUser(request: GetUserRequest): Promise<User> {
-    const data = GetUserRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "GetUser", data);
-    return promise.then((data) => User.decode(new BinaryReader(data)));
-  }
-
-  GetUsers(request: GetUsersRequest): Promise<GetUsersResponse> {
-    const data = GetUsersRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "GetUsers", data);
-    return promise.then((data) => GetUsersResponse.decode(new BinaryReader(data)));
+  GetUserRole(request: GetUserRoleRequest): Promise<UserRole> {
+    const data = GetUserRoleRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetUserRole", data);
+    return promise.then((data) => UserRole.decode(new BinaryReader(data)));
   }
 
-  CreateUser(request: User): Promise<CreateSuccess> {
-    const data = User.encode(request).finish();
-    const promise = this.rpc.request(this.service, "CreateUser", data);
+  GetUserRoles(request: GetUserRolesRequest): Promise<GetUserRolesRequest> {
+    const data = GetUserRolesRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetUserRoles", data);
+    return promise.then((data) => GetUserRolesRequest.decode(new BinaryReader(data)));
+  }
+
+  CreateUserRole(request: UserRole): Promise<CreateSuccess> {
+    const data = UserRole.encode(request).finish();
+    const promise = this.rpc.request(this.service, "CreateUserRole", data);
     return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
   }
 
-  UpdateUser(request: User): Promise<UpdateSuccess> {
-    const data = User.encode(request).finish();
-    const promise = this.rpc.request(this.service, "UpdateUser", data);
+  UpdateUserRole(request: UserRole): Promise<UpdateSuccess> {
+    const data = UserRole.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateUserRole", data);
     return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
   }
 
-  DeleteUser(request: GetUserRequest): Promise<DeleteSuccess> {
-    const data = GetUserRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "DeleteUser", data);
+  DeleteUserRole(request: GetUserRoleRequest): Promise<DeleteSuccess> {
+    const data = GetUserRoleRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "DeleteUserRole", data);
     return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
   }
 }

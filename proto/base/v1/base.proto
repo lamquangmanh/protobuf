@@ -56,22 +56,16 @@ message Filter {
   //   repeated int32 array_int_value = 9;
   //   repeated double array_double_value = 10;
   // }
-  
 }
 
-message FilterGroup {
-  repeated Filter filters = 1;
-  repeated FilterGroup groups = 2;
-  string operator = 3; // "and" or "or"
+message CreateSuccess {
+  bool success = 1;
 }
 
-message QueryRequest {
-  PaginationRequest pagination = 1;
-  repeated Sort sort = 2;
-  FilterGroup filter = 3;
+message UpdateSuccess {
+  bool success = 1;
 }
 
-message QueryResponse {
-  PaginationResponse pagination = 1;
-  repeated string data = 2; // JSON string
+message DeleteSuccess {
+  bool success = 1;
 }

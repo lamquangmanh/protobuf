@@ -1,0 +1,34 @@
+
+syntax = "proto3";
+import "base/v1/base.proto";
+
+package resource.v1;
+
+message Resource {
+  string resource_id = 1;
+  string name = 2;
+  string module_id = 3;
+}
+
+message GetResourceRequest {
+  string resource_id = 1;
+}
+
+message GetResourcesRequest {
+  base.v1.PaginationRequest pagination = 1;
+  repeated base.v1.Sort sort = 2;
+  repeated base.v1.Filter filter = 3;
+}
+
+message GetResourcesResponse {
+  base.v1.PaginationResponse pagination = 1;
+  repeated Resource data = 2;
+}
+
+service ResourceService {
+  rpc GetResource (GetResourceRequest) returns (Resource) {}
+  rpc GetResources (GetResourcesRequest) returns (GetResourcesResponse) {}
+  rpc CreateResource (Resource) returns (base.v1.CreateSuccess) {}
+  rpc UpdateResource (Resource) returns (base.v1.UpdateSuccess) {}
+  rpc DeleteResource (GetResourceRequest) returns (base.v1.DeleteSuccess) {}
+}

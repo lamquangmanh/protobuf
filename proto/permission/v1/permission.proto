@@ -1,0 +1,35 @@
+
+syntax = "proto3";
+import "base/v1/base.proto";
+
+package permission.v1;
+
+message Permission {
+  string permission_id = 1;
+  string role_id = 2;
+  string resource_id = 3;
+  string action_id = 4;
+}
+
+message GetPermissionRequest {
+  string permission_id = 1;
+}
+
+message GetPermissionsRequest {
+  base.v1.PaginationRequest pagination = 1;
+  repeated base.v1.Sort sort = 2;
+  repeated base.v1.Filter filter = 3;
+}
+
+message GetPermissionsResponse {
+  base.v1.PaginationResponse pagination = 1;
+  repeated Permission data = 2;
+}
+
+service PermissionService {
+  rpc GetPermission (GetPermissionRequest) returns (Permission) {}
+  rpc GetPermissions (GetPermissionsRequest) returns (GetPermissionsResponse) {}
+  rpc CreatePermission (Permission) returns (base.v1.CreateSuccess) {}
+  rpc UpdatePermission (Permission) returns (base.v1.UpdateSuccess) {}
+  rpc DeletePermission (GetPermissionRequest) returns (base.v1.DeleteSuccess) {}
+}

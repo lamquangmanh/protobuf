@@ -5,5 +5,456 @@
 // source: role/v1/role.proto
 
 /* eslint-disable */
+import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import {
+  CreateSuccess,
+  DeleteSuccess,
+  Filter,
+  PaginationRequest,
+  PaginationResponse,
+  Sort,
+  UpdateSuccess,
+} from "../../base/v1/base";
 
-export const protobufPackage = "";
+export const protobufPackage = "role.v1";
+
+export interface Role {
+  roleId: string;
+  name: string;
+  description: string;
+  moduleId: string;
+}
+
+export interface GetRoleRequest {
+  roleId: string;
+}
+
+export interface GetRolesRequest {
+  pagination: PaginationRequest | undefined;
+  sort: Sort[];
+  filter: Filter[];
+}
+
+export interface GetRolesResponse {
+  pagination: PaginationResponse | undefined;
+  data: Role[];
+}
+
+function createBaseRole(): Role {
+  return { roleId: "", name: "", description: "", moduleId: "" };
+}
+
+export const Role: MessageFns<Role> = {
+  encode(message: Role, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.roleId !== "") {
+      writer.uint32(10).string(message.roleId);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(26).string(message.description);
+    }
+    if (message.moduleId !== "") {
+      writer.uint32(34).string(message.moduleId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): Role {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRole();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.roleId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.description = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.moduleId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Role {
+    return {
+      roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      description: isSet(object.description) ? globalThis.String(object.description) : "",
+      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+    };
+  },
+
+  toJSON(message: Role): unknown {
+    const obj: any = {};
+    if (message.roleId !== "") {
+      obj.roleId = message.roleId;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.description !== "") {
+      obj.description = message.description;
+    }
+    if (message.moduleId !== "") {
+      obj.moduleId = message.moduleId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Role>, I>>(base?: I): Role {
+    return Role.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Role>, I>>(object: I): Role {
+    const message = createBaseRole();
+    message.roleId = object.roleId ?? "";
+    message.name = object.name ?? "";
+    message.description = object.description ?? "";
+    message.moduleId = object.moduleId ?? "";
+    return message;
+  },
+};
+
+function createBaseGetRoleRequest(): GetRoleRequest {
+  return { roleId: "" };
+}
+
+export const GetRoleRequest: MessageFns<GetRoleRequest> = {
+  encode(message: GetRoleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.roleId !== "") {
+      writer.uint32(10).string(message.roleId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetRoleRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetRoleRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.roleId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetRoleRequest {
+    return { roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "" };
+  },
+
+  toJSON(message: GetRoleRequest): unknown {
+    const obj: any = {};
+    if (message.roleId !== "") {
+      obj.roleId = message.roleId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetRoleRequest>, I>>(base?: I): GetRoleRequest {
+    return GetRoleRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetRoleRequest>, I>>(object: I): GetRoleRequest {
+    const message = createBaseGetRoleRequest();
+    message.roleId = object.roleId ?? "";
+    return message;
+  },
+};
+
+function createBaseGetRolesRequest(): GetRolesRequest {
+  return { pagination: undefined, sort: [], filter: [] };
+}
+
+export const GetRolesRequest: MessageFns<GetRolesRequest> = {
+  encode(message: GetRolesRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.pagination !== undefined) {
+      PaginationRequest.encode(message.pagination, writer.uint32(10).fork()).join();
+    }
+    for (const v of message.sort) {
+      Sort.encode(v!, writer.uint32(18).fork()).join();
+    }
+    for (const v of message.filter) {
+      Filter.encode(v!, writer.uint32(26).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetRolesRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetRolesRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PaginationRequest.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.sort.push(Sort.decode(reader, reader.uint32()));
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.filter.push(Filter.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetRolesRequest {
+    return {
+      pagination: isSet(object.pagination) ? PaginationRequest.fromJSON(object.pagination) : undefined,
+      sort: globalThis.Array.isArray(object?.sort) ? object.sort.map((e: any) => Sort.fromJSON(e)) : [],
+      filter: globalThis.Array.isArray(object?.filter) ? object.filter.map((e: any) => Filter.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: GetRolesRequest): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PaginationRequest.toJSON(message.pagination);
+    }
+    if (message.sort?.length) {
+      obj.sort = message.sort.map((e) => Sort.toJSON(e));
+    }
+    if (message.filter?.length) {
+      obj.filter = message.filter.map((e) => Filter.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetRolesRequest>, I>>(base?: I): GetRolesRequest {
+    return GetRolesRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetRolesRequest>, I>>(object: I): GetRolesRequest {
+    const message = createBaseGetRolesRequest();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PaginationRequest.fromPartial(object.pagination)
+      : undefined;
+    message.sort = object.sort?.map((e) => Sort.fromPartial(e)) || [];
+    message.filter = object.filter?.map((e) => Filter.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseGetRolesResponse(): GetRolesResponse {
+  return { pagination: undefined, data: [] };
+}
+
+export const GetRolesResponse: MessageFns<GetRolesResponse> = {
+  encode(message: GetRolesResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.pagination !== undefined) {
+      PaginationResponse.encode(message.pagination, writer.uint32(10).fork()).join();
+    }
+    for (const v of message.data) {
+      Role.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetRolesResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetRolesResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PaginationResponse.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.data.push(Role.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetRolesResponse {
+    return {
+      pagination: isSet(object.pagination) ? PaginationResponse.fromJSON(object.pagination) : undefined,
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => Role.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: GetRolesResponse): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PaginationResponse.toJSON(message.pagination);
+    }
+    if (message.data?.length) {
+      obj.data = message.data.map((e) => Role.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetRolesResponse>, I>>(base?: I): GetRolesResponse {
+    return GetRolesResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetRolesResponse>, I>>(object: I): GetRolesResponse {
+    const message = createBaseGetRolesResponse();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PaginationResponse.fromPartial(object.pagination)
+      : undefined;
+    message.data = object.data?.map((e) => Role.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+export interface RoleService {
+  GetRole(request: GetRoleRequest): Promise<Role>;
+  GetRoles(request: GetRolesRequest): Promise<GetRolesResponse>;
+  CreateRole(request: Role): Promise<CreateSuccess>;
+  UpdateRole(request: Role): Promise<UpdateSuccess>;
+  DeleteRole(request: GetRoleRequest): Promise<DeleteSuccess>;
+}
+
+export const RoleServiceServiceName = "role.v1.RoleService";
+export class RoleServiceClientImpl implements RoleService {
+  private readonly rpc: Rpc;
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || RoleServiceServiceName;
+    this.rpc = rpc;
+    this.GetRole = this.GetRole.bind(this);
+    this.GetRoles = this.GetRoles.bind(this);
+    this.CreateRole = this.CreateRole.bind(this);
+    this.UpdateRole = this.UpdateRole.bind(this);
+    this.DeleteRole = this.DeleteRole.bind(this);
+  }
+  GetRole(request: GetRoleRequest): Promise<Role> {
+    const data = GetRoleRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetRole", data);
+    return promise.then((data) => Role.decode(new BinaryReader(data)));
+  }
+
+  GetRoles(request: GetRolesRequest): Promise<GetRolesResponse> {
+    const data = GetRolesRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetRoles", data);
+    return promise.then((data) => GetRolesResponse.decode(new BinaryReader(data)));
+  }
+
+  CreateRole(request: Role): Promise<CreateSuccess> {
+    const data = Role.encode(request).finish();
+    const promise = this.rpc.request(this.service, "CreateRole", data);
+    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+  }
+
+  UpdateRole(request: Role): Promise<UpdateSuccess> {
+    const data = Role.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateRole", data);
+    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+  }
+
+  DeleteRole(request: GetRoleRequest): Promise<DeleteSuccess> {
+    const data = GetRoleRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "DeleteRole", data);
+    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+  }
+}
+
+interface Rpc {
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+}
+
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
+}
+
+export interface MessageFns<T> {
+  encode(message: T, writer?: BinaryWriter): BinaryWriter;
+  decode(input: BinaryReader | Uint8Array, length?: number): T;
+  fromJSON(object: any): T;
+  toJSON(message: T): unknown;
+  create<I extends Exact<DeepPartial<T>, I>>(base?: I): T;
+  fromPartial<I extends Exact<DeepPartial<T>, I>>(object: I): T;
+}

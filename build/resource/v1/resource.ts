@@ -5,5 +5,439 @@
 // source: resource/v1/resource.proto
 
 /* eslint-disable */
+import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import {
+  CreateSuccess,
+  DeleteSuccess,
+  Filter,
+  PaginationRequest,
+  PaginationResponse,
+  Sort,
+  UpdateSuccess,
+} from "../../base/v1/base";
 
-export const protobufPackage = "";
+export const protobufPackage = "resource.v1";
+
+export interface Resource {
+  resourceId: string;
+  name: string;
+  moduleId: string;
+}
+
+export interface GetResourceRequest {
+  resourceId: string;
+}
+
+export interface GetResourcesRequest {
+  pagination: PaginationRequest | undefined;
+  sort: Sort[];
+  filter: Filter[];
+}
+
+export interface GetResourcesResponse {
+  pagination: PaginationResponse | undefined;
+  data: Resource[];
+}
+
+function createBaseResource(): Resource {
+  return { resourceId: "", name: "", moduleId: "" };
+}
+
+export const Resource: MessageFns<Resource> = {
+  encode(message: Resource, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.resourceId !== "") {
+      writer.uint32(10).string(message.resourceId);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    if (message.moduleId !== "") {
+      writer.uint32(26).string(message.moduleId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): Resource {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseResource();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.resourceId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.moduleId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Resource {
+    return {
+      resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+    };
+  },
+
+  toJSON(message: Resource): unknown {
+    const obj: any = {};
+    if (message.resourceId !== "") {
+      obj.resourceId = message.resourceId;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.moduleId !== "") {
+      obj.moduleId = message.moduleId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Resource>, I>>(base?: I): Resource {
+    return Resource.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Resource>, I>>(object: I): Resource {
+    const message = createBaseResource();
+    message.resourceId = object.resourceId ?? "";
+    message.name = object.name ?? "";
+    message.moduleId = object.moduleId ?? "";
+    return message;
+  },
+};
+
+function createBaseGetResourceRequest(): GetResourceRequest {
+  return { resourceId: "" };
+}
+
+export const GetResourceRequest: MessageFns<GetResourceRequest> = {
+  encode(message: GetResourceRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.resourceId !== "") {
+      writer.uint32(10).string(message.resourceId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetResourceRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetResourceRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.resourceId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetResourceRequest {
+    return { resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "" };
+  },
+
+  toJSON(message: GetResourceRequest): unknown {
+    const obj: any = {};
+    if (message.resourceId !== "") {
+      obj.resourceId = message.resourceId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetResourceRequest>, I>>(base?: I): GetResourceRequest {
+    return GetResourceRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetResourceRequest>, I>>(object: I): GetResourceRequest {
+    const message = createBaseGetResourceRequest();
+    message.resourceId = object.resourceId ?? "";
+    return message;
+  },
+};
+
+function createBaseGetResourcesRequest(): GetResourcesRequest {
+  return { pagination: undefined, sort: [], filter: [] };
+}
+
+export const GetResourcesRequest: MessageFns<GetResourcesRequest> = {
+  encode(message: GetResourcesRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.pagination !== undefined) {
+      PaginationRequest.encode(message.pagination, writer.uint32(10).fork()).join();
+    }
+    for (const v of message.sort) {
+      Sort.encode(v!, writer.uint32(18).fork()).join();
+    }
+    for (const v of message.filter) {
+      Filter.encode(v!, writer.uint32(26).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetResourcesRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetResourcesRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PaginationRequest.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.sort.push(Sort.decode(reader, reader.uint32()));
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.filter.push(Filter.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetResourcesRequest {
+    return {
+      pagination: isSet(object.pagination) ? PaginationRequest.fromJSON(object.pagination) : undefined,
+      sort: globalThis.Array.isArray(object?.sort) ? object.sort.map((e: any) => Sort.fromJSON(e)) : [],
+      filter: globalThis.Array.isArray(object?.filter) ? object.filter.map((e: any) => Filter.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: GetResourcesRequest): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PaginationRequest.toJSON(message.pagination);
+    }
+    if (message.sort?.length) {
+      obj.sort = message.sort.map((e) => Sort.toJSON(e));
+    }
+    if (message.filter?.length) {
+      obj.filter = message.filter.map((e) => Filter.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetResourcesRequest>, I>>(base?: I): GetResourcesRequest {
+    return GetResourcesRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetResourcesRequest>, I>>(object: I): GetResourcesRequest {
+    const message = createBaseGetResourcesRequest();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PaginationRequest.fromPartial(object.pagination)
+      : undefined;
+    message.sort = object.sort?.map((e) => Sort.fromPartial(e)) || [];
+    message.filter = object.filter?.map((e) => Filter.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseGetResourcesResponse(): GetResourcesResponse {
+  return { pagination: undefined, data: [] };
+}
+
+export const GetResourcesResponse: MessageFns<GetResourcesResponse> = {
+  encode(message: GetResourcesResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.pagination !== undefined) {
+      PaginationResponse.encode(message.pagination, writer.uint32(10).fork()).join();
+    }
+    for (const v of message.data) {
+      Resource.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetResourcesResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetResourcesResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PaginationResponse.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.data.push(Resource.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetResourcesResponse {
+    return {
+      pagination: isSet(object.pagination) ? PaginationResponse.fromJSON(object.pagination) : undefined,
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => Resource.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: GetResourcesResponse): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PaginationResponse.toJSON(message.pagination);
+    }
+    if (message.data?.length) {
+      obj.data = message.data.map((e) => Resource.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetResourcesResponse>, I>>(base?: I): GetResourcesResponse {
+    return GetResourcesResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetResourcesResponse>, I>>(object: I): GetResourcesResponse {
+    const message = createBaseGetResourcesResponse();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PaginationResponse.fromPartial(object.pagination)
+      : undefined;
+    message.data = object.data?.map((e) => Resource.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+export interface ResourceService {
+  GetResource(request: GetResourceRequest): Promise<Resource>;
+  GetResources(request: GetResourcesRequest): Promise<GetResourcesResponse>;
+  CreateResource(request: Resource): Promise<CreateSuccess>;
+  UpdateResource(request: Resource): Promise<UpdateSuccess>;
+  DeleteResource(request: GetResourceRequest): Promise<DeleteSuccess>;
+}
+
+export const ResourceServiceServiceName = "resource.v1.ResourceService";
+export class ResourceServiceClientImpl implements ResourceService {
+  private readonly rpc: Rpc;
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || ResourceServiceServiceName;
+    this.rpc = rpc;
+    this.GetResource = this.GetResource.bind(this);
+    this.GetResources = this.GetResources.bind(this);
+    this.CreateResource = this.CreateResource.bind(this);
+    this.UpdateResource = this.UpdateResource.bind(this);
+    this.DeleteResource = this.DeleteResource.bind(this);
+  }
+  GetResource(request: GetResourceRequest): Promise<Resource> {
+    const data = GetResourceRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetResource", data);
+    return promise.then((data) => Resource.decode(new BinaryReader(data)));
+  }
+
+  GetResources(request: GetResourcesRequest): Promise<GetResourcesResponse> {
+    const data = GetResourcesRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetResources", data);
+    return promise.then((data) => GetResourcesResponse.decode(new BinaryReader(data)));
+  }
+
+  CreateResource(request: Resource): Promise<CreateSuccess> {
+    const data = Resource.encode(request).finish();
+    const promise = this.rpc.request(this.service, "CreateResource", data);
+    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+  }
+
+  UpdateResource(request: Resource): Promise<UpdateSuccess> {
+    const data = Resource.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateResource", data);
+    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+  }
+
+  DeleteResource(request: GetResourceRequest): Promise<DeleteSuccess> {
+    const data = GetResourceRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "DeleteResource", data);
+    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+  }
+}
+
+interface Rpc {
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+}
+
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
+}
+
+export interface MessageFns<T> {
+  encode(message: T, writer?: BinaryWriter): BinaryWriter;
+  decode(input: BinaryReader | Uint8Array, length?: number): T;
+  fromJSON(object: any): T;
+  toJSON(message: T): unknown;
+  create<I extends Exact<DeepPartial<T>, I>>(base?: I): T;
+  fromPartial<I extends Exact<DeepPartial<T>, I>>(object: I): T;
+}

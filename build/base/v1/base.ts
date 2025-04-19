@@ -165,25 +165,16 @@ export interface Filter {
   value: Any | undefined;
 }
 
-export interface FilterGroup {
-  filters: Filter[];
-  groups: FilterGroup[];
-  /** "and" or "or" */
-  operator: string;
+export interface CreateSuccess {
+  success: boolean;
 }
 
-export interface QueryRequest {
-  pagination: PaginationRequest | undefined;
-  sort: Sort[];
-  filter: FilterGroup | undefined;
+export interface UpdateSuccess {
+  success: boolean;
 }
 
-export interface QueryResponse {
-  pagination:
-    | PaginationResponse
-    | undefined;
-  /** JSON string */
-  data: string[];
+export interface DeleteSuccess {
+  success: boolean;
 }
 
 function createBasePaginationRequest(): PaginationRequest {
@@ -554,53 +545,31 @@ export const Filter: MessageFns<Filter> = {
   },
 };
 
-function createBaseFilterGroup(): FilterGroup {
-  return { filters: [], groups: [], operator: "" };
+function createBaseCreateSuccess(): CreateSuccess {
+  return { success: false };
 }
 
-export const FilterGroup: MessageFns<FilterGroup> = {
-  encode(message: FilterGroup, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    for (const v of message.filters) {
-      Filter.encode(v!, writer.uint32(10).fork()).join();
-    }
-    for (const v of message.groups) {
-      FilterGroup.encode(v!, writer.uint32(18).fork()).join();
-    }
-    if (message.operator !== "") {
-      writer.uint32(26).string(message.operator);
+export const CreateSuccess: MessageFns<CreateSuccess> = {
+  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): FilterGroup {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseFilterGroup();
+    const message = createBaseCreateSuccess();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1: {
-          if (tag !== 10) {
+          if (tag !== 8) {
             break;
           }
 
-          message.filters.push(Filter.decode(reader, reader.uint32()));
-          continue;
-        }
-        case 2: {
-          if (tag !== 18) {
-            break;
-          }
-
-          message.groups.push(FilterGroup.decode(reader, reader.uint32()));
-          continue;
-        }
-        case 3: {
-          if (tag !== 26) {
-            break;
-          }
-
-          message.operator = reader.string();
+          message.success = reader.bool();
           continue;
         }
       }
@@ -612,87 +581,53 @@ export const FilterGroup: MessageFns<FilterGroup> = {
     return message;
   },
 
-  fromJSON(object: any): FilterGroup {
-    return {
-      filters: globalThis.Array.isArray(object?.filters) ? object.filters.map((e: any) => Filter.fromJSON(e)) : [],
-      groups: globalThis.Array.isArray(object?.groups) ? object.groups.map((e: any) => FilterGroup.fromJSON(e)) : [],
-      operator: isSet(object.operator) ? globalThis.String(object.operator) : "",
-    };
+  fromJSON(object: any): CreateSuccess {
+    return { success: isSet(object.success) ? globalThis.Boolean(object.success) : false };
   },
 
-  toJSON(message: FilterGroup): unknown {
+  toJSON(message: CreateSuccess): unknown {
     const obj: any = {};
-    if (message.filters?.length) {
-      obj.filters = message.filters.map((e) => Filter.toJSON(e));
-    }
-    if (message.groups?.length) {
-      obj.groups = message.groups.map((e) => FilterGroup.toJSON(e));
-    }
-    if (message.operator !== "") {
-      obj.operator = message.operator;
+    if (message.success !== false) {
+      obj.success = message.success;
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<FilterGroup>, I>>(base?: I): FilterGroup {
-    return FilterGroup.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
+    return CreateSuccess.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<FilterGroup>, I>>(object: I): FilterGroup {
-    const message = createBaseFilterGroup();
-    message.filters = object.filters?.map((e) => Filter.fromPartial(e)) || [];
-    message.groups = object.groups?.map((e) => FilterGroup.fromPartial(e)) || [];
-    message.operator = object.operator ?? "";
+  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
+    const message = createBaseCreateSuccess();
+    message.success = object.success ?? false;
     return message;
   },
 };
 
-function createBaseQueryRequest(): QueryRequest {
-  return { pagination: undefined, sort: [], filter: undefined };
+function createBaseUpdateSuccess(): UpdateSuccess {
+  return { success: false };
 }
 
-export const QueryRequest: MessageFns<QueryRequest> = {
-  encode(message: QueryRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.pagination !== undefined) {
-      PaginationRequest.encode(message.pagination, writer.uint32(10).fork()).join();
-    }
-    for (const v of message.sort) {
-      Sort.encode(v!, writer.uint32(18).fork()).join();
-    }
-    if (message.filter !== undefined) {
-      FilterGroup.encode(message.filter, writer.uint32(26).fork()).join();
+export const UpdateSuccess: MessageFns<UpdateSuccess> = {
+  encode(message: UpdateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): QueryRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateSuccess {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryRequest();
+    const message = createBaseUpdateSuccess();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1: {
-          if (tag !== 10) {
+          if (tag !== 8) {
             break;
           }
 
-          message.pagination = PaginationRequest.decode(reader, reader.uint32());
-          continue;
-        }
-        case 2: {
-          if (tag !== 18) {
-            break;
-          }
-
-          message.sort.push(Sort.decode(reader, reader.uint32()));
-          continue;
-        }
-        case 3: {
-          if (tag !== 26) {
-            break;
-          }
-
-          message.filter = FilterGroup.decode(reader, reader.uint32());
+          message.success = reader.bool();
           continue;
         }
       }
@@ -704,80 +639,53 @@ export const QueryRequest: MessageFns<QueryRequest> = {
     return message;
   },
 
-  fromJSON(object: any): QueryRequest {
-    return {
-      pagination: isSet(object.pagination) ? PaginationRequest.fromJSON(object.pagination) : undefined,
-      sort: globalThis.Array.isArray(object?.sort) ? object.sort.map((e: any) => Sort.fromJSON(e)) : [],
-      filter: isSet(object.filter) ? FilterGroup.fromJSON(object.filter) : undefined,
-    };
+  fromJSON(object: any): UpdateSuccess {
+    return { success: isSet(object.success) ? globalThis.Boolean(object.success) : false };
   },
 
-  toJSON(message: QueryRequest): unknown {
+  toJSON(message: UpdateSuccess): unknown {
     const obj: any = {};
-    if (message.pagination !== undefined) {
-      obj.pagination = PaginationRequest.toJSON(message.pagination);
-    }
-    if (message.sort?.length) {
-      obj.sort = message.sort.map((e) => Sort.toJSON(e));
-    }
-    if (message.filter !== undefined) {
-      obj.filter = FilterGroup.toJSON(message.filter);
+    if (message.success !== false) {
+      obj.success = message.success;
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<QueryRequest>, I>>(base?: I): QueryRequest {
-    return QueryRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<UpdateSuccess>, I>>(base?: I): UpdateSuccess {
+    return UpdateSuccess.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<QueryRequest>, I>>(object: I): QueryRequest {
-    const message = createBaseQueryRequest();
-    message.pagination = (object.pagination !== undefined && object.pagination !== null)
-      ? PaginationRequest.fromPartial(object.pagination)
-      : undefined;
-    message.sort = object.sort?.map((e) => Sort.fromPartial(e)) || [];
-    message.filter = (object.filter !== undefined && object.filter !== null)
-      ? FilterGroup.fromPartial(object.filter)
-      : undefined;
+  fromPartial<I extends Exact<DeepPartial<UpdateSuccess>, I>>(object: I): UpdateSuccess {
+    const message = createBaseUpdateSuccess();
+    message.success = object.success ?? false;
     return message;
   },
 };
 
-function createBaseQueryResponse(): QueryResponse {
-  return { pagination: undefined, data: [] };
+function createBaseDeleteSuccess(): DeleteSuccess {
+  return { success: false };
 }
 
-export const QueryResponse: MessageFns<QueryResponse> = {
-  encode(message: QueryResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.pagination !== undefined) {
-      PaginationResponse.encode(message.pagination, writer.uint32(10).fork()).join();
-    }
-    for (const v of message.data) {
-      writer.uint32(18).string(v!);
+export const DeleteSuccess: MessageFns<DeleteSuccess> = {
+  encode(message: DeleteSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): QueryResponse {
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteSuccess {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryResponse();
+    const message = createBaseDeleteSuccess();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1: {
-          if (tag !== 10) {
+          if (tag !== 8) {
             break;
           }
 
-          message.pagination = PaginationResponse.decode(reader, reader.uint32());
-          continue;
-        }
-        case 2: {
-          if (tag !== 18) {
-            break;
-          }
-
-          message.data.push(reader.string());
+          message.success = reader.bool();
           continue;
         }
       }
@@ -789,33 +697,24 @@ export const QueryResponse: MessageFns<QueryResponse> = {
     return message;
   },
 
-  fromJSON(object: any): QueryResponse {
-    return {
-      pagination: isSet(object.pagination) ? PaginationResponse.fromJSON(object.pagination) : undefined,
-      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => globalThis.String(e)) : [],
-    };
+  fromJSON(object: any): DeleteSuccess {
+    return { success: isSet(object.success) ? globalThis.Boolean(object.success) : false };
   },
 
-  toJSON(message: QueryResponse): unknown {
+  toJSON(message: DeleteSuccess): unknown {
     const obj: any = {};
-    if (message.pagination !== undefined) {
-      obj.pagination = PaginationResponse.toJSON(message.pagination);
-    }
-    if (message.data?.length) {
-      obj.data = message.data;
+    if (message.success !== false) {
+      obj.success = message.success;
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<QueryResponse>, I>>(base?: I): QueryResponse {
-    return QueryResponse.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<DeleteSuccess>, I>>(base?: I): DeleteSuccess {
+    return DeleteSuccess.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<QueryResponse>, I>>(object: I): QueryResponse {
-    const message = createBaseQueryResponse();
-    message.pagination = (object.pagination !== undefined && object.pagination !== null)
-      ? PaginationResponse.fromPartial(object.pagination)
-      : undefined;
-    message.data = object.data?.map((e) => e) || [];
+  fromPartial<I extends Exact<DeepPartial<DeleteSuccess>, I>>(object: I): DeleteSuccess {
+    const message = createBaseDeleteSuccess();
+    message.success = object.success ?? false;
     return message;
   },
 };
