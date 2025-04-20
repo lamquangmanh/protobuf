@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "emitDeclarationOnly": false,
     "outDir": "./dist",
-    "baseUrl": ".",
-    "paths": {
-      "@proto/*": ["proto/*"]
-    }
+    "rootDir": "./build",
+    "module": "ESNext",
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "types": ["node"] // 👈 this line is important
   },
-  "include": ["proto/**/**/*.proto"],
-  "exclude": ["node_modules", "dist", "build"]
+  "include": ["build/**/*"]
 }

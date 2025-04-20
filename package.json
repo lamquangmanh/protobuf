@@ -1,14 +1,18 @@
 {
   "name": "@lamquangmanh/protobuf",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "",
-  "main": "proto",
-  "types": "build/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:proto": "buf generate",
     "build": "./build_proto.sh",
-    "publish": "npm publish --access public"
+    "publish": "npm publish --access public",
+    "build:ts": "npx tsc -p tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -23,9 +27,13 @@
   "dependencies": {
     "@bufbuild/protobuf": "^2.2.5",
     "ts-proto": "^2.7.0",
-    "ts-protoc-gen": "^0.15.0"
+    "ts-protoc-gen": "^0.15.0",
+    "typescript": "^5.8.3"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1"
   }
 }
