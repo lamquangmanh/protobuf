@@ -1,6 +1,6 @@
 {
   "name": "@lamquangmanh/protobuf",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,10 +9,10 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:proto": "buf generate",
-    "build": "./build_proto.sh",
+    "buf:proto": "buf generate",
+    "build:proto": "./build_proto.sh",
     "publish": "npm publish --access public",
-    "build:ts": "npx tsc -p tsconfig.json"
+    "build:ts": "yarn build:proto && npx tsc -p tsconfig.json"
   },
   "repository": {
     "type": "git",
