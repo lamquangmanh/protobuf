@@ -12,5 +12,5 @@
     "strict": true,
     "types": ["node"] // 👈 this line is important
   },
-  "include": ["build/**/**/**/*"]
+  "include": ["./build/**/**/**/*"]
 }
