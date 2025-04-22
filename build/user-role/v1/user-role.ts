@@ -19,16 +19,13 @@ import {
 export const protobufPackage = "user_role.v1";
 
 export interface UserRole {
+  userRoleId: string;
   userId: string;
-  username: string;
-  email: string;
-  password: string;
-  phone: string;
-  avatar: string;
+  roleId: string;
 }
 
 export interface GetUserRoleRequest {
-  userId: string;
+  userRoleId: string;
 }
 
 export interface GetUserRolesRequest {
@@ -42,29 +39,35 @@ export interface GetUserRolesResponse {
   data: UserRole[];
 }
 
+export interface CreateUserRoleRequest {
+  userRole: UserRole | undefined;
+  userId: string;
+}
+
+export interface UpdateUserRoleRequest {
+  userRole: UserRole | undefined;
+  userId: string;
+}
+
+export interface DeleteUserRoleRequest {
+  userRoleId: string;
+  userId: string;
+}
+
 function createBaseUserRole(): UserRole {
-  return { userId: "", username: "", email: "", password: "", phone: "", avatar: "" };
+  return { userRoleId: "", userId: "", roleId: "" };
 }
 
 export const UserRole: MessageFns<UserRole> = {
   encode(message: UserRole, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.userRoleId !== "") {
+      writer.uint32(10).string(message.userRoleId);
+    }
     if (message.userId !== "") {
-      writer.uint32(10).string(message.userId);
+      writer.uint32(18).string(message.userId);
     }
-    if (message.username !== "") {
-      writer.uint32(18).string(message.username);
-    }
-    if (message.email !== "") {
-      writer.uint32(26).string(message.email);
-    }
-    if (message.password !== "") {
-      writer.uint32(34).string(message.password);
-    }
-    if (message.phone !== "") {
-      writer.uint32(42).string(message.phone);
-    }
-    if (message.avatar !== "") {
-      writer.uint32(50).string(message.avatar);
+    if (message.roleId !== "") {
+      writer.uint32(26).string(message.roleId);
     }
     return writer;
   },
@@ -81,7 +84,7 @@ export const UserRole: MessageFns<UserRole> = {
             break;
           }
 
-          message.userId = reader.string();
+          message.userRoleId = reader.string();
           continue;
         }
         case 2: {
@@ -89,7 +92,7 @@ export const UserRole: MessageFns<UserRole> = {
             break;
           }
 
-          message.username = reader.string();
+          message.userId = reader.string();
           continue;
         }
         case 3: {
@@ -97,31 +100,7 @@ export const UserRole: MessageFns<UserRole> = {
             break;
           }
 
-          message.email = reader.string();
-          continue;
-        }
-        case 4: {
-          if (tag !== 34) {
-            break;
-          }
-
-          message.password = reader.string();
-          continue;
-        }
-        case 5: {
-          if (tag !== 42) {
-            break;
-          }
-
-          message.phone = reader.string();
-          continue;
-        }
-        case 6: {
-          if (tag !== 50) {
-            break;
-          }
-
-          message.avatar = reader.string();
+          message.roleId = reader.string();
           continue;
         }
       }
@@ -135,34 +114,22 @@ export const UserRole: MessageFns<UserRole> = {
 
   fromJSON(object: any): UserRole {
     return {
+      userRoleId: isSet(object.userRoleId) ? globalThis.String(object.userRoleId) : "",
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
-      username: isSet(object.username) ? globalThis.String(object.username) : "",
-      email: isSet(object.email) ? globalThis.String(object.email) : "",
-      password: isSet(object.password) ? globalThis.String(object.password) : "",
-      phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
-      avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
+      roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
     };
   },
 
   toJSON(message: UserRole): unknown {
     const obj: any = {};
+    if (message.userRoleId !== "") {
+      obj.userRoleId = message.userRoleId;
+    }
     if (message.userId !== "") {
       obj.userId = message.userId;
     }
-    if (message.username !== "") {
-      obj.username = message.username;
-    }
-    if (message.email !== "") {
-      obj.email = message.email;
-    }
-    if (message.password !== "") {
-      obj.password = message.password;
-    }
-    if (message.phone !== "") {
-      obj.phone = message.phone;
-    }
-    if (message.avatar !== "") {
-      obj.avatar = message.avatar;
+    if (message.roleId !== "") {
+      obj.roleId = message.roleId;
     }
     return obj;
   },
@@ -172,24 +139,21 @@ export const UserRole: MessageFns<UserRole> = {
   },
   fromPartial<I extends Exact<DeepPartial<UserRole>, I>>(object: I): UserRole {
     const message = createBaseUserRole();
+    message.userRoleId = object.userRoleId ?? "";
     message.userId = object.userId ?? "";
-    message.username = object.username ?? "";
-    message.email = object.email ?? "";
-    message.password = object.password ?? "";
-    message.phone = object.phone ?? "";
-    message.avatar = object.avatar ?? "";
+    message.roleId = object.roleId ?? "";
     return message;
   },
 };
 
 function createBaseGetUserRoleRequest(): GetUserRoleRequest {
-  return { userId: "" };
+  return { userRoleId: "" };
 }
 
 export const GetUserRoleRequest: MessageFns<GetUserRoleRequest> = {
   encode(message: GetUserRoleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.userId !== "") {
-      writer.uint32(10).string(message.userId);
+    if (message.userRoleId !== "") {
+      writer.uint32(10).string(message.userRoleId);
     }
     return writer;
   },
@@ -206,7 +170,7 @@ export const GetUserRoleRequest: MessageFns<GetUserRoleRequest> = {
             break;
           }
 
-          message.userId = reader.string();
+          message.userRoleId = reader.string();
           continue;
         }
       }
@@ -219,13 +183,13 @@ export const GetUserRoleRequest: MessageFns<GetUserRoleRequest> = {
   },
 
   fromJSON(object: any): GetUserRoleRequest {
-    return { userId: isSet(object.userId) ? globalThis.String(object.userId) : "" };
+    return { userRoleId: isSet(object.userRoleId) ? globalThis.String(object.userRoleId) : "" };
   },
 
   toJSON(message: GetUserRoleRequest): unknown {
     const obj: any = {};
-    if (message.userId !== "") {
-      obj.userId = message.userId;
+    if (message.userRoleId !== "") {
+      obj.userRoleId = message.userRoleId;
     }
     return obj;
   },
@@ -235,7 +199,7 @@ export const GetUserRoleRequest: MessageFns<GetUserRoleRequest> = {
   },
   fromPartial<I extends Exact<DeepPartial<GetUserRoleRequest>, I>>(object: I): GetUserRoleRequest {
     const message = createBaseGetUserRoleRequest();
-    message.userId = object.userId ?? "";
+    message.userRoleId = object.userRoleId ?? "";
     return message;
   },
 };
@@ -412,12 +376,244 @@ export const GetUserRolesResponse: MessageFns<GetUserRolesResponse> = {
   },
 };
 
+function createBaseCreateUserRoleRequest(): CreateUserRoleRequest {
+  return { userRole: undefined, userId: "" };
+}
+
+export const CreateUserRoleRequest: MessageFns<CreateUserRoleRequest> = {
+  encode(message: CreateUserRoleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.userRole !== undefined) {
+      UserRole.encode(message.userRole, writer.uint32(10).fork()).join();
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateUserRoleRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateUserRoleRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.userRole = UserRole.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateUserRoleRequest {
+    return {
+      userRole: isSet(object.userRole) ? UserRole.fromJSON(object.userRole) : undefined,
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: CreateUserRoleRequest): unknown {
+    const obj: any = {};
+    if (message.userRole !== undefined) {
+      obj.userRole = UserRole.toJSON(message.userRole);
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateUserRoleRequest>, I>>(base?: I): CreateUserRoleRequest {
+    return CreateUserRoleRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateUserRoleRequest>, I>>(object: I): CreateUserRoleRequest {
+    const message = createBaseCreateUserRoleRequest();
+    message.userRole = (object.userRole !== undefined && object.userRole !== null)
+      ? UserRole.fromPartial(object.userRole)
+      : undefined;
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
+function createBaseUpdateUserRoleRequest(): UpdateUserRoleRequest {
+  return { userRole: undefined, userId: "" };
+}
+
+export const UpdateUserRoleRequest: MessageFns<UpdateUserRoleRequest> = {
+  encode(message: UpdateUserRoleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.userRole !== undefined) {
+      UserRole.encode(message.userRole, writer.uint32(10).fork()).join();
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateUserRoleRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateUserRoleRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.userRole = UserRole.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateUserRoleRequest {
+    return {
+      userRole: isSet(object.userRole) ? UserRole.fromJSON(object.userRole) : undefined,
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: UpdateUserRoleRequest): unknown {
+    const obj: any = {};
+    if (message.userRole !== undefined) {
+      obj.userRole = UserRole.toJSON(message.userRole);
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateUserRoleRequest>, I>>(base?: I): UpdateUserRoleRequest {
+    return UpdateUserRoleRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateUserRoleRequest>, I>>(object: I): UpdateUserRoleRequest {
+    const message = createBaseUpdateUserRoleRequest();
+    message.userRole = (object.userRole !== undefined && object.userRole !== null)
+      ? UserRole.fromPartial(object.userRole)
+      : undefined;
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
+function createBaseDeleteUserRoleRequest(): DeleteUserRoleRequest {
+  return { userRoleId: "", userId: "" };
+}
+
+export const DeleteUserRoleRequest: MessageFns<DeleteUserRoleRequest> = {
+  encode(message: DeleteUserRoleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.userRoleId !== "") {
+      writer.uint32(10).string(message.userRoleId);
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteUserRoleRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteUserRoleRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.userRoleId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteUserRoleRequest {
+    return {
+      userRoleId: isSet(object.userRoleId) ? globalThis.String(object.userRoleId) : "",
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: DeleteUserRoleRequest): unknown {
+    const obj: any = {};
+    if (message.userRoleId !== "") {
+      obj.userRoleId = message.userRoleId;
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteUserRoleRequest>, I>>(base?: I): DeleteUserRoleRequest {
+    return DeleteUserRoleRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeleteUserRoleRequest>, I>>(object: I): DeleteUserRoleRequest {
+    const message = createBaseDeleteUserRoleRequest();
+    message.userRoleId = object.userRoleId ?? "";
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
 export interface UserRoleService {
   GetUserRole(request: GetUserRoleRequest): Promise<UserRole>;
   GetUserRoles(request: GetUserRolesRequest): Promise<GetUserRolesRequest>;
-  CreateUserRole(request: UserRole): Promise<CreateSuccess>;
-  UpdateUserRole(request: UserRole): Promise<UpdateSuccess>;
-  DeleteUserRole(request: GetUserRoleRequest): Promise<DeleteSuccess>;
+  CreateUserRole(request: CreateUserRoleRequest): Promise<CreateSuccess>;
+  UpdateUserRole(request: UpdateUserRoleRequest): Promise<UpdateSuccess>;
+  DeleteUserRole(request: DeleteUserRoleRequest): Promise<DeleteSuccess>;
 }
 
 export const UserRoleServiceServiceName = "user_role.v1.UserRoleService";
@@ -445,20 +641,20 @@ export class UserRoleServiceClientImpl implements UserRoleService {
     return promise.then((data) => GetUserRolesRequest.decode(new BinaryReader(data)));
   }
 
-  CreateUserRole(request: UserRole): Promise<CreateSuccess> {
-    const data = UserRole.encode(request).finish();
+  CreateUserRole(request: CreateUserRoleRequest): Promise<CreateSuccess> {
+    const data = CreateUserRoleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateUserRole", data);
     return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
   }
 
-  UpdateUserRole(request: UserRole): Promise<UpdateSuccess> {
-    const data = UserRole.encode(request).finish();
+  UpdateUserRole(request: UpdateUserRoleRequest): Promise<UpdateSuccess> {
+    const data = UpdateUserRoleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateUserRole", data);
     return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
   }
 
-  DeleteUserRole(request: GetUserRoleRequest): Promise<DeleteSuccess> {
-    const data = GetUserRoleRequest.encode(request).finish();
+  DeleteUserRole(request: DeleteUserRoleRequest): Promise<DeleteSuccess> {
+    const data = DeleteUserRoleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteUserRole", data);
     return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
   }

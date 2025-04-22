@@ -37,10 +37,25 @@ message GetActionsResponse {
   repeated Action data = 2;
 }
 
+message CreateActionRequest {
+  Action action = 1;
+  string user_id = 2;
+}
+
+message UpdateActionRequest {
+  Action action = 1;
+  string user_id = 2;
+}
+
+message DeleteActionRequest {
+  string action_id = 1;
+  string user_id = 2;
+}
+
 service ActionService {
   rpc GetAction (GetActionRequest) returns (Action) {}
   rpc GetActions (GetActionsRequest) returns (GetActionsResponse) {}
-  rpc CreateAction (Action) returns (base.v1.CreateSuccess) {}
-  rpc UpdateAction (Action) returns (base.v1.UpdateSuccess) {}
-  rpc DeleteAction (GetActionRequest) returns (base.v1.DeleteSuccess) {}
+  rpc CreateAction (CreateActionRequest) returns (base.v1.CreateSuccess) {}
+  rpc UpdateAction (UpdateActionRequest) returns (base.v1.UpdateSuccess) {}
+  rpc DeleteAction (DeleteActionRequest) returns (base.v1.DeleteSuccess) {}
 }

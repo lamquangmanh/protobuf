@@ -30,16 +30,31 @@ export interface GetUsersResponse {
     pagination: PaginationResponse | undefined;
     data: User[];
 }
+export interface CreateUserRequest {
+    user: User | undefined;
+    userId: string;
+}
+export interface UpdateUserRequest {
+    user: User | undefined;
+    userId: string;
+}
+export interface DeleteUserRequest {
+    userId: string;
+    deletedUserId: string;
+}
 export declare const User: MessageFns<User>;
 export declare const GetUserRequest: MessageFns<GetUserRequest>;
 export declare const GetUsersRequest: MessageFns<GetUsersRequest>;
 export declare const GetUsersResponse: MessageFns<GetUsersResponse>;
+export declare const CreateUserRequest: MessageFns<CreateUserRequest>;
+export declare const UpdateUserRequest: MessageFns<UpdateUserRequest>;
+export declare const DeleteUserRequest: MessageFns<DeleteUserRequest>;
 export interface UserService {
     GetUser(request: GetUserRequest): Promise<User>;
     GetUsers(request: GetUsersRequest): Promise<GetUsersResponse>;
-    CreateUser(request: User): Promise<CreateSuccess>;
-    UpdateUser(request: User): Promise<UpdateSuccess>;
-    DeleteUser(request: GetUserRequest): Promise<DeleteSuccess>;
+    CreateUser(request: CreateUserRequest): Promise<CreateSuccess>;
+    UpdateUser(request: UpdateUserRequest): Promise<UpdateSuccess>;
+    DeleteUser(request: DeleteUserRequest): Promise<DeleteSuccess>;
 }
 export declare const UserServiceServiceName = "user.v1.UserService";
 export declare class UserServiceClientImpl implements UserService {
@@ -50,9 +65,9 @@ export declare class UserServiceClientImpl implements UserService {
     });
     GetUser(request: GetUserRequest): Promise<User>;
     GetUsers(request: GetUsersRequest): Promise<GetUsersResponse>;
-    CreateUser(request: User): Promise<CreateSuccess>;
-    UpdateUser(request: User): Promise<UpdateSuccess>;
-    DeleteUser(request: GetUserRequest): Promise<DeleteSuccess>;
+    CreateUser(request: CreateUserRequest): Promise<CreateSuccess>;
+    UpdateUser(request: UpdateUserRequest): Promise<UpdateSuccess>;
+    DeleteUser(request: DeleteUserRequest): Promise<DeleteSuccess>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

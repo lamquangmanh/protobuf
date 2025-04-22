@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: resource/v1/resource.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResourceServiceClientImpl = exports.ResourceServiceServiceName = exports.GetResourcesResponse = exports.GetResourcesRequest = exports.GetResourceRequest = exports.Resource = exports.protobufPackage = void 0;
+exports.ResourceServiceClientImpl = exports.ResourceServiceServiceName = exports.DeleteResourceRequest = exports.UpdateResourceRequest = exports.CreateResourceRequest = exports.GetResourcesResponse = exports.GetResourcesRequest = exports.GetResourceRequest = exports.Resource = exports.protobufPackage = void 0;
 /* eslint-disable */
 const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
@@ -299,6 +299,214 @@ exports.GetResourcesResponse = {
         return message;
     },
 };
+function createBaseCreateResourceRequest() {
+    return { resource: undefined, userId: "" };
+}
+exports.CreateResourceRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.resource !== undefined) {
+            exports.Resource.encode(message.resource, writer.uint32(10).fork()).join();
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateResourceRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.resource = exports.Resource.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            resource: isSet(object.resource) ? exports.Resource.fromJSON(object.resource) : undefined,
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.resource !== undefined) {
+            obj.resource = exports.Resource.toJSON(message.resource);
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateResourceRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateResourceRequest();
+        message.resource = (object.resource !== undefined && object.resource !== null)
+            ? exports.Resource.fromPartial(object.resource)
+            : undefined;
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
+function createBaseUpdateResourceRequest() {
+    return { resource: undefined, userId: "" };
+}
+exports.UpdateResourceRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.resource !== undefined) {
+            exports.Resource.encode(message.resource, writer.uint32(10).fork()).join();
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateResourceRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.resource = exports.Resource.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            resource: isSet(object.resource) ? exports.Resource.fromJSON(object.resource) : undefined,
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.resource !== undefined) {
+            obj.resource = exports.Resource.toJSON(message.resource);
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateResourceRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseUpdateResourceRequest();
+        message.resource = (object.resource !== undefined && object.resource !== null)
+            ? exports.Resource.fromPartial(object.resource)
+            : undefined;
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
+function createBaseDeleteResourceRequest() {
+    return { resourceId: "", userId: "" };
+}
+exports.DeleteResourceRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.resourceId !== "") {
+            writer.uint32(10).string(message.resourceId);
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseDeleteResourceRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.resourceId = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.resourceId !== "") {
+            obj.resourceId = message.resourceId;
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.DeleteResourceRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseDeleteResourceRequest();
+        message.resourceId = object.resourceId ?? "";
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
 exports.ResourceServiceServiceName = "resource.v1.ResourceService";
 class ResourceServiceClientImpl {
     constructor(rpc, opts) {
@@ -321,17 +529,17 @@ class ResourceServiceClientImpl {
         return promise.then((data) => exports.GetResourcesResponse.decode(new wire_1.BinaryReader(data)));
     }
     CreateResource(request) {
-        const data = exports.Resource.encode(request).finish();
+        const data = exports.CreateResourceRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CreateResource", data);
         return promise.then((data) => base_1.CreateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     UpdateResource(request) {
-        const data = exports.Resource.encode(request).finish();
+        const data = exports.UpdateResourceRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "UpdateResource", data);
         return promise.then((data) => base_1.UpdateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     DeleteResource(request) {
-        const data = exports.GetResourceRequest.encode(request).finish();
+        const data = exports.DeleteResourceRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DeleteResource", data);
         return promise.then((data) => base_1.DeleteSuccess.decode(new wire_1.BinaryReader(data)));
     }

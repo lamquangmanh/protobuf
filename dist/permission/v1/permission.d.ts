@@ -19,16 +19,31 @@ export interface GetPermissionsResponse {
     pagination: PaginationResponse | undefined;
     data: Permission[];
 }
+export interface CreatePermissionRequest {
+    permission: Permission | undefined;
+    userId: string;
+}
+export interface UpdatePermissionRequest {
+    permission: Permission | undefined;
+    userId: string;
+}
+export interface DeletePermissionRequest {
+    permissionId: string;
+    userId: string;
+}
 export declare const Permission: MessageFns<Permission>;
 export declare const GetPermissionRequest: MessageFns<GetPermissionRequest>;
 export declare const GetPermissionsRequest: MessageFns<GetPermissionsRequest>;
 export declare const GetPermissionsResponse: MessageFns<GetPermissionsResponse>;
+export declare const CreatePermissionRequest: MessageFns<CreatePermissionRequest>;
+export declare const UpdatePermissionRequest: MessageFns<UpdatePermissionRequest>;
+export declare const DeletePermissionRequest: MessageFns<DeletePermissionRequest>;
 export interface PermissionService {
     GetPermission(request: GetPermissionRequest): Promise<Permission>;
     GetPermissions(request: GetPermissionsRequest): Promise<GetPermissionsResponse>;
-    CreatePermission(request: Permission): Promise<CreateSuccess>;
-    UpdatePermission(request: Permission): Promise<UpdateSuccess>;
-    DeletePermission(request: GetPermissionRequest): Promise<DeleteSuccess>;
+    CreatePermission(request: CreatePermissionRequest): Promise<CreateSuccess>;
+    UpdatePermission(request: UpdatePermissionRequest): Promise<UpdateSuccess>;
+    DeletePermission(request: DeletePermissionRequest): Promise<DeleteSuccess>;
 }
 export declare const PermissionServiceServiceName = "permission.v1.PermissionService";
 export declare class PermissionServiceClientImpl implements PermissionService {
@@ -39,9 +54,9 @@ export declare class PermissionServiceClientImpl implements PermissionService {
     });
     GetPermission(request: GetPermissionRequest): Promise<Permission>;
     GetPermissions(request: GetPermissionsRequest): Promise<GetPermissionsResponse>;
-    CreatePermission(request: Permission): Promise<CreateSuccess>;
-    UpdatePermission(request: Permission): Promise<UpdateSuccess>;
-    DeletePermission(request: GetPermissionRequest): Promise<DeleteSuccess>;
+    CreatePermission(request: CreatePermissionRequest): Promise<CreateSuccess>;
+    UpdatePermission(request: UpdatePermissionRequest): Promise<UpdateSuccess>;
+    DeletePermission(request: DeletePermissionRequest): Promise<DeleteSuccess>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

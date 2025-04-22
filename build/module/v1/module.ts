@@ -39,6 +39,21 @@ export interface GetModulesResponse {
   data: Module[];
 }
 
+export interface CreateModuleRequest {
+  module: Module | undefined;
+  userId: string;
+}
+
+export interface UpdateModuleRequest {
+  module: Module | undefined;
+  userId: string;
+}
+
+export interface DeleteModuleRequest {
+  moduleId: string;
+  userId: string;
+}
+
 function createBaseModule(): Module {
   return { moduleId: "", name: "", description: "" };
 }
@@ -361,12 +376,244 @@ export const GetModulesResponse: MessageFns<GetModulesResponse> = {
   },
 };
 
+function createBaseCreateModuleRequest(): CreateModuleRequest {
+  return { module: undefined, userId: "" };
+}
+
+export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
+  encode(message: CreateModuleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.module !== undefined) {
+      Module.encode(message.module, writer.uint32(10).fork()).join();
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateModuleRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateModuleRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.module = Module.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateModuleRequest {
+    return {
+      module: isSet(object.module) ? Module.fromJSON(object.module) : undefined,
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: CreateModuleRequest): unknown {
+    const obj: any = {};
+    if (message.module !== undefined) {
+      obj.module = Module.toJSON(message.module);
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateModuleRequest>, I>>(base?: I): CreateModuleRequest {
+    return CreateModuleRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateModuleRequest>, I>>(object: I): CreateModuleRequest {
+    const message = createBaseCreateModuleRequest();
+    message.module = (object.module !== undefined && object.module !== null)
+      ? Module.fromPartial(object.module)
+      : undefined;
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
+function createBaseUpdateModuleRequest(): UpdateModuleRequest {
+  return { module: undefined, userId: "" };
+}
+
+export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
+  encode(message: UpdateModuleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.module !== undefined) {
+      Module.encode(message.module, writer.uint32(10).fork()).join();
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateModuleRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateModuleRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.module = Module.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateModuleRequest {
+    return {
+      module: isSet(object.module) ? Module.fromJSON(object.module) : undefined,
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: UpdateModuleRequest): unknown {
+    const obj: any = {};
+    if (message.module !== undefined) {
+      obj.module = Module.toJSON(message.module);
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateModuleRequest>, I>>(base?: I): UpdateModuleRequest {
+    return UpdateModuleRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateModuleRequest>, I>>(object: I): UpdateModuleRequest {
+    const message = createBaseUpdateModuleRequest();
+    message.module = (object.module !== undefined && object.module !== null)
+      ? Module.fromPartial(object.module)
+      : undefined;
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
+function createBaseDeleteModuleRequest(): DeleteModuleRequest {
+  return { moduleId: "", userId: "" };
+}
+
+export const DeleteModuleRequest: MessageFns<DeleteModuleRequest> = {
+  encode(message: DeleteModuleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.moduleId !== "") {
+      writer.uint32(10).string(message.moduleId);
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteModuleRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteModuleRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.moduleId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteModuleRequest {
+    return {
+      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: DeleteModuleRequest): unknown {
+    const obj: any = {};
+    if (message.moduleId !== "") {
+      obj.moduleId = message.moduleId;
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteModuleRequest>, I>>(base?: I): DeleteModuleRequest {
+    return DeleteModuleRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeleteModuleRequest>, I>>(object: I): DeleteModuleRequest {
+    const message = createBaseDeleteModuleRequest();
+    message.moduleId = object.moduleId ?? "";
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
 export interface ModuleService {
   GetModule(request: GetModuleRequest): Promise<Module>;
   GetModules(request: GetModulesRequest): Promise<GetModulesResponse>;
-  CreateModule(request: Module): Promise<CreateSuccess>;
-  UpdateModule(request: Module): Promise<UpdateSuccess>;
-  DeleteModule(request: GetModuleRequest): Promise<DeleteSuccess>;
+  CreateModule(request: CreateModuleRequest): Promise<CreateSuccess>;
+  UpdateModule(request: UpdateModuleRequest): Promise<UpdateSuccess>;
+  DeleteModule(request: DeleteModuleRequest): Promise<DeleteSuccess>;
 }
 
 export const ModuleServiceServiceName = "module.v1.ModuleService";
@@ -394,20 +641,20 @@ export class ModuleServiceClientImpl implements ModuleService {
     return promise.then((data) => GetModulesResponse.decode(new BinaryReader(data)));
   }
 
-  CreateModule(request: Module): Promise<CreateSuccess> {
-    const data = Module.encode(request).finish();
+  CreateModule(request: CreateModuleRequest): Promise<CreateSuccess> {
+    const data = CreateModuleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateModule", data);
     return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
   }
 
-  UpdateModule(request: Module): Promise<UpdateSuccess> {
-    const data = Module.encode(request).finish();
+  UpdateModule(request: UpdateModuleRequest): Promise<UpdateSuccess> {
+    const data = UpdateModuleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateModule", data);
     return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
   }
 
-  DeleteModule(request: GetModuleRequest): Promise<DeleteSuccess> {
-    const data = GetModuleRequest.encode(request).finish();
+  DeleteModule(request: DeleteModuleRequest): Promise<DeleteSuccess> {
+    const data = DeleteModuleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteModule", data);
     return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
   }

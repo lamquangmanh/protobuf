@@ -26,10 +26,25 @@ message GetPermissionsResponse {
   repeated Permission data = 2;
 }
 
+message CreatePermissionRequest {
+  Permission permission = 1;
+  string user_id = 2;
+}
+
+message UpdatePermissionRequest {
+  Permission permission = 1;
+  string user_id = 2;
+}
+
+message DeletePermissionRequest {
+  string permission_id = 1;
+  string user_id = 2;
+}
+
 service PermissionService {
   rpc GetPermission (GetPermissionRequest) returns (Permission) {}
   rpc GetPermissions (GetPermissionsRequest) returns (GetPermissionsResponse) {}
-  rpc CreatePermission (Permission) returns (base.v1.CreateSuccess) {}
-  rpc UpdatePermission (Permission) returns (base.v1.UpdateSuccess) {}
-  rpc DeletePermission (GetPermissionRequest) returns (base.v1.DeleteSuccess) {}
+  rpc CreatePermission (CreatePermissionRequest) returns (base.v1.CreateSuccess) {}
+  rpc UpdatePermission (UpdatePermissionRequest) returns (base.v1.UpdateSuccess) {}
+  rpc DeletePermission (DeletePermissionRequest) returns (base.v1.DeleteSuccess) {}
 }

@@ -25,10 +25,25 @@ message GetResourcesResponse {
   repeated Resource data = 2;
 }
 
+message CreateResourceRequest {
+  Resource resource = 1;
+  string user_id = 2;
+}
+
+message UpdateResourceRequest {
+  Resource resource = 1;
+  string user_id = 2;
+}
+
+message DeleteResourceRequest {
+  string resource_id = 1;
+  string user_id = 2;
+}
+
 service ResourceService {
   rpc GetResource (GetResourceRequest) returns (Resource) {}
   rpc GetResources (GetResourcesRequest) returns (GetResourcesResponse) {}
-  rpc CreateResource (Resource) returns (base.v1.CreateSuccess) {}
-  rpc UpdateResource (Resource) returns (base.v1.UpdateSuccess) {}
-  rpc DeleteResource (GetResourceRequest) returns (base.v1.DeleteSuccess) {}
+  rpc CreateResource (CreateResourceRequest) returns (base.v1.CreateSuccess) {}
+  rpc UpdateResource (UpdateResourceRequest) returns (base.v1.UpdateSuccess) {}
+  rpc DeleteResource (DeleteResourceRequest) returns (base.v1.DeleteSuccess) {}
 }

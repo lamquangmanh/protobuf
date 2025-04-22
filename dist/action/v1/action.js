@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: action/v1/action.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActionServiceClientImpl = exports.ActionServiceServiceName = exports.GetActionsResponse = exports.GetActionsRequest = exports.GetActionRequest = exports.Action = exports.ActionRequestType = exports.protobufPackage = void 0;
+exports.ActionServiceClientImpl = exports.ActionServiceServiceName = exports.DeleteActionRequest = exports.UpdateActionRequest = exports.CreateActionRequest = exports.GetActionsResponse = exports.GetActionsRequest = exports.GetActionRequest = exports.Action = exports.ActionRequestType = exports.protobufPackage = void 0;
 exports.actionRequestTypeFromJSON = actionRequestTypeFromJSON;
 exports.actionRequestTypeToJSON = actionRequestTypeToJSON;
 /* eslint-disable */
@@ -410,6 +410,214 @@ exports.GetActionsResponse = {
         return message;
     },
 };
+function createBaseCreateActionRequest() {
+    return { action: undefined, userId: "" };
+}
+exports.CreateActionRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.action !== undefined) {
+            exports.Action.encode(message.action, writer.uint32(10).fork()).join();
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateActionRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.action = exports.Action.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            action: isSet(object.action) ? exports.Action.fromJSON(object.action) : undefined,
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.action !== undefined) {
+            obj.action = exports.Action.toJSON(message.action);
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateActionRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateActionRequest();
+        message.action = (object.action !== undefined && object.action !== null)
+            ? exports.Action.fromPartial(object.action)
+            : undefined;
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
+function createBaseUpdateActionRequest() {
+    return { action: undefined, userId: "" };
+}
+exports.UpdateActionRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.action !== undefined) {
+            exports.Action.encode(message.action, writer.uint32(10).fork()).join();
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateActionRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.action = exports.Action.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            action: isSet(object.action) ? exports.Action.fromJSON(object.action) : undefined,
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.action !== undefined) {
+            obj.action = exports.Action.toJSON(message.action);
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateActionRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseUpdateActionRequest();
+        message.action = (object.action !== undefined && object.action !== null)
+            ? exports.Action.fromPartial(object.action)
+            : undefined;
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
+function createBaseDeleteActionRequest() {
+    return { actionId: "", userId: "" };
+}
+exports.DeleteActionRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.actionId !== "") {
+            writer.uint32(10).string(message.actionId);
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseDeleteActionRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.actionId = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : "",
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.actionId !== "") {
+            obj.actionId = message.actionId;
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.DeleteActionRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseDeleteActionRequest();
+        message.actionId = object.actionId ?? "";
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
 exports.ActionServiceServiceName = "action.v1.ActionService";
 class ActionServiceClientImpl {
     constructor(rpc, opts) {
@@ -432,17 +640,17 @@ class ActionServiceClientImpl {
         return promise.then((data) => exports.GetActionsResponse.decode(new wire_1.BinaryReader(data)));
     }
     CreateAction(request) {
-        const data = exports.Action.encode(request).finish();
+        const data = exports.CreateActionRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CreateAction", data);
         return promise.then((data) => base_1.CreateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     UpdateAction(request) {
-        const data = exports.Action.encode(request).finish();
+        const data = exports.UpdateActionRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "UpdateAction", data);
         return promise.then((data) => base_1.UpdateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     DeleteAction(request) {
-        const data = exports.GetActionRequest.encode(request).finish();
+        const data = exports.DeleteActionRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DeleteAction", data);
         return promise.then((data) => base_1.DeleteSuccess.decode(new wire_1.BinaryReader(data)));
     }

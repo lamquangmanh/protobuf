@@ -94,6 +94,21 @@ export interface GetActionsResponse {
   data: Action[];
 }
 
+export interface CreateActionRequest {
+  action: Action | undefined;
+  userId: string;
+}
+
+export interface UpdateActionRequest {
+  action: Action | undefined;
+  userId: string;
+}
+
+export interface DeleteActionRequest {
+  actionId: string;
+  userId: string;
+}
+
 function createBaseAction(): Action {
   return { actionId: "", resourceId: "", name: "", description: "", ActionRequestType: "", url: "", method: "" };
 }
@@ -480,12 +495,244 @@ export const GetActionsResponse: MessageFns<GetActionsResponse> = {
   },
 };
 
+function createBaseCreateActionRequest(): CreateActionRequest {
+  return { action: undefined, userId: "" };
+}
+
+export const CreateActionRequest: MessageFns<CreateActionRequest> = {
+  encode(message: CreateActionRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.action !== undefined) {
+      Action.encode(message.action, writer.uint32(10).fork()).join();
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateActionRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateActionRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.action = Action.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateActionRequest {
+    return {
+      action: isSet(object.action) ? Action.fromJSON(object.action) : undefined,
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: CreateActionRequest): unknown {
+    const obj: any = {};
+    if (message.action !== undefined) {
+      obj.action = Action.toJSON(message.action);
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateActionRequest>, I>>(base?: I): CreateActionRequest {
+    return CreateActionRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateActionRequest>, I>>(object: I): CreateActionRequest {
+    const message = createBaseCreateActionRequest();
+    message.action = (object.action !== undefined && object.action !== null)
+      ? Action.fromPartial(object.action)
+      : undefined;
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
+function createBaseUpdateActionRequest(): UpdateActionRequest {
+  return { action: undefined, userId: "" };
+}
+
+export const UpdateActionRequest: MessageFns<UpdateActionRequest> = {
+  encode(message: UpdateActionRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.action !== undefined) {
+      Action.encode(message.action, writer.uint32(10).fork()).join();
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateActionRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateActionRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.action = Action.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateActionRequest {
+    return {
+      action: isSet(object.action) ? Action.fromJSON(object.action) : undefined,
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: UpdateActionRequest): unknown {
+    const obj: any = {};
+    if (message.action !== undefined) {
+      obj.action = Action.toJSON(message.action);
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateActionRequest>, I>>(base?: I): UpdateActionRequest {
+    return UpdateActionRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateActionRequest>, I>>(object: I): UpdateActionRequest {
+    const message = createBaseUpdateActionRequest();
+    message.action = (object.action !== undefined && object.action !== null)
+      ? Action.fromPartial(object.action)
+      : undefined;
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
+function createBaseDeleteActionRequest(): DeleteActionRequest {
+  return { actionId: "", userId: "" };
+}
+
+export const DeleteActionRequest: MessageFns<DeleteActionRequest> = {
+  encode(message: DeleteActionRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.actionId !== "") {
+      writer.uint32(10).string(message.actionId);
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteActionRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteActionRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.actionId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteActionRequest {
+    return {
+      actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : "",
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: DeleteActionRequest): unknown {
+    const obj: any = {};
+    if (message.actionId !== "") {
+      obj.actionId = message.actionId;
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteActionRequest>, I>>(base?: I): DeleteActionRequest {
+    return DeleteActionRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeleteActionRequest>, I>>(object: I): DeleteActionRequest {
+    const message = createBaseDeleteActionRequest();
+    message.actionId = object.actionId ?? "";
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
 export interface ActionService {
   GetAction(request: GetActionRequest): Promise<Action>;
   GetActions(request: GetActionsRequest): Promise<GetActionsResponse>;
-  CreateAction(request: Action): Promise<CreateSuccess>;
-  UpdateAction(request: Action): Promise<UpdateSuccess>;
-  DeleteAction(request: GetActionRequest): Promise<DeleteSuccess>;
+  CreateAction(request: CreateActionRequest): Promise<CreateSuccess>;
+  UpdateAction(request: UpdateActionRequest): Promise<UpdateSuccess>;
+  DeleteAction(request: DeleteActionRequest): Promise<DeleteSuccess>;
 }
 
 export const ActionServiceServiceName = "action.v1.ActionService";
@@ -513,20 +760,20 @@ export class ActionServiceClientImpl implements ActionService {
     return promise.then((data) => GetActionsResponse.decode(new BinaryReader(data)));
   }
 
-  CreateAction(request: Action): Promise<CreateSuccess> {
-    const data = Action.encode(request).finish();
+  CreateAction(request: CreateActionRequest): Promise<CreateSuccess> {
+    const data = CreateActionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateAction", data);
     return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
   }
 
-  UpdateAction(request: Action): Promise<UpdateSuccess> {
-    const data = Action.encode(request).finish();
+  UpdateAction(request: UpdateActionRequest): Promise<UpdateSuccess> {
+    const data = UpdateActionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateAction", data);
     return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
   }
 
-  DeleteAction(request: GetActionRequest): Promise<DeleteSuccess> {
-    const data = GetActionRequest.encode(request).finish();
+  DeleteAction(request: DeleteActionRequest): Promise<DeleteSuccess> {
+    const data = DeleteActionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteAction", data);
     return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
   }

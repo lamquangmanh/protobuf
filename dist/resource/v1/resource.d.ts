@@ -18,16 +18,31 @@ export interface GetResourcesResponse {
     pagination: PaginationResponse | undefined;
     data: Resource[];
 }
+export interface CreateResourceRequest {
+    resource: Resource | undefined;
+    userId: string;
+}
+export interface UpdateResourceRequest {
+    resource: Resource | undefined;
+    userId: string;
+}
+export interface DeleteResourceRequest {
+    resourceId: string;
+    userId: string;
+}
 export declare const Resource: MessageFns<Resource>;
 export declare const GetResourceRequest: MessageFns<GetResourceRequest>;
 export declare const GetResourcesRequest: MessageFns<GetResourcesRequest>;
 export declare const GetResourcesResponse: MessageFns<GetResourcesResponse>;
+export declare const CreateResourceRequest: MessageFns<CreateResourceRequest>;
+export declare const UpdateResourceRequest: MessageFns<UpdateResourceRequest>;
+export declare const DeleteResourceRequest: MessageFns<DeleteResourceRequest>;
 export interface ResourceService {
     GetResource(request: GetResourceRequest): Promise<Resource>;
     GetResources(request: GetResourcesRequest): Promise<GetResourcesResponse>;
-    CreateResource(request: Resource): Promise<CreateSuccess>;
-    UpdateResource(request: Resource): Promise<UpdateSuccess>;
-    DeleteResource(request: GetResourceRequest): Promise<DeleteSuccess>;
+    CreateResource(request: CreateResourceRequest): Promise<CreateSuccess>;
+    UpdateResource(request: UpdateResourceRequest): Promise<UpdateSuccess>;
+    DeleteResource(request: DeleteResourceRequest): Promise<DeleteSuccess>;
 }
 export declare const ResourceServiceServiceName = "resource.v1.ResourceService";
 export declare class ResourceServiceClientImpl implements ResourceService {
@@ -38,9 +53,9 @@ export declare class ResourceServiceClientImpl implements ResourceService {
     });
     GetResource(request: GetResourceRequest): Promise<Resource>;
     GetResources(request: GetResourcesRequest): Promise<GetResourcesResponse>;
-    CreateResource(request: Resource): Promise<CreateSuccess>;
-    UpdateResource(request: Resource): Promise<UpdateSuccess>;
-    DeleteResource(request: GetResourceRequest): Promise<DeleteSuccess>;
+    CreateResource(request: CreateResourceRequest): Promise<CreateSuccess>;
+    UpdateResource(request: UpdateResourceRequest): Promise<UpdateSuccess>;
+    DeleteResource(request: DeleteResourceRequest): Promise<DeleteSuccess>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

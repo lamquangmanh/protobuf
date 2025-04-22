@@ -2,15 +2,12 @@ import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 import { CreateSuccess, DeleteSuccess, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
 export declare const protobufPackage = "user_role.v1";
 export interface UserRole {
+    userRoleId: string;
     userId: string;
-    username: string;
-    email: string;
-    password: string;
-    phone: string;
-    avatar: string;
+    roleId: string;
 }
 export interface GetUserRoleRequest {
-    userId: string;
+    userRoleId: string;
 }
 export interface GetUserRolesRequest {
     pagination: PaginationRequest | undefined;
@@ -21,16 +18,31 @@ export interface GetUserRolesResponse {
     pagination: PaginationResponse | undefined;
     data: UserRole[];
 }
+export interface CreateUserRoleRequest {
+    userRole: UserRole | undefined;
+    userId: string;
+}
+export interface UpdateUserRoleRequest {
+    userRole: UserRole | undefined;
+    userId: string;
+}
+export interface DeleteUserRoleRequest {
+    userRoleId: string;
+    userId: string;
+}
 export declare const UserRole: MessageFns<UserRole>;
 export declare const GetUserRoleRequest: MessageFns<GetUserRoleRequest>;
 export declare const GetUserRolesRequest: MessageFns<GetUserRolesRequest>;
 export declare const GetUserRolesResponse: MessageFns<GetUserRolesResponse>;
+export declare const CreateUserRoleRequest: MessageFns<CreateUserRoleRequest>;
+export declare const UpdateUserRoleRequest: MessageFns<UpdateUserRoleRequest>;
+export declare const DeleteUserRoleRequest: MessageFns<DeleteUserRoleRequest>;
 export interface UserRoleService {
     GetUserRole(request: GetUserRoleRequest): Promise<UserRole>;
     GetUserRoles(request: GetUserRolesRequest): Promise<GetUserRolesRequest>;
-    CreateUserRole(request: UserRole): Promise<CreateSuccess>;
-    UpdateUserRole(request: UserRole): Promise<UpdateSuccess>;
-    DeleteUserRole(request: GetUserRoleRequest): Promise<DeleteSuccess>;
+    CreateUserRole(request: CreateUserRoleRequest): Promise<CreateSuccess>;
+    UpdateUserRole(request: UpdateUserRoleRequest): Promise<UpdateSuccess>;
+    DeleteUserRole(request: DeleteUserRoleRequest): Promise<DeleteSuccess>;
 }
 export declare const UserRoleServiceServiceName = "user_role.v1.UserRoleService";
 export declare class UserRoleServiceClientImpl implements UserRoleService {
@@ -41,9 +53,9 @@ export declare class UserRoleServiceClientImpl implements UserRoleService {
     });
     GetUserRole(request: GetUserRoleRequest): Promise<UserRole>;
     GetUserRoles(request: GetUserRolesRequest): Promise<GetUserRolesRequest>;
-    CreateUserRole(request: UserRole): Promise<CreateSuccess>;
-    UpdateUserRole(request: UserRole): Promise<UpdateSuccess>;
-    DeleteUserRole(request: GetUserRoleRequest): Promise<DeleteSuccess>;
+    CreateUserRole(request: CreateUserRoleRequest): Promise<CreateSuccess>;
+    UpdateUserRole(request: UpdateUserRoleRequest): Promise<UpdateSuccess>;
+    DeleteUserRole(request: DeleteUserRoleRequest): Promise<DeleteSuccess>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

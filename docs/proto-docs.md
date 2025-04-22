@@ -5,9 +5,12 @@
 
 - [action/v1/action.proto](#action_v1_action-proto)
     - [Action](#action-v1-Action)
+    - [CreateActionRequest](#action-v1-CreateActionRequest)
+    - [DeleteActionRequest](#action-v1-DeleteActionRequest)
     - [GetActionRequest](#action-v1-GetActionRequest)
     - [GetActionsRequest](#action-v1-GetActionsRequest)
     - [GetActionsResponse](#action-v1-GetActionsResponse)
+    - [UpdateActionRequest](#action-v1-UpdateActionRequest)
   
     - [ActionRequestType](#action-v1-ActionRequestType)
   
@@ -26,49 +29,67 @@
     - [SortOrder](#base-v1-SortOrder)
   
 - [module/v1/module.proto](#module_v1_module-proto)
+    - [CreateModuleRequest](#module-v1-CreateModuleRequest)
+    - [DeleteModuleRequest](#module-v1-DeleteModuleRequest)
     - [GetModuleRequest](#module-v1-GetModuleRequest)
     - [GetModulesRequest](#module-v1-GetModulesRequest)
     - [GetModulesResponse](#module-v1-GetModulesResponse)
     - [Module](#module-v1-Module)
+    - [UpdateModuleRequest](#module-v1-UpdateModuleRequest)
   
     - [ModuleService](#module-v1-ModuleService)
   
 - [permission/v1/permission.proto](#permission_v1_permission-proto)
+    - [CreatePermissionRequest](#permission-v1-CreatePermissionRequest)
+    - [DeletePermissionRequest](#permission-v1-DeletePermissionRequest)
     - [GetPermissionRequest](#permission-v1-GetPermissionRequest)
     - [GetPermissionsRequest](#permission-v1-GetPermissionsRequest)
     - [GetPermissionsResponse](#permission-v1-GetPermissionsResponse)
     - [Permission](#permission-v1-Permission)
+    - [UpdatePermissionRequest](#permission-v1-UpdatePermissionRequest)
   
     - [PermissionService](#permission-v1-PermissionService)
   
 - [resource/v1/resource.proto](#resource_v1_resource-proto)
+    - [CreateResourceRequest](#resource-v1-CreateResourceRequest)
+    - [DeleteResourceRequest](#resource-v1-DeleteResourceRequest)
     - [GetResourceRequest](#resource-v1-GetResourceRequest)
     - [GetResourcesRequest](#resource-v1-GetResourcesRequest)
     - [GetResourcesResponse](#resource-v1-GetResourcesResponse)
     - [Resource](#resource-v1-Resource)
+    - [UpdateResourceRequest](#resource-v1-UpdateResourceRequest)
   
     - [ResourceService](#resource-v1-ResourceService)
   
 - [role/v1/role.proto](#role_v1_role-proto)
+    - [CreateRoleRequest](#role-v1-CreateRoleRequest)
+    - [DeleteRoleRequest](#role-v1-DeleteRoleRequest)
     - [GetRoleRequest](#role-v1-GetRoleRequest)
     - [GetRolesRequest](#role-v1-GetRolesRequest)
     - [GetRolesResponse](#role-v1-GetRolesResponse)
     - [Role](#role-v1-Role)
+    - [UpdateRoleRequest](#role-v1-UpdateRoleRequest)
   
     - [RoleService](#role-v1-RoleService)
   
 - [user-role/v1/user-role.proto](#user-role_v1_user-role-proto)
+    - [CreateUserRoleRequest](#user_role-v1-CreateUserRoleRequest)
+    - [DeleteUserRoleRequest](#user_role-v1-DeleteUserRoleRequest)
     - [GetUserRoleRequest](#user_role-v1-GetUserRoleRequest)
     - [GetUserRolesRequest](#user_role-v1-GetUserRolesRequest)
     - [GetUserRolesResponse](#user_role-v1-GetUserRolesResponse)
+    - [UpdateUserRoleRequest](#user_role-v1-UpdateUserRoleRequest)
     - [UserRole](#user_role-v1-UserRole)
   
     - [UserRoleService](#user_role-v1-UserRoleService)
   
 - [user/v1/user.proto](#user_v1_user-proto)
+    - [CreateUserRequest](#user-v1-CreateUserRequest)
+    - [DeleteUserRequest](#user-v1-DeleteUserRequest)
     - [GetUserRequest](#user-v1-GetUserRequest)
     - [GetUsersRequest](#user-v1-GetUsersRequest)
     - [GetUsersResponse](#user-v1-GetUsersResponse)
+    - [UpdateUserRequest](#user-v1-UpdateUserRequest)
     - [User](#user-v1-User)
   
     - [UserStatus](#user-v1-UserStatus)
@@ -101,6 +122,38 @@
 | ActionRequestType | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | method | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="action-v1-CreateActionRequest"></a>
+
+### CreateActionRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| action | [Action](#action-v1-Action) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="action-v1-DeleteActionRequest"></a>
+
+### DeleteActionRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| action_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
 
 
 
@@ -154,6 +207,22 @@
 
 
 
+
+<a name="action-v1-UpdateActionRequest"></a>
+
+### UpdateActionRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| action | [Action](#action-v1-Action) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
  
 
 
@@ -185,9 +254,9 @@
 | ----------- | ------------ | ------------- | ------------|
 | GetAction | [GetActionRequest](#action-v1-GetActionRequest) | [Action](#action-v1-Action) |  |
 | GetActions | [GetActionsRequest](#action-v1-GetActionsRequest) | [GetActionsResponse](#action-v1-GetActionsResponse) |  |
-| CreateAction | [Action](#action-v1-Action) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
-| UpdateAction | [Action](#action-v1-Action) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteAction | [GetActionRequest](#action-v1-GetActionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| CreateAction | [CreateActionRequest](#action-v1-CreateActionRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| UpdateAction | [UpdateActionRequest](#action-v1-UpdateActionRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
+| DeleteAction | [DeleteActionRequest](#action-v1-DeleteActionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
  
 
@@ -361,6 +430,38 @@ define enum
 
 
 
+<a name="module-v1-CreateModuleRequest"></a>
+
+### CreateModuleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| module | [Module](#module-v1-Module) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="module-v1-DeleteModuleRequest"></a>
+
+### DeleteModuleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| module_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="module-v1-GetModuleRequest"></a>
 
 ### GetModuleRequest
@@ -425,6 +526,22 @@ define enum
 
 
 
+
+<a name="module-v1-UpdateModuleRequest"></a>
+
+### UpdateModuleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| module | [Module](#module-v1-Module) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
  
 
  
@@ -441,9 +558,9 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetModule | [GetModuleRequest](#module-v1-GetModuleRequest) | [Module](#module-v1-Module) |  |
 | GetModules | [GetModulesRequest](#module-v1-GetModulesRequest) | [GetModulesResponse](#module-v1-GetModulesResponse) |  |
-| CreateModule | [Module](#module-v1-Module) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
-| UpdateModule | [Module](#module-v1-Module) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteModule | [GetModuleRequest](#module-v1-GetModuleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| CreateModule | [CreateModuleRequest](#module-v1-CreateModuleRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| UpdateModule | [UpdateModuleRequest](#module-v1-UpdateModuleRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
+| DeleteModule | [DeleteModuleRequest](#module-v1-DeleteModuleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
  
 
@@ -453,6 +570,38 @@ define enum
 <p align="right"><a href="#top">Top</a></p>
 
 ## permission/v1/permission.proto
+
+
+
+<a name="permission-v1-CreatePermissionRequest"></a>
+
+### CreatePermissionRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| permission | [Permission](#permission-v1-Permission) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="permission-v1-DeletePermissionRequest"></a>
+
+### DeletePermissionRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| permission_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
 
 
 
@@ -521,6 +670,22 @@ define enum
 
 
 
+
+<a name="permission-v1-UpdatePermissionRequest"></a>
+
+### UpdatePermissionRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| permission | [Permission](#permission-v1-Permission) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
  
 
  
@@ -537,9 +702,9 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetPermission | [GetPermissionRequest](#permission-v1-GetPermissionRequest) | [Permission](#permission-v1-Permission) |  |
 | GetPermissions | [GetPermissionsRequest](#permission-v1-GetPermissionsRequest) | [GetPermissionsResponse](#permission-v1-GetPermissionsResponse) |  |
-| CreatePermission | [Permission](#permission-v1-Permission) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
-| UpdatePermission | [Permission](#permission-v1-Permission) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeletePermission | [GetPermissionRequest](#permission-v1-GetPermissionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| CreatePermission | [CreatePermissionRequest](#permission-v1-CreatePermissionRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| UpdatePermission | [UpdatePermissionRequest](#permission-v1-UpdatePermissionRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
+| DeletePermission | [DeletePermissionRequest](#permission-v1-DeletePermissionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
  
 
@@ -549,6 +714,38 @@ define enum
 <p align="right"><a href="#top">Top</a></p>
 
 ## resource/v1/resource.proto
+
+
+
+<a name="resource-v1-CreateResourceRequest"></a>
+
+### CreateResourceRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource | [Resource](#resource-v1-Resource) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="resource-v1-DeleteResourceRequest"></a>
+
+### DeleteResourceRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
 
 
 
@@ -616,6 +813,22 @@ define enum
 
 
 
+
+<a name="resource-v1-UpdateResourceRequest"></a>
+
+### UpdateResourceRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource | [Resource](#resource-v1-Resource) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
  
 
  
@@ -632,9 +845,9 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetResource | [GetResourceRequest](#resource-v1-GetResourceRequest) | [Resource](#resource-v1-Resource) |  |
 | GetResources | [GetResourcesRequest](#resource-v1-GetResourcesRequest) | [GetResourcesResponse](#resource-v1-GetResourcesResponse) |  |
-| CreateResource | [Resource](#resource-v1-Resource) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
-| UpdateResource | [Resource](#resource-v1-Resource) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteResource | [GetResourceRequest](#resource-v1-GetResourceRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| CreateResource | [CreateResourceRequest](#resource-v1-CreateResourceRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| UpdateResource | [UpdateResourceRequest](#resource-v1-UpdateResourceRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
+| DeleteResource | [DeleteResourceRequest](#resource-v1-DeleteResourceRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
  
 
@@ -644,6 +857,38 @@ define enum
 <p align="right"><a href="#top">Top</a></p>
 
 ## role/v1/role.proto
+
+
+
+<a name="role-v1-CreateRoleRequest"></a>
+
+### CreateRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| role | [Role](#role-v1-Role) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="role-v1-DeleteRoleRequest"></a>
+
+### DeleteRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| role_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
 
 
 
@@ -712,6 +957,22 @@ define enum
 
 
 
+
+<a name="role-v1-UpdateRoleRequest"></a>
+
+### UpdateRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| role | [Role](#role-v1-Role) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
  
 
  
@@ -728,9 +989,9 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetRole | [GetRoleRequest](#role-v1-GetRoleRequest) | [Role](#role-v1-Role) |  |
 | GetRoles | [GetRolesRequest](#role-v1-GetRolesRequest) | [GetRolesResponse](#role-v1-GetRolesResponse) |  |
-| CreateRole | [Role](#role-v1-Role) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
-| UpdateRole | [Role](#role-v1-Role) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteRole | [GetRoleRequest](#role-v1-GetRoleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| CreateRole | [CreateRoleRequest](#role-v1-CreateRoleRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| UpdateRole | [UpdateRoleRequest](#role-v1-UpdateRoleRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
+| DeleteRole | [DeleteRoleRequest](#role-v1-DeleteRoleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
  
 
@@ -743,6 +1004,38 @@ define enum
 
 
 
+<a name="user_role-v1-CreateUserRoleRequest"></a>
+
+### CreateUserRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role | [UserRole](#user_role-v1-UserRole) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="user_role-v1-DeleteUserRoleRequest"></a>
+
+### DeleteUserRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="user_role-v1-GetUserRoleRequest"></a>
 
 ### GetUserRoleRequest
@@ -751,7 +1044,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_id | [string](#string) |  |  |
+| user_role_id | [string](#string) |  |  |
 
 
 
@@ -791,6 +1084,22 @@ define enum
 
 
 
+<a name="user_role-v1-UpdateUserRoleRequest"></a>
+
+### UpdateUserRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role | [UserRole](#user_role-v1-UserRole) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="user_role-v1-UserRole"></a>
 
 ### UserRole
@@ -799,12 +1108,9 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| user_role_id | [string](#string) |  |  |
 | user_id | [string](#string) |  |  |
-| username | [string](#string) |  |  |
-| email | [string](#string) |  |  |
-| password | [string](#string) |  |  |
-| phone | [string](#string) |  |  |
-| avatar | [string](#string) |  |  |
+| role_id | [string](#string) |  |  |
 
 
 
@@ -826,9 +1132,9 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetUserRole | [GetUserRoleRequest](#user_role-v1-GetUserRoleRequest) | [UserRole](#user_role-v1-UserRole) |  |
 | GetUserRoles | [GetUserRolesRequest](#user_role-v1-GetUserRolesRequest) | [GetUserRolesRequest](#user_role-v1-GetUserRolesRequest) |  |
-| CreateUserRole | [UserRole](#user_role-v1-UserRole) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
-| UpdateUserRole | [UserRole](#user_role-v1-UserRole) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteUserRole | [GetUserRoleRequest](#user_role-v1-GetUserRoleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| CreateUserRole | [CreateUserRoleRequest](#user_role-v1-CreateUserRoleRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| UpdateUserRole | [UpdateUserRoleRequest](#user_role-v1-UpdateUserRoleRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
+| DeleteUserRole | [DeleteUserRoleRequest](#user_role-v1-DeleteUserRoleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
  
 
@@ -838,6 +1144,38 @@ define enum
 <p align="right"><a href="#top">Top</a></p>
 
 ## user/v1/user.proto
+
+
+
+<a name="user-v1-CreateUserRequest"></a>
+
+### CreateUserRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#user-v1-User) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="user-v1-DeleteUserRequest"></a>
+
+### DeleteUserRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
+
+
+
 
 
 
@@ -883,6 +1221,22 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
 | data | [User](#user-v1-User) | repeated |  |
+
+
+
+
+
+
+<a name="user-v1-UpdateUserRequest"></a>
+
+### UpdateUserRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#user-v1-User) |  |  |
+| user_id | [string](#string) |  |  |
 
 
 
@@ -938,9 +1292,9 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetUser | [GetUserRequest](#user-v1-GetUserRequest) | [User](#user-v1-User) |  |
 | GetUsers | [GetUsersRequest](#user-v1-GetUsersRequest) | [GetUsersResponse](#user-v1-GetUsersResponse) |  |
-| CreateUser | [User](#user-v1-User) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
-| UpdateUser | [User](#user-v1-User) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteUser | [GetUserRequest](#user-v1-GetUserRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| CreateUser | [CreateUserRequest](#user-v1-CreateUserRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| UpdateUser | [UpdateUserRequest](#user-v1-UpdateUserRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
+| DeleteUser | [DeleteUserRequest](#user-v1-DeleteUserRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
  
 

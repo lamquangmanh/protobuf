@@ -19,16 +19,31 @@ export interface GetRolesResponse {
     pagination: PaginationResponse | undefined;
     data: Role[];
 }
+export interface CreateRoleRequest {
+    role: Role | undefined;
+    userId: string;
+}
+export interface UpdateRoleRequest {
+    role: Role | undefined;
+    userId: string;
+}
+export interface DeleteRoleRequest {
+    roleId: string;
+    userId: string;
+}
 export declare const Role: MessageFns<Role>;
 export declare const GetRoleRequest: MessageFns<GetRoleRequest>;
 export declare const GetRolesRequest: MessageFns<GetRolesRequest>;
 export declare const GetRolesResponse: MessageFns<GetRolesResponse>;
+export declare const CreateRoleRequest: MessageFns<CreateRoleRequest>;
+export declare const UpdateRoleRequest: MessageFns<UpdateRoleRequest>;
+export declare const DeleteRoleRequest: MessageFns<DeleteRoleRequest>;
 export interface RoleService {
     GetRole(request: GetRoleRequest): Promise<Role>;
     GetRoles(request: GetRolesRequest): Promise<GetRolesResponse>;
-    CreateRole(request: Role): Promise<CreateSuccess>;
-    UpdateRole(request: Role): Promise<UpdateSuccess>;
-    DeleteRole(request: GetRoleRequest): Promise<DeleteSuccess>;
+    CreateRole(request: CreateRoleRequest): Promise<CreateSuccess>;
+    UpdateRole(request: UpdateRoleRequest): Promise<UpdateSuccess>;
+    DeleteRole(request: DeleteRoleRequest): Promise<DeleteSuccess>;
 }
 export declare const RoleServiceServiceName = "role.v1.RoleService";
 export declare class RoleServiceClientImpl implements RoleService {
@@ -39,9 +54,9 @@ export declare class RoleServiceClientImpl implements RoleService {
     });
     GetRole(request: GetRoleRequest): Promise<Role>;
     GetRoles(request: GetRolesRequest): Promise<GetRolesResponse>;
-    CreateRole(request: Role): Promise<CreateSuccess>;
-    UpdateRole(request: Role): Promise<UpdateSuccess>;
-    DeleteRole(request: GetRoleRequest): Promise<DeleteSuccess>;
+    CreateRole(request: CreateRoleRequest): Promise<CreateSuccess>;
+    UpdateRole(request: UpdateRoleRequest): Promise<UpdateSuccess>;
+    DeleteRole(request: DeleteRoleRequest): Promise<DeleteSuccess>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

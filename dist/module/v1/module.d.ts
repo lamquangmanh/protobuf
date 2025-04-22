@@ -18,16 +18,31 @@ export interface GetModulesResponse {
     pagination: PaginationResponse | undefined;
     data: Module[];
 }
+export interface CreateModuleRequest {
+    module: Module | undefined;
+    userId: string;
+}
+export interface UpdateModuleRequest {
+    module: Module | undefined;
+    userId: string;
+}
+export interface DeleteModuleRequest {
+    moduleId: string;
+    userId: string;
+}
 export declare const Module: MessageFns<Module>;
 export declare const GetModuleRequest: MessageFns<GetModuleRequest>;
 export declare const GetModulesRequest: MessageFns<GetModulesRequest>;
 export declare const GetModulesResponse: MessageFns<GetModulesResponse>;
+export declare const CreateModuleRequest: MessageFns<CreateModuleRequest>;
+export declare const UpdateModuleRequest: MessageFns<UpdateModuleRequest>;
+export declare const DeleteModuleRequest: MessageFns<DeleteModuleRequest>;
 export interface ModuleService {
     GetModule(request: GetModuleRequest): Promise<Module>;
     GetModules(request: GetModulesRequest): Promise<GetModulesResponse>;
-    CreateModule(request: Module): Promise<CreateSuccess>;
-    UpdateModule(request: Module): Promise<UpdateSuccess>;
-    DeleteModule(request: GetModuleRequest): Promise<DeleteSuccess>;
+    CreateModule(request: CreateModuleRequest): Promise<CreateSuccess>;
+    UpdateModule(request: UpdateModuleRequest): Promise<UpdateSuccess>;
+    DeleteModule(request: DeleteModuleRequest): Promise<DeleteSuccess>;
 }
 export declare const ModuleServiceServiceName = "module.v1.ModuleService";
 export declare class ModuleServiceClientImpl implements ModuleService {
@@ -38,9 +53,9 @@ export declare class ModuleServiceClientImpl implements ModuleService {
     });
     GetModule(request: GetModuleRequest): Promise<Module>;
     GetModules(request: GetModulesRequest): Promise<GetModulesResponse>;
-    CreateModule(request: Module): Promise<CreateSuccess>;
-    UpdateModule(request: Module): Promise<UpdateSuccess>;
-    DeleteModule(request: GetModuleRequest): Promise<DeleteSuccess>;
+    CreateModule(request: CreateModuleRequest): Promise<CreateSuccess>;
+    UpdateModule(request: UpdateModuleRequest): Promise<UpdateSuccess>;
+    DeleteModule(request: DeleteModuleRequest): Promise<DeleteSuccess>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

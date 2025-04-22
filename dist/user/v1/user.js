@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: user/v1/user.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserServiceClientImpl = exports.UserServiceServiceName = exports.GetUsersResponse = exports.GetUsersRequest = exports.GetUserRequest = exports.User = exports.UserStatus = exports.protobufPackage = void 0;
+exports.UserServiceClientImpl = exports.UserServiceServiceName = exports.DeleteUserRequest = exports.UpdateUserRequest = exports.CreateUserRequest = exports.GetUsersResponse = exports.GetUsersRequest = exports.GetUserRequest = exports.User = exports.UserStatus = exports.protobufPackage = void 0;
 exports.userStatusFromJSON = userStatusFromJSON;
 exports.userStatusToJSON = userStatusToJSON;
 /* eslint-disable */
@@ -398,6 +398,210 @@ exports.GetUsersResponse = {
         return message;
     },
 };
+function createBaseCreateUserRequest() {
+    return { user: undefined, userId: "" };
+}
+exports.CreateUserRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.user !== undefined) {
+            exports.User.encode(message.user, writer.uint32(10).fork()).join();
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateUserRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.user = exports.User.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            user: isSet(object.user) ? exports.User.fromJSON(object.user) : undefined,
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.user !== undefined) {
+            obj.user = exports.User.toJSON(message.user);
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateUserRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateUserRequest();
+        message.user = (object.user !== undefined && object.user !== null) ? exports.User.fromPartial(object.user) : undefined;
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
+function createBaseUpdateUserRequest() {
+    return { user: undefined, userId: "" };
+}
+exports.UpdateUserRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.user !== undefined) {
+            exports.User.encode(message.user, writer.uint32(10).fork()).join();
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateUserRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.user = exports.User.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            user: isSet(object.user) ? exports.User.fromJSON(object.user) : undefined,
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.user !== undefined) {
+            obj.user = exports.User.toJSON(message.user);
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateUserRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseUpdateUserRequest();
+        message.user = (object.user !== undefined && object.user !== null) ? exports.User.fromPartial(object.user) : undefined;
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
+function createBaseDeleteUserRequest() {
+    return { userId: "", deletedUserId: "" };
+}
+exports.DeleteUserRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.userId !== "") {
+            writer.uint32(10).string(message.userId);
+        }
+        if (message.deletedUserId !== "") {
+            writer.uint32(18).string(message.deletedUserId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseDeleteUserRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.deletedUserId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+            deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        if (message.deletedUserId !== "") {
+            obj.deletedUserId = message.deletedUserId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.DeleteUserRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseDeleteUserRequest();
+        message.userId = object.userId ?? "";
+        message.deletedUserId = object.deletedUserId ?? "";
+        return message;
+    },
+};
 exports.UserServiceServiceName = "user.v1.UserService";
 class UserServiceClientImpl {
     constructor(rpc, opts) {
@@ -420,17 +624,17 @@ class UserServiceClientImpl {
         return promise.then((data) => exports.GetUsersResponse.decode(new wire_1.BinaryReader(data)));
     }
     CreateUser(request) {
-        const data = exports.User.encode(request).finish();
+        const data = exports.CreateUserRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CreateUser", data);
         return promise.then((data) => base_1.CreateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     UpdateUser(request) {
-        const data = exports.User.encode(request).finish();
+        const data = exports.UpdateUserRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "UpdateUser", data);
         return promise.then((data) => base_1.UpdateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     DeleteUser(request) {
-        const data = exports.GetUserRequest.encode(request).finish();
+        const data = exports.DeleteUserRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DeleteUser", data);
         return promise.then((data) => base_1.DeleteSuccess.decode(new wire_1.BinaryReader(data)));
     }

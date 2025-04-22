@@ -26,10 +26,25 @@ message GetRolesResponse {
   repeated Role data = 2;
 }
 
+message CreateRoleRequest {
+  Role role = 1;
+  string user_id = 2;
+}
+
+message UpdateRoleRequest {
+  Role role = 1;
+  string user_id = 2;
+}
+
+message DeleteRoleRequest {
+  string role_id = 1;
+  string user_id = 2;
+}
+
 service RoleService {
   rpc GetRole (GetRoleRequest) returns (Role) {}
   rpc GetRoles (GetRolesRequest) returns (GetRolesResponse) {}
-  rpc CreateRole (Role) returns (base.v1.CreateSuccess) {}
-  rpc UpdateRole (Role) returns (base.v1.UpdateSuccess) {}
-  rpc DeleteRole (GetRoleRequest) returns (base.v1.DeleteSuccess) {}
+  rpc CreateRole (CreateRoleRequest) returns (base.v1.CreateSuccess) {}
+  rpc UpdateRole (UpdateRoleRequest) returns (base.v1.UpdateSuccess) {}
+  rpc DeleteRole (DeleteRoleRequest) returns (base.v1.DeleteSuccess) {}
 }

@@ -5,33 +5,24 @@
 //   protoc               v5.29.3
 // source: user-role/v1/user-role.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRoleServiceClientImpl = exports.UserRoleServiceServiceName = exports.GetUserRolesResponse = exports.GetUserRolesRequest = exports.GetUserRoleRequest = exports.UserRole = exports.protobufPackage = void 0;
+exports.UserRoleServiceClientImpl = exports.UserRoleServiceServiceName = exports.DeleteUserRoleRequest = exports.UpdateUserRoleRequest = exports.CreateUserRoleRequest = exports.GetUserRolesResponse = exports.GetUserRolesRequest = exports.GetUserRoleRequest = exports.UserRole = exports.protobufPackage = void 0;
 /* eslint-disable */
 const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
 exports.protobufPackage = "user_role.v1";
 function createBaseUserRole() {
-    return { userId: "", username: "", email: "", password: "", phone: "", avatar: "" };
+    return { userRoleId: "", userId: "", roleId: "" };
 }
 exports.UserRole = {
     encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.userRoleId !== "") {
+            writer.uint32(10).string(message.userRoleId);
+        }
         if (message.userId !== "") {
-            writer.uint32(10).string(message.userId);
+            writer.uint32(18).string(message.userId);
         }
-        if (message.username !== "") {
-            writer.uint32(18).string(message.username);
-        }
-        if (message.email !== "") {
-            writer.uint32(26).string(message.email);
-        }
-        if (message.password !== "") {
-            writer.uint32(34).string(message.password);
-        }
-        if (message.phone !== "") {
-            writer.uint32(42).string(message.phone);
-        }
-        if (message.avatar !== "") {
-            writer.uint32(50).string(message.avatar);
+        if (message.roleId !== "") {
+            writer.uint32(26).string(message.roleId);
         }
         return writer;
     },
@@ -46,42 +37,21 @@ exports.UserRole = {
                     if (tag !== 10) {
                         break;
                     }
-                    message.userId = reader.string();
+                    message.userRoleId = reader.string();
                     continue;
                 }
                 case 2: {
                     if (tag !== 18) {
                         break;
                     }
-                    message.username = reader.string();
+                    message.userId = reader.string();
                     continue;
                 }
                 case 3: {
                     if (tag !== 26) {
                         break;
                     }
-                    message.email = reader.string();
-                    continue;
-                }
-                case 4: {
-                    if (tag !== 34) {
-                        break;
-                    }
-                    message.password = reader.string();
-                    continue;
-                }
-                case 5: {
-                    if (tag !== 42) {
-                        break;
-                    }
-                    message.phone = reader.string();
-                    continue;
-                }
-                case 6: {
-                    if (tag !== 50) {
-                        break;
-                    }
-                    message.avatar = reader.string();
+                    message.roleId = reader.string();
                     continue;
                 }
             }
@@ -94,33 +64,21 @@ exports.UserRole = {
     },
     fromJSON(object) {
         return {
+            userRoleId: isSet(object.userRoleId) ? globalThis.String(object.userRoleId) : "",
             userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
-            username: isSet(object.username) ? globalThis.String(object.username) : "",
-            email: isSet(object.email) ? globalThis.String(object.email) : "",
-            password: isSet(object.password) ? globalThis.String(object.password) : "",
-            phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
-            avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
+            roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
         };
     },
     toJSON(message) {
         const obj = {};
+        if (message.userRoleId !== "") {
+            obj.userRoleId = message.userRoleId;
+        }
         if (message.userId !== "") {
             obj.userId = message.userId;
         }
-        if (message.username !== "") {
-            obj.username = message.username;
-        }
-        if (message.email !== "") {
-            obj.email = message.email;
-        }
-        if (message.password !== "") {
-            obj.password = message.password;
-        }
-        if (message.phone !== "") {
-            obj.phone = message.phone;
-        }
-        if (message.avatar !== "") {
-            obj.avatar = message.avatar;
+        if (message.roleId !== "") {
+            obj.roleId = message.roleId;
         }
         return obj;
     },
@@ -129,22 +87,19 @@ exports.UserRole = {
     },
     fromPartial(object) {
         const message = createBaseUserRole();
+        message.userRoleId = object.userRoleId ?? "";
         message.userId = object.userId ?? "";
-        message.username = object.username ?? "";
-        message.email = object.email ?? "";
-        message.password = object.password ?? "";
-        message.phone = object.phone ?? "";
-        message.avatar = object.avatar ?? "";
+        message.roleId = object.roleId ?? "";
         return message;
     },
 };
 function createBaseGetUserRoleRequest() {
-    return { userId: "" };
+    return { userRoleId: "" };
 }
 exports.GetUserRoleRequest = {
     encode(message, writer = new wire_1.BinaryWriter()) {
-        if (message.userId !== "") {
-            writer.uint32(10).string(message.userId);
+        if (message.userRoleId !== "") {
+            writer.uint32(10).string(message.userRoleId);
         }
         return writer;
     },
@@ -159,7 +114,7 @@ exports.GetUserRoleRequest = {
                     if (tag !== 10) {
                         break;
                     }
-                    message.userId = reader.string();
+                    message.userRoleId = reader.string();
                     continue;
                 }
             }
@@ -171,12 +126,12 @@ exports.GetUserRoleRequest = {
         return message;
     },
     fromJSON(object) {
-        return { userId: isSet(object.userId) ? globalThis.String(object.userId) : "" };
+        return { userRoleId: isSet(object.userRoleId) ? globalThis.String(object.userRoleId) : "" };
     },
     toJSON(message) {
         const obj = {};
-        if (message.userId !== "") {
-            obj.userId = message.userId;
+        if (message.userRoleId !== "") {
+            obj.userRoleId = message.userRoleId;
         }
         return obj;
     },
@@ -185,7 +140,7 @@ exports.GetUserRoleRequest = {
     },
     fromPartial(object) {
         const message = createBaseGetUserRoleRequest();
-        message.userId = object.userId ?? "";
+        message.userRoleId = object.userRoleId ?? "";
         return message;
     },
 };
@@ -344,6 +299,214 @@ exports.GetUserRolesResponse = {
         return message;
     },
 };
+function createBaseCreateUserRoleRequest() {
+    return { userRole: undefined, userId: "" };
+}
+exports.CreateUserRoleRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.userRole !== undefined) {
+            exports.UserRole.encode(message.userRole, writer.uint32(10).fork()).join();
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateUserRoleRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.userRole = exports.UserRole.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userRole: isSet(object.userRole) ? exports.UserRole.fromJSON(object.userRole) : undefined,
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.userRole !== undefined) {
+            obj.userRole = exports.UserRole.toJSON(message.userRole);
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateUserRoleRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateUserRoleRequest();
+        message.userRole = (object.userRole !== undefined && object.userRole !== null)
+            ? exports.UserRole.fromPartial(object.userRole)
+            : undefined;
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
+function createBaseUpdateUserRoleRequest() {
+    return { userRole: undefined, userId: "" };
+}
+exports.UpdateUserRoleRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.userRole !== undefined) {
+            exports.UserRole.encode(message.userRole, writer.uint32(10).fork()).join();
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateUserRoleRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.userRole = exports.UserRole.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userRole: isSet(object.userRole) ? exports.UserRole.fromJSON(object.userRole) : undefined,
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.userRole !== undefined) {
+            obj.userRole = exports.UserRole.toJSON(message.userRole);
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateUserRoleRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseUpdateUserRoleRequest();
+        message.userRole = (object.userRole !== undefined && object.userRole !== null)
+            ? exports.UserRole.fromPartial(object.userRole)
+            : undefined;
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
+function createBaseDeleteUserRoleRequest() {
+    return { userRoleId: "", userId: "" };
+}
+exports.DeleteUserRoleRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.userRoleId !== "") {
+            writer.uint32(10).string(message.userRoleId);
+        }
+        if (message.userId !== "") {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseDeleteUserRoleRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.userRoleId = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userRoleId: isSet(object.userRoleId) ? globalThis.String(object.userRoleId) : "",
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.userRoleId !== "") {
+            obj.userRoleId = message.userRoleId;
+        }
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.DeleteUserRoleRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseDeleteUserRoleRequest();
+        message.userRoleId = object.userRoleId ?? "";
+        message.userId = object.userId ?? "";
+        return message;
+    },
+};
 exports.UserRoleServiceServiceName = "user_role.v1.UserRoleService";
 class UserRoleServiceClientImpl {
     constructor(rpc, opts) {
@@ -366,17 +529,17 @@ class UserRoleServiceClientImpl {
         return promise.then((data) => exports.GetUserRolesRequest.decode(new wire_1.BinaryReader(data)));
     }
     CreateUserRole(request) {
-        const data = exports.UserRole.encode(request).finish();
+        const data = exports.CreateUserRoleRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CreateUserRole", data);
         return promise.then((data) => base_1.CreateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     UpdateUserRole(request) {
-        const data = exports.UserRole.encode(request).finish();
+        const data = exports.UpdateUserRoleRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "UpdateUserRole", data);
         return promise.then((data) => base_1.UpdateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     DeleteUserRole(request) {
-        const data = exports.GetUserRoleRequest.encode(request).finish();
+        const data = exports.DeleteUserRoleRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DeleteUserRole", data);
         return promise.then((data) => base_1.DeleteSuccess.decode(new wire_1.BinaryReader(data)));
     }

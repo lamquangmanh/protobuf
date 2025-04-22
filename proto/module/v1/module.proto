@@ -25,10 +25,25 @@ message GetModulesResponse {
   repeated Module data = 2;
 }
 
+message CreateModuleRequest {
+  Module module = 1;
+  string user_id = 2;
+}
+
+message UpdateModuleRequest {
+  Module module = 1;
+  string user_id = 2;
+}
+
+message DeleteModuleRequest {
+  string module_id = 1;
+  string user_id = 2;
+}
+
 service ModuleService {
   rpc GetModule (GetModuleRequest) returns (Module) {}
   rpc GetModules (GetModulesRequest) returns (GetModulesResponse) {}
-  rpc CreateModule (Module) returns (base.v1.CreateSuccess) {}
-  rpc UpdateModule (Module) returns (base.v1.UpdateSuccess) {}
-  rpc DeleteModule (GetModuleRequest) returns (base.v1.DeleteSuccess) {}
+  rpc CreateModule (CreateModuleRequest) returns (base.v1.CreateSuccess) {}
+  rpc UpdateModule (UpdateModuleRequest) returns (base.v1.UpdateSuccess) {}
+  rpc DeleteModule (DeleteModuleRequest) returns (base.v1.DeleteSuccess) {}
 }

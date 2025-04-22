@@ -32,16 +32,31 @@ export interface GetActionsResponse {
     pagination: PaginationResponse | undefined;
     data: Action[];
 }
+export interface CreateActionRequest {
+    action: Action | undefined;
+    userId: string;
+}
+export interface UpdateActionRequest {
+    action: Action | undefined;
+    userId: string;
+}
+export interface DeleteActionRequest {
+    actionId: string;
+    userId: string;
+}
 export declare const Action: MessageFns<Action>;
 export declare const GetActionRequest: MessageFns<GetActionRequest>;
 export declare const GetActionsRequest: MessageFns<GetActionsRequest>;
 export declare const GetActionsResponse: MessageFns<GetActionsResponse>;
+export declare const CreateActionRequest: MessageFns<CreateActionRequest>;
+export declare const UpdateActionRequest: MessageFns<UpdateActionRequest>;
+export declare const DeleteActionRequest: MessageFns<DeleteActionRequest>;
 export interface ActionService {
     GetAction(request: GetActionRequest): Promise<Action>;
     GetActions(request: GetActionsRequest): Promise<GetActionsResponse>;
-    CreateAction(request: Action): Promise<CreateSuccess>;
-    UpdateAction(request: Action): Promise<UpdateSuccess>;
-    DeleteAction(request: GetActionRequest): Promise<DeleteSuccess>;
+    CreateAction(request: CreateActionRequest): Promise<CreateSuccess>;
+    UpdateAction(request: UpdateActionRequest): Promise<UpdateSuccess>;
+    DeleteAction(request: DeleteActionRequest): Promise<DeleteSuccess>;
 }
 export declare const ActionServiceServiceName = "action.v1.ActionService";
 export declare class ActionServiceClientImpl implements ActionService {
@@ -52,9 +67,9 @@ export declare class ActionServiceClientImpl implements ActionService {
     });
     GetAction(request: GetActionRequest): Promise<Action>;
     GetActions(request: GetActionsRequest): Promise<GetActionsResponse>;
-    CreateAction(request: Action): Promise<CreateSuccess>;
-    UpdateAction(request: Action): Promise<UpdateSuccess>;
-    DeleteAction(request: GetActionRequest): Promise<DeleteSuccess>;
+    CreateAction(request: CreateActionRequest): Promise<CreateSuccess>;
+    UpdateAction(request: UpdateActionRequest): Promise<UpdateSuccess>;
+    DeleteAction(request: DeleteActionRequest): Promise<DeleteSuccess>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
