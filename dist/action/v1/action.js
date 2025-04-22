@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: action/v1/action.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActionServiceClientImpl = exports.ActionServiceServiceName = exports.DeleteActionRequest = exports.UpdateActionRequest = exports.CreateActionRequest = exports.GetActionsResponse = exports.GetActionsRequest = exports.GetActionRequest = exports.CreateActionData = exports.Action = exports.ActionRequestType = exports.protobufPackage = void 0;
+exports.ActionServiceClientImpl = exports.ActionServiceServiceName = exports.CreateSuccess = exports.DeleteActionRequest = exports.UpdateActionRequest = exports.CreateActionRequest = exports.GetActionsResponse = exports.GetActionsRequest = exports.GetActionRequest = exports.CreateActionData = exports.Action = exports.ActionRequestType = exports.protobufPackage = void 0;
 exports.actionRequestTypeFromJSON = actionRequestTypeFromJSON;
 exports.actionRequestTypeToJSON = actionRequestTypeToJSON;
 /* eslint-disable */
@@ -746,6 +746,78 @@ exports.DeleteActionRequest = {
         return message;
     },
 };
+function createBaseCreateSuccess() {
+    return { action: undefined, error: undefined };
+}
+exports.CreateSuccess = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.action !== undefined) {
+            exports.Action.encode(message.action, writer.uint32(10).fork()).join();
+        }
+        if (message.error !== undefined) {
+            base_1.ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateSuccess();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.action = exports.Action.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.error = base_1.ErrorResponse.decode(reader, reader.uint32());
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            action: isSet(object.action) ? exports.Action.fromJSON(object.action) : undefined,
+            error: isSet(object.error) ? base_1.ErrorResponse.fromJSON(object.error) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.action !== undefined) {
+            obj.action = exports.Action.toJSON(message.action);
+        }
+        if (message.error !== undefined) {
+            obj.error = base_1.ErrorResponse.toJSON(message.error);
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateSuccess.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateSuccess();
+        message.action = (object.action !== undefined && object.action !== null)
+            ? exports.Action.fromPartial(object.action)
+            : undefined;
+        message.error = (object.error !== undefined && object.error !== null)
+            ? base_1.ErrorResponse.fromPartial(object.error)
+            : undefined;
+        return message;
+    },
+};
 exports.ActionServiceServiceName = "action.v1.ActionService";
 class ActionServiceClientImpl {
     constructor(rpc, opts) {
@@ -770,7 +842,7 @@ class ActionServiceClientImpl {
     CreateAction(request) {
         const data = exports.CreateActionRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CreateAction", data);
-        return promise.then((data) => base_1.CreateSuccess.decode(new wire_1.BinaryReader(data)));
+        return promise.then((data) => exports.CreateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     UpdateAction(request) {
         const data = exports.UpdateActionRequest.encode(request).finish();

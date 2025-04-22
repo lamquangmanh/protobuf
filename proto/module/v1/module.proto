@@ -45,10 +45,17 @@ message DeleteModuleRequest {
   string user_id = 2;
 }
 
+message CreateSuccess {
+  oneof result {
+    Module module = 1;
+    base.v1.ErrorResponse error = 2;
+  }
+}
+
 service ModuleService {
   rpc GetModule (GetModuleRequest) returns (Module) {}
   rpc GetModules (GetModulesRequest) returns (GetModulesResponse) {}
-  rpc CreateModule (CreateModuleRequest) returns (base.v1.CreateSuccess) {}
+  rpc CreateModule (CreateModuleRequest) returns (CreateSuccess) {}
   rpc UpdateModule (UpdateModuleRequest) returns (base.v1.UpdateSuccess) {}
   rpc DeleteModule (DeleteModuleRequest) returns (base.v1.DeleteSuccess) {}
 }

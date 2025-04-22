@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { CreateSuccess, DeleteSuccess, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
+import { DeleteSuccess, ErrorResponse, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
 export declare const protobufPackage = "role.v1";
 export interface Role {
     roleId: string;
@@ -36,6 +36,10 @@ export interface DeleteRoleRequest {
     roleId: string;
     userId: string;
 }
+export interface CreateSuccess {
+    role?: Role | undefined;
+    error?: ErrorResponse | undefined;
+}
 export declare const Role: MessageFns<Role>;
 export declare const CreateRoleData: MessageFns<CreateRoleData>;
 export declare const GetRoleRequest: MessageFns<GetRoleRequest>;
@@ -44,6 +48,7 @@ export declare const GetRolesResponse: MessageFns<GetRolesResponse>;
 export declare const CreateRoleRequest: MessageFns<CreateRoleRequest>;
 export declare const UpdateRoleRequest: MessageFns<UpdateRoleRequest>;
 export declare const DeleteRoleRequest: MessageFns<DeleteRoleRequest>;
+export declare const CreateSuccess: MessageFns<CreateSuccess>;
 export interface RoleService {
     GetRole(request: GetRoleRequest): Promise<Role>;
     GetRoles(request: GetRolesRequest): Promise<GetRolesResponse>;

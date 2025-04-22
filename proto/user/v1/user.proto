@@ -59,10 +59,17 @@ message DeleteUserRequest {
   string deleted_user_id = 2;
 }
 
+message CreateSuccess {
+  oneof result {
+    User user = 1;
+    base.v1.ErrorResponse error = 2;
+  }
+}
+
 service UserService {
   rpc GetUser (GetUserRequest) returns (User) {}
   rpc GetUsers (GetUsersRequest) returns (GetUsersResponse) {}
-  rpc CreateUser (CreateUserRequest) returns (base.v1.CreateSuccess) {}
+  rpc CreateUser (CreateUserRequest) returns (CreateSuccess) {}
   rpc UpdateUser (UpdateUserRequest) returns (base.v1.UpdateSuccess) {}
   rpc DeleteUser (DeleteUserRequest) returns (base.v1.DeleteSuccess) {}
 }

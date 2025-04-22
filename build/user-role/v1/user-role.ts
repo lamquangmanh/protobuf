@@ -7,8 +7,8 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 import {
-  CreateSuccess,
   DeleteSuccess,
+  ErrorResponse,
   Filter,
   PaginationRequest,
   PaginationResponse,
@@ -57,6 +57,11 @@ export interface UpdateUserRoleRequest {
 export interface DeleteUserRoleRequest {
   userRoleId: string;
   userId: string;
+}
+
+export interface CreateSuccess {
+  userRole?: UserRole | undefined;
+  error?: ErrorResponse | undefined;
 }
 
 function createBaseUserRole(): UserRole {
@@ -685,6 +690,86 @@ export const DeleteUserRoleRequest: MessageFns<DeleteUserRoleRequest> = {
     const message = createBaseDeleteUserRoleRequest();
     message.userRoleId = object.userRoleId ?? "";
     message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
+function createBaseCreateSuccess(): CreateSuccess {
+  return { userRole: undefined, error: undefined };
+}
+
+export const CreateSuccess: MessageFns<CreateSuccess> = {
+  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.userRole !== undefined) {
+      UserRole.encode(message.userRole, writer.uint32(10).fork()).join();
+    }
+    if (message.error !== undefined) {
+      ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateSuccess();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.userRole = UserRole.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.error = ErrorResponse.decode(reader, reader.uint32());
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateSuccess {
+    return {
+      userRole: isSet(object.userRole) ? UserRole.fromJSON(object.userRole) : undefined,
+      error: isSet(object.error) ? ErrorResponse.fromJSON(object.error) : undefined,
+    };
+  },
+
+  toJSON(message: CreateSuccess): unknown {
+    const obj: any = {};
+    if (message.userRole !== undefined) {
+      obj.userRole = UserRole.toJSON(message.userRole);
+    }
+    if (message.error !== undefined) {
+      obj.error = ErrorResponse.toJSON(message.error);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
+    return CreateSuccess.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
+    const message = createBaseCreateSuccess();
+    message.userRole = (object.userRole !== undefined && object.userRole !== null)
+      ? UserRole.fromPartial(object.userRole)
+      : undefined;
+    message.error = (object.error !== undefined && object.error !== null)
+      ? ErrorResponse.fromPartial(object.error)
+      : undefined;
     return message;
   },
 };

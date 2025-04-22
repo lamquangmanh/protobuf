@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { CreateSuccess, DeleteSuccess, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
+import { DeleteSuccess, ErrorResponse, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
 export declare const protobufPackage = "action.v1";
 export declare enum ActionRequestType {
     VIEW = 0,
@@ -52,6 +52,10 @@ export interface DeleteActionRequest {
     actionId: string;
     userId: string;
 }
+export interface CreateSuccess {
+    action?: Action | undefined;
+    error?: ErrorResponse | undefined;
+}
 export declare const Action: MessageFns<Action>;
 export declare const CreateActionData: MessageFns<CreateActionData>;
 export declare const GetActionRequest: MessageFns<GetActionRequest>;
@@ -60,6 +64,7 @@ export declare const GetActionsResponse: MessageFns<GetActionsResponse>;
 export declare const CreateActionRequest: MessageFns<CreateActionRequest>;
 export declare const UpdateActionRequest: MessageFns<UpdateActionRequest>;
 export declare const DeleteActionRequest: MessageFns<DeleteActionRequest>;
+export declare const CreateSuccess: MessageFns<CreateSuccess>;
 export interface ActionService {
     GetAction(request: GetActionRequest): Promise<Action>;
     GetActions(request: GetActionsRequest): Promise<GetActionsResponse>;

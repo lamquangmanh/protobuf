@@ -45,10 +45,17 @@ message DeleteUserRoleRequest {
   string user_id = 2;
 }
 
+message CreateSuccess {
+  oneof result {
+    UserRole user_role = 1;
+    base.v1.ErrorResponse error = 2;
+  }
+}
+
 service UserRoleService {
   rpc GetUserRole (GetUserRoleRequest) returns (UserRole) {}
   rpc GetUserRoles (GetUserRolesRequest) returns (GetUserRolesRequest) {}
-  rpc CreateUserRole (CreateUserRoleRequest) returns (base.v1.CreateSuccess) {}
+  rpc CreateUserRole (CreateUserRoleRequest) returns (CreateSuccess) {}
   rpc UpdateUserRole (UpdateUserRoleRequest) returns (base.v1.UpdateSuccess) {}
   rpc DeleteUserRole (DeleteUserRoleRequest) returns (base.v1.DeleteSuccess) {}
 }

@@ -7,8 +7,8 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 import {
-  CreateSuccess,
   DeleteSuccess,
+  ErrorResponse,
   Filter,
   PaginationRequest,
   PaginationResponse,
@@ -104,6 +104,11 @@ export interface UpdateUserRequest {
 export interface DeleteUserRequest {
   userId: string;
   deletedUserId: string;
+}
+
+export interface CreateSuccess {
+  user?: User | undefined;
+  error?: ErrorResponse | undefined;
 }
 
 function createBaseUser(): User {
@@ -858,6 +863,84 @@ export const DeleteUserRequest: MessageFns<DeleteUserRequest> = {
     const message = createBaseDeleteUserRequest();
     message.userId = object.userId ?? "";
     message.deletedUserId = object.deletedUserId ?? "";
+    return message;
+  },
+};
+
+function createBaseCreateSuccess(): CreateSuccess {
+  return { user: undefined, error: undefined };
+}
+
+export const CreateSuccess: MessageFns<CreateSuccess> = {
+  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.user !== undefined) {
+      User.encode(message.user, writer.uint32(10).fork()).join();
+    }
+    if (message.error !== undefined) {
+      ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateSuccess();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.user = User.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.error = ErrorResponse.decode(reader, reader.uint32());
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateSuccess {
+    return {
+      user: isSet(object.user) ? User.fromJSON(object.user) : undefined,
+      error: isSet(object.error) ? ErrorResponse.fromJSON(object.error) : undefined,
+    };
+  },
+
+  toJSON(message: CreateSuccess): unknown {
+    const obj: any = {};
+    if (message.user !== undefined) {
+      obj.user = User.toJSON(message.user);
+    }
+    if (message.error !== undefined) {
+      obj.error = ErrorResponse.toJSON(message.error);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
+    return CreateSuccess.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
+    const message = createBaseCreateSuccess();
+    message.user = (object.user !== undefined && object.user !== null) ? User.fromPartial(object.user) : undefined;
+    message.error = (object.error !== undefined && object.error !== null)
+      ? ErrorResponse.fromPartial(object.error)
+      : undefined;
     return message;
   },
 };

@@ -46,33 +46,33 @@ export interface Filter {
     field: string;
     /** "eq", "ne", "gt", "lt", "gte", "lte", "like", "in", "nin" */
     operator: FilterOperator;
-    /**
-     * oneof value {
-     *   string string_value = 3;
-     *   int32 int_value = 4;
-     *   double double_value = 5;
-     *   bool bool_value = 6;
-     *   google.protobuf.Timestamp timestamp_value = 7;
-     *   repeated string array_string_value = 8;
-     *   repeated int32 array_int_value = 9;
-     *   repeated double array_double_value = 10;
-     * }
-     */
     value: Any | undefined;
 }
+export interface ErrorResponse {
+    code: number;
+    message: string;
+    /** dynamic key-value object */
+    extra: {
+        [key: string]: any;
+    } | undefined;
+}
 export interface CreateSuccess {
-    success: boolean;
+    success?: boolean | undefined;
+    error?: ErrorResponse | undefined;
 }
 export interface UpdateSuccess {
-    success: boolean;
+    success?: boolean | undefined;
+    error?: ErrorResponse | undefined;
 }
 export interface DeleteSuccess {
-    success: boolean;
+    success?: boolean | undefined;
+    error?: ErrorResponse | undefined;
 }
 export declare const PaginationRequest: MessageFns<PaginationRequest>;
 export declare const PaginationResponse: MessageFns<PaginationResponse>;
 export declare const Sort: MessageFns<Sort>;
 export declare const Filter: MessageFns<Filter>;
+export declare const ErrorResponse: MessageFns<ErrorResponse>;
 export declare const CreateSuccess: MessageFns<CreateSuccess>;
 export declare const UpdateSuccess: MessageFns<UpdateSuccess>;
 export declare const DeleteSuccess: MessageFns<DeleteSuccess>;

@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { CreateSuccess, DeleteSuccess, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
+import { DeleteSuccess, ErrorResponse, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
 export declare const protobufPackage = "permission.v1";
 export interface Permission {
     permissionId: string;
@@ -36,6 +36,10 @@ export interface DeletePermissionRequest {
     permissionId: string;
     userId: string;
 }
+export interface CreateSuccess {
+    permission?: Permission | undefined;
+    error?: ErrorResponse | undefined;
+}
 export declare const Permission: MessageFns<Permission>;
 export declare const CreatePermissionData: MessageFns<CreatePermissionData>;
 export declare const GetPermissionRequest: MessageFns<GetPermissionRequest>;
@@ -44,6 +48,7 @@ export declare const GetPermissionsResponse: MessageFns<GetPermissionsResponse>;
 export declare const CreatePermissionRequest: MessageFns<CreatePermissionRequest>;
 export declare const UpdatePermissionRequest: MessageFns<UpdatePermissionRequest>;
 export declare const DeletePermissionRequest: MessageFns<DeletePermissionRequest>;
+export declare const CreateSuccess: MessageFns<CreateSuccess>;
 export interface PermissionService {
     GetPermission(request: GetPermissionRequest): Promise<Permission>;
     GetPermissions(request: GetPermissionsRequest): Promise<GetPermissionsResponse>;

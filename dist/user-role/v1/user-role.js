@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: user-role/v1/user-role.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRoleServiceClientImpl = exports.UserRoleServiceServiceName = exports.DeleteUserRoleRequest = exports.UpdateUserRoleRequest = exports.CreateUserRoleRequest = exports.GetUserRolesResponse = exports.GetUserRolesRequest = exports.GetUserRoleRequest = exports.CreateUserRoleData = exports.UserRole = exports.protobufPackage = void 0;
+exports.UserRoleServiceClientImpl = exports.UserRoleServiceServiceName = exports.CreateSuccess = exports.DeleteUserRoleRequest = exports.UpdateUserRoleRequest = exports.CreateUserRoleRequest = exports.GetUserRolesResponse = exports.GetUserRolesRequest = exports.GetUserRoleRequest = exports.CreateUserRoleData = exports.UserRole = exports.protobufPackage = void 0;
 /* eslint-disable */
 const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
@@ -575,6 +575,78 @@ exports.DeleteUserRoleRequest = {
         return message;
     },
 };
+function createBaseCreateSuccess() {
+    return { userRole: undefined, error: undefined };
+}
+exports.CreateSuccess = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.userRole !== undefined) {
+            exports.UserRole.encode(message.userRole, writer.uint32(10).fork()).join();
+        }
+        if (message.error !== undefined) {
+            base_1.ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateSuccess();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.userRole = exports.UserRole.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.error = base_1.ErrorResponse.decode(reader, reader.uint32());
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userRole: isSet(object.userRole) ? exports.UserRole.fromJSON(object.userRole) : undefined,
+            error: isSet(object.error) ? base_1.ErrorResponse.fromJSON(object.error) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.userRole !== undefined) {
+            obj.userRole = exports.UserRole.toJSON(message.userRole);
+        }
+        if (message.error !== undefined) {
+            obj.error = base_1.ErrorResponse.toJSON(message.error);
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateSuccess.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateSuccess();
+        message.userRole = (object.userRole !== undefined && object.userRole !== null)
+            ? exports.UserRole.fromPartial(object.userRole)
+            : undefined;
+        message.error = (object.error !== undefined && object.error !== null)
+            ? base_1.ErrorResponse.fromPartial(object.error)
+            : undefined;
+        return message;
+    },
+};
 exports.UserRoleServiceServiceName = "user_role.v1.UserRoleService";
 class UserRoleServiceClientImpl {
     constructor(rpc, opts) {
@@ -599,7 +671,7 @@ class UserRoleServiceClientImpl {
     CreateUserRole(request) {
         const data = exports.CreateUserRoleRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CreateUserRole", data);
-        return promise.then((data) => base_1.CreateSuccess.decode(new wire_1.BinaryReader(data)));
+        return promise.then((data) => exports.CreateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     UpdateUserRole(request) {
         const data = exports.UpdateUserRoleRequest.encode(request).finish();

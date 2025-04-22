@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { CreateSuccess, DeleteSuccess, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
+import { DeleteSuccess, ErrorResponse, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
 export declare const protobufPackage = "user.v1";
 export declare enum UserStatus {
     ACTIVE = 0,
@@ -50,6 +50,10 @@ export interface DeleteUserRequest {
     userId: string;
     deletedUserId: string;
 }
+export interface CreateSuccess {
+    user?: User | undefined;
+    error?: ErrorResponse | undefined;
+}
 export declare const User: MessageFns<User>;
 export declare const CreateUserData: MessageFns<CreateUserData>;
 export declare const GetUserRequest: MessageFns<GetUserRequest>;
@@ -58,6 +62,7 @@ export declare const GetUsersResponse: MessageFns<GetUsersResponse>;
 export declare const CreateUserRequest: MessageFns<CreateUserRequest>;
 export declare const UpdateUserRequest: MessageFns<UpdateUserRequest>;
 export declare const DeleteUserRequest: MessageFns<DeleteUserRequest>;
+export declare const CreateSuccess: MessageFns<CreateSuccess>;
 export interface UserService {
     GetUser(request: GetUserRequest): Promise<User>;
     GetUsers(request: GetUsersRequest): Promise<GetUsersResponse>;

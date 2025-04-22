@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: permission/v1/permission.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PermissionServiceClientImpl = exports.PermissionServiceServiceName = exports.DeletePermissionRequest = exports.UpdatePermissionRequest = exports.CreatePermissionRequest = exports.GetPermissionsResponse = exports.GetPermissionsRequest = exports.GetPermissionRequest = exports.CreatePermissionData = exports.Permission = exports.protobufPackage = void 0;
+exports.PermissionServiceClientImpl = exports.PermissionServiceServiceName = exports.CreateSuccess = exports.DeletePermissionRequest = exports.UpdatePermissionRequest = exports.CreatePermissionRequest = exports.GetPermissionsResponse = exports.GetPermissionsRequest = exports.GetPermissionRequest = exports.CreatePermissionData = exports.Permission = exports.protobufPackage = void 0;
 /* eslint-disable */
 const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
@@ -605,6 +605,78 @@ exports.DeletePermissionRequest = {
         return message;
     },
 };
+function createBaseCreateSuccess() {
+    return { permission: undefined, error: undefined };
+}
+exports.CreateSuccess = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.permission !== undefined) {
+            exports.Permission.encode(message.permission, writer.uint32(10).fork()).join();
+        }
+        if (message.error !== undefined) {
+            base_1.ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateSuccess();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.permission = exports.Permission.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.error = base_1.ErrorResponse.decode(reader, reader.uint32());
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            permission: isSet(object.permission) ? exports.Permission.fromJSON(object.permission) : undefined,
+            error: isSet(object.error) ? base_1.ErrorResponse.fromJSON(object.error) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.permission !== undefined) {
+            obj.permission = exports.Permission.toJSON(message.permission);
+        }
+        if (message.error !== undefined) {
+            obj.error = base_1.ErrorResponse.toJSON(message.error);
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateSuccess.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateSuccess();
+        message.permission = (object.permission !== undefined && object.permission !== null)
+            ? exports.Permission.fromPartial(object.permission)
+            : undefined;
+        message.error = (object.error !== undefined && object.error !== null)
+            ? base_1.ErrorResponse.fromPartial(object.error)
+            : undefined;
+        return message;
+    },
+};
 exports.PermissionServiceServiceName = "permission.v1.PermissionService";
 class PermissionServiceClientImpl {
     constructor(rpc, opts) {
@@ -629,7 +701,7 @@ class PermissionServiceClientImpl {
     CreatePermission(request) {
         const data = exports.CreatePermissionRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CreatePermission", data);
-        return promise.then((data) => base_1.CreateSuccess.decode(new wire_1.BinaryReader(data)));
+        return promise.then((data) => exports.CreateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     UpdatePermission(request) {
         const data = exports.UpdatePermissionRequest.encode(request).finish();

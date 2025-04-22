@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { CreateSuccess, DeleteSuccess, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
+import { DeleteSuccess, ErrorResponse, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
 export declare const protobufPackage = "module.v1";
 export interface Module {
     moduleId: string;
@@ -34,6 +34,10 @@ export interface DeleteModuleRequest {
     moduleId: string;
     userId: string;
 }
+export interface CreateSuccess {
+    module?: Module | undefined;
+    error?: ErrorResponse | undefined;
+}
 export declare const Module: MessageFns<Module>;
 export declare const CreateModuleData: MessageFns<CreateModuleData>;
 export declare const GetModuleRequest: MessageFns<GetModuleRequest>;
@@ -42,6 +46,7 @@ export declare const GetModulesResponse: MessageFns<GetModulesResponse>;
 export declare const CreateModuleRequest: MessageFns<CreateModuleRequest>;
 export declare const UpdateModuleRequest: MessageFns<UpdateModuleRequest>;
 export declare const DeleteModuleRequest: MessageFns<DeleteModuleRequest>;
+export declare const CreateSuccess: MessageFns<CreateSuccess>;
 export interface ModuleService {
     GetModule(request: GetModuleRequest): Promise<Module>;
     GetModules(request: GetModulesRequest): Promise<GetModulesResponse>;

@@ -7,6 +7,7 @@
     - [Action](#action-v1-Action)
     - [CreateActionData](#action-v1-CreateActionData)
     - [CreateActionRequest](#action-v1-CreateActionRequest)
+    - [CreateSuccess](#action-v1-CreateSuccess)
     - [DeleteActionRequest](#action-v1-DeleteActionRequest)
     - [GetActionRequest](#action-v1-GetActionRequest)
     - [GetActionsRequest](#action-v1-GetActionsRequest)
@@ -20,6 +21,7 @@
 - [base/v1/base.proto](#base_v1_base-proto)
     - [CreateSuccess](#base-v1-CreateSuccess)
     - [DeleteSuccess](#base-v1-DeleteSuccess)
+    - [ErrorResponse](#base-v1-ErrorResponse)
     - [Filter](#base-v1-Filter)
     - [PaginationRequest](#base-v1-PaginationRequest)
     - [PaginationResponse](#base-v1-PaginationResponse)
@@ -32,6 +34,7 @@
 - [module/v1/module.proto](#module_v1_module-proto)
     - [CreateModuleData](#module-v1-CreateModuleData)
     - [CreateModuleRequest](#module-v1-CreateModuleRequest)
+    - [CreateSuccess](#module-v1-CreateSuccess)
     - [DeleteModuleRequest](#module-v1-DeleteModuleRequest)
     - [GetModuleRequest](#module-v1-GetModuleRequest)
     - [GetModulesRequest](#module-v1-GetModulesRequest)
@@ -44,6 +47,7 @@
 - [permission/v1/permission.proto](#permission_v1_permission-proto)
     - [CreatePermissionData](#permission-v1-CreatePermissionData)
     - [CreatePermissionRequest](#permission-v1-CreatePermissionRequest)
+    - [CreateSuccess](#permission-v1-CreateSuccess)
     - [DeletePermissionRequest](#permission-v1-DeletePermissionRequest)
     - [GetPermissionRequest](#permission-v1-GetPermissionRequest)
     - [GetPermissionsRequest](#permission-v1-GetPermissionsRequest)
@@ -56,6 +60,7 @@
 - [resource/v1/resource.proto](#resource_v1_resource-proto)
     - [CreateResourceData](#resource-v1-CreateResourceData)
     - [CreateResourceRequest](#resource-v1-CreateResourceRequest)
+    - [CreateSuccess](#resource-v1-CreateSuccess)
     - [DeleteResourceRequest](#resource-v1-DeleteResourceRequest)
     - [GetResourceRequest](#resource-v1-GetResourceRequest)
     - [GetResourcesRequest](#resource-v1-GetResourcesRequest)
@@ -68,6 +73,7 @@
 - [role/v1/role.proto](#role_v1_role-proto)
     - [CreateRoleData](#role-v1-CreateRoleData)
     - [CreateRoleRequest](#role-v1-CreateRoleRequest)
+    - [CreateSuccess](#role-v1-CreateSuccess)
     - [DeleteRoleRequest](#role-v1-DeleteRoleRequest)
     - [GetRoleRequest](#role-v1-GetRoleRequest)
     - [GetRolesRequest](#role-v1-GetRolesRequest)
@@ -78,6 +84,7 @@
     - [RoleService](#role-v1-RoleService)
   
 - [user-role/v1/user-role.proto](#user-role_v1_user-role-proto)
+    - [CreateSuccess](#user_role-v1-CreateSuccess)
     - [CreateUserRoleData](#user_role-v1-CreateUserRoleData)
     - [CreateUserRoleRequest](#user_role-v1-CreateUserRoleRequest)
     - [DeleteUserRoleRequest](#user_role-v1-DeleteUserRoleRequest)
@@ -90,6 +97,7 @@
     - [UserRoleService](#user_role-v1-UserRoleService)
   
 - [user/v1/user.proto](#user_v1_user-proto)
+    - [CreateSuccess](#user-v1-CreateSuccess)
     - [CreateUserData](#user-v1-CreateUserData)
     - [CreateUserRequest](#user-v1-CreateUserRequest)
     - [DeleteUserRequest](#user-v1-DeleteUserRequest)
@@ -165,6 +173,22 @@
 | ----- | ---- | ----- | ----------- |
 | action | [CreateActionData](#action-v1-CreateActionData) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="action-v1-CreateSuccess"></a>
+
+### CreateSuccess
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| action | [Action](#action-v1-Action) |  |  |
+| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
 
 
 
@@ -281,7 +305,7 @@
 | ----------- | ------------ | ------------- | ------------|
 | GetAction | [GetActionRequest](#action-v1-GetActionRequest) | [Action](#action-v1-Action) |  |
 | GetActions | [GetActionsRequest](#action-v1-GetActionsRequest) | [GetActionsResponse](#action-v1-GetActionsResponse) |  |
-| CreateAction | [CreateActionRequest](#action-v1-CreateActionRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| CreateAction | [CreateActionRequest](#action-v1-CreateActionRequest) | [CreateSuccess](#action-v1-CreateSuccess) |  |
 | UpdateAction | [UpdateActionRequest](#action-v1-UpdateActionRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeleteAction | [DeleteActionRequest](#action-v1-DeleteActionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
@@ -305,6 +329,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | success | [bool](#bool) |  |  |
+| error | [ErrorResponse](#base-v1-ErrorResponse) |  |  |
 
 
 
@@ -320,6 +345,24 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | success | [bool](#bool) |  |  |
+| error | [ErrorResponse](#base-v1-ErrorResponse) |  |  |
+
+
+
+
+
+
+<a name="base-v1-ErrorResponse"></a>
+
+### ErrorResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| code | [int32](#int32) |  |  |
+| message | [string](#string) |  |  |
+| extra | [google.protobuf.Struct](#google-protobuf-Struct) |  | dynamic key-value object |
 
 
 
@@ -336,7 +379,7 @@
 | ----- | ---- | ----- | ----------- |
 | field | [string](#string) |  |  |
 | operator | [FilterOperator](#base-v1-FilterOperator) |  | &#34;eq&#34;, &#34;ne&#34;, &#34;gt&#34;, &#34;lt&#34;, &#34;gte&#34;, &#34;lte&#34;, &#34;like&#34;, &#34;in&#34;, &#34;nin&#34; |
-| value | [google.protobuf.Any](#google-protobuf-Any) |  | oneof value { string string_value = 3; int32 int_value = 4; double double_value = 5; bool bool_value = 6; google.protobuf.Timestamp timestamp_value = 7; repeated string array_string_value = 8; repeated int32 array_int_value = 9; repeated double array_double_value = 10; } |
+| value | [google.protobuf.Any](#google-protobuf-Any) |  |  |
 
 
 
@@ -403,6 +446,7 @@ define message
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | success | [bool](#bool) |  |  |
+| error | [ErrorResponse](#base-v1-ErrorResponse) |  |  |
 
 
 
@@ -483,6 +527,22 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | module | [CreateModuleData](#module-v1-CreateModuleData) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="module-v1-CreateSuccess"></a>
+
+### CreateSuccess
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| module | [Module](#module-v1-Module) |  |  |
+| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
 
 
 
@@ -601,7 +661,7 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetModule | [GetModuleRequest](#module-v1-GetModuleRequest) | [Module](#module-v1-Module) |  |
 | GetModules | [GetModulesRequest](#module-v1-GetModulesRequest) | [GetModulesResponse](#module-v1-GetModulesResponse) |  |
-| CreateModule | [CreateModuleRequest](#module-v1-CreateModuleRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| CreateModule | [CreateModuleRequest](#module-v1-CreateModuleRequest) | [CreateSuccess](#module-v1-CreateSuccess) |  |
 | UpdateModule | [UpdateModuleRequest](#module-v1-UpdateModuleRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeleteModule | [DeleteModuleRequest](#module-v1-DeleteModuleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
@@ -643,6 +703,22 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | permission | [CreatePermissionData](#permission-v1-CreatePermissionData) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="permission-v1-CreateSuccess"></a>
+
+### CreateSuccess
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| permission | [Permission](#permission-v1-Permission) |  |  |
+| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
 
 
 
@@ -762,7 +838,7 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetPermission | [GetPermissionRequest](#permission-v1-GetPermissionRequest) | [Permission](#permission-v1-Permission) |  |
 | GetPermissions | [GetPermissionsRequest](#permission-v1-GetPermissionsRequest) | [GetPermissionsResponse](#permission-v1-GetPermissionsResponse) |  |
-| CreatePermission | [CreatePermissionRequest](#permission-v1-CreatePermissionRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| CreatePermission | [CreatePermissionRequest](#permission-v1-CreatePermissionRequest) | [CreateSuccess](#permission-v1-CreateSuccess) |  |
 | UpdatePermission | [UpdatePermissionRequest](#permission-v1-UpdatePermissionRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeletePermission | [DeletePermissionRequest](#permission-v1-DeletePermissionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
@@ -803,6 +879,22 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | resource | [CreateResourceData](#resource-v1-CreateResourceData) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="resource-v1-CreateSuccess"></a>
+
+### CreateSuccess
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource | [Resource](#resource-v1-Resource) |  |  |
+| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
 
 
 
@@ -921,7 +1013,7 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetResource | [GetResourceRequest](#resource-v1-GetResourceRequest) | [Resource](#resource-v1-Resource) |  |
 | GetResources | [GetResourcesRequest](#resource-v1-GetResourcesRequest) | [GetResourcesResponse](#resource-v1-GetResourcesResponse) |  |
-| CreateResource | [CreateResourceRequest](#resource-v1-CreateResourceRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| CreateResource | [CreateResourceRequest](#resource-v1-CreateResourceRequest) | [CreateSuccess](#resource-v1-CreateSuccess) |  |
 | UpdateResource | [UpdateResourceRequest](#resource-v1-UpdateResourceRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeleteResource | [DeleteResourceRequest](#resource-v1-DeleteResourceRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
@@ -963,6 +1055,22 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | role | [CreateRoleData](#role-v1-CreateRoleData) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="role-v1-CreateSuccess"></a>
+
+### CreateSuccess
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| role | [Role](#role-v1-Role) |  |  |
+| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
 
 
 
@@ -1082,7 +1190,7 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetRole | [GetRoleRequest](#role-v1-GetRoleRequest) | [Role](#role-v1-Role) |  |
 | GetRoles | [GetRolesRequest](#role-v1-GetRolesRequest) | [GetRolesResponse](#role-v1-GetRolesResponse) |  |
-| CreateRole | [CreateRoleRequest](#role-v1-CreateRoleRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| CreateRole | [CreateRoleRequest](#role-v1-CreateRoleRequest) | [CreateSuccess](#role-v1-CreateSuccess) |  |
 | UpdateRole | [UpdateRoleRequest](#role-v1-UpdateRoleRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeleteRole | [DeleteRoleRequest](#role-v1-DeleteRoleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
@@ -1094,6 +1202,22 @@ define enum
 <p align="right"><a href="#top">Top</a></p>
 
 ## user-role/v1/user-role.proto
+
+
+
+<a name="user_role-v1-CreateSuccess"></a>
+
+### CreateSuccess
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role | [UserRole](#user_role-v1-UserRole) |  |  |
+| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+
+
+
 
 
 
@@ -1241,7 +1365,7 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetUserRole | [GetUserRoleRequest](#user_role-v1-GetUserRoleRequest) | [UserRole](#user_role-v1-UserRole) |  |
 | GetUserRoles | [GetUserRolesRequest](#user_role-v1-GetUserRolesRequest) | [GetUserRolesRequest](#user_role-v1-GetUserRolesRequest) |  |
-| CreateUserRole | [CreateUserRoleRequest](#user_role-v1-CreateUserRoleRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| CreateUserRole | [CreateUserRoleRequest](#user_role-v1-CreateUserRoleRequest) | [CreateSuccess](#user_role-v1-CreateSuccess) |  |
 | UpdateUserRole | [UpdateUserRoleRequest](#user_role-v1-UpdateUserRoleRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeleteUserRole | [DeleteUserRoleRequest](#user_role-v1-DeleteUserRoleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
@@ -1253,6 +1377,22 @@ define enum
 <p align="right"><a href="#top">Top</a></p>
 
 ## user/v1/user.proto
+
+
+
+<a name="user-v1-CreateSuccess"></a>
+
+### CreateSuccess
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#user-v1-User) |  |  |
+| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+
+
+
 
 
 
@@ -1421,7 +1561,7 @@ define enum
 | ----------- | ------------ | ------------- | ------------|
 | GetUser | [GetUserRequest](#user-v1-GetUserRequest) | [User](#user-v1-User) |  |
 | GetUsers | [GetUsersRequest](#user-v1-GetUsersRequest) | [GetUsersResponse](#user-v1-GetUsersResponse) |  |
-| CreateUser | [CreateUserRequest](#user-v1-CreateUserRequest) | [.base.v1.CreateSuccess](#base-v1-CreateSuccess) |  |
+| CreateUser | [CreateUserRequest](#user-v1-CreateUserRequest) | [CreateSuccess](#user-v1-CreateSuccess) |  |
 | UpdateUser | [UpdateUserRequest](#user-v1-UpdateUserRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeleteUser | [DeleteUserRequest](#user-v1-DeleteUserRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 

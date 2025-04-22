@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: base/v1/base.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteSuccess = exports.UpdateSuccess = exports.CreateSuccess = exports.Filter = exports.Sort = exports.PaginationResponse = exports.PaginationRequest = exports.SortOrder = exports.FilterOperator = exports.protobufPackage = void 0;
+exports.DeleteSuccess = exports.UpdateSuccess = exports.CreateSuccess = exports.ErrorResponse = exports.Filter = exports.Sort = exports.PaginationResponse = exports.PaginationRequest = exports.SortOrder = exports.FilterOperator = exports.protobufPackage = void 0;
 exports.filterOperatorFromJSON = filterOperatorFromJSON;
 exports.filterOperatorToJSON = filterOperatorToJSON;
 exports.sortOrderFromJSON = sortOrderFromJSON;
@@ -13,6 +13,7 @@ exports.sortOrderToJSON = sortOrderToJSON;
 /* eslint-disable */
 const wire_1 = require("@bufbuild/protobuf/wire");
 const any_1 = require("../../google/protobuf/any");
+const struct_1 = require("../../google/protobuf/struct");
 exports.protobufPackage = "base.v1";
 /** define enum */
 var FilterOperator;
@@ -457,13 +458,99 @@ exports.Filter = {
         return message;
     },
 };
+function createBaseErrorResponse() {
+    return { code: 0, message: "", extra: undefined };
+}
+exports.ErrorResponse = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.code !== 0) {
+            writer.uint32(8).int32(message.code);
+        }
+        if (message.message !== "") {
+            writer.uint32(18).string(message.message);
+        }
+        if (message.extra !== undefined) {
+            struct_1.Struct.encode(struct_1.Struct.wrap(message.extra), writer.uint32(26).fork()).join();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseErrorResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 8) {
+                        break;
+                    }
+                    message.code = reader.int32();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.message = reader.string();
+                    continue;
+                }
+                case 3: {
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.extra = struct_1.Struct.unwrap(struct_1.Struct.decode(reader, reader.uint32()));
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            code: isSet(object.code) ? globalThis.Number(object.code) : 0,
+            message: isSet(object.message) ? globalThis.String(object.message) : "",
+            extra: isObject(object.extra) ? object.extra : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.code !== 0) {
+            obj.code = Math.round(message.code);
+        }
+        if (message.message !== "") {
+            obj.message = message.message;
+        }
+        if (message.extra !== undefined) {
+            obj.extra = message.extra;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.ErrorResponse.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseErrorResponse();
+        message.code = object.code ?? 0;
+        message.message = object.message ?? "";
+        message.extra = object.extra ?? undefined;
+        return message;
+    },
+};
 function createBaseCreateSuccess() {
-    return { success: false };
+    return { success: undefined, error: undefined };
 }
 exports.CreateSuccess = {
     encode(message, writer = new wire_1.BinaryWriter()) {
-        if (message.success !== false) {
+        if (message.success !== undefined) {
             writer.uint32(8).bool(message.success);
+        }
+        if (message.error !== undefined) {
+            exports.ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
         }
         return writer;
     },
@@ -481,6 +568,13 @@ exports.CreateSuccess = {
                     message.success = reader.bool();
                     continue;
                 }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.error = exports.ErrorResponse.decode(reader, reader.uint32());
+                    continue;
+                }
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -490,12 +584,18 @@ exports.CreateSuccess = {
         return message;
     },
     fromJSON(object) {
-        return { success: isSet(object.success) ? globalThis.Boolean(object.success) : false };
+        return {
+            success: isSet(object.success) ? globalThis.Boolean(object.success) : undefined,
+            error: isSet(object.error) ? exports.ErrorResponse.fromJSON(object.error) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
-        if (message.success !== false) {
+        if (message.success !== undefined) {
             obj.success = message.success;
+        }
+        if (message.error !== undefined) {
+            obj.error = exports.ErrorResponse.toJSON(message.error);
         }
         return obj;
     },
@@ -504,17 +604,23 @@ exports.CreateSuccess = {
     },
     fromPartial(object) {
         const message = createBaseCreateSuccess();
-        message.success = object.success ?? false;
+        message.success = object.success ?? undefined;
+        message.error = (object.error !== undefined && object.error !== null)
+            ? exports.ErrorResponse.fromPartial(object.error)
+            : undefined;
         return message;
     },
 };
 function createBaseUpdateSuccess() {
-    return { success: false };
+    return { success: undefined, error: undefined };
 }
 exports.UpdateSuccess = {
     encode(message, writer = new wire_1.BinaryWriter()) {
-        if (message.success !== false) {
+        if (message.success !== undefined) {
             writer.uint32(8).bool(message.success);
+        }
+        if (message.error !== undefined) {
+            exports.ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
         }
         return writer;
     },
@@ -532,6 +638,13 @@ exports.UpdateSuccess = {
                     message.success = reader.bool();
                     continue;
                 }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.error = exports.ErrorResponse.decode(reader, reader.uint32());
+                    continue;
+                }
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -541,12 +654,18 @@ exports.UpdateSuccess = {
         return message;
     },
     fromJSON(object) {
-        return { success: isSet(object.success) ? globalThis.Boolean(object.success) : false };
+        return {
+            success: isSet(object.success) ? globalThis.Boolean(object.success) : undefined,
+            error: isSet(object.error) ? exports.ErrorResponse.fromJSON(object.error) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
-        if (message.success !== false) {
+        if (message.success !== undefined) {
             obj.success = message.success;
+        }
+        if (message.error !== undefined) {
+            obj.error = exports.ErrorResponse.toJSON(message.error);
         }
         return obj;
     },
@@ -555,17 +674,23 @@ exports.UpdateSuccess = {
     },
     fromPartial(object) {
         const message = createBaseUpdateSuccess();
-        message.success = object.success ?? false;
+        message.success = object.success ?? undefined;
+        message.error = (object.error !== undefined && object.error !== null)
+            ? exports.ErrorResponse.fromPartial(object.error)
+            : undefined;
         return message;
     },
 };
 function createBaseDeleteSuccess() {
-    return { success: false };
+    return { success: undefined, error: undefined };
 }
 exports.DeleteSuccess = {
     encode(message, writer = new wire_1.BinaryWriter()) {
-        if (message.success !== false) {
+        if (message.success !== undefined) {
             writer.uint32(8).bool(message.success);
+        }
+        if (message.error !== undefined) {
+            exports.ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
         }
         return writer;
     },
@@ -583,6 +708,13 @@ exports.DeleteSuccess = {
                     message.success = reader.bool();
                     continue;
                 }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.error = exports.ErrorResponse.decode(reader, reader.uint32());
+                    continue;
+                }
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -592,12 +724,18 @@ exports.DeleteSuccess = {
         return message;
     },
     fromJSON(object) {
-        return { success: isSet(object.success) ? globalThis.Boolean(object.success) : false };
+        return {
+            success: isSet(object.success) ? globalThis.Boolean(object.success) : undefined,
+            error: isSet(object.error) ? exports.ErrorResponse.fromJSON(object.error) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
-        if (message.success !== false) {
+        if (message.success !== undefined) {
             obj.success = message.success;
+        }
+        if (message.error !== undefined) {
+            obj.error = exports.ErrorResponse.toJSON(message.error);
         }
         return obj;
     },
@@ -606,10 +744,16 @@ exports.DeleteSuccess = {
     },
     fromPartial(object) {
         const message = createBaseDeleteSuccess();
-        message.success = object.success ?? false;
+        message.success = object.success ?? undefined;
+        message.error = (object.error !== undefined && object.error !== null)
+            ? exports.ErrorResponse.fromPartial(object.error)
+            : undefined;
         return message;
     },
 };
+function isObject(value) {
+    return typeof value === "object" && value !== null;
+}
 function isSet(value) {
     return value !== null && value !== undefined;
 }

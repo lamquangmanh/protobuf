@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: user/v1/user.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserServiceClientImpl = exports.UserServiceServiceName = exports.DeleteUserRequest = exports.UpdateUserRequest = exports.CreateUserRequest = exports.GetUsersResponse = exports.GetUsersRequest = exports.GetUserRequest = exports.CreateUserData = exports.User = exports.UserStatus = exports.protobufPackage = void 0;
+exports.UserServiceClientImpl = exports.UserServiceServiceName = exports.CreateSuccess = exports.DeleteUserRequest = exports.UpdateUserRequest = exports.CreateUserRequest = exports.GetUsersResponse = exports.GetUsersRequest = exports.GetUserRequest = exports.CreateUserData = exports.User = exports.UserStatus = exports.protobufPackage = void 0;
 exports.userStatusFromJSON = userStatusFromJSON;
 exports.userStatusToJSON = userStatusToJSON;
 /* eslint-disable */
@@ -732,6 +732,76 @@ exports.DeleteUserRequest = {
         return message;
     },
 };
+function createBaseCreateSuccess() {
+    return { user: undefined, error: undefined };
+}
+exports.CreateSuccess = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.user !== undefined) {
+            exports.User.encode(message.user, writer.uint32(10).fork()).join();
+        }
+        if (message.error !== undefined) {
+            base_1.ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateSuccess();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.user = exports.User.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.error = base_1.ErrorResponse.decode(reader, reader.uint32());
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            user: isSet(object.user) ? exports.User.fromJSON(object.user) : undefined,
+            error: isSet(object.error) ? base_1.ErrorResponse.fromJSON(object.error) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.user !== undefined) {
+            obj.user = exports.User.toJSON(message.user);
+        }
+        if (message.error !== undefined) {
+            obj.error = base_1.ErrorResponse.toJSON(message.error);
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateSuccess.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateSuccess();
+        message.user = (object.user !== undefined && object.user !== null) ? exports.User.fromPartial(object.user) : undefined;
+        message.error = (object.error !== undefined && object.error !== null)
+            ? base_1.ErrorResponse.fromPartial(object.error)
+            : undefined;
+        return message;
+    },
+};
 exports.UserServiceServiceName = "user.v1.UserService";
 class UserServiceClientImpl {
     constructor(rpc, opts) {
@@ -756,7 +826,7 @@ class UserServiceClientImpl {
     CreateUser(request) {
         const data = exports.CreateUserRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CreateUser", data);
-        return promise.then((data) => base_1.CreateSuccess.decode(new wire_1.BinaryReader(data)));
+        return promise.then((data) => exports.CreateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     UpdateUser(request) {
         const data = exports.UpdateUserRequest.encode(request).finish();

@@ -45,10 +45,17 @@ message DeleteResourceRequest {
   string user_id = 2;
 }
 
+message CreateSuccess {
+  oneof result {
+    Resource resource = 1;
+    base.v1.ErrorResponse error = 2;
+  }
+}
+
 service ResourceService {
   rpc GetResource (GetResourceRequest) returns (Resource) {}
   rpc GetResources (GetResourcesRequest) returns (GetResourcesResponse) {}
-  rpc CreateResource (CreateResourceRequest) returns (base.v1.CreateSuccess) {}
+  rpc CreateResource (CreateResourceRequest) returns (CreateSuccess) {}
   rpc UpdateResource (UpdateResourceRequest) returns (base.v1.UpdateSuccess) {}
   rpc DeleteResource (DeleteResourceRequest) returns (base.v1.DeleteSuccess) {}
 }

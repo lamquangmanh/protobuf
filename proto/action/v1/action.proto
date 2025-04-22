@@ -61,10 +61,17 @@ message DeleteActionRequest {
   string user_id = 2;
 }
 
+message CreateSuccess {
+  oneof result {
+    Action action = 1;
+    base.v1.ErrorResponse error = 2;
+  }
+}
+
 service ActionService {
   rpc GetAction (GetActionRequest) returns (Action) {}
   rpc GetActions (GetActionsRequest) returns (GetActionsResponse) {}
-  rpc CreateAction (CreateActionRequest) returns (base.v1.CreateSuccess) {}
+  rpc CreateAction (CreateActionRequest) returns (CreateSuccess) {}
   rpc UpdateAction (UpdateActionRequest) returns (base.v1.UpdateSuccess) {}
   rpc DeleteAction (DeleteActionRequest) returns (base.v1.DeleteSuccess) {}
 }

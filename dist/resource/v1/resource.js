@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: resource/v1/resource.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResourceServiceClientImpl = exports.ResourceServiceServiceName = exports.DeleteResourceRequest = exports.UpdateResourceRequest = exports.CreateResourceRequest = exports.GetResourcesResponse = exports.GetResourcesRequest = exports.GetResourceRequest = exports.CreateResourceData = exports.Resource = exports.protobufPackage = void 0;
+exports.ResourceServiceClientImpl = exports.ResourceServiceServiceName = exports.CreateSuccess = exports.DeleteResourceRequest = exports.UpdateResourceRequest = exports.CreateResourceRequest = exports.GetResourcesResponse = exports.GetResourcesRequest = exports.GetResourceRequest = exports.CreateResourceData = exports.Resource = exports.protobufPackage = void 0;
 /* eslint-disable */
 const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
@@ -575,6 +575,78 @@ exports.DeleteResourceRequest = {
         return message;
     },
 };
+function createBaseCreateSuccess() {
+    return { resource: undefined, error: undefined };
+}
+exports.CreateSuccess = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.resource !== undefined) {
+            exports.Resource.encode(message.resource, writer.uint32(10).fork()).join();
+        }
+        if (message.error !== undefined) {
+            base_1.ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateSuccess();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.resource = exports.Resource.decode(reader, reader.uint32());
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.error = base_1.ErrorResponse.decode(reader, reader.uint32());
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            resource: isSet(object.resource) ? exports.Resource.fromJSON(object.resource) : undefined,
+            error: isSet(object.error) ? base_1.ErrorResponse.fromJSON(object.error) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.resource !== undefined) {
+            obj.resource = exports.Resource.toJSON(message.resource);
+        }
+        if (message.error !== undefined) {
+            obj.error = base_1.ErrorResponse.toJSON(message.error);
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateSuccess.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateSuccess();
+        message.resource = (object.resource !== undefined && object.resource !== null)
+            ? exports.Resource.fromPartial(object.resource)
+            : undefined;
+        message.error = (object.error !== undefined && object.error !== null)
+            ? base_1.ErrorResponse.fromPartial(object.error)
+            : undefined;
+        return message;
+    },
+};
 exports.ResourceServiceServiceName = "resource.v1.ResourceService";
 class ResourceServiceClientImpl {
     constructor(rpc, opts) {
@@ -599,7 +671,7 @@ class ResourceServiceClientImpl {
     CreateResource(request) {
         const data = exports.CreateResourceRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CreateResource", data);
-        return promise.then((data) => base_1.CreateSuccess.decode(new wire_1.BinaryReader(data)));
+        return promise.then((data) => exports.CreateSuccess.decode(new wire_1.BinaryReader(data)));
     }
     UpdateResource(request) {
         const data = exports.UpdateResourceRequest.encode(request).finish();
