@@ -6,6 +6,10 @@ export interface Module {
     name: string;
     description: string;
 }
+export interface CreateModuleData {
+    name: string;
+    description: string;
+}
 export interface GetModuleRequest {
     moduleId: string;
 }
@@ -19,7 +23,7 @@ export interface GetModulesResponse {
     data: Module[];
 }
 export interface CreateModuleRequest {
-    module: Module | undefined;
+    module: CreateModuleData | undefined;
     userId: string;
 }
 export interface UpdateModuleRequest {
@@ -31,6 +35,7 @@ export interface DeleteModuleRequest {
     userId: string;
 }
 export declare const Module: MessageFns<Module>;
+export declare const CreateModuleData: MessageFns<CreateModuleData>;
 export declare const GetModuleRequest: MessageFns<GetModuleRequest>;
 export declare const GetModulesRequest: MessageFns<GetModulesRequest>;
 export declare const GetModulesResponse: MessageFns<GetModulesResponse>;

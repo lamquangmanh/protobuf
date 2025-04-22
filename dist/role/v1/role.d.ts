@@ -7,6 +7,11 @@ export interface Role {
     description: string;
     moduleId: string;
 }
+export interface CreateRoleData {
+    name: string;
+    description: string;
+    moduleId: string;
+}
 export interface GetRoleRequest {
     roleId: string;
 }
@@ -20,7 +25,7 @@ export interface GetRolesResponse {
     data: Role[];
 }
 export interface CreateRoleRequest {
-    role: Role | undefined;
+    role: CreateRoleData | undefined;
     userId: string;
 }
 export interface UpdateRoleRequest {
@@ -32,6 +37,7 @@ export interface DeleteRoleRequest {
     userId: string;
 }
 export declare const Role: MessageFns<Role>;
+export declare const CreateRoleData: MessageFns<CreateRoleData>;
 export declare const GetRoleRequest: MessageFns<GetRoleRequest>;
 export declare const GetRolesRequest: MessageFns<GetRolesRequest>;
 export declare const GetRolesResponse: MessageFns<GetRolesResponse>;

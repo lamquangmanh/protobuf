@@ -11,6 +11,12 @@ message Role {
   string module_id = 4;
 }
 
+message CreateRoleData {
+  string name = 1;
+  string description = 2;
+  string module_id = 3;
+}
+
 message GetRoleRequest {
   string role_id = 1;
 }
@@ -27,7 +33,7 @@ message GetRolesResponse {
 }
 
 message CreateRoleRequest {
-  Role role = 1;
+  CreateRoleData role = 1;
   string user_id = 2;
 }
 

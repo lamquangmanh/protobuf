@@ -20,6 +20,15 @@ message User {
   UserStatus status = 7;
 }
 
+message CreateUserData {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+  string phone = 4;
+  string avatar = 5;
+  UserStatus status = 6;
+}
+
 message GetUserRequest {
   string user_id = 1;
 }
@@ -36,7 +45,7 @@ message GetUsersResponse {
 }
 
 message CreateUserRequest {
-  User user = 1;
+  CreateUserData user = 1;
   string user_id = 2;
 }
 

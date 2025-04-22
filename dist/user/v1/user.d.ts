@@ -18,6 +18,14 @@ export interface User {
     avatar: string;
     status: UserStatus;
 }
+export interface CreateUserData {
+    username: string;
+    email: string;
+    password: string;
+    phone: string;
+    avatar: string;
+    status: UserStatus;
+}
 export interface GetUserRequest {
     userId: string;
 }
@@ -31,7 +39,7 @@ export interface GetUsersResponse {
     data: User[];
 }
 export interface CreateUserRequest {
-    user: User | undefined;
+    user: CreateUserData | undefined;
     userId: string;
 }
 export interface UpdateUserRequest {
@@ -43,6 +51,7 @@ export interface DeleteUserRequest {
     deletedUserId: string;
 }
 export declare const User: MessageFns<User>;
+export declare const CreateUserData: MessageFns<CreateUserData>;
 export declare const GetUserRequest: MessageFns<GetUserRequest>;
 export declare const GetUsersRequest: MessageFns<GetUsersRequest>;
 export declare const GetUsersResponse: MessageFns<GetUsersResponse>;

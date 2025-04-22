@@ -7,6 +7,11 @@ export interface Permission {
     resourceId: string;
     actionId: string;
 }
+export interface CreatePermissionData {
+    roleId: string;
+    resourceId: string;
+    actionId: string;
+}
 export interface GetPermissionRequest {
     permissionId: string;
 }
@@ -20,7 +25,7 @@ export interface GetPermissionsResponse {
     data: Permission[];
 }
 export interface CreatePermissionRequest {
-    permission: Permission | undefined;
+    permission: CreatePermissionData | undefined;
     userId: string;
 }
 export interface UpdatePermissionRequest {
@@ -32,6 +37,7 @@ export interface DeletePermissionRequest {
     userId: string;
 }
 export declare const Permission: MessageFns<Permission>;
+export declare const CreatePermissionData: MessageFns<CreatePermissionData>;
 export declare const GetPermissionRequest: MessageFns<GetPermissionRequest>;
 export declare const GetPermissionsRequest: MessageFns<GetPermissionsRequest>;
 export declare const GetPermissionsResponse: MessageFns<GetPermissionsResponse>;

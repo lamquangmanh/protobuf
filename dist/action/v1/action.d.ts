@@ -20,6 +20,14 @@ export interface Action {
     url: string;
     method: string;
 }
+export interface CreateActionData {
+    resourceId: string;
+    name: string;
+    description: string;
+    ActionRequestType: string;
+    url: string;
+    method: string;
+}
 export interface GetActionRequest {
     actionId: string;
 }
@@ -33,7 +41,7 @@ export interface GetActionsResponse {
     data: Action[];
 }
 export interface CreateActionRequest {
-    action: Action | undefined;
+    action: CreateActionData | undefined;
     userId: string;
 }
 export interface UpdateActionRequest {
@@ -45,6 +53,7 @@ export interface DeleteActionRequest {
     userId: string;
 }
 export declare const Action: MessageFns<Action>;
+export declare const CreateActionData: MessageFns<CreateActionData>;
 export declare const GetActionRequest: MessageFns<GetActionRequest>;
 export declare const GetActionsRequest: MessageFns<GetActionsRequest>;
 export declare const GetActionsResponse: MessageFns<GetActionsResponse>;

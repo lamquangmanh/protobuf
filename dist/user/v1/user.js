@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: user/v1/user.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserServiceClientImpl = exports.UserServiceServiceName = exports.DeleteUserRequest = exports.UpdateUserRequest = exports.CreateUserRequest = exports.GetUsersResponse = exports.GetUsersRequest = exports.GetUserRequest = exports.User = exports.UserStatus = exports.protobufPackage = void 0;
+exports.UserServiceClientImpl = exports.UserServiceServiceName = exports.DeleteUserRequest = exports.UpdateUserRequest = exports.CreateUserRequest = exports.GetUsersResponse = exports.GetUsersRequest = exports.GetUserRequest = exports.CreateUserData = exports.User = exports.UserStatus = exports.protobufPackage = void 0;
 exports.userStatusFromJSON = userStatusFromJSON;
 exports.userStatusToJSON = userStatusToJSON;
 /* eslint-disable */
@@ -183,6 +183,134 @@ exports.User = {
     fromPartial(object) {
         const message = createBaseUser();
         message.userId = object.userId ?? "";
+        message.username = object.username ?? "";
+        message.email = object.email ?? "";
+        message.password = object.password ?? "";
+        message.phone = object.phone ?? "";
+        message.avatar = object.avatar ?? "";
+        message.status = object.status ?? 0;
+        return message;
+    },
+};
+function createBaseCreateUserData() {
+    return { username: "", email: "", password: "", phone: "", avatar: "", status: 0 };
+}
+exports.CreateUserData = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.username !== "") {
+            writer.uint32(10).string(message.username);
+        }
+        if (message.email !== "") {
+            writer.uint32(18).string(message.email);
+        }
+        if (message.password !== "") {
+            writer.uint32(26).string(message.password);
+        }
+        if (message.phone !== "") {
+            writer.uint32(34).string(message.phone);
+        }
+        if (message.avatar !== "") {
+            writer.uint32(42).string(message.avatar);
+        }
+        if (message.status !== 0) {
+            writer.uint32(48).int32(message.status);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateUserData();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.username = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.email = reader.string();
+                    continue;
+                }
+                case 3: {
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.password = reader.string();
+                    continue;
+                }
+                case 4: {
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.phone = reader.string();
+                    continue;
+                }
+                case 5: {
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.avatar = reader.string();
+                    continue;
+                }
+                case 6: {
+                    if (tag !== 48) {
+                        break;
+                    }
+                    message.status = reader.int32();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            username: isSet(object.username) ? globalThis.String(object.username) : "",
+            email: isSet(object.email) ? globalThis.String(object.email) : "",
+            password: isSet(object.password) ? globalThis.String(object.password) : "",
+            phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
+            avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
+            status: isSet(object.status) ? userStatusFromJSON(object.status) : 0,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.username !== "") {
+            obj.username = message.username;
+        }
+        if (message.email !== "") {
+            obj.email = message.email;
+        }
+        if (message.password !== "") {
+            obj.password = message.password;
+        }
+        if (message.phone !== "") {
+            obj.phone = message.phone;
+        }
+        if (message.avatar !== "") {
+            obj.avatar = message.avatar;
+        }
+        if (message.status !== 0) {
+            obj.status = userStatusToJSON(message.status);
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateUserData.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateUserData();
         message.username = object.username ?? "";
         message.email = object.email ?? "";
         message.password = object.password ?? "";
@@ -404,7 +532,7 @@ function createBaseCreateUserRequest() {
 exports.CreateUserRequest = {
     encode(message, writer = new wire_1.BinaryWriter()) {
         if (message.user !== undefined) {
-            exports.User.encode(message.user, writer.uint32(10).fork()).join();
+            exports.CreateUserData.encode(message.user, writer.uint32(10).fork()).join();
         }
         if (message.userId !== "") {
             writer.uint32(18).string(message.userId);
@@ -422,7 +550,7 @@ exports.CreateUserRequest = {
                     if (tag !== 10) {
                         break;
                     }
-                    message.user = exports.User.decode(reader, reader.uint32());
+                    message.user = exports.CreateUserData.decode(reader, reader.uint32());
                     continue;
                 }
                 case 2: {
@@ -442,14 +570,14 @@ exports.CreateUserRequest = {
     },
     fromJSON(object) {
         return {
-            user: isSet(object.user) ? exports.User.fromJSON(object.user) : undefined,
+            user: isSet(object.user) ? exports.CreateUserData.fromJSON(object.user) : undefined,
             userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.user !== undefined) {
-            obj.user = exports.User.toJSON(message.user);
+            obj.user = exports.CreateUserData.toJSON(message.user);
         }
         if (message.userId !== "") {
             obj.userId = message.userId;
@@ -461,7 +589,9 @@ exports.CreateUserRequest = {
     },
     fromPartial(object) {
         const message = createBaseCreateUserRequest();
-        message.user = (object.user !== undefined && object.user !== null) ? exports.User.fromPartial(object.user) : undefined;
+        message.user = (object.user !== undefined && object.user !== null)
+            ? exports.CreateUserData.fromPartial(object.user)
+            : undefined;
         message.userId = object.userId ?? "";
         return message;
     },

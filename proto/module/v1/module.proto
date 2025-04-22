@@ -10,6 +10,11 @@ message Module {
   string description = 3;
 }
 
+message CreateModuleData {
+  string name = 1;
+  string description = 2;
+}
+
 message GetModuleRequest {
   string module_id = 1;
 }
@@ -26,7 +31,7 @@ message GetModulesResponse {
 }
 
 message CreateModuleRequest {
-  Module module = 1;
+  CreateModuleData module = 1;
   string user_id = 2;
 }
 

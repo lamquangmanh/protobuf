@@ -5,6 +5,7 @@
 
 - [action/v1/action.proto](#action_v1_action-proto)
     - [Action](#action-v1-Action)
+    - [CreateActionData](#action-v1-CreateActionData)
     - [CreateActionRequest](#action-v1-CreateActionRequest)
     - [DeleteActionRequest](#action-v1-DeleteActionRequest)
     - [GetActionRequest](#action-v1-GetActionRequest)
@@ -29,6 +30,7 @@
     - [SortOrder](#base-v1-SortOrder)
   
 - [module/v1/module.proto](#module_v1_module-proto)
+    - [CreateModuleData](#module-v1-CreateModuleData)
     - [CreateModuleRequest](#module-v1-CreateModuleRequest)
     - [DeleteModuleRequest](#module-v1-DeleteModuleRequest)
     - [GetModuleRequest](#module-v1-GetModuleRequest)
@@ -40,6 +42,7 @@
     - [ModuleService](#module-v1-ModuleService)
   
 - [permission/v1/permission.proto](#permission_v1_permission-proto)
+    - [CreatePermissionData](#permission-v1-CreatePermissionData)
     - [CreatePermissionRequest](#permission-v1-CreatePermissionRequest)
     - [DeletePermissionRequest](#permission-v1-DeletePermissionRequest)
     - [GetPermissionRequest](#permission-v1-GetPermissionRequest)
@@ -51,6 +54,7 @@
     - [PermissionService](#permission-v1-PermissionService)
   
 - [resource/v1/resource.proto](#resource_v1_resource-proto)
+    - [CreateResourceData](#resource-v1-CreateResourceData)
     - [CreateResourceRequest](#resource-v1-CreateResourceRequest)
     - [DeleteResourceRequest](#resource-v1-DeleteResourceRequest)
     - [GetResourceRequest](#resource-v1-GetResourceRequest)
@@ -62,6 +66,7 @@
     - [ResourceService](#resource-v1-ResourceService)
   
 - [role/v1/role.proto](#role_v1_role-proto)
+    - [CreateRoleData](#role-v1-CreateRoleData)
     - [CreateRoleRequest](#role-v1-CreateRoleRequest)
     - [DeleteRoleRequest](#role-v1-DeleteRoleRequest)
     - [GetRoleRequest](#role-v1-GetRoleRequest)
@@ -73,6 +78,7 @@
     - [RoleService](#role-v1-RoleService)
   
 - [user-role/v1/user-role.proto](#user-role_v1_user-role-proto)
+    - [CreateUserRoleData](#user_role-v1-CreateUserRoleData)
     - [CreateUserRoleRequest](#user_role-v1-CreateUserRoleRequest)
     - [DeleteUserRoleRequest](#user_role-v1-DeleteUserRoleRequest)
     - [GetUserRoleRequest](#user_role-v1-GetUserRoleRequest)
@@ -84,6 +90,7 @@
     - [UserRoleService](#user_role-v1-UserRoleService)
   
 - [user/v1/user.proto](#user_v1_user-proto)
+    - [CreateUserData](#user-v1-CreateUserData)
     - [CreateUserRequest](#user-v1-CreateUserRequest)
     - [DeleteUserRequest](#user-v1-DeleteUserRequest)
     - [GetUserRequest](#user-v1-GetUserRequest)
@@ -128,6 +135,26 @@
 
 
 
+<a name="action-v1-CreateActionData"></a>
+
+### CreateActionData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| ActionRequestType | [string](#string) |  |  |
+| url | [string](#string) |  |  |
+| method | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="action-v1-CreateActionRequest"></a>
 
 ### CreateActionRequest
@@ -136,7 +163,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| action | [Action](#action-v1-Action) |  |  |
+| action | [CreateActionData](#action-v1-CreateActionData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -430,6 +457,22 @@ define enum
 
 
 
+<a name="module-v1-CreateModuleData"></a>
+
+### CreateModuleData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="module-v1-CreateModuleRequest"></a>
 
 ### CreateModuleRequest
@@ -438,7 +481,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| module | [Module](#module-v1-Module) |  |  |
+| module | [CreateModuleData](#module-v1-CreateModuleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -573,6 +616,23 @@ define enum
 
 
 
+<a name="permission-v1-CreatePermissionData"></a>
+
+### CreatePermissionData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| role_id | [string](#string) |  |  |
+| resource_id | [string](#string) |  |  |
+| action_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="permission-v1-CreatePermissionRequest"></a>
 
 ### CreatePermissionRequest
@@ -581,7 +641,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| permission | [Permission](#permission-v1-Permission) |  |  |
+| permission | [CreatePermissionData](#permission-v1-CreatePermissionData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -717,6 +777,22 @@ define enum
 
 
 
+<a name="resource-v1-CreateResourceData"></a>
+
+### CreateResourceData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| module_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="resource-v1-CreateResourceRequest"></a>
 
 ### CreateResourceRequest
@@ -725,7 +801,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource | [Resource](#resource-v1-Resource) |  |  |
+| resource | [CreateResourceData](#resource-v1-CreateResourceData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -860,6 +936,23 @@ define enum
 
 
 
+<a name="role-v1-CreateRoleData"></a>
+
+### CreateRoleData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| module_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="role-v1-CreateRoleRequest"></a>
 
 ### CreateRoleRequest
@@ -868,7 +961,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| role | [Role](#role-v1-Role) |  |  |
+| role | [CreateRoleData](#role-v1-CreateRoleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1004,6 +1097,22 @@ define enum
 
 
 
+<a name="user_role-v1-CreateUserRoleData"></a>
+
+### CreateUserRoleData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+| role_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="user_role-v1-CreateUserRoleRequest"></a>
 
 ### CreateUserRoleRequest
@@ -1012,7 +1121,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_role | [UserRole](#user_role-v1-UserRole) |  |  |
+| user_role | [CreateUserRoleData](#user_role-v1-CreateUserRoleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1147,6 +1256,26 @@ define enum
 
 
 
+<a name="user-v1-CreateUserData"></a>
+
+### CreateUserData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| username | [string](#string) |  |  |
+| email | [string](#string) |  |  |
+| password | [string](#string) |  |  |
+| phone | [string](#string) |  |  |
+| avatar | [string](#string) |  |  |
+| status | [UserStatus](#user-v1-UserStatus) |  |  |
+
+
+
+
+
+
 <a name="user-v1-CreateUserRequest"></a>
 
 ### CreateUserRequest
@@ -1155,7 +1284,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user | [User](#user-v1-User) |  |  |
+| user | [CreateUserData](#user-v1-CreateUserData) |  |  |
 | user_id | [string](#string) |  |  |
 
 

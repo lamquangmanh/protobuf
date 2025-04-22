@@ -67,6 +67,15 @@ export interface User {
   status: UserStatus;
 }
 
+export interface CreateUserData {
+  username: string;
+  email: string;
+  password: string;
+  phone: string;
+  avatar: string;
+  status: UserStatus;
+}
+
 export interface GetUserRequest {
   userId: string;
 }
@@ -83,7 +92,7 @@ export interface GetUsersResponse {
 }
 
 export interface CreateUserRequest {
-  user: User | undefined;
+  user: CreateUserData | undefined;
   userId: string;
 }
 
@@ -243,6 +252,146 @@ export const User: MessageFns<User> = {
   fromPartial<I extends Exact<DeepPartial<User>, I>>(object: I): User {
     const message = createBaseUser();
     message.userId = object.userId ?? "";
+    message.username = object.username ?? "";
+    message.email = object.email ?? "";
+    message.password = object.password ?? "";
+    message.phone = object.phone ?? "";
+    message.avatar = object.avatar ?? "";
+    message.status = object.status ?? 0;
+    return message;
+  },
+};
+
+function createBaseCreateUserData(): CreateUserData {
+  return { username: "", email: "", password: "", phone: "", avatar: "", status: 0 };
+}
+
+export const CreateUserData: MessageFns<CreateUserData> = {
+  encode(message: CreateUserData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.username !== "") {
+      writer.uint32(10).string(message.username);
+    }
+    if (message.email !== "") {
+      writer.uint32(18).string(message.email);
+    }
+    if (message.password !== "") {
+      writer.uint32(26).string(message.password);
+    }
+    if (message.phone !== "") {
+      writer.uint32(34).string(message.phone);
+    }
+    if (message.avatar !== "") {
+      writer.uint32(42).string(message.avatar);
+    }
+    if (message.status !== 0) {
+      writer.uint32(48).int32(message.status);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateUserData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateUserData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.username = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.email = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.password = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.phone = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.avatar = reader.string();
+          continue;
+        }
+        case 6: {
+          if (tag !== 48) {
+            break;
+          }
+
+          message.status = reader.int32() as any;
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateUserData {
+    return {
+      username: isSet(object.username) ? globalThis.String(object.username) : "",
+      email: isSet(object.email) ? globalThis.String(object.email) : "",
+      password: isSet(object.password) ? globalThis.String(object.password) : "",
+      phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
+      avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
+      status: isSet(object.status) ? userStatusFromJSON(object.status) : 0,
+    };
+  },
+
+  toJSON(message: CreateUserData): unknown {
+    const obj: any = {};
+    if (message.username !== "") {
+      obj.username = message.username;
+    }
+    if (message.email !== "") {
+      obj.email = message.email;
+    }
+    if (message.password !== "") {
+      obj.password = message.password;
+    }
+    if (message.phone !== "") {
+      obj.phone = message.phone;
+    }
+    if (message.avatar !== "") {
+      obj.avatar = message.avatar;
+    }
+    if (message.status !== 0) {
+      obj.status = userStatusToJSON(message.status);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateUserData>, I>>(base?: I): CreateUserData {
+    return CreateUserData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateUserData>, I>>(object: I): CreateUserData {
+    const message = createBaseCreateUserData();
     message.username = object.username ?? "";
     message.email = object.email ?? "";
     message.password = object.password ?? "";
@@ -490,7 +639,7 @@ function createBaseCreateUserRequest(): CreateUserRequest {
 export const CreateUserRequest: MessageFns<CreateUserRequest> = {
   encode(message: CreateUserRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.user !== undefined) {
-      User.encode(message.user, writer.uint32(10).fork()).join();
+      CreateUserData.encode(message.user, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -510,7 +659,7 @@ export const CreateUserRequest: MessageFns<CreateUserRequest> = {
             break;
           }
 
-          message.user = User.decode(reader, reader.uint32());
+          message.user = CreateUserData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -532,7 +681,7 @@ export const CreateUserRequest: MessageFns<CreateUserRequest> = {
 
   fromJSON(object: any): CreateUserRequest {
     return {
-      user: isSet(object.user) ? User.fromJSON(object.user) : undefined,
+      user: isSet(object.user) ? CreateUserData.fromJSON(object.user) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -540,7 +689,7 @@ export const CreateUserRequest: MessageFns<CreateUserRequest> = {
   toJSON(message: CreateUserRequest): unknown {
     const obj: any = {};
     if (message.user !== undefined) {
-      obj.user = User.toJSON(message.user);
+      obj.user = CreateUserData.toJSON(message.user);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -553,7 +702,9 @@ export const CreateUserRequest: MessageFns<CreateUserRequest> = {
   },
   fromPartial<I extends Exact<DeepPartial<CreateUserRequest>, I>>(object: I): CreateUserRequest {
     const message = createBaseCreateUserRequest();
-    message.user = (object.user !== undefined && object.user !== null) ? User.fromPartial(object.user) : undefined;
+    message.user = (object.user !== undefined && object.user !== null)
+      ? CreateUserData.fromPartial(object.user)
+      : undefined;
     message.userId = object.userId ?? "";
     return message;
   },

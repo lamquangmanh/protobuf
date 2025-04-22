@@ -6,6 +6,10 @@ export interface Resource {
     name: string;
     moduleId: string;
 }
+export interface CreateResourceData {
+    name: string;
+    moduleId: string;
+}
 export interface GetResourceRequest {
     resourceId: string;
 }
@@ -19,7 +23,7 @@ export interface GetResourcesResponse {
     data: Resource[];
 }
 export interface CreateResourceRequest {
-    resource: Resource | undefined;
+    resource: CreateResourceData | undefined;
     userId: string;
 }
 export interface UpdateResourceRequest {
@@ -31,6 +35,7 @@ export interface DeleteResourceRequest {
     userId: string;
 }
 export declare const Resource: MessageFns<Resource>;
+export declare const CreateResourceData: MessageFns<CreateResourceData>;
 export declare const GetResourceRequest: MessageFns<GetResourceRequest>;
 export declare const GetResourcesRequest: MessageFns<GetResourcesRequest>;
 export declare const GetResourcesResponse: MessageFns<GetResourcesResponse>;

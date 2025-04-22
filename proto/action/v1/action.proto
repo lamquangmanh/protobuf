@@ -22,6 +22,15 @@ message Action {
   string method = 7;
 }
 
+message CreateActionData {
+  string resource_id = 1;
+  string name = 2;
+  string description = 3;
+  string ActionRequestType = 4;
+  string url = 5;
+  string method = 6;
+}
+
 message GetActionRequest {
   string action_id = 1;
 }
@@ -38,7 +47,7 @@ message GetActionsResponse {
 }
 
 message CreateActionRequest {
-  Action action = 1;
+  CreateActionData action = 1;
   string user_id = 2;
 }
 

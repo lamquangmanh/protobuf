@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: resource/v1/resource.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResourceServiceClientImpl = exports.ResourceServiceServiceName = exports.DeleteResourceRequest = exports.UpdateResourceRequest = exports.CreateResourceRequest = exports.GetResourcesResponse = exports.GetResourcesRequest = exports.GetResourceRequest = exports.Resource = exports.protobufPackage = void 0;
+exports.ResourceServiceClientImpl = exports.ResourceServiceServiceName = exports.DeleteResourceRequest = exports.UpdateResourceRequest = exports.CreateResourceRequest = exports.GetResourcesResponse = exports.GetResourcesRequest = exports.GetResourceRequest = exports.CreateResourceData = exports.Resource = exports.protobufPackage = void 0;
 /* eslint-disable */
 const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
@@ -88,6 +88,74 @@ exports.Resource = {
     fromPartial(object) {
         const message = createBaseResource();
         message.resourceId = object.resourceId ?? "";
+        message.name = object.name ?? "";
+        message.moduleId = object.moduleId ?? "";
+        return message;
+    },
+};
+function createBaseCreateResourceData() {
+    return { name: "", moduleId: "" };
+}
+exports.CreateResourceData = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.name !== "") {
+            writer.uint32(10).string(message.name);
+        }
+        if (message.moduleId !== "") {
+            writer.uint32(18).string(message.moduleId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateResourceData();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.name = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.moduleId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            name: isSet(object.name) ? globalThis.String(object.name) : "",
+            moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.name !== "") {
+            obj.name = message.name;
+        }
+        if (message.moduleId !== "") {
+            obj.moduleId = message.moduleId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateResourceData.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateResourceData();
         message.name = object.name ?? "";
         message.moduleId = object.moduleId ?? "";
         return message;
@@ -305,7 +373,7 @@ function createBaseCreateResourceRequest() {
 exports.CreateResourceRequest = {
     encode(message, writer = new wire_1.BinaryWriter()) {
         if (message.resource !== undefined) {
-            exports.Resource.encode(message.resource, writer.uint32(10).fork()).join();
+            exports.CreateResourceData.encode(message.resource, writer.uint32(10).fork()).join();
         }
         if (message.userId !== "") {
             writer.uint32(18).string(message.userId);
@@ -323,7 +391,7 @@ exports.CreateResourceRequest = {
                     if (tag !== 10) {
                         break;
                     }
-                    message.resource = exports.Resource.decode(reader, reader.uint32());
+                    message.resource = exports.CreateResourceData.decode(reader, reader.uint32());
                     continue;
                 }
                 case 2: {
@@ -343,14 +411,14 @@ exports.CreateResourceRequest = {
     },
     fromJSON(object) {
         return {
-            resource: isSet(object.resource) ? exports.Resource.fromJSON(object.resource) : undefined,
+            resource: isSet(object.resource) ? exports.CreateResourceData.fromJSON(object.resource) : undefined,
             userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.resource !== undefined) {
-            obj.resource = exports.Resource.toJSON(message.resource);
+            obj.resource = exports.CreateResourceData.toJSON(message.resource);
         }
         if (message.userId !== "") {
             obj.userId = message.userId;
@@ -363,7 +431,7 @@ exports.CreateResourceRequest = {
     fromPartial(object) {
         const message = createBaseCreateResourceRequest();
         message.resource = (object.resource !== undefined && object.resource !== null)
-            ? exports.Resource.fromPartial(object.resource)
+            ? exports.CreateResourceData.fromPartial(object.resource)
             : undefined;
         message.userId = object.userId ?? "";
         return message;

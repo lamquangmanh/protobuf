@@ -11,6 +11,12 @@ message Permission {
   string action_id = 4;
 }
 
+message CreatePermissionData {
+  string role_id = 1;
+  string resource_id = 2;
+  string action_id = 3;
+}
+
 message GetPermissionRequest {
   string permission_id = 1;
 }
@@ -27,7 +33,7 @@ message GetPermissionsResponse {
 }
 
 message CreatePermissionRequest {
-  Permission permission = 1;
+  CreatePermissionData permission = 1;
   string user_id = 2;
 }
 

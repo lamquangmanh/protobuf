@@ -24,6 +24,11 @@ export interface Module {
   description: string;
 }
 
+export interface CreateModuleData {
+  name: string;
+  description: string;
+}
+
 export interface GetModuleRequest {
   moduleId: string;
 }
@@ -40,7 +45,7 @@ export interface GetModulesResponse {
 }
 
 export interface CreateModuleRequest {
-  module: Module | undefined;
+  module: CreateModuleData | undefined;
   userId: string;
 }
 
@@ -140,6 +145,82 @@ export const Module: MessageFns<Module> = {
   fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module {
     const message = createBaseModule();
     message.moduleId = object.moduleId ?? "";
+    message.name = object.name ?? "";
+    message.description = object.description ?? "";
+    return message;
+  },
+};
+
+function createBaseCreateModuleData(): CreateModuleData {
+  return { name: "", description: "" };
+}
+
+export const CreateModuleData: MessageFns<CreateModuleData> = {
+  encode(message: CreateModuleData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.name !== "") {
+      writer.uint32(10).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateModuleData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateModuleData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.description = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateModuleData {
+    return {
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      description: isSet(object.description) ? globalThis.String(object.description) : "",
+    };
+  },
+
+  toJSON(message: CreateModuleData): unknown {
+    const obj: any = {};
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.description !== "") {
+      obj.description = message.description;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateModuleData>, I>>(base?: I): CreateModuleData {
+    return CreateModuleData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateModuleData>, I>>(object: I): CreateModuleData {
+    const message = createBaseCreateModuleData();
     message.name = object.name ?? "";
     message.description = object.description ?? "";
     return message;
@@ -383,7 +464,7 @@ function createBaseCreateModuleRequest(): CreateModuleRequest {
 export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
   encode(message: CreateModuleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.module !== undefined) {
-      Module.encode(message.module, writer.uint32(10).fork()).join();
+      CreateModuleData.encode(message.module, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -403,7 +484,7 @@ export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
             break;
           }
 
-          message.module = Module.decode(reader, reader.uint32());
+          message.module = CreateModuleData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -425,7 +506,7 @@ export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
 
   fromJSON(object: any): CreateModuleRequest {
     return {
-      module: isSet(object.module) ? Module.fromJSON(object.module) : undefined,
+      module: isSet(object.module) ? CreateModuleData.fromJSON(object.module) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -433,7 +514,7 @@ export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
   toJSON(message: CreateModuleRequest): unknown {
     const obj: any = {};
     if (message.module !== undefined) {
-      obj.module = Module.toJSON(message.module);
+      obj.module = CreateModuleData.toJSON(message.module);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -447,7 +528,7 @@ export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
   fromPartial<I extends Exact<DeepPartial<CreateModuleRequest>, I>>(object: I): CreateModuleRequest {
     const message = createBaseCreateModuleRequest();
     message.module = (object.module !== undefined && object.module !== null)
-      ? Module.fromPartial(object.module)
+      ? CreateModuleData.fromPartial(object.module)
       : undefined;
     message.userId = object.userId ?? "";
     return message;

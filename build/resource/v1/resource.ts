@@ -24,6 +24,11 @@ export interface Resource {
   moduleId: string;
 }
 
+export interface CreateResourceData {
+  name: string;
+  moduleId: string;
+}
+
 export interface GetResourceRequest {
   resourceId: string;
 }
@@ -40,7 +45,7 @@ export interface GetResourcesResponse {
 }
 
 export interface CreateResourceRequest {
-  resource: Resource | undefined;
+  resource: CreateResourceData | undefined;
   userId: string;
 }
 
@@ -140,6 +145,82 @@ export const Resource: MessageFns<Resource> = {
   fromPartial<I extends Exact<DeepPartial<Resource>, I>>(object: I): Resource {
     const message = createBaseResource();
     message.resourceId = object.resourceId ?? "";
+    message.name = object.name ?? "";
+    message.moduleId = object.moduleId ?? "";
+    return message;
+  },
+};
+
+function createBaseCreateResourceData(): CreateResourceData {
+  return { name: "", moduleId: "" };
+}
+
+export const CreateResourceData: MessageFns<CreateResourceData> = {
+  encode(message: CreateResourceData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.name !== "") {
+      writer.uint32(10).string(message.name);
+    }
+    if (message.moduleId !== "") {
+      writer.uint32(18).string(message.moduleId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateResourceData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateResourceData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.moduleId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateResourceData {
+    return {
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+    };
+  },
+
+  toJSON(message: CreateResourceData): unknown {
+    const obj: any = {};
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.moduleId !== "") {
+      obj.moduleId = message.moduleId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateResourceData>, I>>(base?: I): CreateResourceData {
+    return CreateResourceData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateResourceData>, I>>(object: I): CreateResourceData {
+    const message = createBaseCreateResourceData();
     message.name = object.name ?? "";
     message.moduleId = object.moduleId ?? "";
     return message;
@@ -383,7 +464,7 @@ function createBaseCreateResourceRequest(): CreateResourceRequest {
 export const CreateResourceRequest: MessageFns<CreateResourceRequest> = {
   encode(message: CreateResourceRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.resource !== undefined) {
-      Resource.encode(message.resource, writer.uint32(10).fork()).join();
+      CreateResourceData.encode(message.resource, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -403,7 +484,7 @@ export const CreateResourceRequest: MessageFns<CreateResourceRequest> = {
             break;
           }
 
-          message.resource = Resource.decode(reader, reader.uint32());
+          message.resource = CreateResourceData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -425,7 +506,7 @@ export const CreateResourceRequest: MessageFns<CreateResourceRequest> = {
 
   fromJSON(object: any): CreateResourceRequest {
     return {
-      resource: isSet(object.resource) ? Resource.fromJSON(object.resource) : undefined,
+      resource: isSet(object.resource) ? CreateResourceData.fromJSON(object.resource) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -433,7 +514,7 @@ export const CreateResourceRequest: MessageFns<CreateResourceRequest> = {
   toJSON(message: CreateResourceRequest): unknown {
     const obj: any = {};
     if (message.resource !== undefined) {
-      obj.resource = Resource.toJSON(message.resource);
+      obj.resource = CreateResourceData.toJSON(message.resource);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -447,7 +528,7 @@ export const CreateResourceRequest: MessageFns<CreateResourceRequest> = {
   fromPartial<I extends Exact<DeepPartial<CreateResourceRequest>, I>>(object: I): CreateResourceRequest {
     const message = createBaseCreateResourceRequest();
     message.resource = (object.resource !== undefined && object.resource !== null)
-      ? Resource.fromPartial(object.resource)
+      ? CreateResourceData.fromPartial(object.resource)
       : undefined;
     message.userId = object.userId ?? "";
     return message;

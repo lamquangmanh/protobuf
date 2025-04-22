@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: user-role/v1/user-role.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRoleServiceClientImpl = exports.UserRoleServiceServiceName = exports.DeleteUserRoleRequest = exports.UpdateUserRoleRequest = exports.CreateUserRoleRequest = exports.GetUserRolesResponse = exports.GetUserRolesRequest = exports.GetUserRoleRequest = exports.UserRole = exports.protobufPackage = void 0;
+exports.UserRoleServiceClientImpl = exports.UserRoleServiceServiceName = exports.DeleteUserRoleRequest = exports.UpdateUserRoleRequest = exports.CreateUserRoleRequest = exports.GetUserRolesResponse = exports.GetUserRolesRequest = exports.GetUserRoleRequest = exports.CreateUserRoleData = exports.UserRole = exports.protobufPackage = void 0;
 /* eslint-disable */
 const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
@@ -88,6 +88,74 @@ exports.UserRole = {
     fromPartial(object) {
         const message = createBaseUserRole();
         message.userRoleId = object.userRoleId ?? "";
+        message.userId = object.userId ?? "";
+        message.roleId = object.roleId ?? "";
+        return message;
+    },
+};
+function createBaseCreateUserRoleData() {
+    return { userId: "", roleId: "" };
+}
+exports.CreateUserRoleData = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.userId !== "") {
+            writer.uint32(10).string(message.userId);
+        }
+        if (message.roleId !== "") {
+            writer.uint32(18).string(message.roleId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateUserRoleData();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.roleId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+            roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        if (message.roleId !== "") {
+            obj.roleId = message.roleId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateUserRoleData.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateUserRoleData();
         message.userId = object.userId ?? "";
         message.roleId = object.roleId ?? "";
         return message;
@@ -305,7 +373,7 @@ function createBaseCreateUserRoleRequest() {
 exports.CreateUserRoleRequest = {
     encode(message, writer = new wire_1.BinaryWriter()) {
         if (message.userRole !== undefined) {
-            exports.UserRole.encode(message.userRole, writer.uint32(10).fork()).join();
+            exports.CreateUserRoleData.encode(message.userRole, writer.uint32(10).fork()).join();
         }
         if (message.userId !== "") {
             writer.uint32(18).string(message.userId);
@@ -323,7 +391,7 @@ exports.CreateUserRoleRequest = {
                     if (tag !== 10) {
                         break;
                     }
-                    message.userRole = exports.UserRole.decode(reader, reader.uint32());
+                    message.userRole = exports.CreateUserRoleData.decode(reader, reader.uint32());
                     continue;
                 }
                 case 2: {
@@ -343,14 +411,14 @@ exports.CreateUserRoleRequest = {
     },
     fromJSON(object) {
         return {
-            userRole: isSet(object.userRole) ? exports.UserRole.fromJSON(object.userRole) : undefined,
+            userRole: isSet(object.userRole) ? exports.CreateUserRoleData.fromJSON(object.userRole) : undefined,
             userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.userRole !== undefined) {
-            obj.userRole = exports.UserRole.toJSON(message.userRole);
+            obj.userRole = exports.CreateUserRoleData.toJSON(message.userRole);
         }
         if (message.userId !== "") {
             obj.userId = message.userId;
@@ -363,7 +431,7 @@ exports.CreateUserRoleRequest = {
     fromPartial(object) {
         const message = createBaseCreateUserRoleRequest();
         message.userRole = (object.userRole !== undefined && object.userRole !== null)
-            ? exports.UserRole.fromPartial(object.userRole)
+            ? exports.CreateUserRoleData.fromPartial(object.userRole)
             : undefined;
         message.userId = object.userId ?? "";
         return message;

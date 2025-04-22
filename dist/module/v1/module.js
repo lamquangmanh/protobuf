@@ -5,7 +5,7 @@
 //   protoc               v5.29.3
 // source: module/v1/module.proto
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModuleServiceClientImpl = exports.ModuleServiceServiceName = exports.DeleteModuleRequest = exports.UpdateModuleRequest = exports.CreateModuleRequest = exports.GetModulesResponse = exports.GetModulesRequest = exports.GetModuleRequest = exports.Module = exports.protobufPackage = void 0;
+exports.ModuleServiceClientImpl = exports.ModuleServiceServiceName = exports.DeleteModuleRequest = exports.UpdateModuleRequest = exports.CreateModuleRequest = exports.GetModulesResponse = exports.GetModulesRequest = exports.GetModuleRequest = exports.CreateModuleData = exports.Module = exports.protobufPackage = void 0;
 /* eslint-disable */
 const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
@@ -88,6 +88,74 @@ exports.Module = {
     fromPartial(object) {
         const message = createBaseModule();
         message.moduleId = object.moduleId ?? "";
+        message.name = object.name ?? "";
+        message.description = object.description ?? "";
+        return message;
+    },
+};
+function createBaseCreateModuleData() {
+    return { name: "", description: "" };
+}
+exports.CreateModuleData = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.name !== "") {
+            writer.uint32(10).string(message.name);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateModuleData();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.name = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.description = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            name: isSet(object.name) ? globalThis.String(object.name) : "",
+            description: isSet(object.description) ? globalThis.String(object.description) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.name !== "") {
+            obj.name = message.name;
+        }
+        if (message.description !== "") {
+            obj.description = message.description;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.CreateModuleData.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseCreateModuleData();
         message.name = object.name ?? "";
         message.description = object.description ?? "";
         return message;
@@ -305,7 +373,7 @@ function createBaseCreateModuleRequest() {
 exports.CreateModuleRequest = {
     encode(message, writer = new wire_1.BinaryWriter()) {
         if (message.module !== undefined) {
-            exports.Module.encode(message.module, writer.uint32(10).fork()).join();
+            exports.CreateModuleData.encode(message.module, writer.uint32(10).fork()).join();
         }
         if (message.userId !== "") {
             writer.uint32(18).string(message.userId);
@@ -323,7 +391,7 @@ exports.CreateModuleRequest = {
                     if (tag !== 10) {
                         break;
                     }
-                    message.module = exports.Module.decode(reader, reader.uint32());
+                    message.module = exports.CreateModuleData.decode(reader, reader.uint32());
                     continue;
                 }
                 case 2: {
@@ -343,14 +411,14 @@ exports.CreateModuleRequest = {
     },
     fromJSON(object) {
         return {
-            module: isSet(object.module) ? exports.Module.fromJSON(object.module) : undefined,
+            module: isSet(object.module) ? exports.CreateModuleData.fromJSON(object.module) : undefined,
             userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.module !== undefined) {
-            obj.module = exports.Module.toJSON(message.module);
+            obj.module = exports.CreateModuleData.toJSON(message.module);
         }
         if (message.userId !== "") {
             obj.userId = message.userId;
@@ -363,7 +431,7 @@ exports.CreateModuleRequest = {
     fromPartial(object) {
         const message = createBaseCreateModuleRequest();
         message.module = (object.module !== undefined && object.module !== null)
-            ? exports.Module.fromPartial(object.module)
+            ? exports.CreateModuleData.fromPartial(object.module)
             : undefined;
         message.userId = object.userId ?? "";
         return message;

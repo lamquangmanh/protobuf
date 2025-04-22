@@ -25,6 +25,12 @@ export interface Permission {
   actionId: string;
 }
 
+export interface CreatePermissionData {
+  roleId: string;
+  resourceId: string;
+  actionId: string;
+}
+
 export interface GetPermissionRequest {
   permissionId: string;
 }
@@ -41,7 +47,7 @@ export interface GetPermissionsResponse {
 }
 
 export interface CreatePermissionRequest {
-  permission: Permission | undefined;
+  permission: CreatePermissionData | undefined;
   userId: string;
 }
 
@@ -156,6 +162,98 @@ export const Permission: MessageFns<Permission> = {
   fromPartial<I extends Exact<DeepPartial<Permission>, I>>(object: I): Permission {
     const message = createBasePermission();
     message.permissionId = object.permissionId ?? "";
+    message.roleId = object.roleId ?? "";
+    message.resourceId = object.resourceId ?? "";
+    message.actionId = object.actionId ?? "";
+    return message;
+  },
+};
+
+function createBaseCreatePermissionData(): CreatePermissionData {
+  return { roleId: "", resourceId: "", actionId: "" };
+}
+
+export const CreatePermissionData: MessageFns<CreatePermissionData> = {
+  encode(message: CreatePermissionData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.roleId !== "") {
+      writer.uint32(10).string(message.roleId);
+    }
+    if (message.resourceId !== "") {
+      writer.uint32(18).string(message.resourceId);
+    }
+    if (message.actionId !== "") {
+      writer.uint32(26).string(message.actionId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreatePermissionData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreatePermissionData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.roleId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.resourceId = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.actionId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreatePermissionData {
+    return {
+      roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
+      resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
+      actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : "",
+    };
+  },
+
+  toJSON(message: CreatePermissionData): unknown {
+    const obj: any = {};
+    if (message.roleId !== "") {
+      obj.roleId = message.roleId;
+    }
+    if (message.resourceId !== "") {
+      obj.resourceId = message.resourceId;
+    }
+    if (message.actionId !== "") {
+      obj.actionId = message.actionId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreatePermissionData>, I>>(base?: I): CreatePermissionData {
+    return CreatePermissionData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreatePermissionData>, I>>(object: I): CreatePermissionData {
+    const message = createBaseCreatePermissionData();
     message.roleId = object.roleId ?? "";
     message.resourceId = object.resourceId ?? "";
     message.actionId = object.actionId ?? "";
@@ -400,7 +498,7 @@ function createBaseCreatePermissionRequest(): CreatePermissionRequest {
 export const CreatePermissionRequest: MessageFns<CreatePermissionRequest> = {
   encode(message: CreatePermissionRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.permission !== undefined) {
-      Permission.encode(message.permission, writer.uint32(10).fork()).join();
+      CreatePermissionData.encode(message.permission, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -420,7 +518,7 @@ export const CreatePermissionRequest: MessageFns<CreatePermissionRequest> = {
             break;
           }
 
-          message.permission = Permission.decode(reader, reader.uint32());
+          message.permission = CreatePermissionData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -442,7 +540,7 @@ export const CreatePermissionRequest: MessageFns<CreatePermissionRequest> = {
 
   fromJSON(object: any): CreatePermissionRequest {
     return {
-      permission: isSet(object.permission) ? Permission.fromJSON(object.permission) : undefined,
+      permission: isSet(object.permission) ? CreatePermissionData.fromJSON(object.permission) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -450,7 +548,7 @@ export const CreatePermissionRequest: MessageFns<CreatePermissionRequest> = {
   toJSON(message: CreatePermissionRequest): unknown {
     const obj: any = {};
     if (message.permission !== undefined) {
-      obj.permission = Permission.toJSON(message.permission);
+      obj.permission = CreatePermissionData.toJSON(message.permission);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -464,7 +562,7 @@ export const CreatePermissionRequest: MessageFns<CreatePermissionRequest> = {
   fromPartial<I extends Exact<DeepPartial<CreatePermissionRequest>, I>>(object: I): CreatePermissionRequest {
     const message = createBaseCreatePermissionRequest();
     message.permission = (object.permission !== undefined && object.permission !== null)
-      ? Permission.fromPartial(object.permission)
+      ? CreatePermissionData.fromPartial(object.permission)
       : undefined;
     message.userId = object.userId ?? "";
     return message;
