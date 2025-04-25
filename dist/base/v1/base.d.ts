@@ -1,23 +1,23 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { Any } from "../../google/protobuf/any";
 export declare const protobufPackage = "base.v1";
 /** define enum */
 export declare enum FilterOperator {
-    EQUAL = 0,
-    NOT_EQUAL = 1,
-    GREATER_THAN = 2,
-    LESS_THAN = 3,
-    GREATER_THAN_OR_EQUAL = 4,
-    LESS_THAN_OR_EQUAL = 5,
-    LIKE = 6,
-    IN = 7,
-    NOT_IN = 8,
+    FILTER_OPERATOR_UNSPECIFIED = 0,
+    EQUAL = 1,
+    NOT_EQUAL = 2,
+    GREATER_THAN = 3,
+    LESS_THAN = 4,
+    GREATER_THAN_OR_EQUAL = 5,
+    LESS_THAN_OR_EQUAL = 6,
+    LIKE = 7,
+    IN = 8,
+    NOT_IN = 9,
     UNRECOGNIZED = -1
 }
 export declare function filterOperatorFromJSON(object: any): FilterOperator;
 export declare function filterOperatorToJSON(object: FilterOperator): string;
 export declare enum SortOrder {
-    UNSPECIFIED = 0,
+    SORT_ORDER_UNSPECIFIED = 0,
     ASC = 1,
     DESC = 2,
     UNRECOGNIZED = -1
@@ -44,9 +44,13 @@ export interface Sort {
 }
 export interface Filter {
     field: string;
-    /** "eq", "ne", "gt", "lt", "gte", "lte", "like", "in", "nin" */
     operator: FilterOperator;
-    value: Any | undefined;
+    stringValue?: string | undefined;
+    numberValue?: string | undefined;
+    boolValue?: string | undefined;
+    boolValues: string[];
+    stringValues: string[];
+    numberValues: string[];
 }
 export interface ErrorResponse {
     code: number;

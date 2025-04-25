@@ -14,20 +14,24 @@ const base_1 = require("../../base/v1/base");
 exports.protobufPackage = "user.v1";
 var UserStatus;
 (function (UserStatus) {
-    UserStatus[UserStatus["ACTIVE"] = 0] = "ACTIVE";
-    UserStatus[UserStatus["DEACTIVATED"] = 1] = "DEACTIVATED";
-    UserStatus[UserStatus["DELETED"] = 2] = "DELETED";
+    UserStatus[UserStatus["USER_STATUS_UNSPECIFIED"] = 0] = "USER_STATUS_UNSPECIFIED";
+    UserStatus[UserStatus["ACTIVE"] = 1] = "ACTIVE";
+    UserStatus[UserStatus["DEACTIVATED"] = 2] = "DEACTIVATED";
+    UserStatus[UserStatus["DELETED"] = 3] = "DELETED";
     UserStatus[UserStatus["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
 })(UserStatus || (exports.UserStatus = UserStatus = {}));
 function userStatusFromJSON(object) {
     switch (object) {
         case 0:
+        case "USER_STATUS_UNSPECIFIED":
+            return UserStatus.USER_STATUS_UNSPECIFIED;
+        case 1:
         case "ACTIVE":
             return UserStatus.ACTIVE;
-        case 1:
+        case 2:
         case "DEACTIVATED":
             return UserStatus.DEACTIVATED;
-        case 2:
+        case 3:
         case "DELETED":
             return UserStatus.DELETED;
         case -1:
@@ -38,6 +42,8 @@ function userStatusFromJSON(object) {
 }
 function userStatusToJSON(object) {
     switch (object) {
+        case UserStatus.USER_STATUS_UNSPECIFIED:
+            return "USER_STATUS_UNSPECIFIED";
         case UserStatus.ACTIVE:
             return "ACTIVE";
         case UserStatus.DEACTIVATED:
@@ -50,7 +56,20 @@ function userStatusToJSON(object) {
     }
 }
 function createBaseUser() {
-    return { userId: "", username: "", email: "", password: "", phone: "", avatar: "", status: 0 };
+    return {
+        userId: "",
+        username: "",
+        email: "",
+        phone: "",
+        avatar: "",
+        status: 0,
+        createdAt: "",
+        createdUserId: "",
+        updatedAt: "",
+        updatedUserId: "",
+        deletedAt: "",
+        deletedUserId: "",
+    };
 }
 exports.User = {
     encode(message, writer = new wire_1.BinaryWriter()) {
@@ -63,17 +82,32 @@ exports.User = {
         if (message.email !== "") {
             writer.uint32(26).string(message.email);
         }
-        if (message.password !== "") {
-            writer.uint32(34).string(message.password);
-        }
         if (message.phone !== "") {
-            writer.uint32(42).string(message.phone);
+            writer.uint32(34).string(message.phone);
         }
         if (message.avatar !== "") {
-            writer.uint32(50).string(message.avatar);
+            writer.uint32(42).string(message.avatar);
         }
         if (message.status !== 0) {
-            writer.uint32(56).int32(message.status);
+            writer.uint32(48).int32(message.status);
+        }
+        if (message.createdAt !== "") {
+            writer.uint32(58).string(message.createdAt);
+        }
+        if (message.createdUserId !== "") {
+            writer.uint32(66).string(message.createdUserId);
+        }
+        if (message.updatedAt !== "") {
+            writer.uint32(74).string(message.updatedAt);
+        }
+        if (message.updatedUserId !== "") {
+            writer.uint32(82).string(message.updatedUserId);
+        }
+        if (message.deletedAt !== "") {
+            writer.uint32(90).string(message.deletedAt);
+        }
+        if (message.deletedUserId !== "") {
+            writer.uint32(98).string(message.deletedUserId);
         }
         return writer;
     },
@@ -109,28 +143,63 @@ exports.User = {
                     if (tag !== 34) {
                         break;
                     }
-                    message.password = reader.string();
+                    message.phone = reader.string();
                     continue;
                 }
                 case 5: {
                     if (tag !== 42) {
                         break;
                     }
-                    message.phone = reader.string();
-                    continue;
-                }
-                case 6: {
-                    if (tag !== 50) {
-                        break;
-                    }
                     message.avatar = reader.string();
                     continue;
                 }
-                case 7: {
-                    if (tag !== 56) {
+                case 6: {
+                    if (tag !== 48) {
                         break;
                     }
                     message.status = reader.int32();
+                    continue;
+                }
+                case 7: {
+                    if (tag !== 58) {
+                        break;
+                    }
+                    message.createdAt = reader.string();
+                    continue;
+                }
+                case 8: {
+                    if (tag !== 66) {
+                        break;
+                    }
+                    message.createdUserId = reader.string();
+                    continue;
+                }
+                case 9: {
+                    if (tag !== 74) {
+                        break;
+                    }
+                    message.updatedAt = reader.string();
+                    continue;
+                }
+                case 10: {
+                    if (tag !== 82) {
+                        break;
+                    }
+                    message.updatedUserId = reader.string();
+                    continue;
+                }
+                case 11: {
+                    if (tag !== 90) {
+                        break;
+                    }
+                    message.deletedAt = reader.string();
+                    continue;
+                }
+                case 12: {
+                    if (tag !== 98) {
+                        break;
+                    }
+                    message.deletedUserId = reader.string();
                     continue;
                 }
             }
@@ -146,10 +215,15 @@ exports.User = {
             userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
             username: isSet(object.username) ? globalThis.String(object.username) : "",
             email: isSet(object.email) ? globalThis.String(object.email) : "",
-            password: isSet(object.password) ? globalThis.String(object.password) : "",
             phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
             avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
             status: isSet(object.status) ? userStatusFromJSON(object.status) : 0,
+            createdAt: isSet(object.createdAt) ? globalThis.String(object.createdAt) : "",
+            createdUserId: isSet(object.createdUserId) ? globalThis.String(object.createdUserId) : "",
+            updatedAt: isSet(object.updatedAt) ? globalThis.String(object.updatedAt) : "",
+            updatedUserId: isSet(object.updatedUserId) ? globalThis.String(object.updatedUserId) : "",
+            deletedAt: isSet(object.deletedAt) ? globalThis.String(object.deletedAt) : "",
+            deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
         };
     },
     toJSON(message) {
@@ -163,9 +237,6 @@ exports.User = {
         if (message.email !== "") {
             obj.email = message.email;
         }
-        if (message.password !== "") {
-            obj.password = message.password;
-        }
         if (message.phone !== "") {
             obj.phone = message.phone;
         }
@@ -174,6 +245,24 @@ exports.User = {
         }
         if (message.status !== 0) {
             obj.status = userStatusToJSON(message.status);
+        }
+        if (message.createdAt !== "") {
+            obj.createdAt = message.createdAt;
+        }
+        if (message.createdUserId !== "") {
+            obj.createdUserId = message.createdUserId;
+        }
+        if (message.updatedAt !== "") {
+            obj.updatedAt = message.updatedAt;
+        }
+        if (message.updatedUserId !== "") {
+            obj.updatedUserId = message.updatedUserId;
+        }
+        if (message.deletedAt !== "") {
+            obj.deletedAt = message.deletedAt;
+        }
+        if (message.deletedUserId !== "") {
+            obj.deletedUserId = message.deletedUserId;
         }
         return obj;
     },
@@ -185,10 +274,15 @@ exports.User = {
         message.userId = object.userId ?? "";
         message.username = object.username ?? "";
         message.email = object.email ?? "";
-        message.password = object.password ?? "";
         message.phone = object.phone ?? "";
         message.avatar = object.avatar ?? "";
         message.status = object.status ?? 0;
+        message.createdAt = object.createdAt ?? "";
+        message.createdUserId = object.createdUserId ?? "";
+        message.updatedAt = object.updatedAt ?? "";
+        message.updatedUserId = object.updatedUserId ?? "";
+        message.deletedAt = object.deletedAt ?? "";
+        message.deletedUserId = object.deletedUserId ?? "";
         return message;
     },
 };

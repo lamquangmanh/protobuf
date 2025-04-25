@@ -22,6 +22,12 @@ export interface UserRole {
   userRoleId: string;
   userId: string;
   roleId: string;
+  createdUserId: string;
+  updatedAt: string;
+  updatedUserId: string;
+  deletedAt: string;
+  deletedUserId: string;
+  createdAt: string;
 }
 
 export interface CreateUserRoleData {
@@ -65,7 +71,17 @@ export interface CreateSuccess {
 }
 
 function createBaseUserRole(): UserRole {
-  return { userRoleId: "", userId: "", roleId: "" };
+  return {
+    userRoleId: "",
+    userId: "",
+    roleId: "",
+    createdUserId: "",
+    updatedAt: "",
+    updatedUserId: "",
+    deletedAt: "",
+    deletedUserId: "",
+    createdAt: "",
+  };
 }
 
 export const UserRole: MessageFns<UserRole> = {
@@ -78,6 +94,24 @@ export const UserRole: MessageFns<UserRole> = {
     }
     if (message.roleId !== "") {
       writer.uint32(26).string(message.roleId);
+    }
+    if (message.createdUserId !== "") {
+      writer.uint32(34).string(message.createdUserId);
+    }
+    if (message.updatedAt !== "") {
+      writer.uint32(42).string(message.updatedAt);
+    }
+    if (message.updatedUserId !== "") {
+      writer.uint32(50).string(message.updatedUserId);
+    }
+    if (message.deletedAt !== "") {
+      writer.uint32(58).string(message.deletedAt);
+    }
+    if (message.deletedUserId !== "") {
+      writer.uint32(66).string(message.deletedUserId);
+    }
+    if (message.createdAt !== "") {
+      writer.uint32(74).string(message.createdAt);
     }
     return writer;
   },
@@ -113,6 +147,54 @@ export const UserRole: MessageFns<UserRole> = {
           message.roleId = reader.string();
           continue;
         }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.createdUserId = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.updatedAt = reader.string();
+          continue;
+        }
+        case 6: {
+          if (tag !== 50) {
+            break;
+          }
+
+          message.updatedUserId = reader.string();
+          continue;
+        }
+        case 7: {
+          if (tag !== 58) {
+            break;
+          }
+
+          message.deletedAt = reader.string();
+          continue;
+        }
+        case 8: {
+          if (tag !== 66) {
+            break;
+          }
+
+          message.deletedUserId = reader.string();
+          continue;
+        }
+        case 9: {
+          if (tag !== 74) {
+            break;
+          }
+
+          message.createdAt = reader.string();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -127,6 +209,12 @@ export const UserRole: MessageFns<UserRole> = {
       userRoleId: isSet(object.userRoleId) ? globalThis.String(object.userRoleId) : "",
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
       roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
+      createdUserId: isSet(object.createdUserId) ? globalThis.String(object.createdUserId) : "",
+      updatedAt: isSet(object.updatedAt) ? globalThis.String(object.updatedAt) : "",
+      updatedUserId: isSet(object.updatedUserId) ? globalThis.String(object.updatedUserId) : "",
+      deletedAt: isSet(object.deletedAt) ? globalThis.String(object.deletedAt) : "",
+      deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
+      createdAt: isSet(object.createdAt) ? globalThis.String(object.createdAt) : "",
     };
   },
 
@@ -141,6 +229,24 @@ export const UserRole: MessageFns<UserRole> = {
     if (message.roleId !== "") {
       obj.roleId = message.roleId;
     }
+    if (message.createdUserId !== "") {
+      obj.createdUserId = message.createdUserId;
+    }
+    if (message.updatedAt !== "") {
+      obj.updatedAt = message.updatedAt;
+    }
+    if (message.updatedUserId !== "") {
+      obj.updatedUserId = message.updatedUserId;
+    }
+    if (message.deletedAt !== "") {
+      obj.deletedAt = message.deletedAt;
+    }
+    if (message.deletedUserId !== "") {
+      obj.deletedUserId = message.deletedUserId;
+    }
+    if (message.createdAt !== "") {
+      obj.createdAt = message.createdAt;
+    }
     return obj;
   },
 
@@ -152,6 +258,12 @@ export const UserRole: MessageFns<UserRole> = {
     message.userRoleId = object.userRoleId ?? "";
     message.userId = object.userId ?? "";
     message.roleId = object.roleId ?? "";
+    message.createdUserId = object.createdUserId ?? "";
+    message.updatedAt = object.updatedAt ?? "";
+    message.updatedUserId = object.updatedUserId ?? "";
+    message.deletedAt = object.deletedAt ?? "";
+    message.deletedUserId = object.deletedUserId ?? "";
+    message.createdAt = object.createdAt ?? "";
     return message;
   },
 };

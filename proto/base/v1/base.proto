@@ -2,24 +2,24 @@ syntax = "proto3";
 package base.v1;
 
 // import "google/protobuf/timestamp.proto";
-import "google/protobuf/any.proto";
 import "google/protobuf/struct.proto";
 
 // define enum
 enum FilterOperator {
-  EQUAL = 0;
-  NOT_EQUAL = 1;
-  GREATER_THAN = 2;
-  LESS_THAN = 3;
-  GREATER_THAN_OR_EQUAL = 4;
-  LESS_THAN_OR_EQUAL = 5;
-  LIKE = 6;
-  IN = 7;
-  NOT_IN = 8;
+  FILTER_OPERATOR_UNSPECIFIED = 0;
+  EQUAL = 1;
+  NOT_EQUAL = 2;
+  GREATER_THAN = 3;
+  LESS_THAN = 4;
+  GREATER_THAN_OR_EQUAL = 5;
+  LESS_THAN_OR_EQUAL = 6;
+  LIKE = 7;
+  IN = 8;
+  NOT_IN = 9;
 }
 
 enum SortOrder {
-  UNSPECIFIED = 0;
+  SORT_ORDER_UNSPECIFIED = 0;
   ASC = 1;
   DESC = 2;
 }
@@ -45,8 +45,13 @@ message Sort {
 
 message Filter {
   string field = 1;
-  FilterOperator operator = 2; // "eq", "ne", "gt", "lt", "gte", "lte", "like", "in", "nin"
-  google.protobuf.Any value = 3;
+  FilterOperator operator = 2;
+  optional string string_value = 3;
+  optional string number_value = 4;
+  optional string bool_value = 5;
+  repeated string bool_values = 6;
+  repeated string string_values = 7;
+  repeated string number_values = 8;
 }
 
 message ErrorResponse {

@@ -19,6 +19,12 @@ export interface Action {
     ActionRequestType: string;
     url: string;
     method: string;
+    createdAt: string;
+    createdUserId: string;
+    updatedAt: string;
+    updatedUserId: string;
+    deletedAt: string;
+    deletedUserId: string;
 }
 export interface CreateActionData {
     resourceId: string;

@@ -6,6 +6,12 @@ export interface Role {
     name: string;
     description: string;
     moduleId: string;
+    createdUserId: string;
+    updatedAt: string;
+    updatedUserId: string;
+    deletedAt: string;
+    deletedUserId: string;
+    createdAt: string;
 }
 export interface CreateRoleData {
     name: string;

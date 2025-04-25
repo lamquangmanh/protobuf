@@ -22,6 +22,12 @@ export interface Module {
   moduleId: string;
   name: string;
   description: string;
+  createdAt: string;
+  createdUserId: string;
+  updatedAt: string;
+  updatedUserId: string;
+  deletedAt: string;
+  deletedUserId: string;
 }
 
 export interface CreateModuleData {
@@ -65,7 +71,17 @@ export interface CreateSuccess {
 }
 
 function createBaseModule(): Module {
-  return { moduleId: "", name: "", description: "" };
+  return {
+    moduleId: "",
+    name: "",
+    description: "",
+    createdAt: "",
+    createdUserId: "",
+    updatedAt: "",
+    updatedUserId: "",
+    deletedAt: "",
+    deletedUserId: "",
+  };
 }
 
 export const Module: MessageFns<Module> = {
@@ -78,6 +94,24 @@ export const Module: MessageFns<Module> = {
     }
     if (message.description !== "") {
       writer.uint32(26).string(message.description);
+    }
+    if (message.createdAt !== "") {
+      writer.uint32(34).string(message.createdAt);
+    }
+    if (message.createdUserId !== "") {
+      writer.uint32(42).string(message.createdUserId);
+    }
+    if (message.updatedAt !== "") {
+      writer.uint32(50).string(message.updatedAt);
+    }
+    if (message.updatedUserId !== "") {
+      writer.uint32(58).string(message.updatedUserId);
+    }
+    if (message.deletedAt !== "") {
+      writer.uint32(66).string(message.deletedAt);
+    }
+    if (message.deletedUserId !== "") {
+      writer.uint32(74).string(message.deletedUserId);
     }
     return writer;
   },
@@ -113,6 +147,54 @@ export const Module: MessageFns<Module> = {
           message.description = reader.string();
           continue;
         }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.createdAt = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.createdUserId = reader.string();
+          continue;
+        }
+        case 6: {
+          if (tag !== 50) {
+            break;
+          }
+
+          message.updatedAt = reader.string();
+          continue;
+        }
+        case 7: {
+          if (tag !== 58) {
+            break;
+          }
+
+          message.updatedUserId = reader.string();
+          continue;
+        }
+        case 8: {
+          if (tag !== 66) {
+            break;
+          }
+
+          message.deletedAt = reader.string();
+          continue;
+        }
+        case 9: {
+          if (tag !== 74) {
+            break;
+          }
+
+          message.deletedUserId = reader.string();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -127,6 +209,12 @@ export const Module: MessageFns<Module> = {
       moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       description: isSet(object.description) ? globalThis.String(object.description) : "",
+      createdAt: isSet(object.createdAt) ? globalThis.String(object.createdAt) : "",
+      createdUserId: isSet(object.createdUserId) ? globalThis.String(object.createdUserId) : "",
+      updatedAt: isSet(object.updatedAt) ? globalThis.String(object.updatedAt) : "",
+      updatedUserId: isSet(object.updatedUserId) ? globalThis.String(object.updatedUserId) : "",
+      deletedAt: isSet(object.deletedAt) ? globalThis.String(object.deletedAt) : "",
+      deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
     };
   },
 
@@ -141,6 +229,24 @@ export const Module: MessageFns<Module> = {
     if (message.description !== "") {
       obj.description = message.description;
     }
+    if (message.createdAt !== "") {
+      obj.createdAt = message.createdAt;
+    }
+    if (message.createdUserId !== "") {
+      obj.createdUserId = message.createdUserId;
+    }
+    if (message.updatedAt !== "") {
+      obj.updatedAt = message.updatedAt;
+    }
+    if (message.updatedUserId !== "") {
+      obj.updatedUserId = message.updatedUserId;
+    }
+    if (message.deletedAt !== "") {
+      obj.deletedAt = message.deletedAt;
+    }
+    if (message.deletedUserId !== "") {
+      obj.deletedUserId = message.deletedUserId;
+    }
     return obj;
   },
 
@@ -152,6 +258,12 @@ export const Module: MessageFns<Module> = {
     message.moduleId = object.moduleId ?? "";
     message.name = object.name ?? "";
     message.description = object.description ?? "";
+    message.createdAt = object.createdAt ?? "";
+    message.createdUserId = object.createdUserId ?? "";
+    message.updatedAt = object.updatedAt ?? "";
+    message.updatedUserId = object.updatedUserId ?? "";
+    message.deletedAt = object.deletedAt ?? "";
+    message.deletedUserId = object.deletedUserId ?? "";
     return message;
   },
 };

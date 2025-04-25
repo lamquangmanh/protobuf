@@ -8,6 +8,12 @@ message UserRole {
   string user_role_id = 1;
   string user_id = 2;
   string role_id = 3;
+  string created_user_id = 4;
+  string updated_at = 5;
+  string updated_user_id = 6;
+  string deleted_at = 7;
+  string deleted_user_id = 8;
+  string created_at = 9;
 }
 
 message CreateUserRoleData {

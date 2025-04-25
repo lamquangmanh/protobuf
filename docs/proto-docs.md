@@ -137,6 +137,12 @@
 | ActionRequestType | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | method | [string](#string) |  |  |
+| created_at | [string](#string) |  |  |
+| created_user_id | [string](#string) |  |  |
+| updated_at | [string](#string) |  |  |
+| updated_user_id | [string](#string) |  |  |
+| deleted_at | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
 
 
 
@@ -378,8 +384,13 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | field | [string](#string) |  |  |
-| operator | [FilterOperator](#base-v1-FilterOperator) |  | &#34;eq&#34;, &#34;ne&#34;, &#34;gt&#34;, &#34;lt&#34;, &#34;gte&#34;, &#34;lte&#34;, &#34;like&#34;, &#34;in&#34;, &#34;nin&#34; |
-| value | [google.protobuf.Any](#google-protobuf-Any) |  |  |
+| operator | [FilterOperator](#base-v1-FilterOperator) |  |  |
+| string_value | [string](#string) | optional |  |
+| number_value | [string](#string) | optional |  |
+| bool_value | [string](#string) | optional |  |
+| bool_values | [string](#string) | repeated |  |
+| string_values | [string](#string) | repeated |  |
+| number_values | [string](#string) | repeated |  |
 
 
 
@@ -462,15 +473,16 @@ define enum
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| EQUAL | 0 |  |
-| NOT_EQUAL | 1 |  |
-| GREATER_THAN | 2 |  |
-| LESS_THAN | 3 |  |
-| GREATER_THAN_OR_EQUAL | 4 |  |
-| LESS_THAN_OR_EQUAL | 5 |  |
-| LIKE | 6 |  |
-| IN | 7 |  |
-| NOT_IN | 8 |  |
+| FILTER_OPERATOR_UNSPECIFIED | 0 |  |
+| EQUAL | 1 |  |
+| NOT_EQUAL | 2 |  |
+| GREATER_THAN | 3 |  |
+| LESS_THAN | 4 |  |
+| GREATER_THAN_OR_EQUAL | 5 |  |
+| LESS_THAN_OR_EQUAL | 6 |  |
+| LIKE | 7 |  |
+| IN | 8 |  |
+| NOT_IN | 9 |  |
 
 
 
@@ -481,7 +493,7 @@ define enum
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| UNSPECIFIED | 0 |  |
+| SORT_ORDER_UNSPECIFIED | 0 |  |
 | ASC | 1 |  |
 | DESC | 2 |  |
 
@@ -624,6 +636,12 @@ define enum
 | module_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
+| created_at | [string](#string) |  |  |
+| created_user_id | [string](#string) |  |  |
+| updated_at | [string](#string) |  |  |
+| updated_user_id | [string](#string) |  |  |
+| deleted_at | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
 
 
 
@@ -801,6 +819,12 @@ define enum
 | role_id | [string](#string) |  |  |
 | resource_id | [string](#string) |  |  |
 | action_id | [string](#string) |  |  |
+| created_user_id | [string](#string) |  |  |
+| updated_at | [string](#string) |  |  |
+| updated_user_id | [string](#string) |  |  |
+| deleted_at | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
+| created_at | [string](#string) |  |  |
 
 
 
@@ -976,6 +1000,12 @@ define enum
 | resource_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | module_id | [string](#string) |  |  |
+| created_user_id | [string](#string) |  |  |
+| updated_at | [string](#string) |  |  |
+| updated_user_id | [string](#string) |  |  |
+| deleted_at | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
+| created_at | [string](#string) |  |  |
 
 
 
@@ -1153,6 +1183,12 @@ define enum
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
 | module_id | [string](#string) |  |  |
+| created_user_id | [string](#string) |  |  |
+| updated_at | [string](#string) |  |  |
+| updated_user_id | [string](#string) |  |  |
+| deleted_at | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
+| created_at | [string](#string) |  |  |
 
 
 
@@ -1344,6 +1380,12 @@ define enum
 | user_role_id | [string](#string) |  |  |
 | user_id | [string](#string) |  |  |
 | role_id | [string](#string) |  |  |
+| created_user_id | [string](#string) |  |  |
+| updated_at | [string](#string) |  |  |
+| updated_user_id | [string](#string) |  |  |
+| deleted_at | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
+| created_at | [string](#string) |  |  |
 
 
 
@@ -1523,10 +1565,15 @@ define enum
 | user_id | [string](#string) |  |  |
 | username | [string](#string) |  |  |
 | email | [string](#string) |  |  |
-| password | [string](#string) |  |  |
 | phone | [string](#string) |  |  |
 | avatar | [string](#string) |  |  |
 | status | [UserStatus](#user-v1-UserStatus) |  |  |
+| created_at | [string](#string) |  |  |
+| created_user_id | [string](#string) |  |  |
+| updated_at | [string](#string) |  |  |
+| updated_user_id | [string](#string) |  |  |
+| deleted_at | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
 
 
 
@@ -1542,9 +1589,10 @@ define enum
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| ACTIVE | 0 |  |
-| DEACTIVATED | 1 |  |
-| DELETED | 2 |  |
+| USER_STATUS_UNSPECIFIED | 0 |  |
+| ACTIVE | 1 |  |
+| DEACTIVATED | 2 |  |
+| DELETED | 3 |  |
 
 
  

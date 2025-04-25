@@ -5,6 +5,12 @@ export interface UserRole {
     userRoleId: string;
     userId: string;
     roleId: string;
+    createdUserId: string;
+    updatedAt: string;
+    updatedUserId: string;
+    deletedAt: string;
+    deletedUserId: string;
+    createdAt: string;
 }
 export interface CreateUserRoleData {
     userId: string;

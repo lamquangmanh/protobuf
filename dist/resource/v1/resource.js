@@ -11,7 +11,17 @@ const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
 exports.protobufPackage = "resource.v1";
 function createBaseResource() {
-    return { resourceId: "", name: "", moduleId: "" };
+    return {
+        resourceId: "",
+        name: "",
+        moduleId: "",
+        createdUserId: "",
+        updatedAt: "",
+        updatedUserId: "",
+        deletedAt: "",
+        deletedUserId: "",
+        createdAt: "",
+    };
 }
 exports.Resource = {
     encode(message, writer = new wire_1.BinaryWriter()) {
@@ -23,6 +33,24 @@ exports.Resource = {
         }
         if (message.moduleId !== "") {
             writer.uint32(26).string(message.moduleId);
+        }
+        if (message.createdUserId !== "") {
+            writer.uint32(34).string(message.createdUserId);
+        }
+        if (message.updatedAt !== "") {
+            writer.uint32(42).string(message.updatedAt);
+        }
+        if (message.updatedUserId !== "") {
+            writer.uint32(50).string(message.updatedUserId);
+        }
+        if (message.deletedAt !== "") {
+            writer.uint32(58).string(message.deletedAt);
+        }
+        if (message.deletedUserId !== "") {
+            writer.uint32(66).string(message.deletedUserId);
+        }
+        if (message.createdAt !== "") {
+            writer.uint32(74).string(message.createdAt);
         }
         return writer;
     },
@@ -54,6 +82,48 @@ exports.Resource = {
                     message.moduleId = reader.string();
                     continue;
                 }
+                case 4: {
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.createdUserId = reader.string();
+                    continue;
+                }
+                case 5: {
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.updatedAt = reader.string();
+                    continue;
+                }
+                case 6: {
+                    if (tag !== 50) {
+                        break;
+                    }
+                    message.updatedUserId = reader.string();
+                    continue;
+                }
+                case 7: {
+                    if (tag !== 58) {
+                        break;
+                    }
+                    message.deletedAt = reader.string();
+                    continue;
+                }
+                case 8: {
+                    if (tag !== 66) {
+                        break;
+                    }
+                    message.deletedUserId = reader.string();
+                    continue;
+                }
+                case 9: {
+                    if (tag !== 74) {
+                        break;
+                    }
+                    message.createdAt = reader.string();
+                    continue;
+                }
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -67,6 +137,12 @@ exports.Resource = {
             resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
             name: isSet(object.name) ? globalThis.String(object.name) : "",
             moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+            createdUserId: isSet(object.createdUserId) ? globalThis.String(object.createdUserId) : "",
+            updatedAt: isSet(object.updatedAt) ? globalThis.String(object.updatedAt) : "",
+            updatedUserId: isSet(object.updatedUserId) ? globalThis.String(object.updatedUserId) : "",
+            deletedAt: isSet(object.deletedAt) ? globalThis.String(object.deletedAt) : "",
+            deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
+            createdAt: isSet(object.createdAt) ? globalThis.String(object.createdAt) : "",
         };
     },
     toJSON(message) {
@@ -80,6 +156,24 @@ exports.Resource = {
         if (message.moduleId !== "") {
             obj.moduleId = message.moduleId;
         }
+        if (message.createdUserId !== "") {
+            obj.createdUserId = message.createdUserId;
+        }
+        if (message.updatedAt !== "") {
+            obj.updatedAt = message.updatedAt;
+        }
+        if (message.updatedUserId !== "") {
+            obj.updatedUserId = message.updatedUserId;
+        }
+        if (message.deletedAt !== "") {
+            obj.deletedAt = message.deletedAt;
+        }
+        if (message.deletedUserId !== "") {
+            obj.deletedUserId = message.deletedUserId;
+        }
+        if (message.createdAt !== "") {
+            obj.createdAt = message.createdAt;
+        }
         return obj;
     },
     create(base) {
@@ -90,6 +184,12 @@ exports.Resource = {
         message.resourceId = object.resourceId ?? "";
         message.name = object.name ?? "";
         message.moduleId = object.moduleId ?? "";
+        message.createdUserId = object.createdUserId ?? "";
+        message.updatedAt = object.updatedAt ?? "";
+        message.updatedUserId = object.updatedUserId ?? "";
+        message.deletedAt = object.deletedAt ?? "";
+        message.deletedUserId = object.deletedUserId ?? "";
+        message.createdAt = object.createdAt ?? "";
         return message;
     },
 };

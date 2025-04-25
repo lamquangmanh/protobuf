@@ -5,6 +5,12 @@ export interface Resource {
     resourceId: string;
     name: string;
     moduleId: string;
+    createdUserId: string;
+    updatedAt: string;
+    updatedUserId: string;
+    deletedAt: string;
+    deletedUserId: string;
+    createdAt: string;
 }
 export interface CreateResourceData {
     name: string;

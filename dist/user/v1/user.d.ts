@@ -2,9 +2,10 @@ import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 import { DeleteSuccess, ErrorResponse, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
 export declare const protobufPackage = "user.v1";
 export declare enum UserStatus {
-    ACTIVE = 0,
-    DEACTIVATED = 1,
-    DELETED = 2,
+    USER_STATUS_UNSPECIFIED = 0,
+    ACTIVE = 1,
+    DEACTIVATED = 2,
+    DELETED = 3,
     UNRECOGNIZED = -1
 }
 export declare function userStatusFromJSON(object: any): UserStatus;
@@ -13,10 +14,15 @@ export interface User {
     userId: string;
     username: string;
     email: string;
-    password: string;
     phone: string;
     avatar: string;
     status: UserStatus;
+    createdAt: string;
+    createdUserId: string;
+    updatedAt: string;
+    updatedUserId: string;
+    deletedAt: string;
+    deletedUserId: string;
 }
 export interface CreateUserData {
     username: string;

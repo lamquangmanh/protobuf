@@ -77,6 +77,12 @@ export interface Action {
   ActionRequestType: string;
   url: string;
   method: string;
+  createdAt: string;
+  createdUserId: string;
+  updatedAt: string;
+  updatedUserId: string;
+  deletedAt: string;
+  deletedUserId: string;
 }
 
 export interface CreateActionData {
@@ -124,7 +130,21 @@ export interface CreateSuccess {
 }
 
 function createBaseAction(): Action {
-  return { actionId: "", resourceId: "", name: "", description: "", ActionRequestType: "", url: "", method: "" };
+  return {
+    actionId: "",
+    resourceId: "",
+    name: "",
+    description: "",
+    ActionRequestType: "",
+    url: "",
+    method: "",
+    createdAt: "",
+    createdUserId: "",
+    updatedAt: "",
+    updatedUserId: "",
+    deletedAt: "",
+    deletedUserId: "",
+  };
 }
 
 export const Action: MessageFns<Action> = {
@@ -149,6 +169,24 @@ export const Action: MessageFns<Action> = {
     }
     if (message.method !== "") {
       writer.uint32(58).string(message.method);
+    }
+    if (message.createdAt !== "") {
+      writer.uint32(66).string(message.createdAt);
+    }
+    if (message.createdUserId !== "") {
+      writer.uint32(74).string(message.createdUserId);
+    }
+    if (message.updatedAt !== "") {
+      writer.uint32(82).string(message.updatedAt);
+    }
+    if (message.updatedUserId !== "") {
+      writer.uint32(90).string(message.updatedUserId);
+    }
+    if (message.deletedAt !== "") {
+      writer.uint32(98).string(message.deletedAt);
+    }
+    if (message.deletedUserId !== "") {
+      writer.uint32(106).string(message.deletedUserId);
     }
     return writer;
   },
@@ -216,6 +254,54 @@ export const Action: MessageFns<Action> = {
           message.method = reader.string();
           continue;
         }
+        case 8: {
+          if (tag !== 66) {
+            break;
+          }
+
+          message.createdAt = reader.string();
+          continue;
+        }
+        case 9: {
+          if (tag !== 74) {
+            break;
+          }
+
+          message.createdUserId = reader.string();
+          continue;
+        }
+        case 10: {
+          if (tag !== 82) {
+            break;
+          }
+
+          message.updatedAt = reader.string();
+          continue;
+        }
+        case 11: {
+          if (tag !== 90) {
+            break;
+          }
+
+          message.updatedUserId = reader.string();
+          continue;
+        }
+        case 12: {
+          if (tag !== 98) {
+            break;
+          }
+
+          message.deletedAt = reader.string();
+          continue;
+        }
+        case 13: {
+          if (tag !== 106) {
+            break;
+          }
+
+          message.deletedUserId = reader.string();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -234,6 +320,12 @@ export const Action: MessageFns<Action> = {
       ActionRequestType: isSet(object.ActionRequestType) ? globalThis.String(object.ActionRequestType) : "",
       url: isSet(object.url) ? globalThis.String(object.url) : "",
       method: isSet(object.method) ? globalThis.String(object.method) : "",
+      createdAt: isSet(object.createdAt) ? globalThis.String(object.createdAt) : "",
+      createdUserId: isSet(object.createdUserId) ? globalThis.String(object.createdUserId) : "",
+      updatedAt: isSet(object.updatedAt) ? globalThis.String(object.updatedAt) : "",
+      updatedUserId: isSet(object.updatedUserId) ? globalThis.String(object.updatedUserId) : "",
+      deletedAt: isSet(object.deletedAt) ? globalThis.String(object.deletedAt) : "",
+      deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
     };
   },
 
@@ -260,6 +352,24 @@ export const Action: MessageFns<Action> = {
     if (message.method !== "") {
       obj.method = message.method;
     }
+    if (message.createdAt !== "") {
+      obj.createdAt = message.createdAt;
+    }
+    if (message.createdUserId !== "") {
+      obj.createdUserId = message.createdUserId;
+    }
+    if (message.updatedAt !== "") {
+      obj.updatedAt = message.updatedAt;
+    }
+    if (message.updatedUserId !== "") {
+      obj.updatedUserId = message.updatedUserId;
+    }
+    if (message.deletedAt !== "") {
+      obj.deletedAt = message.deletedAt;
+    }
+    if (message.deletedUserId !== "") {
+      obj.deletedUserId = message.deletedUserId;
+    }
     return obj;
   },
 
@@ -275,6 +385,12 @@ export const Action: MessageFns<Action> = {
     message.ActionRequestType = object.ActionRequestType ?? "";
     message.url = object.url ?? "";
     message.method = object.method ?? "";
+    message.createdAt = object.createdAt ?? "";
+    message.createdUserId = object.createdUserId ?? "";
+    message.updatedAt = object.updatedAt ?? "";
+    message.updatedUserId = object.updatedUserId ?? "";
+    message.deletedAt = object.deletedAt ?? "";
+    message.deletedUserId = object.deletedUserId ?? "";
     return message;
   },
 };

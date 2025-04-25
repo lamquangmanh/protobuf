@@ -6,52 +6,55 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { Any } from "../../google/protobuf/any";
 import { Struct } from "../../google/protobuf/struct";
 
 export const protobufPackage = "base.v1";
 
 /** define enum */
 export enum FilterOperator {
-  EQUAL = 0,
-  NOT_EQUAL = 1,
-  GREATER_THAN = 2,
-  LESS_THAN = 3,
-  GREATER_THAN_OR_EQUAL = 4,
-  LESS_THAN_OR_EQUAL = 5,
-  LIKE = 6,
-  IN = 7,
-  NOT_IN = 8,
+  FILTER_OPERATOR_UNSPECIFIED = 0,
+  EQUAL = 1,
+  NOT_EQUAL = 2,
+  GREATER_THAN = 3,
+  LESS_THAN = 4,
+  GREATER_THAN_OR_EQUAL = 5,
+  LESS_THAN_OR_EQUAL = 6,
+  LIKE = 7,
+  IN = 8,
+  NOT_IN = 9,
   UNRECOGNIZED = -1,
 }
 
 export function filterOperatorFromJSON(object: any): FilterOperator {
   switch (object) {
     case 0:
+    case "FILTER_OPERATOR_UNSPECIFIED":
+      return FilterOperator.FILTER_OPERATOR_UNSPECIFIED;
+    case 1:
     case "EQUAL":
       return FilterOperator.EQUAL;
-    case 1:
+    case 2:
     case "NOT_EQUAL":
       return FilterOperator.NOT_EQUAL;
-    case 2:
+    case 3:
     case "GREATER_THAN":
       return FilterOperator.GREATER_THAN;
-    case 3:
+    case 4:
     case "LESS_THAN":
       return FilterOperator.LESS_THAN;
-    case 4:
+    case 5:
     case "GREATER_THAN_OR_EQUAL":
       return FilterOperator.GREATER_THAN_OR_EQUAL;
-    case 5:
+    case 6:
     case "LESS_THAN_OR_EQUAL":
       return FilterOperator.LESS_THAN_OR_EQUAL;
-    case 6:
+    case 7:
     case "LIKE":
       return FilterOperator.LIKE;
-    case 7:
+    case 8:
     case "IN":
       return FilterOperator.IN;
-    case 8:
+    case 9:
     case "NOT_IN":
       return FilterOperator.NOT_IN;
     case -1:
@@ -63,6 +66,8 @@ export function filterOperatorFromJSON(object: any): FilterOperator {
 
 export function filterOperatorToJSON(object: FilterOperator): string {
   switch (object) {
+    case FilterOperator.FILTER_OPERATOR_UNSPECIFIED:
+      return "FILTER_OPERATOR_UNSPECIFIED";
     case FilterOperator.EQUAL:
       return "EQUAL";
     case FilterOperator.NOT_EQUAL:
@@ -88,7 +93,7 @@ export function filterOperatorToJSON(object: FilterOperator): string {
 }
 
 export enum SortOrder {
-  UNSPECIFIED = 0,
+  SORT_ORDER_UNSPECIFIED = 0,
   ASC = 1,
   DESC = 2,
   UNRECOGNIZED = -1,
@@ -97,8 +102,8 @@ export enum SortOrder {
 export function sortOrderFromJSON(object: any): SortOrder {
   switch (object) {
     case 0:
-    case "UNSPECIFIED":
-      return SortOrder.UNSPECIFIED;
+    case "SORT_ORDER_UNSPECIFIED":
+      return SortOrder.SORT_ORDER_UNSPECIFIED;
     case 1:
     case "ASC":
       return SortOrder.ASC;
@@ -114,8 +119,8 @@ export function sortOrderFromJSON(object: any): SortOrder {
 
 export function sortOrderToJSON(object: SortOrder): string {
   switch (object) {
-    case SortOrder.UNSPECIFIED:
-      return "UNSPECIFIED";
+    case SortOrder.SORT_ORDER_UNSPECIFIED:
+      return "SORT_ORDER_UNSPECIFIED";
     case SortOrder.ASC:
       return "ASC";
     case SortOrder.DESC:
@@ -149,9 +154,13 @@ export interface Sort {
 
 export interface Filter {
   field: string;
-  /** "eq", "ne", "gt", "lt", "gte", "lte", "like", "in", "nin" */
   operator: FilterOperator;
-  value: Any | undefined;
+  stringValue?: string | undefined;
+  numberValue?: string | undefined;
+  boolValue?: string | undefined;
+  boolValues: string[];
+  stringValues: string[];
+  numberValues: string[];
 }
 
 export interface ErrorResponse {
@@ -453,7 +462,16 @@ export const Sort: MessageFns<Sort> = {
 };
 
 function createBaseFilter(): Filter {
-  return { field: "", operator: 0, value: undefined };
+  return {
+    field: "",
+    operator: 0,
+    stringValue: undefined,
+    numberValue: undefined,
+    boolValue: undefined,
+    boolValues: [],
+    stringValues: [],
+    numberValues: [],
+  };
 }
 
 export const Filter: MessageFns<Filter> = {
@@ -464,8 +482,23 @@ export const Filter: MessageFns<Filter> = {
     if (message.operator !== 0) {
       writer.uint32(16).int32(message.operator);
     }
-    if (message.value !== undefined) {
-      Any.encode(message.value, writer.uint32(26).fork()).join();
+    if (message.stringValue !== undefined) {
+      writer.uint32(26).string(message.stringValue);
+    }
+    if (message.numberValue !== undefined) {
+      writer.uint32(34).string(message.numberValue);
+    }
+    if (message.boolValue !== undefined) {
+      writer.uint32(42).string(message.boolValue);
+    }
+    for (const v of message.boolValues) {
+      writer.uint32(50).string(v!);
+    }
+    for (const v of message.stringValues) {
+      writer.uint32(58).string(v!);
+    }
+    for (const v of message.numberValues) {
+      writer.uint32(66).string(v!);
     }
     return writer;
   },
@@ -498,7 +531,47 @@ export const Filter: MessageFns<Filter> = {
             break;
           }
 
-          message.value = Any.decode(reader, reader.uint32());
+          message.stringValue = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.numberValue = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.boolValue = reader.string();
+          continue;
+        }
+        case 6: {
+          if (tag !== 50) {
+            break;
+          }
+
+          message.boolValues.push(reader.string());
+          continue;
+        }
+        case 7: {
+          if (tag !== 58) {
+            break;
+          }
+
+          message.stringValues.push(reader.string());
+          continue;
+        }
+        case 8: {
+          if (tag !== 66) {
+            break;
+          }
+
+          message.numberValues.push(reader.string());
           continue;
         }
       }
@@ -514,7 +587,18 @@ export const Filter: MessageFns<Filter> = {
     return {
       field: isSet(object.field) ? globalThis.String(object.field) : "",
       operator: isSet(object.operator) ? filterOperatorFromJSON(object.operator) : 0,
-      value: isSet(object.value) ? Any.fromJSON(object.value) : undefined,
+      stringValue: isSet(object.stringValue) ? globalThis.String(object.stringValue) : undefined,
+      numberValue: isSet(object.numberValue) ? globalThis.String(object.numberValue) : undefined,
+      boolValue: isSet(object.boolValue) ? globalThis.String(object.boolValue) : undefined,
+      boolValues: globalThis.Array.isArray(object?.boolValues)
+        ? object.boolValues.map((e: any) => globalThis.String(e))
+        : [],
+      stringValues: globalThis.Array.isArray(object?.stringValues)
+        ? object.stringValues.map((e: any) => globalThis.String(e))
+        : [],
+      numberValues: globalThis.Array.isArray(object?.numberValues)
+        ? object.numberValues.map((e: any) => globalThis.String(e))
+        : [],
     };
   },
 
@@ -526,8 +610,23 @@ export const Filter: MessageFns<Filter> = {
     if (message.operator !== 0) {
       obj.operator = filterOperatorToJSON(message.operator);
     }
-    if (message.value !== undefined) {
-      obj.value = Any.toJSON(message.value);
+    if (message.stringValue !== undefined) {
+      obj.stringValue = message.stringValue;
+    }
+    if (message.numberValue !== undefined) {
+      obj.numberValue = message.numberValue;
+    }
+    if (message.boolValue !== undefined) {
+      obj.boolValue = message.boolValue;
+    }
+    if (message.boolValues?.length) {
+      obj.boolValues = message.boolValues;
+    }
+    if (message.stringValues?.length) {
+      obj.stringValues = message.stringValues;
+    }
+    if (message.numberValues?.length) {
+      obj.numberValues = message.numberValues;
     }
     return obj;
   },
@@ -539,7 +638,12 @@ export const Filter: MessageFns<Filter> = {
     const message = createBaseFilter();
     message.field = object.field ?? "";
     message.operator = object.operator ?? 0;
-    message.value = (object.value !== undefined && object.value !== null) ? Any.fromPartial(object.value) : undefined;
+    message.stringValue = object.stringValue ?? undefined;
+    message.numberValue = object.numberValue ?? undefined;
+    message.boolValue = object.boolValue ?? undefined;
+    message.boolValues = object.boolValues?.map((e) => e) || [];
+    message.stringValues = object.stringValues?.map((e) => e) || [];
+    message.numberValues = object.numberValues?.map((e) => e) || [];
     return message;
   },
 };

@@ -20,6 +20,12 @@ message Action {
   string ActionRequestType = 5;
   string url = 6;
   string method = 7;
+  string created_at = 8;
+  string created_user_id = 9;
+  string updated_at = 10;
+  string updated_user_id = 11;
+  string deleted_at = 12;
+  string deleted_user_id = 13;
 }
 
 message CreateActionData {

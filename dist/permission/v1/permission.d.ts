@@ -6,6 +6,12 @@ export interface Permission {
     roleId: string;
     resourceId: string;
     actionId: string;
+    createdUserId: string;
+    updatedAt: string;
+    updatedUserId: string;
+    deletedAt: string;
+    deletedUserId: string;
+    createdAt: string;
 }
 export interface CreatePermissionData {
     roleId: string;

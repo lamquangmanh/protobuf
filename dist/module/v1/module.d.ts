@@ -5,6 +5,12 @@ export interface Module {
     moduleId: string;
     name: string;
     description: string;
+    createdAt: string;
+    createdUserId: string;
+    updatedAt: string;
+    updatedUserId: string;
+    deletedAt: string;
+    deletedUserId: string;
 }
 export interface CreateModuleData {
     name: string;
