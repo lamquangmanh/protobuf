@@ -74,7 +74,7 @@ export interface Action {
   resourceId: string;
   name: string;
   description: string;
-  ActionRequestType: string;
+  requestType: ActionRequestType;
   url: string;
   method: string;
   createdAt: string;
@@ -89,7 +89,7 @@ export interface CreateActionData {
   resourceId: string;
   name: string;
   description: string;
-  ActionRequestType: string;
+  requestType: ActionRequestType;
   url: string;
   method: string;
 }
@@ -135,7 +135,7 @@ function createBaseAction(): Action {
     resourceId: "",
     name: "",
     description: "",
-    ActionRequestType: "",
+    requestType: 0,
     url: "",
     method: "",
     createdAt: "",
@@ -161,8 +161,8 @@ export const Action: MessageFns<Action> = {
     if (message.description !== "") {
       writer.uint32(34).string(message.description);
     }
-    if (message.ActionRequestType !== "") {
-      writer.uint32(42).string(message.ActionRequestType);
+    if (message.requestType !== 0) {
+      writer.uint32(40).int32(message.requestType);
     }
     if (message.url !== "") {
       writer.uint32(50).string(message.url);
@@ -231,11 +231,11 @@ export const Action: MessageFns<Action> = {
           continue;
         }
         case 5: {
-          if (tag !== 42) {
+          if (tag !== 40) {
             break;
           }
 
-          message.ActionRequestType = reader.string();
+          message.requestType = reader.int32() as any;
           continue;
         }
         case 6: {
@@ -317,7 +317,7 @@ export const Action: MessageFns<Action> = {
       resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       description: isSet(object.description) ? globalThis.String(object.description) : "",
-      ActionRequestType: isSet(object.ActionRequestType) ? globalThis.String(object.ActionRequestType) : "",
+      requestType: isSet(object.requestType) ? actionRequestTypeFromJSON(object.requestType) : 0,
       url: isSet(object.url) ? globalThis.String(object.url) : "",
       method: isSet(object.method) ? globalThis.String(object.method) : "",
       createdAt: isSet(object.createdAt) ? globalThis.String(object.createdAt) : "",
@@ -343,8 +343,8 @@ export const Action: MessageFns<Action> = {
     if (message.description !== "") {
       obj.description = message.description;
     }
-    if (message.ActionRequestType !== "") {
-      obj.ActionRequestType = message.ActionRequestType;
+    if (message.requestType !== 0) {
+      obj.requestType = actionRequestTypeToJSON(message.requestType);
     }
     if (message.url !== "") {
       obj.url = message.url;
@@ -382,7 +382,7 @@ export const Action: MessageFns<Action> = {
     message.resourceId = object.resourceId ?? "";
     message.name = object.name ?? "";
     message.description = object.description ?? "";
-    message.ActionRequestType = object.ActionRequestType ?? "";
+    message.requestType = object.requestType ?? 0;
     message.url = object.url ?? "";
     message.method = object.method ?? "";
     message.createdAt = object.createdAt ?? "";
@@ -396,7 +396,7 @@ export const Action: MessageFns<Action> = {
 };
 
 function createBaseCreateActionData(): CreateActionData {
-  return { resourceId: "", name: "", description: "", ActionRequestType: "", url: "", method: "" };
+  return { resourceId: "", name: "", description: "", requestType: 0, url: "", method: "" };
 }
 
 export const CreateActionData: MessageFns<CreateActionData> = {
@@ -410,8 +410,8 @@ export const CreateActionData: MessageFns<CreateActionData> = {
     if (message.description !== "") {
       writer.uint32(26).string(message.description);
     }
-    if (message.ActionRequestType !== "") {
-      writer.uint32(34).string(message.ActionRequestType);
+    if (message.requestType !== 0) {
+      writer.uint32(32).int32(message.requestType);
     }
     if (message.url !== "") {
       writer.uint32(42).string(message.url);
@@ -454,11 +454,11 @@ export const CreateActionData: MessageFns<CreateActionData> = {
           continue;
         }
         case 4: {
-          if (tag !== 34) {
+          if (tag !== 32) {
             break;
           }
 
-          message.ActionRequestType = reader.string();
+          message.requestType = reader.int32() as any;
           continue;
         }
         case 5: {
@@ -491,7 +491,7 @@ export const CreateActionData: MessageFns<CreateActionData> = {
       resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       description: isSet(object.description) ? globalThis.String(object.description) : "",
-      ActionRequestType: isSet(object.ActionRequestType) ? globalThis.String(object.ActionRequestType) : "",
+      requestType: isSet(object.requestType) ? actionRequestTypeFromJSON(object.requestType) : 0,
       url: isSet(object.url) ? globalThis.String(object.url) : "",
       method: isSet(object.method) ? globalThis.String(object.method) : "",
     };
@@ -508,8 +508,8 @@ export const CreateActionData: MessageFns<CreateActionData> = {
     if (message.description !== "") {
       obj.description = message.description;
     }
-    if (message.ActionRequestType !== "") {
-      obj.ActionRequestType = message.ActionRequestType;
+    if (message.requestType !== 0) {
+      obj.requestType = actionRequestTypeToJSON(message.requestType);
     }
     if (message.url !== "") {
       obj.url = message.url;
@@ -528,7 +528,7 @@ export const CreateActionData: MessageFns<CreateActionData> = {
     message.resourceId = object.resourceId ?? "";
     message.name = object.name ?? "";
     message.description = object.description ?? "";
-    message.ActionRequestType = object.ActionRequestType ?? "";
+    message.requestType = object.requestType ?? 0;
     message.url = object.url ?? "";
     message.method = object.method ?? "";
     return message;

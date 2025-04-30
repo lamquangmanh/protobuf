@@ -31,10 +31,25 @@ export interface Role {
   createdAt: string;
 }
 
+export interface Permission {
+  resourceId: string;
+  actionId: string;
+  permissionId?: string | undefined;
+}
+
 export interface CreateRoleData {
   name: string;
   description: string;
   moduleId: string;
+  permissions: Permission[];
+}
+
+export interface UpdateRoleData {
+  roleId: string;
+  name: string;
+  description: string;
+  moduleId: string;
+  permissions: Permission[];
 }
 
 export interface GetRoleRequest {
@@ -58,7 +73,7 @@ export interface CreateRoleRequest {
 }
 
 export interface UpdateRoleRequest {
-  role: Role | undefined;
+  role: UpdateRoleData | undefined;
   userId: string;
 }
 
@@ -287,8 +302,100 @@ export const Role: MessageFns<Role> = {
   },
 };
 
+function createBasePermission(): Permission {
+  return { resourceId: "", actionId: "", permissionId: undefined };
+}
+
+export const Permission: MessageFns<Permission> = {
+  encode(message: Permission, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.resourceId !== "") {
+      writer.uint32(10).string(message.resourceId);
+    }
+    if (message.actionId !== "") {
+      writer.uint32(18).string(message.actionId);
+    }
+    if (message.permissionId !== undefined) {
+      writer.uint32(26).string(message.permissionId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): Permission {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePermission();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.resourceId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.actionId = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.permissionId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Permission {
+    return {
+      resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
+      actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : "",
+      permissionId: isSet(object.permissionId) ? globalThis.String(object.permissionId) : undefined,
+    };
+  },
+
+  toJSON(message: Permission): unknown {
+    const obj: any = {};
+    if (message.resourceId !== "") {
+      obj.resourceId = message.resourceId;
+    }
+    if (message.actionId !== "") {
+      obj.actionId = message.actionId;
+    }
+    if (message.permissionId !== undefined) {
+      obj.permissionId = message.permissionId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Permission>, I>>(base?: I): Permission {
+    return Permission.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Permission>, I>>(object: I): Permission {
+    const message = createBasePermission();
+    message.resourceId = object.resourceId ?? "";
+    message.actionId = object.actionId ?? "";
+    message.permissionId = object.permissionId ?? undefined;
+    return message;
+  },
+};
+
 function createBaseCreateRoleData(): CreateRoleData {
-  return { name: "", description: "", moduleId: "" };
+  return { name: "", description: "", moduleId: "", permissions: [] };
 }
 
 export const CreateRoleData: MessageFns<CreateRoleData> = {
@@ -301,6 +408,9 @@ export const CreateRoleData: MessageFns<CreateRoleData> = {
     }
     if (message.moduleId !== "") {
       writer.uint32(26).string(message.moduleId);
+    }
+    for (const v of message.permissions) {
+      Permission.encode(v!, writer.uint32(34).fork()).join();
     }
     return writer;
   },
@@ -336,6 +446,14 @@ export const CreateRoleData: MessageFns<CreateRoleData> = {
           message.moduleId = reader.string();
           continue;
         }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.permissions.push(Permission.decode(reader, reader.uint32()));
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -350,6 +468,9 @@ export const CreateRoleData: MessageFns<CreateRoleData> = {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       description: isSet(object.description) ? globalThis.String(object.description) : "",
       moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+      permissions: globalThis.Array.isArray(object?.permissions)
+        ? object.permissions.map((e: any) => Permission.fromJSON(e))
+        : [],
     };
   },
 
@@ -364,6 +485,9 @@ export const CreateRoleData: MessageFns<CreateRoleData> = {
     if (message.moduleId !== "") {
       obj.moduleId = message.moduleId;
     }
+    if (message.permissions?.length) {
+      obj.permissions = message.permissions.map((e) => Permission.toJSON(e));
+    }
     return obj;
   },
 
@@ -375,6 +499,133 @@ export const CreateRoleData: MessageFns<CreateRoleData> = {
     message.name = object.name ?? "";
     message.description = object.description ?? "";
     message.moduleId = object.moduleId ?? "";
+    message.permissions = object.permissions?.map((e) => Permission.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateRoleData(): UpdateRoleData {
+  return { roleId: "", name: "", description: "", moduleId: "", permissions: [] };
+}
+
+export const UpdateRoleData: MessageFns<UpdateRoleData> = {
+  encode(message: UpdateRoleData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.roleId !== "") {
+      writer.uint32(10).string(message.roleId);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(26).string(message.description);
+    }
+    if (message.moduleId !== "") {
+      writer.uint32(34).string(message.moduleId);
+    }
+    for (const v of message.permissions) {
+      Permission.encode(v!, writer.uint32(42).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateRoleData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateRoleData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.roleId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.description = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.moduleId = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.permissions.push(Permission.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateRoleData {
+    return {
+      roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      description: isSet(object.description) ? globalThis.String(object.description) : "",
+      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+      permissions: globalThis.Array.isArray(object?.permissions)
+        ? object.permissions.map((e: any) => Permission.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: UpdateRoleData): unknown {
+    const obj: any = {};
+    if (message.roleId !== "") {
+      obj.roleId = message.roleId;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.description !== "") {
+      obj.description = message.description;
+    }
+    if (message.moduleId !== "") {
+      obj.moduleId = message.moduleId;
+    }
+    if (message.permissions?.length) {
+      obj.permissions = message.permissions.map((e) => Permission.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateRoleData>, I>>(base?: I): UpdateRoleData {
+    return UpdateRoleData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateRoleData>, I>>(object: I): UpdateRoleData {
+    const message = createBaseUpdateRoleData();
+    message.roleId = object.roleId ?? "";
+    message.name = object.name ?? "";
+    message.description = object.description ?? "";
+    message.moduleId = object.moduleId ?? "";
+    message.permissions = object.permissions?.map((e) => Permission.fromPartial(e)) || [];
     return message;
   },
 };
@@ -694,7 +945,7 @@ function createBaseUpdateRoleRequest(): UpdateRoleRequest {
 export const UpdateRoleRequest: MessageFns<UpdateRoleRequest> = {
   encode(message: UpdateRoleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.role !== undefined) {
-      Role.encode(message.role, writer.uint32(10).fork()).join();
+      UpdateRoleData.encode(message.role, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -714,7 +965,7 @@ export const UpdateRoleRequest: MessageFns<UpdateRoleRequest> = {
             break;
           }
 
-          message.role = Role.decode(reader, reader.uint32());
+          message.role = UpdateRoleData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -736,7 +987,7 @@ export const UpdateRoleRequest: MessageFns<UpdateRoleRequest> = {
 
   fromJSON(object: any): UpdateRoleRequest {
     return {
-      role: isSet(object.role) ? Role.fromJSON(object.role) : undefined,
+      role: isSet(object.role) ? UpdateRoleData.fromJSON(object.role) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -744,7 +995,7 @@ export const UpdateRoleRequest: MessageFns<UpdateRoleRequest> = {
   toJSON(message: UpdateRoleRequest): unknown {
     const obj: any = {};
     if (message.role !== undefined) {
-      obj.role = Role.toJSON(message.role);
+      obj.role = UpdateRoleData.toJSON(message.role);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -757,7 +1008,9 @@ export const UpdateRoleRequest: MessageFns<UpdateRoleRequest> = {
   },
   fromPartial<I extends Exact<DeepPartial<UpdateRoleRequest>, I>>(object: I): UpdateRoleRequest {
     const message = createBaseUpdateRoleRequest();
-    message.role = (object.role !== undefined && object.role !== null) ? Role.fromPartial(object.role) : undefined;
+    message.role = (object.role !== undefined && object.role !== null)
+      ? UpdateRoleData.fromPartial(object.role)
+      : undefined;
     message.userId = object.userId ?? "";
     return message;
   },

@@ -1,6 +1,7 @@
 
 syntax = "proto3";
 import "base/v1/base.proto";
+import "action/v1/action.proto";
 
 package resource.v1;
 
@@ -16,9 +17,26 @@ message Resource {
   string created_at = 9;
 }
 
+message Action {
+  string name = 1;
+  string description = 2;
+  action.v1.ActionRequestType request_type = 3;
+  string url = 4;
+  string method = 5;
+  optional string action_id = 6;
+}
+
 message CreateResourceData {
   string name = 1;
   string module_id = 2;
+  repeated Action actions = 3;
+}
+
+message UpdateResourceData {
+  string resource_id = 1;
+  string name = 2;
+  string module_id = 3;
+  repeated Action actions = 4;
 }
 
 message GetResourceRequest {
@@ -42,7 +60,7 @@ message CreateResourceRequest {
 }
 
 message UpdateResourceRequest {
-  Resource resource = 1;
+  UpdateResourceData resource = 1;
   string user_id = 2;
 }
 

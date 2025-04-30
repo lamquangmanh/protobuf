@@ -17,10 +17,25 @@ message Role {
   string created_at = 10;
 }
 
+message Permission {
+  string resource_id = 1;
+  string action_id = 2;
+  optional string permission_id = 3;
+}
+
 message CreateRoleData {
   string name = 1;
   string description = 2;
   string module_id = 3;
+  repeated Permission permissions = 4;
+}
+
+message UpdateRoleData {
+  string role_id = 1;
+  string name = 2;
+  string description = 3;
+  string module_id = 4;
+  repeated Permission permissions = 5;
 }
 
 message GetRoleRequest {
@@ -44,7 +59,7 @@ message CreateRoleRequest {
 }
 
 message UpdateRoleRequest {
-  Role role = 1;
+  UpdateRoleData role = 1;
   string user_id = 2;
 }
 

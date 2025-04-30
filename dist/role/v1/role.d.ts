@@ -13,10 +13,23 @@ export interface Role {
     deletedUserId: string;
     createdAt: string;
 }
+export interface Permission {
+    resourceId: string;
+    actionId: string;
+    permissionId?: string | undefined;
+}
 export interface CreateRoleData {
     name: string;
     description: string;
     moduleId: string;
+    permissions: Permission[];
+}
+export interface UpdateRoleData {
+    roleId: string;
+    name: string;
+    description: string;
+    moduleId: string;
+    permissions: Permission[];
 }
 export interface GetRoleRequest {
     roleId: string;
@@ -35,7 +48,7 @@ export interface CreateRoleRequest {
     userId: string;
 }
 export interface UpdateRoleRequest {
-    role: Role | undefined;
+    role: UpdateRoleData | undefined;
     userId: string;
 }
 export interface DeleteRoleRequest {
@@ -47,7 +60,9 @@ export interface CreateSuccess {
     error?: ErrorResponse | undefined;
 }
 export declare const Role: MessageFns<Role>;
+export declare const Permission: MessageFns<Permission>;
 export declare const CreateRoleData: MessageFns<CreateRoleData>;
+export declare const UpdateRoleData: MessageFns<UpdateRoleData>;
 export declare const GetRoleRequest: MessageFns<GetRoleRequest>;
 export declare const GetRolesRequest: MessageFns<GetRolesRequest>;
 export declare const GetRolesResponse: MessageFns<GetRolesResponse>;

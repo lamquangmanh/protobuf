@@ -6,6 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import { ActionRequestType, actionRequestTypeFromJSON, actionRequestTypeToJSON } from "../../action/v1/action";
 import {
   DeleteSuccess,
   ErrorResponse,
@@ -30,9 +31,26 @@ export interface Resource {
   createdAt: string;
 }
 
+export interface Action {
+  name: string;
+  description: string;
+  requestType: ActionRequestType;
+  url: string;
+  method: string;
+  actionId?: string | undefined;
+}
+
 export interface CreateResourceData {
   name: string;
   moduleId: string;
+  actions: Action[];
+}
+
+export interface UpdateResourceData {
+  resourceId: string;
+  name: string;
+  moduleId: string;
+  actions: Action[];
 }
 
 export interface GetResourceRequest {
@@ -56,7 +74,7 @@ export interface CreateResourceRequest {
 }
 
 export interface UpdateResourceRequest {
-  resource: Resource | undefined;
+  resource: UpdateResourceData | undefined;
   userId: string;
 }
 
@@ -268,8 +286,148 @@ export const Resource: MessageFns<Resource> = {
   },
 };
 
+function createBaseAction(): Action {
+  return { name: "", description: "", requestType: 0, url: "", method: "", actionId: undefined };
+}
+
+export const Action: MessageFns<Action> = {
+  encode(message: Action, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.name !== "") {
+      writer.uint32(10).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    if (message.requestType !== 0) {
+      writer.uint32(24).int32(message.requestType);
+    }
+    if (message.url !== "") {
+      writer.uint32(34).string(message.url);
+    }
+    if (message.method !== "") {
+      writer.uint32(42).string(message.method);
+    }
+    if (message.actionId !== undefined) {
+      writer.uint32(50).string(message.actionId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): Action {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAction();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.description = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 24) {
+            break;
+          }
+
+          message.requestType = reader.int32() as any;
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.url = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.method = reader.string();
+          continue;
+        }
+        case 6: {
+          if (tag !== 50) {
+            break;
+          }
+
+          message.actionId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Action {
+    return {
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      description: isSet(object.description) ? globalThis.String(object.description) : "",
+      requestType: isSet(object.requestType) ? actionRequestTypeFromJSON(object.requestType) : 0,
+      url: isSet(object.url) ? globalThis.String(object.url) : "",
+      method: isSet(object.method) ? globalThis.String(object.method) : "",
+      actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : undefined,
+    };
+  },
+
+  toJSON(message: Action): unknown {
+    const obj: any = {};
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.description !== "") {
+      obj.description = message.description;
+    }
+    if (message.requestType !== 0) {
+      obj.requestType = actionRequestTypeToJSON(message.requestType);
+    }
+    if (message.url !== "") {
+      obj.url = message.url;
+    }
+    if (message.method !== "") {
+      obj.method = message.method;
+    }
+    if (message.actionId !== undefined) {
+      obj.actionId = message.actionId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Action>, I>>(base?: I): Action {
+    return Action.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Action>, I>>(object: I): Action {
+    const message = createBaseAction();
+    message.name = object.name ?? "";
+    message.description = object.description ?? "";
+    message.requestType = object.requestType ?? 0;
+    message.url = object.url ?? "";
+    message.method = object.method ?? "";
+    message.actionId = object.actionId ?? undefined;
+    return message;
+  },
+};
+
 function createBaseCreateResourceData(): CreateResourceData {
-  return { name: "", moduleId: "" };
+  return { name: "", moduleId: "", actions: [] };
 }
 
 export const CreateResourceData: MessageFns<CreateResourceData> = {
@@ -279,6 +437,9 @@ export const CreateResourceData: MessageFns<CreateResourceData> = {
     }
     if (message.moduleId !== "") {
       writer.uint32(18).string(message.moduleId);
+    }
+    for (const v of message.actions) {
+      Action.encode(v!, writer.uint32(26).fork()).join();
     }
     return writer;
   },
@@ -306,6 +467,14 @@ export const CreateResourceData: MessageFns<CreateResourceData> = {
           message.moduleId = reader.string();
           continue;
         }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.actions.push(Action.decode(reader, reader.uint32()));
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -319,6 +488,7 @@ export const CreateResourceData: MessageFns<CreateResourceData> = {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+      actions: globalThis.Array.isArray(object?.actions) ? object.actions.map((e: any) => Action.fromJSON(e)) : [],
     };
   },
 
@@ -330,6 +500,9 @@ export const CreateResourceData: MessageFns<CreateResourceData> = {
     if (message.moduleId !== "") {
       obj.moduleId = message.moduleId;
     }
+    if (message.actions?.length) {
+      obj.actions = message.actions.map((e) => Action.toJSON(e));
+    }
     return obj;
   },
 
@@ -340,6 +513,115 @@ export const CreateResourceData: MessageFns<CreateResourceData> = {
     const message = createBaseCreateResourceData();
     message.name = object.name ?? "";
     message.moduleId = object.moduleId ?? "";
+    message.actions = object.actions?.map((e) => Action.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateResourceData(): UpdateResourceData {
+  return { resourceId: "", name: "", moduleId: "", actions: [] };
+}
+
+export const UpdateResourceData: MessageFns<UpdateResourceData> = {
+  encode(message: UpdateResourceData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.resourceId !== "") {
+      writer.uint32(10).string(message.resourceId);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    if (message.moduleId !== "") {
+      writer.uint32(26).string(message.moduleId);
+    }
+    for (const v of message.actions) {
+      Action.encode(v!, writer.uint32(34).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateResourceData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateResourceData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.resourceId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.moduleId = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.actions.push(Action.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateResourceData {
+    return {
+      resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+      actions: globalThis.Array.isArray(object?.actions) ? object.actions.map((e: any) => Action.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: UpdateResourceData): unknown {
+    const obj: any = {};
+    if (message.resourceId !== "") {
+      obj.resourceId = message.resourceId;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.moduleId !== "") {
+      obj.moduleId = message.moduleId;
+    }
+    if (message.actions?.length) {
+      obj.actions = message.actions.map((e) => Action.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateResourceData>, I>>(base?: I): UpdateResourceData {
+    return UpdateResourceData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateResourceData>, I>>(object: I): UpdateResourceData {
+    const message = createBaseUpdateResourceData();
+    message.resourceId = object.resourceId ?? "";
+    message.name = object.name ?? "";
+    message.moduleId = object.moduleId ?? "";
+    message.actions = object.actions?.map((e) => Action.fromPartial(e)) || [];
     return message;
   },
 };
@@ -659,7 +941,7 @@ function createBaseUpdateResourceRequest(): UpdateResourceRequest {
 export const UpdateResourceRequest: MessageFns<UpdateResourceRequest> = {
   encode(message: UpdateResourceRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.resource !== undefined) {
-      Resource.encode(message.resource, writer.uint32(10).fork()).join();
+      UpdateResourceData.encode(message.resource, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -679,7 +961,7 @@ export const UpdateResourceRequest: MessageFns<UpdateResourceRequest> = {
             break;
           }
 
-          message.resource = Resource.decode(reader, reader.uint32());
+          message.resource = UpdateResourceData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -701,7 +983,7 @@ export const UpdateResourceRequest: MessageFns<UpdateResourceRequest> = {
 
   fromJSON(object: any): UpdateResourceRequest {
     return {
-      resource: isSet(object.resource) ? Resource.fromJSON(object.resource) : undefined,
+      resource: isSet(object.resource) ? UpdateResourceData.fromJSON(object.resource) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -709,7 +991,7 @@ export const UpdateResourceRequest: MessageFns<UpdateResourceRequest> = {
   toJSON(message: UpdateResourceRequest): unknown {
     const obj: any = {};
     if (message.resource !== undefined) {
-      obj.resource = Resource.toJSON(message.resource);
+      obj.resource = UpdateResourceData.toJSON(message.resource);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -723,7 +1005,7 @@ export const UpdateResourceRequest: MessageFns<UpdateResourceRequest> = {
   fromPartial<I extends Exact<DeepPartial<UpdateResourceRequest>, I>>(object: I): UpdateResourceRequest {
     const message = createBaseUpdateResourceRequest();
     message.resource = (object.resource !== undefined && object.resource !== null)
-      ? Resource.fromPartial(object.resource)
+      ? UpdateResourceData.fromPartial(object.resource)
       : undefined;
     message.userId = object.userId ?? "";
     return message;

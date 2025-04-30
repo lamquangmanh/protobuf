@@ -17,7 +17,7 @@ message Action {
   string resource_id = 2;
   string name = 3;
   string description = 4;
-  string ActionRequestType = 5;
+  ActionRequestType request_type = 5;
   string url = 6;
   string method = 7;
   string created_at = 8;
@@ -32,7 +32,7 @@ message CreateActionData {
   string resource_id = 1;
   string name = 2;
   string description = 3;
-  string ActionRequestType = 4;
+  ActionRequestType request_type = 4;
   string url = 5;
   string method = 6;
 }

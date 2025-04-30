@@ -16,7 +16,7 @@ export interface Action {
     resourceId: string;
     name: string;
     description: string;
-    ActionRequestType: string;
+    requestType: ActionRequestType;
     url: string;
     method: string;
     createdAt: string;
@@ -30,7 +30,7 @@ export interface CreateActionData {
     resourceId: string;
     name: string;
     description: string;
-    ActionRequestType: string;
+    requestType: ActionRequestType;
     url: string;
     method: string;
 }

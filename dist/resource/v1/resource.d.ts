@@ -1,4 +1,5 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import { ActionRequestType } from "../../action/v1/action";
 import { DeleteSuccess, ErrorResponse, Filter, PaginationRequest, PaginationResponse, Sort, UpdateSuccess } from "../../base/v1/base";
 export declare const protobufPackage = "resource.v1";
 export interface Resource {
@@ -12,9 +13,24 @@ export interface Resource {
     deletedUserId: string;
     createdAt: string;
 }
+export interface Action {
+    name: string;
+    description: string;
+    requestType: ActionRequestType;
+    url: string;
+    method: string;
+    actionId?: string | undefined;
+}
 export interface CreateResourceData {
     name: string;
     moduleId: string;
+    actions: Action[];
+}
+export interface UpdateResourceData {
+    resourceId: string;
+    name: string;
+    moduleId: string;
+    actions: Action[];
 }
 export interface GetResourceRequest {
     resourceId: string;
@@ -33,7 +49,7 @@ export interface CreateResourceRequest {
     userId: string;
 }
 export interface UpdateResourceRequest {
-    resource: Resource | undefined;
+    resource: UpdateResourceData | undefined;
     userId: string;
 }
 export interface DeleteResourceRequest {
@@ -45,7 +61,9 @@ export interface CreateSuccess {
     error?: ErrorResponse | undefined;
 }
 export declare const Resource: MessageFns<Resource>;
+export declare const Action: MessageFns<Action>;
 export declare const CreateResourceData: MessageFns<CreateResourceData>;
+export declare const UpdateResourceData: MessageFns<UpdateResourceData>;
 export declare const GetResourceRequest: MessageFns<GetResourceRequest>;
 export declare const GetResourcesRequest: MessageFns<GetResourcesRequest>;
 export declare const GetResourcesResponse: MessageFns<GetResourcesResponse>;

@@ -58,6 +58,7 @@
     - [PermissionService](#permission-v1-PermissionService)
   
 - [resource/v1/resource.proto](#resource_v1_resource-proto)
+    - [Action](#resource-v1-Action)
     - [CreateResourceData](#resource-v1-CreateResourceData)
     - [CreateResourceRequest](#resource-v1-CreateResourceRequest)
     - [CreateSuccess](#resource-v1-CreateSuccess)
@@ -66,6 +67,7 @@
     - [GetResourcesRequest](#resource-v1-GetResourcesRequest)
     - [GetResourcesResponse](#resource-v1-GetResourcesResponse)
     - [Resource](#resource-v1-Resource)
+    - [UpdateResourceData](#resource-v1-UpdateResourceData)
     - [UpdateResourceRequest](#resource-v1-UpdateResourceRequest)
   
     - [ResourceService](#resource-v1-ResourceService)
@@ -78,7 +80,9 @@
     - [GetRoleRequest](#role-v1-GetRoleRequest)
     - [GetRolesRequest](#role-v1-GetRolesRequest)
     - [GetRolesResponse](#role-v1-GetRolesResponse)
+    - [Permission](#role-v1-Permission)
     - [Role](#role-v1-Role)
+    - [UpdateRoleData](#role-v1-UpdateRoleData)
     - [UpdateRoleRequest](#role-v1-UpdateRoleRequest)
   
     - [RoleService](#role-v1-RoleService)
@@ -134,7 +138,7 @@
 | resource_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
-| ActionRequestType | [string](#string) |  |  |
+| request_type | [ActionRequestType](#action-v1-ActionRequestType) |  |  |
 | url | [string](#string) |  |  |
 | method | [string](#string) |  |  |
 | created_at | [string](#string) |  |  |
@@ -160,7 +164,7 @@
 | resource_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
-| ActionRequestType | [string](#string) |  |  |
+| request_type | [ActionRequestType](#action-v1-ActionRequestType) |  |  |
 | url | [string](#string) |  |  |
 | method | [string](#string) |  |  |
 
@@ -877,6 +881,26 @@ define enum
 
 
 
+<a name="resource-v1-Action"></a>
+
+### Action
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| request_type | [action.v1.ActionRequestType](#action-v1-ActionRequestType) |  |  |
+| url | [string](#string) |  |  |
+| method | [string](#string) |  |  |
+| action_id | [string](#string) | optional |  |
+
+
+
+
+
+
 <a name="resource-v1-CreateResourceData"></a>
 
 ### CreateResourceData
@@ -887,6 +911,7 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | module_id | [string](#string) |  |  |
+| actions | [Action](#resource-v1-Action) | repeated |  |
 
 
 
@@ -1012,6 +1037,24 @@ define enum
 
 
 
+<a name="resource-v1-UpdateResourceData"></a>
+
+### UpdateResourceData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| module_id | [string](#string) |  |  |
+| actions | [Action](#resource-v1-Action) | repeated |  |
+
+
+
+
+
+
 <a name="resource-v1-UpdateResourceRequest"></a>
 
 ### UpdateResourceRequest
@@ -1020,7 +1063,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource | [Resource](#resource-v1-Resource) |  |  |
+| resource | [UpdateResourceData](#resource-v1-UpdateResourceData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1069,6 +1112,7 @@ define enum
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
 | module_id | [string](#string) |  |  |
+| permissions | [Permission](#role-v1-Permission) | repeated |  |
 
 
 
@@ -1171,6 +1215,23 @@ define enum
 
 
 
+<a name="role-v1-Permission"></a>
+
+### Permission
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  |  |
+| action_id | [string](#string) |  |  |
+| permission_id | [string](#string) | optional |  |
+
+
+
+
+
+
 <a name="role-v1-Role"></a>
 
 ### Role
@@ -1195,6 +1256,25 @@ define enum
 
 
 
+<a name="role-v1-UpdateRoleData"></a>
+
+### UpdateRoleData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| role_id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| module_id | [string](#string) |  |  |
+| permissions | [Permission](#role-v1-Permission) | repeated |  |
+
+
+
+
+
+
 <a name="role-v1-UpdateRoleRequest"></a>
 
 ### UpdateRoleRequest
@@ -1203,7 +1283,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| role | [Role](#role-v1-Role) |  |  |
+| role | [UpdateRoleData](#role-v1-UpdateRoleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 

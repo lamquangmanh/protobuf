@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 export declare const protobufPackage = "base.v1";
-/** define enum */
 export declare enum FilterOperator {
     FILTER_OPERATOR_UNSPECIFIED = 0,
     EQUAL = 1,
@@ -24,7 +23,6 @@ export declare enum SortOrder {
 }
 export declare function sortOrderFromJSON(object: any): SortOrder;
 export declare function sortOrderToJSON(object: SortOrder): string;
-/** define message */
 export interface PaginationRequest {
     page: number;
     limit: number;
@@ -37,9 +35,7 @@ export interface PaginationResponse {
     itemCount: number;
 }
 export interface Sort {
-    /** created_at, updated_at */
     field: string;
-    /** "ASC" or "DESC" */
     order: SortOrder;
 }
 export interface Filter {
@@ -55,7 +51,6 @@ export interface Filter {
 export interface ErrorResponse {
     code: number;
     message: string;
-    /** dynamic key-value object */
     extra: {
         [key: string]: any;
     } | undefined;
