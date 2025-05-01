@@ -33,6 +33,18 @@ message CreateUserData {
   string phone = 4;
   string avatar = 5;
   UserStatus status = 6;
+  repeated string role_ids = 7;
+}
+
+message UpdateUserData {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+  string phone = 4;
+  string avatar = 5;
+  UserStatus status = 6;
+  repeated string role_ids = 7;
+  string user_id = 8;
 }
 
 message GetUserRequest {
@@ -56,7 +68,7 @@ message CreateUserRequest {
 }
 
 message UpdateUserRequest {
-  User user = 1;
+  UpdateUserData user = 1;
   string user_id = 2;
 }
 

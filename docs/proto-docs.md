@@ -108,6 +108,7 @@
     - [GetUserRequest](#user-v1-GetUserRequest)
     - [GetUsersRequest](#user-v1-GetUsersRequest)
     - [GetUsersResponse](#user-v1-GetUsersResponse)
+    - [UpdateUserData](#user-v1-UpdateUserData)
     - [UpdateUserRequest](#user-v1-UpdateUserRequest)
     - [User](#user-v1-User)
   
@@ -1532,6 +1533,7 @@ define enum
 | phone | [string](#string) |  |  |
 | avatar | [string](#string) |  |  |
 | status | [UserStatus](#user-v1-UserStatus) |  |  |
+| role_ids | [string](#string) | repeated |  |
 
 
 
@@ -1618,6 +1620,28 @@ define enum
 
 
 
+<a name="user-v1-UpdateUserData"></a>
+
+### UpdateUserData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| username | [string](#string) |  |  |
+| email | [string](#string) |  |  |
+| password | [string](#string) |  |  |
+| phone | [string](#string) |  |  |
+| avatar | [string](#string) |  |  |
+| status | [UserStatus](#user-v1-UserStatus) |  |  |
+| role_ids | [string](#string) | repeated |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="user-v1-UpdateUserRequest"></a>
 
 ### UpdateUserRequest
@@ -1626,7 +1650,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user | [User](#user-v1-User) |  |  |
+| user | [UpdateUserData](#user-v1-UpdateUserData) |  |  |
 | user_id | [string](#string) |  |  |
 
 

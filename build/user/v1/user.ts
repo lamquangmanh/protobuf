@@ -85,6 +85,18 @@ export interface CreateUserData {
   phone: string;
   avatar: string;
   status: UserStatus;
+  roleIds: string[];
+}
+
+export interface UpdateUserData {
+  username: string;
+  email: string;
+  password: string;
+  phone: string;
+  avatar: string;
+  status: UserStatus;
+  roleIds: string[];
+  userId: string;
 }
 
 export interface GetUserRequest {
@@ -108,7 +120,7 @@ export interface CreateUserRequest {
 }
 
 export interface UpdateUserRequest {
-  user: User | undefined;
+  user: UpdateUserData | undefined;
   userId: string;
 }
 
@@ -372,7 +384,7 @@ export const User: MessageFns<User> = {
 };
 
 function createBaseCreateUserData(): CreateUserData {
-  return { username: "", email: "", password: "", phone: "", avatar: "", status: 0 };
+  return { username: "", email: "", password: "", phone: "", avatar: "", status: 0, roleIds: [] };
 }
 
 export const CreateUserData: MessageFns<CreateUserData> = {
@@ -394,6 +406,9 @@ export const CreateUserData: MessageFns<CreateUserData> = {
     }
     if (message.status !== 0) {
       writer.uint32(48).int32(message.status);
+    }
+    for (const v of message.roleIds) {
+      writer.uint32(58).string(v!);
     }
     return writer;
   },
@@ -453,6 +468,14 @@ export const CreateUserData: MessageFns<CreateUserData> = {
           message.status = reader.int32() as any;
           continue;
         }
+        case 7: {
+          if (tag !== 58) {
+            break;
+          }
+
+          message.roleIds.push(reader.string());
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -470,6 +493,7 @@ export const CreateUserData: MessageFns<CreateUserData> = {
       phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
       avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
       status: isSet(object.status) ? userStatusFromJSON(object.status) : 0,
+      roleIds: globalThis.Array.isArray(object?.roleIds) ? object.roleIds.map((e: any) => globalThis.String(e)) : [],
     };
   },
 
@@ -493,6 +517,9 @@ export const CreateUserData: MessageFns<CreateUserData> = {
     if (message.status !== 0) {
       obj.status = userStatusToJSON(message.status);
     }
+    if (message.roleIds?.length) {
+      obj.roleIds = message.roleIds;
+    }
     return obj;
   },
 
@@ -507,6 +534,179 @@ export const CreateUserData: MessageFns<CreateUserData> = {
     message.phone = object.phone ?? "";
     message.avatar = object.avatar ?? "";
     message.status = object.status ?? 0;
+    message.roleIds = object.roleIds?.map((e) => e) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateUserData(): UpdateUserData {
+  return { username: "", email: "", password: "", phone: "", avatar: "", status: 0, roleIds: [], userId: "" };
+}
+
+export const UpdateUserData: MessageFns<UpdateUserData> = {
+  encode(message: UpdateUserData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.username !== "") {
+      writer.uint32(10).string(message.username);
+    }
+    if (message.email !== "") {
+      writer.uint32(18).string(message.email);
+    }
+    if (message.password !== "") {
+      writer.uint32(26).string(message.password);
+    }
+    if (message.phone !== "") {
+      writer.uint32(34).string(message.phone);
+    }
+    if (message.avatar !== "") {
+      writer.uint32(42).string(message.avatar);
+    }
+    if (message.status !== 0) {
+      writer.uint32(48).int32(message.status);
+    }
+    for (const v of message.roleIds) {
+      writer.uint32(58).string(v!);
+    }
+    if (message.userId !== "") {
+      writer.uint32(66).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateUserData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateUserData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.username = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.email = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.password = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.phone = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.avatar = reader.string();
+          continue;
+        }
+        case 6: {
+          if (tag !== 48) {
+            break;
+          }
+
+          message.status = reader.int32() as any;
+          continue;
+        }
+        case 7: {
+          if (tag !== 58) {
+            break;
+          }
+
+          message.roleIds.push(reader.string());
+          continue;
+        }
+        case 8: {
+          if (tag !== 66) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateUserData {
+    return {
+      username: isSet(object.username) ? globalThis.String(object.username) : "",
+      email: isSet(object.email) ? globalThis.String(object.email) : "",
+      password: isSet(object.password) ? globalThis.String(object.password) : "",
+      phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
+      avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
+      status: isSet(object.status) ? userStatusFromJSON(object.status) : 0,
+      roleIds: globalThis.Array.isArray(object?.roleIds) ? object.roleIds.map((e: any) => globalThis.String(e)) : [],
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: UpdateUserData): unknown {
+    const obj: any = {};
+    if (message.username !== "") {
+      obj.username = message.username;
+    }
+    if (message.email !== "") {
+      obj.email = message.email;
+    }
+    if (message.password !== "") {
+      obj.password = message.password;
+    }
+    if (message.phone !== "") {
+      obj.phone = message.phone;
+    }
+    if (message.avatar !== "") {
+      obj.avatar = message.avatar;
+    }
+    if (message.status !== 0) {
+      obj.status = userStatusToJSON(message.status);
+    }
+    if (message.roleIds?.length) {
+      obj.roleIds = message.roleIds;
+    }
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateUserData>, I>>(base?: I): UpdateUserData {
+    return UpdateUserData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateUserData>, I>>(object: I): UpdateUserData {
+    const message = createBaseUpdateUserData();
+    message.username = object.username ?? "";
+    message.email = object.email ?? "";
+    message.password = object.password ?? "";
+    message.phone = object.phone ?? "";
+    message.avatar = object.avatar ?? "";
+    message.status = object.status ?? 0;
+    message.roleIds = object.roleIds?.map((e) => e) || [];
+    message.userId = object.userId ?? "";
     return message;
   },
 };
@@ -826,7 +1026,7 @@ function createBaseUpdateUserRequest(): UpdateUserRequest {
 export const UpdateUserRequest: MessageFns<UpdateUserRequest> = {
   encode(message: UpdateUserRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.user !== undefined) {
-      User.encode(message.user, writer.uint32(10).fork()).join();
+      UpdateUserData.encode(message.user, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -846,7 +1046,7 @@ export const UpdateUserRequest: MessageFns<UpdateUserRequest> = {
             break;
           }
 
-          message.user = User.decode(reader, reader.uint32());
+          message.user = UpdateUserData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -868,7 +1068,7 @@ export const UpdateUserRequest: MessageFns<UpdateUserRequest> = {
 
   fromJSON(object: any): UpdateUserRequest {
     return {
-      user: isSet(object.user) ? User.fromJSON(object.user) : undefined,
+      user: isSet(object.user) ? UpdateUserData.fromJSON(object.user) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -876,7 +1076,7 @@ export const UpdateUserRequest: MessageFns<UpdateUserRequest> = {
   toJSON(message: UpdateUserRequest): unknown {
     const obj: any = {};
     if (message.user !== undefined) {
-      obj.user = User.toJSON(message.user);
+      obj.user = UpdateUserData.toJSON(message.user);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -889,7 +1089,9 @@ export const UpdateUserRequest: MessageFns<UpdateUserRequest> = {
   },
   fromPartial<I extends Exact<DeepPartial<UpdateUserRequest>, I>>(object: I): UpdateUserRequest {
     const message = createBaseUpdateUserRequest();
-    message.user = (object.user !== undefined && object.user !== null) ? User.fromPartial(object.user) : undefined;
+    message.user = (object.user !== undefined && object.user !== null)
+      ? UpdateUserData.fromPartial(object.user)
+      : undefined;
     message.userId = object.userId ?? "";
     return message;
   },

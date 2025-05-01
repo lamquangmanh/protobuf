@@ -1,6 +1,6 @@
 {
   "name": "@lamquangmanh/protobuf",
-  "version": "0.0.20",
+  "version": "0.0.22",
   "description": "protobuf",
   "scripts": {
     "build": "nest build",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@bufbuild/protobuf": "^2.2.5",
+    "@lamquangmanh/protobuf": "^0.0.21",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",

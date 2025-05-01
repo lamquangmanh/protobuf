@@ -858,6 +858,20 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@lamquangmanh/protobuf@^0.0.21":
+  version "0.0.21"
+  resolved "https://npm.pkg.github.com/download/@lamquangmanh/protobuf/0.0.21/3ab71b6117700480c9a4a8feb8089ee6961499fa#3ab71b6117700480c9a4a8feb8089ee6961499fa"
+  integrity sha512-p+czLhMX62U+vSsW4iwUSoilk4NcMl4WzOzp7TYj2EQOq/S0rGfCFWts+DtO4WbwjxyKP8rXLIYRdAzin/YfKg==
+  dependencies:
+    "@bufbuild/protobuf" "^2.2.5"
+    "@nestjs/common" "^11.0.1"
+    "@nestjs/core" "^11.0.1"
+    "@nestjs/platform-express" "^11.0.1"
+    reflect-metadata "^0.2.2"
+    rxjs "^7.8.1"
+    ts-proto "^2.7.0"
+    ts-protoc-gen "^0.15.0"
+
 "@lukeed/csprng@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@lukeed/csprng/-/csprng-1.1.0.tgz#1e3e4bd05c1cc7a0b2ddbd8a03f39f6e4b5e6cfe"

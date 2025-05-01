@@ -31,6 +31,17 @@ export interface CreateUserData {
     phone: string;
     avatar: string;
     status: UserStatus;
+    roleIds: string[];
+}
+export interface UpdateUserData {
+    username: string;
+    email: string;
+    password: string;
+    phone: string;
+    avatar: string;
+    status: UserStatus;
+    roleIds: string[];
+    userId: string;
 }
 export interface GetUserRequest {
     userId: string;
@@ -49,7 +60,7 @@ export interface CreateUserRequest {
     userId: string;
 }
 export interface UpdateUserRequest {
-    user: User | undefined;
+    user: UpdateUserData | undefined;
     userId: string;
 }
 export interface DeleteUserRequest {
@@ -62,6 +73,7 @@ export interface CreateSuccess {
 }
 export declare const User: MessageFns<User>;
 export declare const CreateUserData: MessageFns<CreateUserData>;
+export declare const UpdateUserData: MessageFns<UpdateUserData>;
 export declare const GetUserRequest: MessageFns<GetUserRequest>;
 export declare const GetUsersRequest: MessageFns<GetUsersRequest>;
 export declare const GetUsersResponse: MessageFns<GetUsersResponse>;
