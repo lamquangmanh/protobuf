@@ -633,17 +633,17 @@ exports.GetUserRequest = {
     },
 };
 function createBaseGetUsersRequest() {
-    return { pagination: undefined, sort: [], filter: [] };
+    return { pagination: undefined, sorts: [], filters: [] };
 }
 exports.GetUsersRequest = {
     encode(message, writer = new wire_1.BinaryWriter()) {
         if (message.pagination !== undefined) {
             base_1.PaginationRequest.encode(message.pagination, writer.uint32(10).fork()).join();
         }
-        for (const v of message.sort) {
+        for (const v of message.sorts) {
             base_1.Sort.encode(v, writer.uint32(18).fork()).join();
         }
-        for (const v of message.filter) {
+        for (const v of message.filters) {
             base_1.Filter.encode(v, writer.uint32(26).fork()).join();
         }
         return writer;
@@ -666,14 +666,14 @@ exports.GetUsersRequest = {
                     if (tag !== 18) {
                         break;
                     }
-                    message.sort.push(base_1.Sort.decode(reader, reader.uint32()));
+                    message.sorts.push(base_1.Sort.decode(reader, reader.uint32()));
                     continue;
                 }
                 case 3: {
                     if (tag !== 26) {
                         break;
                     }
-                    message.filter.push(base_1.Filter.decode(reader, reader.uint32()));
+                    message.filters.push(base_1.Filter.decode(reader, reader.uint32()));
                     continue;
                 }
             }
@@ -687,8 +687,8 @@ exports.GetUsersRequest = {
     fromJSON(object) {
         return {
             pagination: isSet(object.pagination) ? base_1.PaginationRequest.fromJSON(object.pagination) : undefined,
-            sort: globalThis.Array.isArray(object?.sort) ? object.sort.map((e) => base_1.Sort.fromJSON(e)) : [],
-            filter: globalThis.Array.isArray(object?.filter) ? object.filter.map((e) => base_1.Filter.fromJSON(e)) : [],
+            sorts: globalThis.Array.isArray(object?.sorts) ? object.sorts.map((e) => base_1.Sort.fromJSON(e)) : [],
+            filters: globalThis.Array.isArray(object?.filters) ? object.filters.map((e) => base_1.Filter.fromJSON(e)) : [],
         };
     },
     toJSON(message) {
@@ -696,11 +696,11 @@ exports.GetUsersRequest = {
         if (message.pagination !== undefined) {
             obj.pagination = base_1.PaginationRequest.toJSON(message.pagination);
         }
-        if (message.sort?.length) {
-            obj.sort = message.sort.map((e) => base_1.Sort.toJSON(e));
+        if (message.sorts?.length) {
+            obj.sorts = message.sorts.map((e) => base_1.Sort.toJSON(e));
         }
-        if (message.filter?.length) {
-            obj.filter = message.filter.map((e) => base_1.Filter.toJSON(e));
+        if (message.filters?.length) {
+            obj.filters = message.filters.map((e) => base_1.Filter.toJSON(e));
         }
         return obj;
     },
@@ -712,8 +712,8 @@ exports.GetUsersRequest = {
         message.pagination = (object.pagination !== undefined && object.pagination !== null)
             ? base_1.PaginationRequest.fromPartial(object.pagination)
             : undefined;
-        message.sort = object.sort?.map((e) => base_1.Sort.fromPartial(e)) || [];
-        message.filter = object.filter?.map((e) => base_1.Filter.fromPartial(e)) || [];
+        message.sorts = object.sorts?.map((e) => base_1.Sort.fromPartial(e)) || [];
+        message.filters = object.filters?.map((e) => base_1.Filter.fromPartial(e)) || [];
         return message;
     },
 };

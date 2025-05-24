@@ -6,6 +6,8 @@ import "google/protobuf/struct.proto";
 
 // define enum
 enum FilterOperator {
+  // this one is best practice to define <name>_UNSPECIFIED
+  // read more: https://protobuf.dev/programming-guides/style/#enums
   FILTER_OPERATOR_UNSPECIFIED = 0;
   EQUAL = 1;
   NOT_EQUAL = 2;
@@ -52,6 +54,7 @@ message Filter {
   repeated string bool_values = 6;
   repeated string string_values = 7;
   repeated string number_values = 8;
+  google.protobuf.Value value = 9; // dynamic key-value object
 }
 
 message ErrorResponse {

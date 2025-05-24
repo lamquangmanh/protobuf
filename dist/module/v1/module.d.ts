@@ -21,8 +21,8 @@ export interface GetModuleRequest {
 }
 export interface GetModulesRequest {
     pagination: PaginationRequest | undefined;
-    sort: Sort[];
-    filter: Filter[];
+    sorts: Sort[];
+    filters: Filter[];
 }
 export interface GetModulesResponse {
     pagination: PaginationResponse | undefined;

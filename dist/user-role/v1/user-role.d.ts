@@ -21,8 +21,8 @@ export interface GetUserRoleRequest {
 }
 export interface GetUserRolesRequest {
     pagination: PaginationRequest | undefined;
-    sort: Sort[];
-    filter: Filter[];
+    sorts: Sort[];
+    filters: Filter[];
 }
 export interface GetUserRolesResponse {
     pagination: PaginationResponse | undefined;

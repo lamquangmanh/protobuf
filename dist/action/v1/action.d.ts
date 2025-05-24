@@ -39,8 +39,8 @@ export interface GetActionRequest {
 }
 export interface GetActionsRequest {
     pagination: PaginationRequest | undefined;
-    sort: Sort[];
-    filter: Filter[];
+    sorts: Sort[];
+    filters: Filter[];
 }
 export interface GetActionsResponse {
     pagination: PaginationResponse | undefined;

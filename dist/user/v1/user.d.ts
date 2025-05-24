@@ -48,8 +48,8 @@ export interface GetUserRequest {
 }
 export interface GetUsersRequest {
     pagination: PaginationRequest | undefined;
-    sort: Sort[];
-    filter: Filter[];
+    sorts: Sort[];
+    filters: Filter[];
 }
 export interface GetUsersResponse {
     pagination: PaginationResponse | undefined;

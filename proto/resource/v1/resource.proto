@@ -45,8 +45,8 @@ message GetResourceRequest {
 
 message GetResourcesRequest {
   base.v1.PaginationRequest pagination = 1;
-  repeated base.v1.Sort sort = 2;
-  repeated base.v1.Filter filter = 3;
+  repeated base.v1.Sort sorts = 2;
+  repeated base.v1.Filter filters = 3;
 }
 
 message GetResourcesResponse {

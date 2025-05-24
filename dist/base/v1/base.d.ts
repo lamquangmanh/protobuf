@@ -47,6 +47,7 @@ export interface Filter {
     boolValues: string[];
     stringValues: string[];
     numberValues: string[];
+    value: any | undefined;
 }
 export interface ErrorResponse {
     code: number;

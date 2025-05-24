@@ -41,8 +41,8 @@ export interface GetUserRoleRequest {
 
 export interface GetUserRolesRequest {
   pagination: PaginationRequest | undefined;
-  sort: Sort[];
-  filter: Filter[];
+  sorts: Sort[];
+  filters: Filter[];
 }
 
 export interface GetUserRolesResponse {
@@ -403,7 +403,7 @@ export const GetUserRoleRequest: MessageFns<GetUserRoleRequest> = {
 };
 
 function createBaseGetUserRolesRequest(): GetUserRolesRequest {
-  return { pagination: undefined, sort: [], filter: [] };
+  return { pagination: undefined, sorts: [], filters: [] };
 }
 
 export const GetUserRolesRequest: MessageFns<GetUserRolesRequest> = {
@@ -411,10 +411,10 @@ export const GetUserRolesRequest: MessageFns<GetUserRolesRequest> = {
     if (message.pagination !== undefined) {
       PaginationRequest.encode(message.pagination, writer.uint32(10).fork()).join();
     }
-    for (const v of message.sort) {
+    for (const v of message.sorts) {
       Sort.encode(v!, writer.uint32(18).fork()).join();
     }
-    for (const v of message.filter) {
+    for (const v of message.filters) {
       Filter.encode(v!, writer.uint32(26).fork()).join();
     }
     return writer;
@@ -440,7 +440,7 @@ export const GetUserRolesRequest: MessageFns<GetUserRolesRequest> = {
             break;
           }
 
-          message.sort.push(Sort.decode(reader, reader.uint32()));
+          message.sorts.push(Sort.decode(reader, reader.uint32()));
           continue;
         }
         case 3: {
@@ -448,7 +448,7 @@ export const GetUserRolesRequest: MessageFns<GetUserRolesRequest> = {
             break;
           }
 
-          message.filter.push(Filter.decode(reader, reader.uint32()));
+          message.filters.push(Filter.decode(reader, reader.uint32()));
           continue;
         }
       }
@@ -463,8 +463,8 @@ export const GetUserRolesRequest: MessageFns<GetUserRolesRequest> = {
   fromJSON(object: any): GetUserRolesRequest {
     return {
       pagination: isSet(object.pagination) ? PaginationRequest.fromJSON(object.pagination) : undefined,
-      sort: globalThis.Array.isArray(object?.sort) ? object.sort.map((e: any) => Sort.fromJSON(e)) : [],
-      filter: globalThis.Array.isArray(object?.filter) ? object.filter.map((e: any) => Filter.fromJSON(e)) : [],
+      sorts: globalThis.Array.isArray(object?.sorts) ? object.sorts.map((e: any) => Sort.fromJSON(e)) : [],
+      filters: globalThis.Array.isArray(object?.filters) ? object.filters.map((e: any) => Filter.fromJSON(e)) : [],
     };
   },
 
@@ -473,11 +473,11 @@ export const GetUserRolesRequest: MessageFns<GetUserRolesRequest> = {
     if (message.pagination !== undefined) {
       obj.pagination = PaginationRequest.toJSON(message.pagination);
     }
-    if (message.sort?.length) {
-      obj.sort = message.sort.map((e) => Sort.toJSON(e));
+    if (message.sorts?.length) {
+      obj.sorts = message.sorts.map((e) => Sort.toJSON(e));
     }
-    if (message.filter?.length) {
-      obj.filter = message.filter.map((e) => Filter.toJSON(e));
+    if (message.filters?.length) {
+      obj.filters = message.filters.map((e) => Filter.toJSON(e));
     }
     return obj;
   },
@@ -490,8 +490,8 @@ export const GetUserRolesRequest: MessageFns<GetUserRolesRequest> = {
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PaginationRequest.fromPartial(object.pagination)
       : undefined;
-    message.sort = object.sort?.map((e) => Sort.fromPartial(e)) || [];
-    message.filter = object.filter?.map((e) => Filter.fromPartial(e)) || [];
+    message.sorts = object.sorts?.map((e) => Sort.fromPartial(e)) || [];
+    message.filters = object.filters?.map((e) => Filter.fromPartial(e)) || [];
     return message;
   },
 };

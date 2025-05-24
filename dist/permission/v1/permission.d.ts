@@ -23,8 +23,8 @@ export interface GetPermissionRequest {
 }
 export interface GetPermissionsRequest {
     pagination: PaginationRequest | undefined;
-    sort: Sort[];
-    filter: Filter[];
+    sorts: Sort[];
+    filters: Filter[];
 }
 export interface GetPermissionsResponse {
     pagination: PaginationResponse | undefined;

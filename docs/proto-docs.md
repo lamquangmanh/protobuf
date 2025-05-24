@@ -246,8 +246,8 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sort | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filter | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
+| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
 
 
 
@@ -396,6 +396,7 @@
 | bool_values | [string](#string) | repeated |  |
 | string_values | [string](#string) | repeated |  |
 | number_values | [string](#string) | repeated |  |
+| value | [google.protobuf.Value](#google-protobuf-Value) |  | dynamic key-value object |
 
 
 
@@ -478,7 +479,7 @@ define enum
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| FILTER_OPERATOR_UNSPECIFIED | 0 |  |
+| FILTER_OPERATOR_UNSPECIFIED | 0 | this one is best practice to define &lt;name&gt;_UNSPECIFIED read more: https://protobuf.dev/programming-guides/style/#enums |
 | EQUAL | 1 |  |
 | NOT_EQUAL | 2 |  |
 | GREATER_THAN | 3 |  |
@@ -606,8 +607,8 @@ define enum
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sort | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filter | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
+| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
 
 
 
@@ -788,8 +789,8 @@ define enum
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sort | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filter | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
+| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
 
 
 
@@ -991,8 +992,8 @@ define enum
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sort | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filter | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
+| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
 
 
 
@@ -1192,8 +1193,8 @@ define enum
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sort | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filter | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
+| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
 
 
 
@@ -1410,8 +1411,8 @@ define enum
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sort | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filter | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
+| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
 
 
 
@@ -1596,8 +1597,8 @@ define enum
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sort | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filter | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
+| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
 
 
 

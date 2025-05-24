@@ -36,8 +36,8 @@ export interface GetRoleRequest {
 }
 export interface GetRolesRequest {
     pagination: PaginationRequest | undefined;
-    sort: Sort[];
-    filter: Filter[];
+    sorts: Sort[];
+    filters: Filter[];
 }
 export interface GetRolesResponse {
     pagination: PaginationResponse | undefined;

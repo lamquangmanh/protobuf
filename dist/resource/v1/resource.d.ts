@@ -37,8 +37,8 @@ export interface GetResourceRequest {
 }
 export interface GetResourcesRequest {
     pagination: PaginationRequest | undefined;
-    sort: Sort[];
-    filter: Filter[];
+    sorts: Sort[];
+    filters: Filter[];
 }
 export interface GetResourcesResponse {
     pagination: PaginationResponse | undefined;
