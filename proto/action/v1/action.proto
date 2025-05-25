@@ -37,6 +37,16 @@ message CreateActionData {
   string method = 6;
 }
 
+message UpdateActionData {
+  string action_id = 1;
+  string resource_id = 2;
+  string name = 3;
+  string description = 4;
+  ActionRequestType request_type = 5;
+  string url = 6;
+  string method = 7;
+}
+
 message GetActionRequest {
   string action_id = 1;
 }
@@ -58,7 +68,7 @@ message CreateActionRequest {
 }
 
 message UpdateActionRequest {
-  Action action = 1;
+  UpdateActionData action = 1;
   string user_id = 2;
 }
 

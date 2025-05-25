@@ -37,6 +37,13 @@ export interface CreatePermissionData {
   actionId: string;
 }
 
+export interface UpdatePermissionData {
+  permissionId: string;
+  roleId: string;
+  resourceId: string;
+  actionId: string;
+}
+
 export interface GetPermissionRequest {
   permissionId: string;
 }
@@ -58,7 +65,7 @@ export interface CreatePermissionRequest {
 }
 
 export interface UpdatePermissionRequest {
-  permission: Permission | undefined;
+  permission: UpdatePermissionData | undefined;
   userId: string;
 }
 
@@ -372,6 +379,114 @@ export const CreatePermissionData: MessageFns<CreatePermissionData> = {
   },
   fromPartial<I extends Exact<DeepPartial<CreatePermissionData>, I>>(object: I): CreatePermissionData {
     const message = createBaseCreatePermissionData();
+    message.roleId = object.roleId ?? "";
+    message.resourceId = object.resourceId ?? "";
+    message.actionId = object.actionId ?? "";
+    return message;
+  },
+};
+
+function createBaseUpdatePermissionData(): UpdatePermissionData {
+  return { permissionId: "", roleId: "", resourceId: "", actionId: "" };
+}
+
+export const UpdatePermissionData: MessageFns<UpdatePermissionData> = {
+  encode(message: UpdatePermissionData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.permissionId !== "") {
+      writer.uint32(10).string(message.permissionId);
+    }
+    if (message.roleId !== "") {
+      writer.uint32(18).string(message.roleId);
+    }
+    if (message.resourceId !== "") {
+      writer.uint32(26).string(message.resourceId);
+    }
+    if (message.actionId !== "") {
+      writer.uint32(34).string(message.actionId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdatePermissionData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdatePermissionData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.permissionId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.roleId = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.resourceId = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.actionId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdatePermissionData {
+    return {
+      permissionId: isSet(object.permissionId) ? globalThis.String(object.permissionId) : "",
+      roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
+      resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
+      actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : "",
+    };
+  },
+
+  toJSON(message: UpdatePermissionData): unknown {
+    const obj: any = {};
+    if (message.permissionId !== "") {
+      obj.permissionId = message.permissionId;
+    }
+    if (message.roleId !== "") {
+      obj.roleId = message.roleId;
+    }
+    if (message.resourceId !== "") {
+      obj.resourceId = message.resourceId;
+    }
+    if (message.actionId !== "") {
+      obj.actionId = message.actionId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdatePermissionData>, I>>(base?: I): UpdatePermissionData {
+    return UpdatePermissionData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdatePermissionData>, I>>(object: I): UpdatePermissionData {
+    const message = createBaseUpdatePermissionData();
+    message.permissionId = object.permissionId ?? "";
     message.roleId = object.roleId ?? "";
     message.resourceId = object.resourceId ?? "";
     message.actionId = object.actionId ?? "";
@@ -694,7 +809,7 @@ function createBaseUpdatePermissionRequest(): UpdatePermissionRequest {
 export const UpdatePermissionRequest: MessageFns<UpdatePermissionRequest> = {
   encode(message: UpdatePermissionRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.permission !== undefined) {
-      Permission.encode(message.permission, writer.uint32(10).fork()).join();
+      UpdatePermissionData.encode(message.permission, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -714,7 +829,7 @@ export const UpdatePermissionRequest: MessageFns<UpdatePermissionRequest> = {
             break;
           }
 
-          message.permission = Permission.decode(reader, reader.uint32());
+          message.permission = UpdatePermissionData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -736,7 +851,7 @@ export const UpdatePermissionRequest: MessageFns<UpdatePermissionRequest> = {
 
   fromJSON(object: any): UpdatePermissionRequest {
     return {
-      permission: isSet(object.permission) ? Permission.fromJSON(object.permission) : undefined,
+      permission: isSet(object.permission) ? UpdatePermissionData.fromJSON(object.permission) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -744,7 +859,7 @@ export const UpdatePermissionRequest: MessageFns<UpdatePermissionRequest> = {
   toJSON(message: UpdatePermissionRequest): unknown {
     const obj: any = {};
     if (message.permission !== undefined) {
-      obj.permission = Permission.toJSON(message.permission);
+      obj.permission = UpdatePermissionData.toJSON(message.permission);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -758,7 +873,7 @@ export const UpdatePermissionRequest: MessageFns<UpdatePermissionRequest> = {
   fromPartial<I extends Exact<DeepPartial<UpdatePermissionRequest>, I>>(object: I): UpdatePermissionRequest {
     const message = createBaseUpdatePermissionRequest();
     message.permission = (object.permission !== undefined && object.permission !== null)
-      ? Permission.fromPartial(object.permission)
+      ? UpdatePermissionData.fromPartial(object.permission)
       : undefined;
     message.userId = object.userId ?? "";
     return message;

@@ -21,6 +21,12 @@ message CreateModuleData {
   string description = 2;
 }
 
+message UpdateModuleData {
+  string module_id = 1;
+  string name = 2;
+  string description = 3;
+}
+
 message GetModuleRequest {
   string module_id = 1;
 }
@@ -42,7 +48,7 @@ message CreateModuleRequest {
 }
 
 message UpdateModuleRequest {
-  Module module = 1;
+  UpdateModuleData module = 1;
   string user_id = 2;
 }
 

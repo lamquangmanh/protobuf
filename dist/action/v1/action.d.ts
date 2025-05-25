@@ -34,6 +34,15 @@ export interface CreateActionData {
     url: string;
     method: string;
 }
+export interface UpdateActionData {
+    actionId: string;
+    resourceId: string;
+    name: string;
+    description: string;
+    requestType: ActionRequestType;
+    url: string;
+    method: string;
+}
 export interface GetActionRequest {
     actionId: string;
 }
@@ -51,7 +60,7 @@ export interface CreateActionRequest {
     userId: string;
 }
 export interface UpdateActionRequest {
-    action: Action | undefined;
+    action: UpdateActionData | undefined;
     userId: string;
 }
 export interface DeleteActionRequest {
@@ -64,6 +73,7 @@ export interface CreateSuccess {
 }
 export declare const Action: MessageFns<Action>;
 export declare const CreateActionData: MessageFns<CreateActionData>;
+export declare const UpdateActionData: MessageFns<UpdateActionData>;
 export declare const GetActionRequest: MessageFns<GetActionRequest>;
 export declare const GetActionsRequest: MessageFns<GetActionsRequest>;
 export declare const GetActionsResponse: MessageFns<GetActionsResponse>;

@@ -16,6 +16,10 @@ export interface CreateUserRoleData {
     userId: string;
     roleId: string;
 }
+export interface UpdateUserRoleData {
+    userId: string;
+    roleId: string;
+}
 export interface GetUserRoleRequest {
     userRoleId: string;
 }
@@ -33,7 +37,7 @@ export interface CreateUserRoleRequest {
     userId: string;
 }
 export interface UpdateUserRoleRequest {
-    userRole: UserRole | undefined;
+    userRole: UpdateUserRoleData | undefined;
     userId: string;
 }
 export interface DeleteUserRoleRequest {
@@ -46,6 +50,7 @@ export interface CreateSuccess {
 }
 export declare const UserRole: MessageFns<UserRole>;
 export declare const CreateUserRoleData: MessageFns<CreateUserRoleData>;
+export declare const UpdateUserRoleData: MessageFns<UpdateUserRoleData>;
 export declare const GetUserRoleRequest: MessageFns<GetUserRoleRequest>;
 export declare const GetUserRolesRequest: MessageFns<GetUserRolesRequest>;
 export declare const GetUserRolesResponse: MessageFns<GetUserRolesResponse>;

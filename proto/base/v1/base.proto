@@ -54,7 +54,7 @@ message Filter {
   repeated string bool_values = 6;
   repeated string string_values = 7;
   repeated string number_values = 8;
-  google.protobuf.Value value = 9; // dynamic key-value object
+  // google.protobuf.Value value = 9; // dynamic key-value object
 }
 
 message ErrorResponse {

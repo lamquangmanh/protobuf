@@ -35,6 +35,12 @@ export interface CreateModuleData {
   description: string;
 }
 
+export interface UpdateModuleData {
+  moduleId: string;
+  name: string;
+  description: string;
+}
+
 export interface GetModuleRequest {
   moduleId: string;
 }
@@ -56,7 +62,7 @@ export interface CreateModuleRequest {
 }
 
 export interface UpdateModuleRequest {
-  module: Module | undefined;
+  module: UpdateModuleData | undefined;
   userId: string;
 }
 
@@ -338,6 +344,98 @@ export const CreateModuleData: MessageFns<CreateModuleData> = {
   },
   fromPartial<I extends Exact<DeepPartial<CreateModuleData>, I>>(object: I): CreateModuleData {
     const message = createBaseCreateModuleData();
+    message.name = object.name ?? "";
+    message.description = object.description ?? "";
+    return message;
+  },
+};
+
+function createBaseUpdateModuleData(): UpdateModuleData {
+  return { moduleId: "", name: "", description: "" };
+}
+
+export const UpdateModuleData: MessageFns<UpdateModuleData> = {
+  encode(message: UpdateModuleData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.moduleId !== "") {
+      writer.uint32(10).string(message.moduleId);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(26).string(message.description);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateModuleData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateModuleData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.moduleId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.description = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateModuleData {
+    return {
+      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      description: isSet(object.description) ? globalThis.String(object.description) : "",
+    };
+  },
+
+  toJSON(message: UpdateModuleData): unknown {
+    const obj: any = {};
+    if (message.moduleId !== "") {
+      obj.moduleId = message.moduleId;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.description !== "") {
+      obj.description = message.description;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateModuleData>, I>>(base?: I): UpdateModuleData {
+    return UpdateModuleData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateModuleData>, I>>(object: I): UpdateModuleData {
+    const message = createBaseUpdateModuleData();
+    message.moduleId = object.moduleId ?? "";
     message.name = object.name ?? "";
     message.description = object.description ?? "";
     return message;
@@ -659,7 +757,7 @@ function createBaseUpdateModuleRequest(): UpdateModuleRequest {
 export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
   encode(message: UpdateModuleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.module !== undefined) {
-      Module.encode(message.module, writer.uint32(10).fork()).join();
+      UpdateModuleData.encode(message.module, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -679,7 +777,7 @@ export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
             break;
           }
 
-          message.module = Module.decode(reader, reader.uint32());
+          message.module = UpdateModuleData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -701,7 +799,7 @@ export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
 
   fromJSON(object: any): UpdateModuleRequest {
     return {
-      module: isSet(object.module) ? Module.fromJSON(object.module) : undefined,
+      module: isSet(object.module) ? UpdateModuleData.fromJSON(object.module) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -709,7 +807,7 @@ export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
   toJSON(message: UpdateModuleRequest): unknown {
     const obj: any = {};
     if (message.module !== undefined) {
-      obj.module = Module.toJSON(message.module);
+      obj.module = UpdateModuleData.toJSON(message.module);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -723,7 +821,7 @@ export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
   fromPartial<I extends Exact<DeepPartial<UpdateModuleRequest>, I>>(object: I): UpdateModuleRequest {
     const message = createBaseUpdateModuleRequest();
     message.module = (object.module !== undefined && object.module !== null)
-      ? Module.fromPartial(object.module)
+      ? UpdateModuleData.fromPartial(object.module)
       : undefined;
     message.userId = object.userId ?? "";
     return message;

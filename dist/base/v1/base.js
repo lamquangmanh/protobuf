@@ -383,7 +383,6 @@ function createBaseFilter() {
         boolValues: [],
         stringValues: [],
         numberValues: [],
-        value: undefined,
     };
 }
 exports.Filter = {
@@ -411,9 +410,6 @@ exports.Filter = {
         }
         for (const v of message.numberValues) {
             writer.uint32(66).string(v);
-        }
-        if (message.value !== undefined) {
-            struct_1.Value.encode(struct_1.Value.wrap(message.value), writer.uint32(74).fork()).join();
         }
         return writer;
     },
@@ -480,13 +476,6 @@ exports.Filter = {
                     message.numberValues.push(reader.string());
                     continue;
                 }
-                case 9: {
-                    if (tag !== 74) {
-                        break;
-                    }
-                    message.value = struct_1.Value.unwrap(struct_1.Value.decode(reader, reader.uint32()));
-                    continue;
-                }
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -511,7 +500,6 @@ exports.Filter = {
             numberValues: globalThis.Array.isArray(object?.numberValues)
                 ? object.numberValues.map((e) => globalThis.String(e))
                 : [],
-            value: isSet(object?.value) ? object.value : undefined,
         };
     },
     toJSON(message) {
@@ -540,9 +528,6 @@ exports.Filter = {
         if (message.numberValues?.length) {
             obj.numberValues = message.numberValues;
         }
-        if (message.value !== undefined) {
-            obj.value = message.value;
-        }
         return obj;
     },
     create(base) {
@@ -558,7 +543,6 @@ exports.Filter = {
         message.boolValues = object.boolValues?.map((e) => e) || [];
         message.stringValues = object.stringValues?.map((e) => e) || [];
         message.numberValues = object.numberValues?.map((e) => e) || [];
-        message.value = object.value ?? undefined;
         return message;
     },
 };

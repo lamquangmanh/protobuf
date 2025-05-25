@@ -35,6 +35,11 @@ export interface CreateUserRoleData {
   roleId: string;
 }
 
+export interface UpdateUserRoleData {
+  userId: string;
+  roleId: string;
+}
+
 export interface GetUserRoleRequest {
   userRoleId: string;
 }
@@ -56,7 +61,7 @@ export interface CreateUserRoleRequest {
 }
 
 export interface UpdateUserRoleRequest {
-  userRole: UserRole | undefined;
+  userRole: UpdateUserRoleData | undefined;
   userId: string;
 }
 
@@ -338,6 +343,82 @@ export const CreateUserRoleData: MessageFns<CreateUserRoleData> = {
   },
   fromPartial<I extends Exact<DeepPartial<CreateUserRoleData>, I>>(object: I): CreateUserRoleData {
     const message = createBaseCreateUserRoleData();
+    message.userId = object.userId ?? "";
+    message.roleId = object.roleId ?? "";
+    return message;
+  },
+};
+
+function createBaseUpdateUserRoleData(): UpdateUserRoleData {
+  return { userId: "", roleId: "" };
+}
+
+export const UpdateUserRoleData: MessageFns<UpdateUserRoleData> = {
+  encode(message: UpdateUserRoleData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.userId !== "") {
+      writer.uint32(10).string(message.userId);
+    }
+    if (message.roleId !== "") {
+      writer.uint32(18).string(message.roleId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateUserRoleData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateUserRoleData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.roleId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateUserRoleData {
+    return {
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+      roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
+    };
+  },
+
+  toJSON(message: UpdateUserRoleData): unknown {
+    const obj: any = {};
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    if (message.roleId !== "") {
+      obj.roleId = message.roleId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateUserRoleData>, I>>(base?: I): UpdateUserRoleData {
+    return UpdateUserRoleData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateUserRoleData>, I>>(object: I): UpdateUserRoleData {
+    const message = createBaseUpdateUserRoleData();
     message.userId = object.userId ?? "";
     message.roleId = object.roleId ?? "";
     return message;
@@ -659,7 +740,7 @@ function createBaseUpdateUserRoleRequest(): UpdateUserRoleRequest {
 export const UpdateUserRoleRequest: MessageFns<UpdateUserRoleRequest> = {
   encode(message: UpdateUserRoleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.userRole !== undefined) {
-      UserRole.encode(message.userRole, writer.uint32(10).fork()).join();
+      UpdateUserRoleData.encode(message.userRole, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -679,7 +760,7 @@ export const UpdateUserRoleRequest: MessageFns<UpdateUserRoleRequest> = {
             break;
           }
 
-          message.userRole = UserRole.decode(reader, reader.uint32());
+          message.userRole = UpdateUserRoleData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -701,7 +782,7 @@ export const UpdateUserRoleRequest: MessageFns<UpdateUserRoleRequest> = {
 
   fromJSON(object: any): UpdateUserRoleRequest {
     return {
-      userRole: isSet(object.userRole) ? UserRole.fromJSON(object.userRole) : undefined,
+      userRole: isSet(object.userRole) ? UpdateUserRoleData.fromJSON(object.userRole) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -709,7 +790,7 @@ export const UpdateUserRoleRequest: MessageFns<UpdateUserRoleRequest> = {
   toJSON(message: UpdateUserRoleRequest): unknown {
     const obj: any = {};
     if (message.userRole !== undefined) {
-      obj.userRole = UserRole.toJSON(message.userRole);
+      obj.userRole = UpdateUserRoleData.toJSON(message.userRole);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -723,7 +804,7 @@ export const UpdateUserRoleRequest: MessageFns<UpdateUserRoleRequest> = {
   fromPartial<I extends Exact<DeepPartial<UpdateUserRoleRequest>, I>>(object: I): UpdateUserRoleRequest {
     const message = createBaseUpdateUserRoleRequest();
     message.userRole = (object.userRole !== undefined && object.userRole !== null)
-      ? UserRole.fromPartial(object.userRole)
+      ? UpdateUserRoleData.fromPartial(object.userRole)
       : undefined;
     message.userId = object.userId ?? "";
     return message;

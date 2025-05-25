@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { Struct, Value } from "../../google/protobuf/struct";
+import { Struct } from "../../google/protobuf/struct";
 
 export const protobufPackage = "base.v1";
 
@@ -164,9 +164,8 @@ export interface Filter {
   boolValue?: string | undefined;
   boolValues: string[];
   stringValues: string[];
+  /** google.protobuf.Value value = 9; // dynamic key-value object */
   numberValues: string[];
-  /** dynamic key-value object */
-  value: any | undefined;
 }
 
 export interface ErrorResponse {
@@ -477,7 +476,6 @@ function createBaseFilter(): Filter {
     boolValues: [],
     stringValues: [],
     numberValues: [],
-    value: undefined,
   };
 }
 
@@ -506,9 +504,6 @@ export const Filter: MessageFns<Filter> = {
     }
     for (const v of message.numberValues) {
       writer.uint32(66).string(v!);
-    }
-    if (message.value !== undefined) {
-      Value.encode(Value.wrap(message.value), writer.uint32(74).fork()).join();
     }
     return writer;
   },
@@ -584,14 +579,6 @@ export const Filter: MessageFns<Filter> = {
           message.numberValues.push(reader.string());
           continue;
         }
-        case 9: {
-          if (tag !== 74) {
-            break;
-          }
-
-          message.value = Value.unwrap(Value.decode(reader, reader.uint32()));
-          continue;
-        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -617,7 +604,6 @@ export const Filter: MessageFns<Filter> = {
       numberValues: globalThis.Array.isArray(object?.numberValues)
         ? object.numberValues.map((e: any) => globalThis.String(e))
         : [],
-      value: isSet(object?.value) ? object.value : undefined,
     };
   },
 
@@ -647,9 +633,6 @@ export const Filter: MessageFns<Filter> = {
     if (message.numberValues?.length) {
       obj.numberValues = message.numberValues;
     }
-    if (message.value !== undefined) {
-      obj.value = message.value;
-    }
     return obj;
   },
 
@@ -666,7 +649,6 @@ export const Filter: MessageFns<Filter> = {
     message.boolValues = object.boolValues?.map((e) => e) || [];
     message.stringValues = object.stringValues?.map((e) => e) || [];
     message.numberValues = object.numberValues?.map((e) => e) || [];
-    message.value = object.value ?? undefined;
     return message;
   },
 };

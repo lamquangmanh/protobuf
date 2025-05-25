@@ -12,6 +12,7 @@
     - [GetActionRequest](#action-v1-GetActionRequest)
     - [GetActionsRequest](#action-v1-GetActionsRequest)
     - [GetActionsResponse](#action-v1-GetActionsResponse)
+    - [UpdateActionData](#action-v1-UpdateActionData)
     - [UpdateActionRequest](#action-v1-UpdateActionRequest)
   
     - [ActionRequestType](#action-v1-ActionRequestType)
@@ -40,6 +41,7 @@
     - [GetModulesRequest](#module-v1-GetModulesRequest)
     - [GetModulesResponse](#module-v1-GetModulesResponse)
     - [Module](#module-v1-Module)
+    - [UpdateModuleData](#module-v1-UpdateModuleData)
     - [UpdateModuleRequest](#module-v1-UpdateModuleRequest)
   
     - [ModuleService](#module-v1-ModuleService)
@@ -53,6 +55,7 @@
     - [GetPermissionsRequest](#permission-v1-GetPermissionsRequest)
     - [GetPermissionsResponse](#permission-v1-GetPermissionsResponse)
     - [Permission](#permission-v1-Permission)
+    - [UpdatePermissionData](#permission-v1-UpdatePermissionData)
     - [UpdatePermissionRequest](#permission-v1-UpdatePermissionRequest)
   
     - [PermissionService](#permission-v1-PermissionService)
@@ -95,6 +98,7 @@
     - [GetUserRoleRequest](#user_role-v1-GetUserRoleRequest)
     - [GetUserRolesRequest](#user_role-v1-GetUserRolesRequest)
     - [GetUserRolesResponse](#user_role-v1-GetUserRolesResponse)
+    - [UpdateUserRoleData](#user_role-v1-UpdateUserRoleData)
     - [UpdateUserRoleRequest](#user_role-v1-UpdateUserRoleRequest)
     - [UserRole](#user_role-v1-UserRole)
   
@@ -270,6 +274,27 @@
 
 
 
+<a name="action-v1-UpdateActionData"></a>
+
+### UpdateActionData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| action_id | [string](#string) |  |  |
+| resource_id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| request_type | [ActionRequestType](#action-v1-ActionRequestType) |  |  |
+| url | [string](#string) |  |  |
+| method | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="action-v1-UpdateActionRequest"></a>
 
 ### UpdateActionRequest
@@ -278,7 +303,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| action | [Action](#action-v1-Action) |  |  |
+| action | [UpdateActionData](#action-v1-UpdateActionData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -395,8 +420,7 @@
 | bool_value | [string](#string) | optional |  |
 | bool_values | [string](#string) | repeated |  |
 | string_values | [string](#string) | repeated |  |
-| number_values | [string](#string) | repeated |  |
-| value | [google.protobuf.Value](#google-protobuf-Value) |  | dynamic key-value object |
+| number_values | [string](#string) | repeated | google.protobuf.Value value = 9; // dynamic key-value object |
 
 
 
@@ -654,6 +678,23 @@ define enum
 
 
 
+<a name="module-v1-UpdateModuleData"></a>
+
+### UpdateModuleData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| module_id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="module-v1-UpdateModuleRequest"></a>
 
 ### UpdateModuleRequest
@@ -662,7 +703,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| module | [Module](#module-v1-Module) |  |  |
+| module | [UpdateModuleData](#module-v1-UpdateModuleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -837,6 +878,24 @@ define enum
 
 
 
+<a name="permission-v1-UpdatePermissionData"></a>
+
+### UpdatePermissionData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| permission_id | [string](#string) |  |  |
+| role_id | [string](#string) |  |  |
+| resource_id | [string](#string) |  |  |
+| action_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="permission-v1-UpdatePermissionRequest"></a>
 
 ### UpdatePermissionRequest
@@ -845,7 +904,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| permission | [Permission](#permission-v1-Permission) |  |  |
+| permission | [UpdatePermissionData](#permission-v1-UpdatePermissionData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1435,6 +1494,22 @@ define enum
 
 
 
+<a name="user_role-v1-UpdateUserRoleData"></a>
+
+### UpdateUserRoleData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+| role_id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="user_role-v1-UpdateUserRoleRequest"></a>
 
 ### UpdateUserRoleRequest
@@ -1443,7 +1518,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_role | [UserRole](#user_role-v1-UserRole) |  |  |
+| user_role | [UpdateUserRoleData](#user_role-v1-UpdateUserRoleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 

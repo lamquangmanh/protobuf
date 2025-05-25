@@ -94,6 +94,16 @@ export interface CreateActionData {
   method: string;
 }
 
+export interface UpdateActionData {
+  actionId: string;
+  resourceId: string;
+  name: string;
+  description: string;
+  requestType: ActionRequestType;
+  url: string;
+  method: string;
+}
+
 export interface GetActionRequest {
   actionId: string;
 }
@@ -115,7 +125,7 @@ export interface CreateActionRequest {
 }
 
 export interface UpdateActionRequest {
-  action: Action | undefined;
+  action: UpdateActionData | undefined;
   userId: string;
 }
 
@@ -535,6 +545,162 @@ export const CreateActionData: MessageFns<CreateActionData> = {
   },
 };
 
+function createBaseUpdateActionData(): UpdateActionData {
+  return { actionId: "", resourceId: "", name: "", description: "", requestType: 0, url: "", method: "" };
+}
+
+export const UpdateActionData: MessageFns<UpdateActionData> = {
+  encode(message: UpdateActionData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.actionId !== "") {
+      writer.uint32(10).string(message.actionId);
+    }
+    if (message.resourceId !== "") {
+      writer.uint32(18).string(message.resourceId);
+    }
+    if (message.name !== "") {
+      writer.uint32(26).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(34).string(message.description);
+    }
+    if (message.requestType !== 0) {
+      writer.uint32(40).int32(message.requestType);
+    }
+    if (message.url !== "") {
+      writer.uint32(50).string(message.url);
+    }
+    if (message.method !== "") {
+      writer.uint32(58).string(message.method);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateActionData {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateActionData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.actionId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.resourceId = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.description = reader.string();
+          continue;
+        }
+        case 5: {
+          if (tag !== 40) {
+            break;
+          }
+
+          message.requestType = reader.int32() as any;
+          continue;
+        }
+        case 6: {
+          if (tag !== 50) {
+            break;
+          }
+
+          message.url = reader.string();
+          continue;
+        }
+        case 7: {
+          if (tag !== 58) {
+            break;
+          }
+
+          message.method = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateActionData {
+    return {
+      actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : "",
+      resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      description: isSet(object.description) ? globalThis.String(object.description) : "",
+      requestType: isSet(object.requestType) ? actionRequestTypeFromJSON(object.requestType) : 0,
+      url: isSet(object.url) ? globalThis.String(object.url) : "",
+      method: isSet(object.method) ? globalThis.String(object.method) : "",
+    };
+  },
+
+  toJSON(message: UpdateActionData): unknown {
+    const obj: any = {};
+    if (message.actionId !== "") {
+      obj.actionId = message.actionId;
+    }
+    if (message.resourceId !== "") {
+      obj.resourceId = message.resourceId;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.description !== "") {
+      obj.description = message.description;
+    }
+    if (message.requestType !== 0) {
+      obj.requestType = actionRequestTypeToJSON(message.requestType);
+    }
+    if (message.url !== "") {
+      obj.url = message.url;
+    }
+    if (message.method !== "") {
+      obj.method = message.method;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateActionData>, I>>(base?: I): UpdateActionData {
+    return UpdateActionData.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateActionData>, I>>(object: I): UpdateActionData {
+    const message = createBaseUpdateActionData();
+    message.actionId = object.actionId ?? "";
+    message.resourceId = object.resourceId ?? "";
+    message.name = object.name ?? "";
+    message.description = object.description ?? "";
+    message.requestType = object.requestType ?? 0;
+    message.url = object.url ?? "";
+    message.method = object.method ?? "";
+    return message;
+  },
+};
+
 function createBaseGetActionRequest(): GetActionRequest {
   return { actionId: "" };
 }
@@ -850,7 +1016,7 @@ function createBaseUpdateActionRequest(): UpdateActionRequest {
 export const UpdateActionRequest: MessageFns<UpdateActionRequest> = {
   encode(message: UpdateActionRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.action !== undefined) {
-      Action.encode(message.action, writer.uint32(10).fork()).join();
+      UpdateActionData.encode(message.action, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -870,7 +1036,7 @@ export const UpdateActionRequest: MessageFns<UpdateActionRequest> = {
             break;
           }
 
-          message.action = Action.decode(reader, reader.uint32());
+          message.action = UpdateActionData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -892,7 +1058,7 @@ export const UpdateActionRequest: MessageFns<UpdateActionRequest> = {
 
   fromJSON(object: any): UpdateActionRequest {
     return {
-      action: isSet(object.action) ? Action.fromJSON(object.action) : undefined,
+      action: isSet(object.action) ? UpdateActionData.fromJSON(object.action) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
@@ -900,7 +1066,7 @@ export const UpdateActionRequest: MessageFns<UpdateActionRequest> = {
   toJSON(message: UpdateActionRequest): unknown {
     const obj: any = {};
     if (message.action !== undefined) {
-      obj.action = Action.toJSON(message.action);
+      obj.action = UpdateActionData.toJSON(message.action);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -914,7 +1080,7 @@ export const UpdateActionRequest: MessageFns<UpdateActionRequest> = {
   fromPartial<I extends Exact<DeepPartial<UpdateActionRequest>, I>>(object: I): UpdateActionRequest {
     const message = createBaseUpdateActionRequest();
     message.action = (object.action !== undefined && object.action !== null)
-      ? Action.fromPartial(object.action)
+      ? UpdateActionData.fromPartial(object.action)
       : undefined;
     message.userId = object.userId ?? "";
     return message;

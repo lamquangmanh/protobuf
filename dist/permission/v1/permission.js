@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PermissionServiceClientImpl = exports.PermissionServiceServiceName = exports.CreateSuccess = exports.DeletePermissionRequest = exports.UpdatePermissionRequest = exports.CreatePermissionRequest = exports.GetPermissionsResponse = exports.GetPermissionsRequest = exports.GetPermissionRequest = exports.CreatePermissionData = exports.Permission = exports.protobufPackage = void 0;
+exports.PermissionServiceClientImpl = exports.PermissionServiceServiceName = exports.CreateSuccess = exports.DeletePermissionRequest = exports.UpdatePermissionRequest = exports.CreatePermissionRequest = exports.GetPermissionsResponse = exports.GetPermissionsRequest = exports.GetPermissionRequest = exports.UpdatePermissionData = exports.CreatePermissionData = exports.Permission = exports.protobufPackage = void 0;
 const wire_1 = require("@bufbuild/protobuf/wire");
 const base_1 = require("../../base/v1/base");
 exports.protobufPackage = "permission.v1";
@@ -280,6 +280,104 @@ exports.CreatePermissionData = {
     },
     fromPartial(object) {
         const message = createBaseCreatePermissionData();
+        message.roleId = object.roleId ?? "";
+        message.resourceId = object.resourceId ?? "";
+        message.actionId = object.actionId ?? "";
+        return message;
+    },
+};
+function createBaseUpdatePermissionData() {
+    return { permissionId: "", roleId: "", resourceId: "", actionId: "" };
+}
+exports.UpdatePermissionData = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.permissionId !== "") {
+            writer.uint32(10).string(message.permissionId);
+        }
+        if (message.roleId !== "") {
+            writer.uint32(18).string(message.roleId);
+        }
+        if (message.resourceId !== "") {
+            writer.uint32(26).string(message.resourceId);
+        }
+        if (message.actionId !== "") {
+            writer.uint32(34).string(message.actionId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdatePermissionData();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.permissionId = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.roleId = reader.string();
+                    continue;
+                }
+                case 3: {
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.resourceId = reader.string();
+                    continue;
+                }
+                case 4: {
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.actionId = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            permissionId: isSet(object.permissionId) ? globalThis.String(object.permissionId) : "",
+            roleId: isSet(object.roleId) ? globalThis.String(object.roleId) : "",
+            resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
+            actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.permissionId !== "") {
+            obj.permissionId = message.permissionId;
+        }
+        if (message.roleId !== "") {
+            obj.roleId = message.roleId;
+        }
+        if (message.resourceId !== "") {
+            obj.resourceId = message.resourceId;
+        }
+        if (message.actionId !== "") {
+            obj.actionId = message.actionId;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.UpdatePermissionData.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseUpdatePermissionData();
+        message.permissionId = object.permissionId ?? "";
         message.roleId = object.roleId ?? "";
         message.resourceId = object.resourceId ?? "";
         message.actionId = object.actionId ?? "";
@@ -568,7 +666,7 @@ function createBaseUpdatePermissionRequest() {
 exports.UpdatePermissionRequest = {
     encode(message, writer = new wire_1.BinaryWriter()) {
         if (message.permission !== undefined) {
-            exports.Permission.encode(message.permission, writer.uint32(10).fork()).join();
+            exports.UpdatePermissionData.encode(message.permission, writer.uint32(10).fork()).join();
         }
         if (message.userId !== "") {
             writer.uint32(18).string(message.userId);
@@ -586,7 +684,7 @@ exports.UpdatePermissionRequest = {
                     if (tag !== 10) {
                         break;
                     }
-                    message.permission = exports.Permission.decode(reader, reader.uint32());
+                    message.permission = exports.UpdatePermissionData.decode(reader, reader.uint32());
                     continue;
                 }
                 case 2: {
@@ -606,14 +704,14 @@ exports.UpdatePermissionRequest = {
     },
     fromJSON(object) {
         return {
-            permission: isSet(object.permission) ? exports.Permission.fromJSON(object.permission) : undefined,
+            permission: isSet(object.permission) ? exports.UpdatePermissionData.fromJSON(object.permission) : undefined,
             userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.permission !== undefined) {
-            obj.permission = exports.Permission.toJSON(message.permission);
+            obj.permission = exports.UpdatePermissionData.toJSON(message.permission);
         }
         if (message.userId !== "") {
             obj.userId = message.userId;
@@ -626,7 +724,7 @@ exports.UpdatePermissionRequest = {
     fromPartial(object) {
         const message = createBaseUpdatePermissionRequest();
         message.permission = (object.permission !== undefined && object.permission !== null)
-            ? exports.Permission.fromPartial(object.permission)
+            ? exports.UpdatePermissionData.fromPartial(object.permission)
             : undefined;
         message.userId = object.userId ?? "";
         return message;
