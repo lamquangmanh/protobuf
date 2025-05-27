@@ -39,7 +39,6 @@ message CreateUserData {
 message UpdateUserData {
   string username = 1;
   string email = 2;
-  string password = 3;
   string phone = 4;
   string avatar = 5;
   UserStatus status = 6;
@@ -84,10 +83,16 @@ message CreateSuccess {
   }
 }
 
+message ChangePasswordRequest {
+  string user_id = 1;
+  string password = 2;
+}
+
 service UserService {
   rpc GetUser (GetUserRequest) returns (User) {}
   rpc GetUsers (GetUsersRequest) returns (GetUsersResponse) {}
   rpc CreateUser (CreateUserRequest) returns (CreateSuccess) {}
   rpc UpdateUser (UpdateUserRequest) returns (base.v1.UpdateSuccess) {}
   rpc DeleteUser (DeleteUserRequest) returns (base.v1.DeleteSuccess) {}
+  rpc ChangePassword (ChangePasswordRequest) returns (base.v1.UpdateSuccess) {}
 }

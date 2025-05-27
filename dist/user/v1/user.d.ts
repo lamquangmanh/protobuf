@@ -36,7 +36,6 @@ export interface CreateUserData {
 export interface UpdateUserData {
     username: string;
     email: string;
-    password: string;
     phone: string;
     avatar: string;
     status: UserStatus;
@@ -71,6 +70,10 @@ export interface CreateSuccess {
     user?: User | undefined;
     error?: ErrorResponse | undefined;
 }
+export interface ChangePasswordRequest {
+    userId: string;
+    password: string;
+}
 export declare const User: MessageFns<User>;
 export declare const CreateUserData: MessageFns<CreateUserData>;
 export declare const UpdateUserData: MessageFns<UpdateUserData>;
@@ -81,12 +84,14 @@ export declare const CreateUserRequest: MessageFns<CreateUserRequest>;
 export declare const UpdateUserRequest: MessageFns<UpdateUserRequest>;
 export declare const DeleteUserRequest: MessageFns<DeleteUserRequest>;
 export declare const CreateSuccess: MessageFns<CreateSuccess>;
+export declare const ChangePasswordRequest: MessageFns<ChangePasswordRequest>;
 export interface UserService {
     GetUser(request: GetUserRequest): Promise<User>;
     GetUsers(request: GetUsersRequest): Promise<GetUsersResponse>;
     CreateUser(request: CreateUserRequest): Promise<CreateSuccess>;
     UpdateUser(request: UpdateUserRequest): Promise<UpdateSuccess>;
     DeleteUser(request: DeleteUserRequest): Promise<DeleteSuccess>;
+    ChangePassword(request: ChangePasswordRequest): Promise<UpdateSuccess>;
 }
 export declare const UserServiceServiceName = "user.v1.UserService";
 export declare class UserServiceClientImpl implements UserService {
@@ -100,6 +105,7 @@ export declare class UserServiceClientImpl implements UserService {
     CreateUser(request: CreateUserRequest): Promise<CreateSuccess>;
     UpdateUser(request: UpdateUserRequest): Promise<UpdateSuccess>;
     DeleteUser(request: DeleteUserRequest): Promise<DeleteSuccess>;
+    ChangePassword(request: ChangePasswordRequest): Promise<UpdateSuccess>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

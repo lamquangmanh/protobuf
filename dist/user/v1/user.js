@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserServiceClientImpl = exports.UserServiceServiceName = exports.CreateSuccess = exports.DeleteUserRequest = exports.UpdateUserRequest = exports.CreateUserRequest = exports.GetUsersResponse = exports.GetUsersRequest = exports.GetUserRequest = exports.UpdateUserData = exports.CreateUserData = exports.User = exports.UserStatus = exports.protobufPackage = void 0;
+exports.UserServiceClientImpl = exports.UserServiceServiceName = exports.ChangePasswordRequest = exports.CreateSuccess = exports.DeleteUserRequest = exports.UpdateUserRequest = exports.CreateUserRequest = exports.GetUsersResponse = exports.GetUsersRequest = exports.GetUserRequest = exports.UpdateUserData = exports.CreateUserData = exports.User = exports.UserStatus = exports.protobufPackage = void 0;
 exports.userStatusFromJSON = userStatusFromJSON;
 exports.userStatusToJSON = userStatusToJSON;
 const wire_1 = require("@bufbuild/protobuf/wire");
@@ -424,7 +424,7 @@ exports.CreateUserData = {
     },
 };
 function createBaseUpdateUserData() {
-    return { username: "", email: "", password: "", phone: "", avatar: "", status: 0, roleIds: [], userId: "" };
+    return { username: "", email: "", phone: "", avatar: "", status: 0, roleIds: [], userId: "" };
 }
 exports.UpdateUserData = {
     encode(message, writer = new wire_1.BinaryWriter()) {
@@ -433,9 +433,6 @@ exports.UpdateUserData = {
         }
         if (message.email !== "") {
             writer.uint32(18).string(message.email);
-        }
-        if (message.password !== "") {
-            writer.uint32(26).string(message.password);
         }
         if (message.phone !== "") {
             writer.uint32(34).string(message.phone);
@@ -473,13 +470,6 @@ exports.UpdateUserData = {
                         break;
                     }
                     message.email = reader.string();
-                    continue;
-                }
-                case 3: {
-                    if (tag !== 26) {
-                        break;
-                    }
-                    message.password = reader.string();
                     continue;
                 }
                 case 4: {
@@ -529,7 +519,6 @@ exports.UpdateUserData = {
         return {
             username: isSet(object.username) ? globalThis.String(object.username) : "",
             email: isSet(object.email) ? globalThis.String(object.email) : "",
-            password: isSet(object.password) ? globalThis.String(object.password) : "",
             phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
             avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
             status: isSet(object.status) ? userStatusFromJSON(object.status) : 0,
@@ -544,9 +533,6 @@ exports.UpdateUserData = {
         }
         if (message.email !== "") {
             obj.email = message.email;
-        }
-        if (message.password !== "") {
-            obj.password = message.password;
         }
         if (message.phone !== "") {
             obj.phone = message.phone;
@@ -572,7 +558,6 @@ exports.UpdateUserData = {
         const message = createBaseUpdateUserData();
         message.username = object.username ?? "";
         message.email = object.email ?? "";
-        message.password = object.password ?? "";
         message.phone = object.phone ?? "";
         message.avatar = object.avatar ?? "";
         message.status = object.status ?? 0;
@@ -1065,6 +1050,74 @@ exports.CreateSuccess = {
         return message;
     },
 };
+function createBaseChangePasswordRequest() {
+    return { userId: "", password: "" };
+}
+exports.ChangePasswordRequest = {
+    encode(message, writer = new wire_1.BinaryWriter()) {
+        if (message.userId !== "") {
+            writer.uint32(10).string(message.userId);
+        }
+        if (message.password !== "") {
+            writer.uint32(18).string(message.password);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof wire_1.BinaryReader ? input : new wire_1.BinaryReader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseChangePasswordRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1: {
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.userId = reader.string();
+                    continue;
+                }
+                case 2: {
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.password = reader.string();
+                    continue;
+                }
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skip(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+            password: isSet(object.password) ? globalThis.String(object.password) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.userId !== "") {
+            obj.userId = message.userId;
+        }
+        if (message.password !== "") {
+            obj.password = message.password;
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.ChangePasswordRequest.fromPartial(base ?? {});
+    },
+    fromPartial(object) {
+        const message = createBaseChangePasswordRequest();
+        message.userId = object.userId ?? "";
+        message.password = object.password ?? "";
+        return message;
+    },
+};
 exports.UserServiceServiceName = "user.v1.UserService";
 class UserServiceClientImpl {
     rpc;
@@ -1077,6 +1130,7 @@ class UserServiceClientImpl {
         this.CreateUser = this.CreateUser.bind(this);
         this.UpdateUser = this.UpdateUser.bind(this);
         this.DeleteUser = this.DeleteUser.bind(this);
+        this.ChangePassword = this.ChangePassword.bind(this);
     }
     GetUser(request) {
         const data = exports.GetUserRequest.encode(request).finish();
@@ -1102,6 +1156,11 @@ class UserServiceClientImpl {
         const data = exports.DeleteUserRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DeleteUser", data);
         return promise.then((data) => base_1.DeleteSuccess.decode(new wire_1.BinaryReader(data)));
+    }
+    ChangePassword(request) {
+        const data = exports.ChangePasswordRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "ChangePassword", data);
+        return promise.then((data) => base_1.UpdateSuccess.decode(new wire_1.BinaryReader(data)));
     }
 }
 exports.UserServiceClientImpl = UserServiceClientImpl;

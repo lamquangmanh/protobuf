@@ -91,7 +91,6 @@ export interface CreateUserData {
 export interface UpdateUserData {
   username: string;
   email: string;
-  password: string;
   phone: string;
   avatar: string;
   status: UserStatus;
@@ -132,6 +131,11 @@ export interface DeleteUserRequest {
 export interface CreateSuccess {
   user?: User | undefined;
   error?: ErrorResponse | undefined;
+}
+
+export interface ChangePasswordRequest {
+  userId: string;
+  password: string;
 }
 
 function createBaseUser(): User {
@@ -540,7 +544,7 @@ export const CreateUserData: MessageFns<CreateUserData> = {
 };
 
 function createBaseUpdateUserData(): UpdateUserData {
-  return { username: "", email: "", password: "", phone: "", avatar: "", status: 0, roleIds: [], userId: "" };
+  return { username: "", email: "", phone: "", avatar: "", status: 0, roleIds: [], userId: "" };
 }
 
 export const UpdateUserData: MessageFns<UpdateUserData> = {
@@ -550,9 +554,6 @@ export const UpdateUserData: MessageFns<UpdateUserData> = {
     }
     if (message.email !== "") {
       writer.uint32(18).string(message.email);
-    }
-    if (message.password !== "") {
-      writer.uint32(26).string(message.password);
     }
     if (message.phone !== "") {
       writer.uint32(34).string(message.phone);
@@ -593,14 +594,6 @@ export const UpdateUserData: MessageFns<UpdateUserData> = {
           }
 
           message.email = reader.string();
-          continue;
-        }
-        case 3: {
-          if (tag !== 26) {
-            break;
-          }
-
-          message.password = reader.string();
           continue;
         }
         case 4: {
@@ -656,7 +649,6 @@ export const UpdateUserData: MessageFns<UpdateUserData> = {
     return {
       username: isSet(object.username) ? globalThis.String(object.username) : "",
       email: isSet(object.email) ? globalThis.String(object.email) : "",
-      password: isSet(object.password) ? globalThis.String(object.password) : "",
       phone: isSet(object.phone) ? globalThis.String(object.phone) : "",
       avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
       status: isSet(object.status) ? userStatusFromJSON(object.status) : 0,
@@ -672,9 +664,6 @@ export const UpdateUserData: MessageFns<UpdateUserData> = {
     }
     if (message.email !== "") {
       obj.email = message.email;
-    }
-    if (message.password !== "") {
-      obj.password = message.password;
     }
     if (message.phone !== "") {
       obj.phone = message.phone;
@@ -701,7 +690,6 @@ export const UpdateUserData: MessageFns<UpdateUserData> = {
     const message = createBaseUpdateUserData();
     message.username = object.username ?? "";
     message.email = object.email ?? "";
-    message.password = object.password ?? "";
     message.phone = object.phone ?? "";
     message.avatar = object.avatar ?? "";
     message.status = object.status ?? 0;
@@ -1251,12 +1239,89 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
   },
 };
 
+function createBaseChangePasswordRequest(): ChangePasswordRequest {
+  return { userId: "", password: "" };
+}
+
+export const ChangePasswordRequest: MessageFns<ChangePasswordRequest> = {
+  encode(message: ChangePasswordRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.userId !== "") {
+      writer.uint32(10).string(message.userId);
+    }
+    if (message.password !== "") {
+      writer.uint32(18).string(message.password);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ChangePasswordRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseChangePasswordRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.password = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ChangePasswordRequest {
+    return {
+      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
+      password: isSet(object.password) ? globalThis.String(object.password) : "",
+    };
+  },
+
+  toJSON(message: ChangePasswordRequest): unknown {
+    const obj: any = {};
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    if (message.password !== "") {
+      obj.password = message.password;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ChangePasswordRequest>, I>>(base?: I): ChangePasswordRequest {
+    return ChangePasswordRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ChangePasswordRequest>, I>>(object: I): ChangePasswordRequest {
+    const message = createBaseChangePasswordRequest();
+    message.userId = object.userId ?? "";
+    message.password = object.password ?? "";
+    return message;
+  },
+};
+
 export interface UserService {
   GetUser(request: GetUserRequest): Promise<User>;
   GetUsers(request: GetUsersRequest): Promise<GetUsersResponse>;
   CreateUser(request: CreateUserRequest): Promise<CreateSuccess>;
   UpdateUser(request: UpdateUserRequest): Promise<UpdateSuccess>;
   DeleteUser(request: DeleteUserRequest): Promise<DeleteSuccess>;
+  ChangePassword(request: ChangePasswordRequest): Promise<UpdateSuccess>;
 }
 
 export const UserServiceServiceName = "user.v1.UserService";
@@ -1271,6 +1336,7 @@ export class UserServiceClientImpl implements UserService {
     this.CreateUser = this.CreateUser.bind(this);
     this.UpdateUser = this.UpdateUser.bind(this);
     this.DeleteUser = this.DeleteUser.bind(this);
+    this.ChangePassword = this.ChangePassword.bind(this);
   }
   GetUser(request: GetUserRequest): Promise<User> {
     const data = GetUserRequest.encode(request).finish();
@@ -1300,6 +1366,12 @@ export class UserServiceClientImpl implements UserService {
     const data = DeleteUserRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteUser", data);
     return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+  }
+
+  ChangePassword(request: ChangePasswordRequest): Promise<UpdateSuccess> {
+    const data = ChangePasswordRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "ChangePassword", data);
+    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
   }
 }
 

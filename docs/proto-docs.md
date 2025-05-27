@@ -105,6 +105,7 @@
     - [UserRoleService](#user_role-v1-UserRoleService)
   
 - [user/v1/user.proto](#user_v1_user-proto)
+    - [ChangePasswordRequest](#user-v1-ChangePasswordRequest)
     - [CreateSuccess](#user-v1-CreateSuccess)
     - [CreateUserData](#user-v1-CreateUserData)
     - [CreateUserRequest](#user-v1-CreateUserRequest)
@@ -1579,6 +1580,22 @@ define enum
 
 
 
+<a name="user-v1-ChangePasswordRequest"></a>
+
+### ChangePasswordRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+| password | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="user-v1-CreateSuccess"></a>
 
 ### CreateSuccess
@@ -1706,7 +1723,6 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | username | [string](#string) |  |  |
 | email | [string](#string) |  |  |
-| password | [string](#string) |  |  |
 | phone | [string](#string) |  |  |
 | avatar | [string](#string) |  |  |
 | status | [UserStatus](#user-v1-UserStatus) |  |  |
@@ -1792,6 +1808,7 @@ define enum
 | CreateUser | [CreateUserRequest](#user-v1-CreateUserRequest) | [CreateSuccess](#user-v1-CreateSuccess) |  |
 | UpdateUser | [UpdateUserRequest](#user-v1-UpdateUserRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeleteUser | [DeleteUserRequest](#user-v1-DeleteUserRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| ChangePassword | [ChangePasswordRequest](#user-v1-ChangePasswordRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 
  
 
