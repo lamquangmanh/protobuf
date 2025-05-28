@@ -19,6 +19,16 @@
   
     - [ActionService](#action-v1-ActionService)
   
+- [auth/v1/auth.proto](#auth_v1_auth-proto)
+    - [GetMeRequest](#auth-v1-GetMeRequest)
+    - [GetMeResponse](#auth-v1-GetMeResponse)
+    - [LoginRequest](#auth-v1-LoginRequest)
+    - [LoginResponse](#auth-v1-LoginResponse)
+    - [VerifyRequest](#auth-v1-VerifyRequest)
+    - [VerifyResponse](#auth-v1-VerifyResponse)
+  
+    - [AuthService](#auth-v1-AuthService)
+  
 - [base/v1/base.proto](#base_v1_base-proto)
     - [CreateSuccess](#base-v1-CreateSuccess)
     - [DeleteSuccess](#base-v1-DeleteSuccess)
@@ -345,6 +355,134 @@
 | CreateAction | [CreateActionRequest](#action-v1-CreateActionRequest) | [CreateSuccess](#action-v1-CreateSuccess) |  |
 | UpdateAction | [UpdateActionRequest](#action-v1-UpdateActionRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeleteAction | [DeleteActionRequest](#action-v1-DeleteActionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+
+ 
+
+
+
+<a name="auth_v1_auth-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## auth/v1/auth.proto
+
+
+
+<a name="auth-v1-GetMeRequest"></a>
+
+### GetMeRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auth-v1-GetMeResponse"></a>
+
+### GetMeResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+| email | [string](#string) |  |  |
+| username | [string](#string) |  |  |
+| avatar | [string](#string) | optional |  |
+| phone | [string](#string) | optional |  |
+| status | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auth-v1-LoginRequest"></a>
+
+### LoginRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| email | [string](#string) |  |  |
+| password | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auth-v1-LoginResponse"></a>
+
+### LoginResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| access_token | [string](#string) |  |  |
+| refresh_token | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auth-v1-VerifyRequest"></a>
+
+### VerifyRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| token | [string](#string) |  |  |
+| request_type | [string](#string) |  |  |
+| method | [string](#string) |  |  |
+| url | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auth-v1-VerifyResponse"></a>
+
+### VerifyResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="auth-v1-AuthService"></a>
+
+### AuthService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| Login | [LoginRequest](#auth-v1-LoginRequest) | [LoginResponse](#auth-v1-LoginResponse) |  |
+| GetMe | [GetMeRequest](#auth-v1-GetMeRequest) | [GetMeResponse](#auth-v1-GetMeResponse) |  |
+| Verify | [VerifyRequest](#auth-v1-VerifyRequest) | [VerifyResponse](#auth-v1-VerifyResponse) |  |
 
  
 
