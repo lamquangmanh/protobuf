@@ -215,7 +215,7 @@ exports.Menu = {
     },
 };
 function createBaseSuperMenu() {
-    return { moduleId: "", name: "", url: "", menus: [] };
+    return { moduleId: "", name: "", url: "", description: "", menus: [] };
 }
 exports.SuperMenu = {
     encode(message, writer = new wire_1.BinaryWriter()) {
@@ -228,8 +228,11 @@ exports.SuperMenu = {
         if (message.url !== "") {
             writer.uint32(26).string(message.url);
         }
+        if (message.description !== "") {
+            writer.uint32(34).string(message.description);
+        }
         for (const v of message.menus) {
-            exports.Menu.encode(v, writer.uint32(34).fork()).join();
+            exports.Menu.encode(v, writer.uint32(42).fork()).join();
         }
         return writer;
     },
@@ -265,6 +268,13 @@ exports.SuperMenu = {
                     if (tag !== 34) {
                         break;
                     }
+                    message.description = reader.string();
+                    continue;
+                }
+                case 5: {
+                    if (tag !== 42) {
+                        break;
+                    }
                     message.menus.push(exports.Menu.decode(reader, reader.uint32()));
                     continue;
                 }
@@ -281,6 +291,7 @@ exports.SuperMenu = {
             moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
             name: isSet(object.name) ? globalThis.String(object.name) : "",
             url: isSet(object.url) ? globalThis.String(object.url) : "",
+            description: isSet(object.description) ? globalThis.String(object.description) : "",
             menus: globalThis.Array.isArray(object?.menus) ? object.menus.map((e) => exports.Menu.fromJSON(e)) : [],
         };
     },
@@ -295,6 +306,9 @@ exports.SuperMenu = {
         if (message.url !== "") {
             obj.url = message.url;
         }
+        if (message.description !== "") {
+            obj.description = message.description;
+        }
         if (message.menus?.length) {
             obj.menus = message.menus.map((e) => exports.Menu.toJSON(e));
         }
@@ -308,6 +322,7 @@ exports.SuperMenu = {
         message.moduleId = object.moduleId ?? "";
         message.name = object.name ?? "";
         message.url = object.url ?? "";
+        message.description = object.description ?? "";
         message.menus = object.menus?.map((e) => exports.Menu.fromPartial(e)) || [];
         return message;
     },

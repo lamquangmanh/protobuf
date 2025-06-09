@@ -17,6 +17,7 @@ export interface SuperMenu {
     moduleId: string;
     name: string;
     url: string;
+    description: string;
     menus: Menu[];
 }
 export interface GetSuperMenuRequest {

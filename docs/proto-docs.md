@@ -801,6 +801,7 @@ define enum
 | moduleId | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | url | [string](#string) |  |  |
+| description | [string](#string) |  |  |
 | menus | [Menu](#menu-v1-Menu) | repeated | Nested sub-menus |
 
 

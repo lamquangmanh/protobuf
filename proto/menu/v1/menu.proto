@@ -22,7 +22,8 @@ message SuperMenu {
   string moduleId = 1;
   string name = 2;
   string url = 3;
-  repeated Menu menus = 4; // Nested sub-menus
+  string description = 4;
+  repeated Menu menus = 5; // Nested sub-menus
 }
 
 message GetSuperMenuRequest {
