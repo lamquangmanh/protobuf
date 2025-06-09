@@ -1,0 +1,47 @@
+
+syntax = "proto3";
+
+package menu.v1;
+
+message SubMenu {
+  string actionId = 1;
+  string name = 2;
+  string url = 3;
+  string method = 4;
+  string request_type = 5;
+}
+
+message Menu {
+  string resourceId = 1;
+  string name = 2;
+  string url = 3;
+  repeated SubMenu subMenus = 4; // Nested sub-menus
+}
+
+message SuperMenu {
+  string moduleId = 1;
+  string name = 2;
+  string url = 3;
+  repeated Menu menus = 4; // Nested sub-menus
+}
+
+message GetSuperMenuRequest {
+  string user_id = 1;
+}
+
+message GetSuperMenuResponse {
+  repeated SuperMenu super_menus = 1;
+}
+
+message GetMenusRequest {
+  string user_id = 1;
+}
+
+message GetMenusResponse {
+  repeated Menu menus = 1;
+}
+
+service MenuService {
+  rpc GetSuperMenus (GetSuperMenuRequest) returns (GetSuperMenuResponse) {}
+  rpc GetMenus (GetMenusRequest) returns (GetMenusResponse) {}
+}

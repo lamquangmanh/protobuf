@@ -42,6 +42,17 @@
     - [FilterOperator](#base-v1-FilterOperator)
     - [SortOrder](#base-v1-SortOrder)
   
+- [menu/v1/menu.proto](#menu_v1_menu-proto)
+    - [GetMenusRequest](#menu-v1-GetMenusRequest)
+    - [GetMenusResponse](#menu-v1-GetMenusResponse)
+    - [GetSuperMenuRequest](#menu-v1-GetSuperMenuRequest)
+    - [GetSuperMenuResponse](#menu-v1-GetSuperMenuResponse)
+    - [Menu](#menu-v1-Menu)
+    - [SubMenu](#menu-v1-SubMenu)
+    - [SuperMenu](#menu-v1-SuperMenu)
+  
+    - [MenuService](#menu-v1-MenuService)
+  
 - [module/v1/module.proto](#module_v1_module-proto)
     - [CreateModuleData](#module-v1-CreateModuleData)
     - [CreateModuleRequest](#module-v1-CreateModuleRequest)
@@ -670,6 +681,148 @@ define enum
  
 
  
+
+ 
+
+
+
+<a name="menu_v1_menu-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## menu/v1/menu.proto
+
+
+
+<a name="menu-v1-GetMenusRequest"></a>
+
+### GetMenusRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="menu-v1-GetMenusResponse"></a>
+
+### GetMenusResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| menus | [Menu](#menu-v1-Menu) | repeated |  |
+
+
+
+
+
+
+<a name="menu-v1-GetSuperMenuRequest"></a>
+
+### GetSuperMenuRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="menu-v1-GetSuperMenuResponse"></a>
+
+### GetSuperMenuResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| super_menus | [SuperMenu](#menu-v1-SuperMenu) | repeated |  |
+
+
+
+
+
+
+<a name="menu-v1-Menu"></a>
+
+### Menu
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| url | [string](#string) |  |  |
+| subMenus | [SubMenu](#menu-v1-SubMenu) | repeated | Nested sub-menus |
+
+
+
+
+
+
+<a name="menu-v1-SubMenu"></a>
+
+### SubMenu
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| actionId | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| url | [string](#string) |  |  |
+| method | [string](#string) |  |  |
+| request_type | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="menu-v1-SuperMenu"></a>
+
+### SuperMenu
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| moduleId | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| url | [string](#string) |  |  |
+| menus | [Menu](#menu-v1-Menu) | repeated | Nested sub-menus |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="menu-v1-MenuService"></a>
+
+### MenuService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetSuperMenus | [GetSuperMenuRequest](#menu-v1-GetSuperMenuRequest) | [GetSuperMenuResponse](#menu-v1-GetSuperMenuResponse) |  |
+| GetMenus | [GetMenusRequest](#menu-v1-GetMenusRequest) | [GetMenusResponse](#menu-v1-GetMenusResponse) |  |
 
  
 
