@@ -43,8 +43,6 @@
     - [SortOrder](#base-v1-SortOrder)
   
 - [menu/v1/menu.proto](#menu_v1_menu-proto)
-    - [GetMenusRequest](#menu-v1-GetMenusRequest)
-    - [GetMenusResponse](#menu-v1-GetMenusResponse)
     - [GetSuperMenuRequest](#menu-v1-GetSuperMenuRequest)
     - [GetSuperMenuResponse](#menu-v1-GetSuperMenuResponse)
     - [Menu](#menu-v1-Menu)
@@ -73,13 +71,30 @@
     - [CreateSuccess](#permission-v1-CreateSuccess)
     - [DeletePermissionRequest](#permission-v1-DeletePermissionRequest)
     - [GetPermissionRequest](#permission-v1-GetPermissionRequest)
+    - [GetPermissionsByUserIdRequest](#permission-v1-GetPermissionsByUserIdRequest)
+    - [GetPermissionsByUserIdResponse](#permission-v1-GetPermissionsByUserIdResponse)
     - [GetPermissionsRequest](#permission-v1-GetPermissionsRequest)
     - [GetPermissionsResponse](#permission-v1-GetPermissionsResponse)
     - [Permission](#permission-v1-Permission)
+    - [PermissionInfo](#permission-v1-PermissionInfo)
     - [UpdatePermissionData](#permission-v1-UpdatePermissionData)
     - [UpdatePermissionRequest](#permission-v1-UpdatePermissionRequest)
   
     - [PermissionService](#permission-v1-PermissionService)
+  
+- [product/v1/product.proto](#product_v1_product-proto)
+    - [CreateProductData](#product-v1-CreateProductData)
+    - [CreateProductRequest](#product-v1-CreateProductRequest)
+    - [CreateSuccess](#product-v1-CreateSuccess)
+    - [DeleteProductRequest](#product-v1-DeleteProductRequest)
+    - [GetProductRequest](#product-v1-GetProductRequest)
+    - [GetProductsRequest](#product-v1-GetProductsRequest)
+    - [GetProductsResponse](#product-v1-GetProductsResponse)
+    - [Product](#product-v1-Product)
+    - [UpdateProductData](#product-v1-UpdateProductData)
+    - [UpdateProductRequest](#product-v1-UpdateProductRequest)
+  
+    - [ProductService](#product-v1-ProductService)
   
 - [resource/v1/resource.proto](#resource_v1_resource-proto)
     - [Action](#resource-v1-Action)
@@ -693,36 +708,6 @@ define enum
 
 
 
-<a name="menu-v1-GetMenusRequest"></a>
-
-### GetMenusRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_id | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="menu-v1-GetMenusResponse"></a>
-
-### GetMenusResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| menus | [Menu](#menu-v1-Menu) | repeated |  |
-
-
-
-
-
-
 <a name="menu-v1-GetSuperMenuRequest"></a>
 
 ### GetSuperMenuRequest
@@ -761,9 +746,9 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resourceId | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | url | [string](#string) |  |  |
+| icon | [string](#string) | optional |  |
 | subMenus | [SubMenu](#menu-v1-SubMenu) | repeated | Nested sub-menus |
 
 
@@ -779,11 +764,8 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| actionId | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | url | [string](#string) |  |  |
-| method | [string](#string) |  |  |
-| request_type | [string](#string) |  |  |
 
 
 
@@ -798,10 +780,10 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| moduleId | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | description | [string](#string) |  |  |
+| icon | [string](#string) | optional |  |
 | menus | [Menu](#menu-v1-Menu) | repeated | Nested sub-menus |
 
 
@@ -823,7 +805,6 @@ define enum
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | GetSuperMenus | [GetSuperMenuRequest](#menu-v1-GetSuperMenuRequest) | [GetSuperMenuResponse](#menu-v1-GetSuperMenuResponse) |  |
-| GetMenus | [GetMenusRequest](#menu-v1-GetMenusRequest) | [GetMenusResponse](#menu-v1-GetMenusResponse) |  |
 
  
 
@@ -846,6 +827,8 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
+| product_id | [string](#string) | optional |  |
+| icon | [string](#string) | optional |  |
 
 
 
@@ -965,6 +948,8 @@ define enum
 | updated_user_id | [string](#string) |  |  |
 | deleted_at | [string](#string) |  |  |
 | deleted_user_id | [string](#string) |  |  |
+| product_id | [string](#string) | optional |  |
+| icon | [string](#string) | optional |  |
 
 
 
@@ -982,6 +967,8 @@ define enum
 | module_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
+| product_id | [string](#string) | optional |  |
+| icon | [string](#string) | optional |  |
 
 
 
@@ -1114,6 +1101,36 @@ define enum
 
 
 
+<a name="permission-v1-GetPermissionsByUserIdRequest"></a>
+
+### GetPermissionsByUserIdRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="permission-v1-GetPermissionsByUserIdResponse"></a>
+
+### GetPermissionsByUserIdResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| permissions | [PermissionInfo](#permission-v1-PermissionInfo) | repeated |  |
+
+
+
+
+
+
 <a name="permission-v1-GetPermissionsRequest"></a>
 
 ### GetPermissionsRequest
@@ -1165,6 +1182,24 @@ define enum
 | deleted_at | [string](#string) |  |  |
 | deleted_user_id | [string](#string) |  |  |
 | created_at | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="permission-v1-PermissionInfo"></a>
+
+### PermissionInfo
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| request_type | [string](#string) |  |  |
+| method | [string](#string) |  |  |
+| url | [string](#string) |  |  |
 
 
 
@@ -1223,6 +1258,211 @@ define enum
 | CreatePermission | [CreatePermissionRequest](#permission-v1-CreatePermissionRequest) | [CreateSuccess](#permission-v1-CreateSuccess) |  |
 | UpdatePermission | [UpdatePermissionRequest](#permission-v1-UpdatePermissionRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
 | DeletePermission | [DeletePermissionRequest](#permission-v1-DeletePermissionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| GetPermissionsByUserId | [GetPermissionsByUserIdRequest](#permission-v1-GetPermissionsByUserIdRequest) | [GetPermissionsByUserIdResponse](#permission-v1-GetPermissionsByUserIdResponse) |  |
+
+ 
+
+
+
+<a name="product_v1_product-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## product/v1/product.proto
+
+
+
+<a name="product-v1-CreateProductData"></a>
+
+### CreateProductData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| url | [string](#string) |  |  |
+| icon | [string](#string) | optional |  |
+
+
+
+
+
+
+<a name="product-v1-CreateProductRequest"></a>
+
+### CreateProductRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| product | [CreateProductData](#product-v1-CreateProductData) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="product-v1-CreateSuccess"></a>
+
+### CreateSuccess
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| product | [Product](#product-v1-Product) |  |  |
+| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+
+
+
+
+
+
+<a name="product-v1-DeleteProductRequest"></a>
+
+### DeleteProductRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| product_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="product-v1-GetProductRequest"></a>
+
+### GetProductRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| product_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="product-v1-GetProductsRequest"></a>
+
+### GetProductsRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
+| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
+| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+
+
+
+
+
+
+<a name="product-v1-GetProductsResponse"></a>
+
+### GetProductsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
+| data | [Product](#product-v1-Product) | repeated |  |
+
+
+
+
+
+
+<a name="product-v1-Product"></a>
+
+### Product
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| product_id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| url | [string](#string) |  |  |
+| created_at | [string](#string) |  |  |
+| created_user_id | [string](#string) |  |  |
+| updated_at | [string](#string) |  |  |
+| updated_user_id | [string](#string) |  |  |
+| deleted_at | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
+| icon | [string](#string) | optional |  |
+
+
+
+
+
+
+<a name="product-v1-UpdateProductData"></a>
+
+### UpdateProductData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| product_id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| url | [string](#string) |  |  |
+| icon | [string](#string) | optional |  |
+
+
+
+
+
+
+<a name="product-v1-UpdateProductRequest"></a>
+
+### UpdateProductRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| product | [UpdateProductData](#product-v1-UpdateProductData) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="product-v1-ProductService"></a>
+
+### ProductService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetProduct | [GetProductRequest](#product-v1-GetProductRequest) | [Product](#product-v1-Product) |  |
+| GetProducts | [GetProductsRequest](#product-v1-GetProductsRequest) | [GetProductsResponse](#product-v1-GetProductsResponse) |  |
+| CreateProduct | [CreateProductRequest](#product-v1-CreateProductRequest) | [CreateSuccess](#product-v1-CreateSuccess) |  |
+| UpdateProduct | [UpdateProductRequest](#product-v1-UpdateProductRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
+| DeleteProduct | [DeleteProductRequest](#product-v1-DeleteProductRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
 
  
 

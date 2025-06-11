@@ -2,7 +2,7 @@
 // versions:
 //   protoc-gen-ts_proto  v2.7.0
 //   protoc               v5.29.3
-// source: module/v1/module.proto
+// source: product/v1/product.proto
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
@@ -16,92 +16,92 @@ import {
   UpdateSuccess,
 } from "../../base/v1/base";
 
-export const protobufPackage = "module.v1";
+export const protobufPackage = "product.v1";
 
-export interface Module {
-  moduleId: string;
+export interface Product {
+  productId: string;
   name: string;
   description: string;
+  url: string;
   createdAt: string;
   createdUserId: string;
   updatedAt: string;
   updatedUserId: string;
   deletedAt: string;
   deletedUserId: string;
-  productId?: string | undefined;
   icon?: string | undefined;
 }
 
-export interface CreateModuleData {
+export interface CreateProductData {
   name: string;
   description: string;
-  productId?: string | undefined;
+  url: string;
   icon?: string | undefined;
 }
 
-export interface UpdateModuleData {
-  moduleId: string;
+export interface UpdateProductData {
+  productId: string;
   name: string;
   description: string;
-  productId?: string | undefined;
+  url: string;
   icon?: string | undefined;
 }
 
-export interface GetModuleRequest {
-  moduleId: string;
+export interface GetProductRequest {
+  productId: string;
 }
 
-export interface GetModulesRequest {
+export interface GetProductsRequest {
   pagination: PaginationRequest | undefined;
   sorts: Sort[];
   filters: Filter[];
 }
 
-export interface GetModulesResponse {
+export interface GetProductsResponse {
   pagination: PaginationResponse | undefined;
-  data: Module[];
+  data: Product[];
 }
 
-export interface CreateModuleRequest {
-  module: CreateModuleData | undefined;
+export interface CreateProductRequest {
+  product: CreateProductData | undefined;
   userId: string;
 }
 
-export interface UpdateModuleRequest {
-  module: UpdateModuleData | undefined;
+export interface UpdateProductRequest {
+  product: UpdateProductData | undefined;
   userId: string;
 }
 
-export interface DeleteModuleRequest {
-  moduleId: string;
+export interface DeleteProductRequest {
+  productId: string;
   userId: string;
 }
 
 export interface CreateSuccess {
-  module?: Module | undefined;
+  product?: Product | undefined;
   error?: ErrorResponse | undefined;
 }
 
-function createBaseModule(): Module {
+function createBaseProduct(): Product {
   return {
-    moduleId: "",
+    productId: "",
     name: "",
     description: "",
+    url: "",
     createdAt: "",
     createdUserId: "",
     updatedAt: "",
     updatedUserId: "",
     deletedAt: "",
     deletedUserId: "",
-    productId: undefined,
     icon: undefined,
   };
 }
 
-export const Module: MessageFns<Module> = {
-  encode(message: Module, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.moduleId !== "") {
-      writer.uint32(10).string(message.moduleId);
+export const Product: MessageFns<Product> = {
+  encode(message: Product, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.productId !== "") {
+      writer.uint32(10).string(message.productId);
     }
     if (message.name !== "") {
       writer.uint32(18).string(message.name);
@@ -109,26 +109,26 @@ export const Module: MessageFns<Module> = {
     if (message.description !== "") {
       writer.uint32(26).string(message.description);
     }
+    if (message.url !== "") {
+      writer.uint32(34).string(message.url);
+    }
     if (message.createdAt !== "") {
-      writer.uint32(34).string(message.createdAt);
+      writer.uint32(42).string(message.createdAt);
     }
     if (message.createdUserId !== "") {
-      writer.uint32(42).string(message.createdUserId);
+      writer.uint32(50).string(message.createdUserId);
     }
     if (message.updatedAt !== "") {
-      writer.uint32(50).string(message.updatedAt);
+      writer.uint32(58).string(message.updatedAt);
     }
     if (message.updatedUserId !== "") {
-      writer.uint32(58).string(message.updatedUserId);
+      writer.uint32(66).string(message.updatedUserId);
     }
     if (message.deletedAt !== "") {
-      writer.uint32(66).string(message.deletedAt);
+      writer.uint32(74).string(message.deletedAt);
     }
     if (message.deletedUserId !== "") {
-      writer.uint32(74).string(message.deletedUserId);
-    }
-    if (message.productId !== undefined) {
-      writer.uint32(82).string(message.productId);
+      writer.uint32(82).string(message.deletedUserId);
     }
     if (message.icon !== undefined) {
       writer.uint32(90).string(message.icon);
@@ -136,10 +136,10 @@ export const Module: MessageFns<Module> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): Module {
+  decode(input: BinaryReader | Uint8Array, length?: number): Product {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseModule();
+    const message = createBaseProduct();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -148,7 +148,7 @@ export const Module: MessageFns<Module> = {
             break;
           }
 
-          message.moduleId = reader.string();
+          message.productId = reader.string();
           continue;
         }
         case 2: {
@@ -172,7 +172,7 @@ export const Module: MessageFns<Module> = {
             break;
           }
 
-          message.createdAt = reader.string();
+          message.url = reader.string();
           continue;
         }
         case 5: {
@@ -180,7 +180,7 @@ export const Module: MessageFns<Module> = {
             break;
           }
 
-          message.createdUserId = reader.string();
+          message.createdAt = reader.string();
           continue;
         }
         case 6: {
@@ -188,7 +188,7 @@ export const Module: MessageFns<Module> = {
             break;
           }
 
-          message.updatedAt = reader.string();
+          message.createdUserId = reader.string();
           continue;
         }
         case 7: {
@@ -196,7 +196,7 @@ export const Module: MessageFns<Module> = {
             break;
           }
 
-          message.updatedUserId = reader.string();
+          message.updatedAt = reader.string();
           continue;
         }
         case 8: {
@@ -204,7 +204,7 @@ export const Module: MessageFns<Module> = {
             break;
           }
 
-          message.deletedAt = reader.string();
+          message.updatedUserId = reader.string();
           continue;
         }
         case 9: {
@@ -212,7 +212,7 @@ export const Module: MessageFns<Module> = {
             break;
           }
 
-          message.deletedUserId = reader.string();
+          message.deletedAt = reader.string();
           continue;
         }
         case 10: {
@@ -220,7 +220,7 @@ export const Module: MessageFns<Module> = {
             break;
           }
 
-          message.productId = reader.string();
+          message.deletedUserId = reader.string();
           continue;
         }
         case 11: {
@@ -240,32 +240,35 @@ export const Module: MessageFns<Module> = {
     return message;
   },
 
-  fromJSON(object: any): Module {
+  fromJSON(object: any): Product {
     return {
-      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+      productId: isSet(object.productId) ? globalThis.String(object.productId) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       description: isSet(object.description) ? globalThis.String(object.description) : "",
+      url: isSet(object.url) ? globalThis.String(object.url) : "",
       createdAt: isSet(object.createdAt) ? globalThis.String(object.createdAt) : "",
       createdUserId: isSet(object.createdUserId) ? globalThis.String(object.createdUserId) : "",
       updatedAt: isSet(object.updatedAt) ? globalThis.String(object.updatedAt) : "",
       updatedUserId: isSet(object.updatedUserId) ? globalThis.String(object.updatedUserId) : "",
       deletedAt: isSet(object.deletedAt) ? globalThis.String(object.deletedAt) : "",
       deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
-      productId: isSet(object.productId) ? globalThis.String(object.productId) : undefined,
       icon: isSet(object.icon) ? globalThis.String(object.icon) : undefined,
     };
   },
 
-  toJSON(message: Module): unknown {
+  toJSON(message: Product): unknown {
     const obj: any = {};
-    if (message.moduleId !== "") {
-      obj.moduleId = message.moduleId;
+    if (message.productId !== "") {
+      obj.productId = message.productId;
     }
     if (message.name !== "") {
       obj.name = message.name;
     }
     if (message.description !== "") {
       obj.description = message.description;
+    }
+    if (message.url !== "") {
+      obj.url = message.url;
     }
     if (message.createdAt !== "") {
       obj.createdAt = message.createdAt;
@@ -285,49 +288,46 @@ export const Module: MessageFns<Module> = {
     if (message.deletedUserId !== "") {
       obj.deletedUserId = message.deletedUserId;
     }
-    if (message.productId !== undefined) {
-      obj.productId = message.productId;
-    }
     if (message.icon !== undefined) {
       obj.icon = message.icon;
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Module>, I>>(base?: I): Module {
-    return Module.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<Product>, I>>(base?: I): Product {
+    return Product.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module {
-    const message = createBaseModule();
-    message.moduleId = object.moduleId ?? "";
+  fromPartial<I extends Exact<DeepPartial<Product>, I>>(object: I): Product {
+    const message = createBaseProduct();
+    message.productId = object.productId ?? "";
     message.name = object.name ?? "";
     message.description = object.description ?? "";
+    message.url = object.url ?? "";
     message.createdAt = object.createdAt ?? "";
     message.createdUserId = object.createdUserId ?? "";
     message.updatedAt = object.updatedAt ?? "";
     message.updatedUserId = object.updatedUserId ?? "";
     message.deletedAt = object.deletedAt ?? "";
     message.deletedUserId = object.deletedUserId ?? "";
-    message.productId = object.productId ?? undefined;
     message.icon = object.icon ?? undefined;
     return message;
   },
 };
 
-function createBaseCreateModuleData(): CreateModuleData {
-  return { name: "", description: "", productId: undefined, icon: undefined };
+function createBaseCreateProductData(): CreateProductData {
+  return { name: "", description: "", url: "", icon: undefined };
 }
 
-export const CreateModuleData: MessageFns<CreateModuleData> = {
-  encode(message: CreateModuleData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const CreateProductData: MessageFns<CreateProductData> = {
+  encode(message: CreateProductData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-    if (message.productId !== undefined) {
-      writer.uint32(26).string(message.productId);
+    if (message.url !== "") {
+      writer.uint32(26).string(message.url);
     }
     if (message.icon !== undefined) {
       writer.uint32(34).string(message.icon);
@@ -335,10 +335,10 @@ export const CreateModuleData: MessageFns<CreateModuleData> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): CreateModuleData {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateProductData {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreateModuleData();
+    const message = createBaseCreateProductData();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -363,7 +363,7 @@ export const CreateModuleData: MessageFns<CreateModuleData> = {
             break;
           }
 
-          message.productId = reader.string();
+          message.url = reader.string();
           continue;
         }
         case 4: {
@@ -383,16 +383,16 @@ export const CreateModuleData: MessageFns<CreateModuleData> = {
     return message;
   },
 
-  fromJSON(object: any): CreateModuleData {
+  fromJSON(object: any): CreateProductData {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       description: isSet(object.description) ? globalThis.String(object.description) : "",
-      productId: isSet(object.productId) ? globalThis.String(object.productId) : undefined,
+      url: isSet(object.url) ? globalThis.String(object.url) : "",
       icon: isSet(object.icon) ? globalThis.String(object.icon) : undefined,
     };
   },
 
-  toJSON(message: CreateModuleData): unknown {
+  toJSON(message: CreateProductData): unknown {
     const obj: any = {};
     if (message.name !== "") {
       obj.name = message.name;
@@ -400,8 +400,8 @@ export const CreateModuleData: MessageFns<CreateModuleData> = {
     if (message.description !== "") {
       obj.description = message.description;
     }
-    if (message.productId !== undefined) {
-      obj.productId = message.productId;
+    if (message.url !== "") {
+      obj.url = message.url;
     }
     if (message.icon !== undefined) {
       obj.icon = message.icon;
@@ -409,27 +409,27 @@ export const CreateModuleData: MessageFns<CreateModuleData> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CreateModuleData>, I>>(base?: I): CreateModuleData {
-    return CreateModuleData.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreateProductData>, I>>(base?: I): CreateProductData {
+    return CreateProductData.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<CreateModuleData>, I>>(object: I): CreateModuleData {
-    const message = createBaseCreateModuleData();
+  fromPartial<I extends Exact<DeepPartial<CreateProductData>, I>>(object: I): CreateProductData {
+    const message = createBaseCreateProductData();
     message.name = object.name ?? "";
     message.description = object.description ?? "";
-    message.productId = object.productId ?? undefined;
+    message.url = object.url ?? "";
     message.icon = object.icon ?? undefined;
     return message;
   },
 };
 
-function createBaseUpdateModuleData(): UpdateModuleData {
-  return { moduleId: "", name: "", description: "", productId: undefined, icon: undefined };
+function createBaseUpdateProductData(): UpdateProductData {
+  return { productId: "", name: "", description: "", url: "", icon: undefined };
 }
 
-export const UpdateModuleData: MessageFns<UpdateModuleData> = {
-  encode(message: UpdateModuleData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.moduleId !== "") {
-      writer.uint32(10).string(message.moduleId);
+export const UpdateProductData: MessageFns<UpdateProductData> = {
+  encode(message: UpdateProductData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.productId !== "") {
+      writer.uint32(10).string(message.productId);
     }
     if (message.name !== "") {
       writer.uint32(18).string(message.name);
@@ -437,8 +437,8 @@ export const UpdateModuleData: MessageFns<UpdateModuleData> = {
     if (message.description !== "") {
       writer.uint32(26).string(message.description);
     }
-    if (message.productId !== undefined) {
-      writer.uint32(34).string(message.productId);
+    if (message.url !== "") {
+      writer.uint32(34).string(message.url);
     }
     if (message.icon !== undefined) {
       writer.uint32(42).string(message.icon);
@@ -446,10 +446,10 @@ export const UpdateModuleData: MessageFns<UpdateModuleData> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): UpdateModuleData {
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateProductData {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUpdateModuleData();
+    const message = createBaseUpdateProductData();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -458,7 +458,7 @@ export const UpdateModuleData: MessageFns<UpdateModuleData> = {
             break;
           }
 
-          message.moduleId = reader.string();
+          message.productId = reader.string();
           continue;
         }
         case 2: {
@@ -482,7 +482,7 @@ export const UpdateModuleData: MessageFns<UpdateModuleData> = {
             break;
           }
 
-          message.productId = reader.string();
+          message.url = reader.string();
           continue;
         }
         case 5: {
@@ -502,20 +502,20 @@ export const UpdateModuleData: MessageFns<UpdateModuleData> = {
     return message;
   },
 
-  fromJSON(object: any): UpdateModuleData {
+  fromJSON(object: any): UpdateProductData {
     return {
-      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+      productId: isSet(object.productId) ? globalThis.String(object.productId) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       description: isSet(object.description) ? globalThis.String(object.description) : "",
-      productId: isSet(object.productId) ? globalThis.String(object.productId) : undefined,
+      url: isSet(object.url) ? globalThis.String(object.url) : "",
       icon: isSet(object.icon) ? globalThis.String(object.icon) : undefined,
     };
   },
 
-  toJSON(message: UpdateModuleData): unknown {
+  toJSON(message: UpdateProductData): unknown {
     const obj: any = {};
-    if (message.moduleId !== "") {
-      obj.moduleId = message.moduleId;
+    if (message.productId !== "") {
+      obj.productId = message.productId;
     }
     if (message.name !== "") {
       obj.name = message.name;
@@ -523,8 +523,8 @@ export const UpdateModuleData: MessageFns<UpdateModuleData> = {
     if (message.description !== "") {
       obj.description = message.description;
     }
-    if (message.productId !== undefined) {
-      obj.productId = message.productId;
+    if (message.url !== "") {
+      obj.url = message.url;
     }
     if (message.icon !== undefined) {
       obj.icon = message.icon;
@@ -532,36 +532,36 @@ export const UpdateModuleData: MessageFns<UpdateModuleData> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<UpdateModuleData>, I>>(base?: I): UpdateModuleData {
-    return UpdateModuleData.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<UpdateProductData>, I>>(base?: I): UpdateProductData {
+    return UpdateProductData.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<UpdateModuleData>, I>>(object: I): UpdateModuleData {
-    const message = createBaseUpdateModuleData();
-    message.moduleId = object.moduleId ?? "";
+  fromPartial<I extends Exact<DeepPartial<UpdateProductData>, I>>(object: I): UpdateProductData {
+    const message = createBaseUpdateProductData();
+    message.productId = object.productId ?? "";
     message.name = object.name ?? "";
     message.description = object.description ?? "";
-    message.productId = object.productId ?? undefined;
+    message.url = object.url ?? "";
     message.icon = object.icon ?? undefined;
     return message;
   },
 };
 
-function createBaseGetModuleRequest(): GetModuleRequest {
-  return { moduleId: "" };
+function createBaseGetProductRequest(): GetProductRequest {
+  return { productId: "" };
 }
 
-export const GetModuleRequest: MessageFns<GetModuleRequest> = {
-  encode(message: GetModuleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.moduleId !== "") {
-      writer.uint32(10).string(message.moduleId);
+export const GetProductRequest: MessageFns<GetProductRequest> = {
+  encode(message: GetProductRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.productId !== "") {
+      writer.uint32(10).string(message.productId);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): GetModuleRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): GetProductRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetModuleRequest();
+    const message = createBaseGetProductRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -570,7 +570,7 @@ export const GetModuleRequest: MessageFns<GetModuleRequest> = {
             break;
           }
 
-          message.moduleId = reader.string();
+          message.productId = reader.string();
           continue;
         }
       }
@@ -582,34 +582,34 @@ export const GetModuleRequest: MessageFns<GetModuleRequest> = {
     return message;
   },
 
-  fromJSON(object: any): GetModuleRequest {
-    return { moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "" };
+  fromJSON(object: any): GetProductRequest {
+    return { productId: isSet(object.productId) ? globalThis.String(object.productId) : "" };
   },
 
-  toJSON(message: GetModuleRequest): unknown {
+  toJSON(message: GetProductRequest): unknown {
     const obj: any = {};
-    if (message.moduleId !== "") {
-      obj.moduleId = message.moduleId;
+    if (message.productId !== "") {
+      obj.productId = message.productId;
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GetModuleRequest>, I>>(base?: I): GetModuleRequest {
-    return GetModuleRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<GetProductRequest>, I>>(base?: I): GetProductRequest {
+    return GetProductRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GetModuleRequest>, I>>(object: I): GetModuleRequest {
-    const message = createBaseGetModuleRequest();
-    message.moduleId = object.moduleId ?? "";
+  fromPartial<I extends Exact<DeepPartial<GetProductRequest>, I>>(object: I): GetProductRequest {
+    const message = createBaseGetProductRequest();
+    message.productId = object.productId ?? "";
     return message;
   },
 };
 
-function createBaseGetModulesRequest(): GetModulesRequest {
+function createBaseGetProductsRequest(): GetProductsRequest {
   return { pagination: undefined, sorts: [], filters: [] };
 }
 
-export const GetModulesRequest: MessageFns<GetModulesRequest> = {
-  encode(message: GetModulesRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const GetProductsRequest: MessageFns<GetProductsRequest> = {
+  encode(message: GetProductsRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.pagination !== undefined) {
       PaginationRequest.encode(message.pagination, writer.uint32(10).fork()).join();
     }
@@ -622,10 +622,10 @@ export const GetModulesRequest: MessageFns<GetModulesRequest> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): GetModulesRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): GetProductsRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetModulesRequest();
+    const message = createBaseGetProductsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -662,7 +662,7 @@ export const GetModulesRequest: MessageFns<GetModulesRequest> = {
     return message;
   },
 
-  fromJSON(object: any): GetModulesRequest {
+  fromJSON(object: any): GetProductsRequest {
     return {
       pagination: isSet(object.pagination) ? PaginationRequest.fromJSON(object.pagination) : undefined,
       sorts: globalThis.Array.isArray(object?.sorts) ? object.sorts.map((e: any) => Sort.fromJSON(e)) : [],
@@ -670,7 +670,7 @@ export const GetModulesRequest: MessageFns<GetModulesRequest> = {
     };
   },
 
-  toJSON(message: GetModulesRequest): unknown {
+  toJSON(message: GetProductsRequest): unknown {
     const obj: any = {};
     if (message.pagination !== undefined) {
       obj.pagination = PaginationRequest.toJSON(message.pagination);
@@ -684,11 +684,11 @@ export const GetModulesRequest: MessageFns<GetModulesRequest> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GetModulesRequest>, I>>(base?: I): GetModulesRequest {
-    return GetModulesRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<GetProductsRequest>, I>>(base?: I): GetProductsRequest {
+    return GetProductsRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GetModulesRequest>, I>>(object: I): GetModulesRequest {
-    const message = createBaseGetModulesRequest();
+  fromPartial<I extends Exact<DeepPartial<GetProductsRequest>, I>>(object: I): GetProductsRequest {
+    const message = createBaseGetProductsRequest();
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PaginationRequest.fromPartial(object.pagination)
       : undefined;
@@ -698,25 +698,25 @@ export const GetModulesRequest: MessageFns<GetModulesRequest> = {
   },
 };
 
-function createBaseGetModulesResponse(): GetModulesResponse {
+function createBaseGetProductsResponse(): GetProductsResponse {
   return { pagination: undefined, data: [] };
 }
 
-export const GetModulesResponse: MessageFns<GetModulesResponse> = {
-  encode(message: GetModulesResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const GetProductsResponse: MessageFns<GetProductsResponse> = {
+  encode(message: GetProductsResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.pagination !== undefined) {
       PaginationResponse.encode(message.pagination, writer.uint32(10).fork()).join();
     }
     for (const v of message.data) {
-      Module.encode(v!, writer.uint32(18).fork()).join();
+      Product.encode(v!, writer.uint32(18).fork()).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): GetModulesResponse {
+  decode(input: BinaryReader | Uint8Array, length?: number): GetProductsResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetModulesResponse();
+    const message = createBaseGetProductsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -733,7 +733,7 @@ export const GetModulesResponse: MessageFns<GetModulesResponse> = {
             break;
           }
 
-          message.data.push(Module.decode(reader, reader.uint32()));
+          message.data.push(Product.decode(reader, reader.uint32()));
           continue;
         }
       }
@@ -745,45 +745,45 @@ export const GetModulesResponse: MessageFns<GetModulesResponse> = {
     return message;
   },
 
-  fromJSON(object: any): GetModulesResponse {
+  fromJSON(object: any): GetProductsResponse {
     return {
       pagination: isSet(object.pagination) ? PaginationResponse.fromJSON(object.pagination) : undefined,
-      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => Module.fromJSON(e)) : [],
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => Product.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: GetModulesResponse): unknown {
+  toJSON(message: GetProductsResponse): unknown {
     const obj: any = {};
     if (message.pagination !== undefined) {
       obj.pagination = PaginationResponse.toJSON(message.pagination);
     }
     if (message.data?.length) {
-      obj.data = message.data.map((e) => Module.toJSON(e));
+      obj.data = message.data.map((e) => Product.toJSON(e));
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GetModulesResponse>, I>>(base?: I): GetModulesResponse {
-    return GetModulesResponse.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<GetProductsResponse>, I>>(base?: I): GetProductsResponse {
+    return GetProductsResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GetModulesResponse>, I>>(object: I): GetModulesResponse {
-    const message = createBaseGetModulesResponse();
+  fromPartial<I extends Exact<DeepPartial<GetProductsResponse>, I>>(object: I): GetProductsResponse {
+    const message = createBaseGetProductsResponse();
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PaginationResponse.fromPartial(object.pagination)
       : undefined;
-    message.data = object.data?.map((e) => Module.fromPartial(e)) || [];
+    message.data = object.data?.map((e) => Product.fromPartial(e)) || [];
     return message;
   },
 };
 
-function createBaseCreateModuleRequest(): CreateModuleRequest {
-  return { module: undefined, userId: "" };
+function createBaseCreateProductRequest(): CreateProductRequest {
+  return { product: undefined, userId: "" };
 }
 
-export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
-  encode(message: CreateModuleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.module !== undefined) {
-      CreateModuleData.encode(message.module, writer.uint32(10).fork()).join();
+export const CreateProductRequest: MessageFns<CreateProductRequest> = {
+  encode(message: CreateProductRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.product !== undefined) {
+      CreateProductData.encode(message.product, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -791,10 +791,10 @@ export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): CreateModuleRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateProductRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreateModuleRequest();
+    const message = createBaseCreateProductRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -803,7 +803,7 @@ export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
             break;
           }
 
-          message.module = CreateModuleData.decode(reader, reader.uint32());
+          message.product = CreateProductData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -823,17 +823,17 @@ export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
     return message;
   },
 
-  fromJSON(object: any): CreateModuleRequest {
+  fromJSON(object: any): CreateProductRequest {
     return {
-      module: isSet(object.module) ? CreateModuleData.fromJSON(object.module) : undefined,
+      product: isSet(object.product) ? CreateProductData.fromJSON(object.product) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
 
-  toJSON(message: CreateModuleRequest): unknown {
+  toJSON(message: CreateProductRequest): unknown {
     const obj: any = {};
-    if (message.module !== undefined) {
-      obj.module = CreateModuleData.toJSON(message.module);
+    if (message.product !== undefined) {
+      obj.product = CreateProductData.toJSON(message.product);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -841,27 +841,27 @@ export const CreateModuleRequest: MessageFns<CreateModuleRequest> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CreateModuleRequest>, I>>(base?: I): CreateModuleRequest {
-    return CreateModuleRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreateProductRequest>, I>>(base?: I): CreateProductRequest {
+    return CreateProductRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<CreateModuleRequest>, I>>(object: I): CreateModuleRequest {
-    const message = createBaseCreateModuleRequest();
-    message.module = (object.module !== undefined && object.module !== null)
-      ? CreateModuleData.fromPartial(object.module)
+  fromPartial<I extends Exact<DeepPartial<CreateProductRequest>, I>>(object: I): CreateProductRequest {
+    const message = createBaseCreateProductRequest();
+    message.product = (object.product !== undefined && object.product !== null)
+      ? CreateProductData.fromPartial(object.product)
       : undefined;
     message.userId = object.userId ?? "";
     return message;
   },
 };
 
-function createBaseUpdateModuleRequest(): UpdateModuleRequest {
-  return { module: undefined, userId: "" };
+function createBaseUpdateProductRequest(): UpdateProductRequest {
+  return { product: undefined, userId: "" };
 }
 
-export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
-  encode(message: UpdateModuleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.module !== undefined) {
-      UpdateModuleData.encode(message.module, writer.uint32(10).fork()).join();
+export const UpdateProductRequest: MessageFns<UpdateProductRequest> = {
+  encode(message: UpdateProductRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.product !== undefined) {
+      UpdateProductData.encode(message.product, writer.uint32(10).fork()).join();
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -869,10 +869,10 @@ export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): UpdateModuleRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateProductRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUpdateModuleRequest();
+    const message = createBaseUpdateProductRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -881,7 +881,7 @@ export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
             break;
           }
 
-          message.module = UpdateModuleData.decode(reader, reader.uint32());
+          message.product = UpdateProductData.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -901,17 +901,17 @@ export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
     return message;
   },
 
-  fromJSON(object: any): UpdateModuleRequest {
+  fromJSON(object: any): UpdateProductRequest {
     return {
-      module: isSet(object.module) ? UpdateModuleData.fromJSON(object.module) : undefined,
+      product: isSet(object.product) ? UpdateProductData.fromJSON(object.product) : undefined,
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
 
-  toJSON(message: UpdateModuleRequest): unknown {
+  toJSON(message: UpdateProductRequest): unknown {
     const obj: any = {};
-    if (message.module !== undefined) {
-      obj.module = UpdateModuleData.toJSON(message.module);
+    if (message.product !== undefined) {
+      obj.product = UpdateProductData.toJSON(message.product);
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -919,27 +919,27 @@ export const UpdateModuleRequest: MessageFns<UpdateModuleRequest> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<UpdateModuleRequest>, I>>(base?: I): UpdateModuleRequest {
-    return UpdateModuleRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<UpdateProductRequest>, I>>(base?: I): UpdateProductRequest {
+    return UpdateProductRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<UpdateModuleRequest>, I>>(object: I): UpdateModuleRequest {
-    const message = createBaseUpdateModuleRequest();
-    message.module = (object.module !== undefined && object.module !== null)
-      ? UpdateModuleData.fromPartial(object.module)
+  fromPartial<I extends Exact<DeepPartial<UpdateProductRequest>, I>>(object: I): UpdateProductRequest {
+    const message = createBaseUpdateProductRequest();
+    message.product = (object.product !== undefined && object.product !== null)
+      ? UpdateProductData.fromPartial(object.product)
       : undefined;
     message.userId = object.userId ?? "";
     return message;
   },
 };
 
-function createBaseDeleteModuleRequest(): DeleteModuleRequest {
-  return { moduleId: "", userId: "" };
+function createBaseDeleteProductRequest(): DeleteProductRequest {
+  return { productId: "", userId: "" };
 }
 
-export const DeleteModuleRequest: MessageFns<DeleteModuleRequest> = {
-  encode(message: DeleteModuleRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.moduleId !== "") {
-      writer.uint32(10).string(message.moduleId);
+export const DeleteProductRequest: MessageFns<DeleteProductRequest> = {
+  encode(message: DeleteProductRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.productId !== "") {
+      writer.uint32(10).string(message.productId);
     }
     if (message.userId !== "") {
       writer.uint32(18).string(message.userId);
@@ -947,10 +947,10 @@ export const DeleteModuleRequest: MessageFns<DeleteModuleRequest> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): DeleteModuleRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteProductRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseDeleteModuleRequest();
+    const message = createBaseDeleteProductRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -959,7 +959,7 @@ export const DeleteModuleRequest: MessageFns<DeleteModuleRequest> = {
             break;
           }
 
-          message.moduleId = reader.string();
+          message.productId = reader.string();
           continue;
         }
         case 2: {
@@ -979,17 +979,17 @@ export const DeleteModuleRequest: MessageFns<DeleteModuleRequest> = {
     return message;
   },
 
-  fromJSON(object: any): DeleteModuleRequest {
+  fromJSON(object: any): DeleteProductRequest {
     return {
-      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
+      productId: isSet(object.productId) ? globalThis.String(object.productId) : "",
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
     };
   },
 
-  toJSON(message: DeleteModuleRequest): unknown {
+  toJSON(message: DeleteProductRequest): unknown {
     const obj: any = {};
-    if (message.moduleId !== "") {
-      obj.moduleId = message.moduleId;
+    if (message.productId !== "") {
+      obj.productId = message.productId;
     }
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -997,25 +997,25 @@ export const DeleteModuleRequest: MessageFns<DeleteModuleRequest> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<DeleteModuleRequest>, I>>(base?: I): DeleteModuleRequest {
-    return DeleteModuleRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<DeleteProductRequest>, I>>(base?: I): DeleteProductRequest {
+    return DeleteProductRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<DeleteModuleRequest>, I>>(object: I): DeleteModuleRequest {
-    const message = createBaseDeleteModuleRequest();
-    message.moduleId = object.moduleId ?? "";
+  fromPartial<I extends Exact<DeepPartial<DeleteProductRequest>, I>>(object: I): DeleteProductRequest {
+    const message = createBaseDeleteProductRequest();
+    message.productId = object.productId ?? "";
     message.userId = object.userId ?? "";
     return message;
   },
 };
 
 function createBaseCreateSuccess(): CreateSuccess {
-  return { module: undefined, error: undefined };
+  return { product: undefined, error: undefined };
 }
 
 export const CreateSuccess: MessageFns<CreateSuccess> = {
   encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.module !== undefined) {
-      Module.encode(message.module, writer.uint32(10).fork()).join();
+    if (message.product !== undefined) {
+      Product.encode(message.product, writer.uint32(10).fork()).join();
     }
     if (message.error !== undefined) {
       ErrorResponse.encode(message.error, writer.uint32(18).fork()).join();
@@ -1035,7 +1035,7 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
             break;
           }
 
-          message.module = Module.decode(reader, reader.uint32());
+          message.product = Product.decode(reader, reader.uint32());
           continue;
         }
         case 2: {
@@ -1057,15 +1057,15 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
 
   fromJSON(object: any): CreateSuccess {
     return {
-      module: isSet(object.module) ? Module.fromJSON(object.module) : undefined,
+      product: isSet(object.product) ? Product.fromJSON(object.product) : undefined,
       error: isSet(object.error) ? ErrorResponse.fromJSON(object.error) : undefined,
     };
   },
 
   toJSON(message: CreateSuccess): unknown {
     const obj: any = {};
-    if (message.module !== undefined) {
-      obj.module = Module.toJSON(message.module);
+    if (message.product !== undefined) {
+      obj.product = Product.toJSON(message.product);
     }
     if (message.error !== undefined) {
       obj.error = ErrorResponse.toJSON(message.error);
@@ -1078,8 +1078,8 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
   },
   fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
     const message = createBaseCreateSuccess();
-    message.module = (object.module !== undefined && object.module !== null)
-      ? Module.fromPartial(object.module)
+    message.product = (object.product !== undefined && object.product !== null)
+      ? Product.fromPartial(object.product)
       : undefined;
     message.error = (object.error !== undefined && object.error !== null)
       ? ErrorResponse.fromPartial(object.error)
@@ -1088,54 +1088,54 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
   },
 };
 
-export interface ModuleService {
-  GetModule(request: GetModuleRequest): Promise<Module>;
-  GetModules(request: GetModulesRequest): Promise<GetModulesResponse>;
-  CreateModule(request: CreateModuleRequest): Promise<CreateSuccess>;
-  UpdateModule(request: UpdateModuleRequest): Promise<UpdateSuccess>;
-  DeleteModule(request: DeleteModuleRequest): Promise<DeleteSuccess>;
+export interface ProductService {
+  GetProduct(request: GetProductRequest): Promise<Product>;
+  GetProducts(request: GetProductsRequest): Promise<GetProductsResponse>;
+  CreateProduct(request: CreateProductRequest): Promise<CreateSuccess>;
+  UpdateProduct(request: UpdateProductRequest): Promise<UpdateSuccess>;
+  DeleteProduct(request: DeleteProductRequest): Promise<DeleteSuccess>;
 }
 
-export const ModuleServiceServiceName = "module.v1.ModuleService";
-export class ModuleServiceClientImpl implements ModuleService {
+export const ProductServiceServiceName = "product.v1.ProductService";
+export class ProductServiceClientImpl implements ProductService {
   private readonly rpc: Rpc;
   private readonly service: string;
   constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || ModuleServiceServiceName;
+    this.service = opts?.service || ProductServiceServiceName;
     this.rpc = rpc;
-    this.GetModule = this.GetModule.bind(this);
-    this.GetModules = this.GetModules.bind(this);
-    this.CreateModule = this.CreateModule.bind(this);
-    this.UpdateModule = this.UpdateModule.bind(this);
-    this.DeleteModule = this.DeleteModule.bind(this);
+    this.GetProduct = this.GetProduct.bind(this);
+    this.GetProducts = this.GetProducts.bind(this);
+    this.CreateProduct = this.CreateProduct.bind(this);
+    this.UpdateProduct = this.UpdateProduct.bind(this);
+    this.DeleteProduct = this.DeleteProduct.bind(this);
   }
-  GetModule(request: GetModuleRequest): Promise<Module> {
-    const data = GetModuleRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "GetModule", data);
-    return promise.then((data) => Module.decode(new BinaryReader(data)));
-  }
-
-  GetModules(request: GetModulesRequest): Promise<GetModulesResponse> {
-    const data = GetModulesRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "GetModules", data);
-    return promise.then((data) => GetModulesResponse.decode(new BinaryReader(data)));
+  GetProduct(request: GetProductRequest): Promise<Product> {
+    const data = GetProductRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetProduct", data);
+    return promise.then((data) => Product.decode(new BinaryReader(data)));
   }
 
-  CreateModule(request: CreateModuleRequest): Promise<CreateSuccess> {
-    const data = CreateModuleRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "CreateModule", data);
+  GetProducts(request: GetProductsRequest): Promise<GetProductsResponse> {
+    const data = GetProductsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetProducts", data);
+    return promise.then((data) => GetProductsResponse.decode(new BinaryReader(data)));
+  }
+
+  CreateProduct(request: CreateProductRequest): Promise<CreateSuccess> {
+    const data = CreateProductRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "CreateProduct", data);
     return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
   }
 
-  UpdateModule(request: UpdateModuleRequest): Promise<UpdateSuccess> {
-    const data = UpdateModuleRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "UpdateModule", data);
+  UpdateProduct(request: UpdateProductRequest): Promise<UpdateSuccess> {
+    const data = UpdateProductRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateProduct", data);
     return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
   }
 
-  DeleteModule(request: DeleteModuleRequest): Promise<DeleteSuccess> {
-    const data = DeleteModuleRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "DeleteModule", data);
+  DeleteProduct(request: DeleteProductRequest): Promise<DeleteSuccess> {
+    const data = DeleteProductRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "DeleteProduct", data);
     return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
   }
 }

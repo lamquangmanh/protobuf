@@ -67,10 +67,26 @@ message CreateSuccess {
   }
 }
 
+message PermissionInfo {
+  string name = 1;
+  string request_type = 2;
+  string method = 3;
+  string url = 4;
+}
+
+message GetPermissionsByUserIdRequest {
+  string user_id = 1;
+}
+
+message GetPermissionsByUserIdResponse {
+  repeated PermissionInfo permissions = 1;
+}
+
 service PermissionService {
   rpc GetPermission (GetPermissionRequest) returns (Permission) {}
   rpc GetPermissions (GetPermissionsRequest) returns (GetPermissionsResponse) {}
   rpc CreatePermission (CreatePermissionRequest) returns (CreateSuccess) {}
   rpc UpdatePermission (UpdatePermissionRequest) returns (base.v1.UpdateSuccess) {}
   rpc DeletePermission (DeletePermissionRequest) returns (base.v1.DeleteSuccess) {}
+  rpc GetPermissionsByUserId (GetPermissionsByUserIdRequest) returns (GetPermissionsByUserIdResponse) {}
 }

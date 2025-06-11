@@ -1,0 +1,79 @@
+
+syntax = "proto3";
+import "base/v1/base.proto";
+
+package product.v1;
+
+message Product {
+  string product_id = 1;
+  string name = 2;
+  string description = 3;
+  string url = 4;
+  string created_at = 5;
+  string created_user_id = 6;
+  string updated_at = 7;
+  string updated_user_id = 8;
+  string deleted_at = 9;
+  string deleted_user_id = 10;
+  optional string icon = 11;
+}
+
+message CreateProductData {
+  string name = 1;
+  string description = 2;
+  string url = 3;
+  optional string icon = 4;
+}
+
+message UpdateProductData {
+  string product_id = 1;
+  string name = 2;
+  string description = 3;
+  string url = 4;
+  optional string icon = 5;
+}
+
+message GetProductRequest {
+  string product_id = 1;
+}
+
+message GetProductsRequest {
+  base.v1.PaginationRequest pagination = 1;
+  repeated base.v1.Sort sorts = 2;
+  repeated base.v1.Filter filters = 3;
+}
+
+message GetProductsResponse {
+  base.v1.PaginationResponse pagination = 1;
+  repeated Product data = 2;
+}
+
+message CreateProductRequest {
+  CreateProductData product = 1;
+  string user_id = 2;
+}
+
+message UpdateProductRequest {
+  UpdateProductData product = 1;
+  string user_id = 2;
+}
+
+message DeleteProductRequest {
+  string product_id = 1;
+  string user_id = 2;
+}
+
+message CreateSuccess {
+  oneof result {
+    Product product = 1;
+    base.v1.ErrorResponse error = 2;
+  }
+}
+
+service ProductService {
+  rpc GetProduct (GetProductRequest) returns (Product) {}
+  rpc GetProducts (GetProductsRequest) returns (GetProductsResponse) {}
+  rpc CreateProduct (CreateProductRequest) returns (CreateSuccess) {}
+  rpc UpdateProduct (UpdateProductRequest) returns (base.v1.UpdateSuccess) {}
+  rpc DeleteProduct (DeleteProductRequest) returns (base.v1.DeleteSuccess) {}
+}

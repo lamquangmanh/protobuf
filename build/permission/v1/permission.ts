@@ -79,6 +79,21 @@ export interface CreateSuccess {
   error?: ErrorResponse | undefined;
 }
 
+export interface PermissionInfo {
+  name: string;
+  requestType: string;
+  method: string;
+  url: string;
+}
+
+export interface GetPermissionsByUserIdRequest {
+  userId: string;
+}
+
+export interface GetPermissionsByUserIdResponse {
+  permissions: PermissionInfo[];
+}
+
 function createBasePermission(): Permission {
   return {
     permissionId: "",
@@ -1036,12 +1051,245 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
   },
 };
 
+function createBasePermissionInfo(): PermissionInfo {
+  return { name: "", requestType: "", method: "", url: "" };
+}
+
+export const PermissionInfo: MessageFns<PermissionInfo> = {
+  encode(message: PermissionInfo, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.name !== "") {
+      writer.uint32(10).string(message.name);
+    }
+    if (message.requestType !== "") {
+      writer.uint32(18).string(message.requestType);
+    }
+    if (message.method !== "") {
+      writer.uint32(26).string(message.method);
+    }
+    if (message.url !== "") {
+      writer.uint32(34).string(message.url);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): PermissionInfo {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePermissionInfo();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.requestType = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.method = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.url = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PermissionInfo {
+    return {
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      requestType: isSet(object.requestType) ? globalThis.String(object.requestType) : "",
+      method: isSet(object.method) ? globalThis.String(object.method) : "",
+      url: isSet(object.url) ? globalThis.String(object.url) : "",
+    };
+  },
+
+  toJSON(message: PermissionInfo): unknown {
+    const obj: any = {};
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.requestType !== "") {
+      obj.requestType = message.requestType;
+    }
+    if (message.method !== "") {
+      obj.method = message.method;
+    }
+    if (message.url !== "") {
+      obj.url = message.url;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PermissionInfo>, I>>(base?: I): PermissionInfo {
+    return PermissionInfo.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<PermissionInfo>, I>>(object: I): PermissionInfo {
+    const message = createBasePermissionInfo();
+    message.name = object.name ?? "";
+    message.requestType = object.requestType ?? "";
+    message.method = object.method ?? "";
+    message.url = object.url ?? "";
+    return message;
+  },
+};
+
+function createBaseGetPermissionsByUserIdRequest(): GetPermissionsByUserIdRequest {
+  return { userId: "" };
+}
+
+export const GetPermissionsByUserIdRequest: MessageFns<GetPermissionsByUserIdRequest> = {
+  encode(message: GetPermissionsByUserIdRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.userId !== "") {
+      writer.uint32(10).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetPermissionsByUserIdRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetPermissionsByUserIdRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.userId = reader.string();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetPermissionsByUserIdRequest {
+    return { userId: isSet(object.userId) ? globalThis.String(object.userId) : "" };
+  },
+
+  toJSON(message: GetPermissionsByUserIdRequest): unknown {
+    const obj: any = {};
+    if (message.userId !== "") {
+      obj.userId = message.userId;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetPermissionsByUserIdRequest>, I>>(base?: I): GetPermissionsByUserIdRequest {
+    return GetPermissionsByUserIdRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetPermissionsByUserIdRequest>, I>>(
+    object: I,
+  ): GetPermissionsByUserIdRequest {
+    const message = createBaseGetPermissionsByUserIdRequest();
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
+
+function createBaseGetPermissionsByUserIdResponse(): GetPermissionsByUserIdResponse {
+  return { permissions: [] };
+}
+
+export const GetPermissionsByUserIdResponse: MessageFns<GetPermissionsByUserIdResponse> = {
+  encode(message: GetPermissionsByUserIdResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    for (const v of message.permissions) {
+      PermissionInfo.encode(v!, writer.uint32(10).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetPermissionsByUserIdResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetPermissionsByUserIdResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.permissions.push(PermissionInfo.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetPermissionsByUserIdResponse {
+    return {
+      permissions: globalThis.Array.isArray(object?.permissions)
+        ? object.permissions.map((e: any) => PermissionInfo.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: GetPermissionsByUserIdResponse): unknown {
+    const obj: any = {};
+    if (message.permissions?.length) {
+      obj.permissions = message.permissions.map((e) => PermissionInfo.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetPermissionsByUserIdResponse>, I>>(base?: I): GetPermissionsByUserIdResponse {
+    return GetPermissionsByUserIdResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetPermissionsByUserIdResponse>, I>>(
+    object: I,
+  ): GetPermissionsByUserIdResponse {
+    const message = createBaseGetPermissionsByUserIdResponse();
+    message.permissions = object.permissions?.map((e) => PermissionInfo.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 export interface PermissionService {
   GetPermission(request: GetPermissionRequest): Promise<Permission>;
   GetPermissions(request: GetPermissionsRequest): Promise<GetPermissionsResponse>;
   CreatePermission(request: CreatePermissionRequest): Promise<CreateSuccess>;
   UpdatePermission(request: UpdatePermissionRequest): Promise<UpdateSuccess>;
   DeletePermission(request: DeletePermissionRequest): Promise<DeleteSuccess>;
+  GetPermissionsByUserId(request: GetPermissionsByUserIdRequest): Promise<GetPermissionsByUserIdResponse>;
 }
 
 export const PermissionServiceServiceName = "permission.v1.PermissionService";
@@ -1056,6 +1304,7 @@ export class PermissionServiceClientImpl implements PermissionService {
     this.CreatePermission = this.CreatePermission.bind(this);
     this.UpdatePermission = this.UpdatePermission.bind(this);
     this.DeletePermission = this.DeletePermission.bind(this);
+    this.GetPermissionsByUserId = this.GetPermissionsByUserId.bind(this);
   }
   GetPermission(request: GetPermissionRequest): Promise<Permission> {
     const data = GetPermissionRequest.encode(request).finish();
@@ -1085,6 +1334,12 @@ export class PermissionServiceClientImpl implements PermissionService {
     const data = DeletePermissionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeletePermission", data);
     return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+  }
+
+  GetPermissionsByUserId(request: GetPermissionsByUserIdRequest): Promise<GetPermissionsByUserIdResponse> {
+    const data = GetPermissionsByUserIdRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetPermissionsByUserId", data);
+    return promise.then((data) => GetPermissionsByUserIdResponse.decode(new BinaryReader(data)));
   }
 }
 

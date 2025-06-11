@@ -10,26 +10,27 @@ import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 export const protobufPackage = "menu.v1";
 
 export interface SubMenu {
-  actionId: string;
   name: string;
   url: string;
-  method: string;
-  requestType: string;
 }
 
 export interface Menu {
-  resourceId: string;
   name: string;
   url: string;
+  icon?:
+    | string
+    | undefined;
   /** Nested sub-menus */
   subMenus: SubMenu[];
 }
 
 export interface SuperMenu {
-  moduleId: string;
   name: string;
   url: string;
   description: string;
+  icon?:
+    | string
+    | undefined;
   /** Nested sub-menus */
   menus: Menu[];
 }
@@ -42,34 +43,17 @@ export interface GetSuperMenuResponse {
   superMenus: SuperMenu[];
 }
 
-export interface GetMenusRequest {
-  userId: string;
-}
-
-export interface GetMenusResponse {
-  menus: Menu[];
-}
-
 function createBaseSubMenu(): SubMenu {
-  return { actionId: "", name: "", url: "", method: "", requestType: "" };
+  return { name: "", url: "" };
 }
 
 export const SubMenu: MessageFns<SubMenu> = {
   encode(message: SubMenu, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.actionId !== "") {
-      writer.uint32(10).string(message.actionId);
-    }
     if (message.name !== "") {
-      writer.uint32(18).string(message.name);
+      writer.uint32(10).string(message.name);
     }
     if (message.url !== "") {
-      writer.uint32(26).string(message.url);
-    }
-    if (message.method !== "") {
-      writer.uint32(34).string(message.method);
-    }
-    if (message.requestType !== "") {
-      writer.uint32(42).string(message.requestType);
+      writer.uint32(18).string(message.url);
     }
     return writer;
   },
@@ -86,7 +70,7 @@ export const SubMenu: MessageFns<SubMenu> = {
             break;
           }
 
-          message.actionId = reader.string();
+          message.name = reader.string();
           continue;
         }
         case 2: {
@@ -94,31 +78,7 @@ export const SubMenu: MessageFns<SubMenu> = {
             break;
           }
 
-          message.name = reader.string();
-          continue;
-        }
-        case 3: {
-          if (tag !== 26) {
-            break;
-          }
-
           message.url = reader.string();
-          continue;
-        }
-        case 4: {
-          if (tag !== 34) {
-            break;
-          }
-
-          message.method = reader.string();
-          continue;
-        }
-        case 5: {
-          if (tag !== 42) {
-            break;
-          }
-
-          message.requestType = reader.string();
           continue;
         }
       }
@@ -132,30 +92,18 @@ export const SubMenu: MessageFns<SubMenu> = {
 
   fromJSON(object: any): SubMenu {
     return {
-      actionId: isSet(object.actionId) ? globalThis.String(object.actionId) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       url: isSet(object.url) ? globalThis.String(object.url) : "",
-      method: isSet(object.method) ? globalThis.String(object.method) : "",
-      requestType: isSet(object.requestType) ? globalThis.String(object.requestType) : "",
     };
   },
 
   toJSON(message: SubMenu): unknown {
     const obj: any = {};
-    if (message.actionId !== "") {
-      obj.actionId = message.actionId;
-    }
     if (message.name !== "") {
       obj.name = message.name;
     }
     if (message.url !== "") {
       obj.url = message.url;
-    }
-    if (message.method !== "") {
-      obj.method = message.method;
-    }
-    if (message.requestType !== "") {
-      obj.requestType = message.requestType;
     }
     return obj;
   },
@@ -165,29 +113,26 @@ export const SubMenu: MessageFns<SubMenu> = {
   },
   fromPartial<I extends Exact<DeepPartial<SubMenu>, I>>(object: I): SubMenu {
     const message = createBaseSubMenu();
-    message.actionId = object.actionId ?? "";
     message.name = object.name ?? "";
     message.url = object.url ?? "";
-    message.method = object.method ?? "";
-    message.requestType = object.requestType ?? "";
     return message;
   },
 };
 
 function createBaseMenu(): Menu {
-  return { resourceId: "", name: "", url: "", subMenus: [] };
+  return { name: "", url: "", icon: undefined, subMenus: [] };
 }
 
 export const Menu: MessageFns<Menu> = {
   encode(message: Menu, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.resourceId !== "") {
-      writer.uint32(10).string(message.resourceId);
-    }
     if (message.name !== "") {
-      writer.uint32(18).string(message.name);
+      writer.uint32(10).string(message.name);
     }
     if (message.url !== "") {
-      writer.uint32(26).string(message.url);
+      writer.uint32(18).string(message.url);
+    }
+    if (message.icon !== undefined) {
+      writer.uint32(26).string(message.icon);
     }
     for (const v of message.subMenus) {
       SubMenu.encode(v!, writer.uint32(34).fork()).join();
@@ -207,7 +152,7 @@ export const Menu: MessageFns<Menu> = {
             break;
           }
 
-          message.resourceId = reader.string();
+          message.name = reader.string();
           continue;
         }
         case 2: {
@@ -215,7 +160,7 @@ export const Menu: MessageFns<Menu> = {
             break;
           }
 
-          message.name = reader.string();
+          message.url = reader.string();
           continue;
         }
         case 3: {
@@ -223,7 +168,7 @@ export const Menu: MessageFns<Menu> = {
             break;
           }
 
-          message.url = reader.string();
+          message.icon = reader.string();
           continue;
         }
         case 4: {
@@ -245,23 +190,23 @@ export const Menu: MessageFns<Menu> = {
 
   fromJSON(object: any): Menu {
     return {
-      resourceId: isSet(object.resourceId) ? globalThis.String(object.resourceId) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       url: isSet(object.url) ? globalThis.String(object.url) : "",
+      icon: isSet(object.icon) ? globalThis.String(object.icon) : undefined,
       subMenus: globalThis.Array.isArray(object?.subMenus) ? object.subMenus.map((e: any) => SubMenu.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: Menu): unknown {
     const obj: any = {};
-    if (message.resourceId !== "") {
-      obj.resourceId = message.resourceId;
-    }
     if (message.name !== "") {
       obj.name = message.name;
     }
     if (message.url !== "") {
       obj.url = message.url;
+    }
+    if (message.icon !== undefined) {
+      obj.icon = message.icon;
     }
     if (message.subMenus?.length) {
       obj.subMenus = message.subMenus.map((e) => SubMenu.toJSON(e));
@@ -274,31 +219,31 @@ export const Menu: MessageFns<Menu> = {
   },
   fromPartial<I extends Exact<DeepPartial<Menu>, I>>(object: I): Menu {
     const message = createBaseMenu();
-    message.resourceId = object.resourceId ?? "";
     message.name = object.name ?? "";
     message.url = object.url ?? "";
+    message.icon = object.icon ?? undefined;
     message.subMenus = object.subMenus?.map((e) => SubMenu.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseSuperMenu(): SuperMenu {
-  return { moduleId: "", name: "", url: "", description: "", menus: [] };
+  return { name: "", url: "", description: "", icon: undefined, menus: [] };
 }
 
 export const SuperMenu: MessageFns<SuperMenu> = {
   encode(message: SuperMenu, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.moduleId !== "") {
-      writer.uint32(10).string(message.moduleId);
-    }
     if (message.name !== "") {
-      writer.uint32(18).string(message.name);
+      writer.uint32(10).string(message.name);
     }
     if (message.url !== "") {
-      writer.uint32(26).string(message.url);
+      writer.uint32(18).string(message.url);
     }
     if (message.description !== "") {
-      writer.uint32(34).string(message.description);
+      writer.uint32(26).string(message.description);
+    }
+    if (message.icon !== undefined) {
+      writer.uint32(34).string(message.icon);
     }
     for (const v of message.menus) {
       Menu.encode(v!, writer.uint32(42).fork()).join();
@@ -318,7 +263,7 @@ export const SuperMenu: MessageFns<SuperMenu> = {
             break;
           }
 
-          message.moduleId = reader.string();
+          message.name = reader.string();
           continue;
         }
         case 2: {
@@ -326,7 +271,7 @@ export const SuperMenu: MessageFns<SuperMenu> = {
             break;
           }
 
-          message.name = reader.string();
+          message.url = reader.string();
           continue;
         }
         case 3: {
@@ -334,7 +279,7 @@ export const SuperMenu: MessageFns<SuperMenu> = {
             break;
           }
 
-          message.url = reader.string();
+          message.description = reader.string();
           continue;
         }
         case 4: {
@@ -342,7 +287,7 @@ export const SuperMenu: MessageFns<SuperMenu> = {
             break;
           }
 
-          message.description = reader.string();
+          message.icon = reader.string();
           continue;
         }
         case 5: {
@@ -364,19 +309,16 @@ export const SuperMenu: MessageFns<SuperMenu> = {
 
   fromJSON(object: any): SuperMenu {
     return {
-      moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       url: isSet(object.url) ? globalThis.String(object.url) : "",
       description: isSet(object.description) ? globalThis.String(object.description) : "",
+      icon: isSet(object.icon) ? globalThis.String(object.icon) : undefined,
       menus: globalThis.Array.isArray(object?.menus) ? object.menus.map((e: any) => Menu.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: SuperMenu): unknown {
     const obj: any = {};
-    if (message.moduleId !== "") {
-      obj.moduleId = message.moduleId;
-    }
     if (message.name !== "") {
       obj.name = message.name;
     }
@@ -385,6 +327,9 @@ export const SuperMenu: MessageFns<SuperMenu> = {
     }
     if (message.description !== "") {
       obj.description = message.description;
+    }
+    if (message.icon !== undefined) {
+      obj.icon = message.icon;
     }
     if (message.menus?.length) {
       obj.menus = message.menus.map((e) => Menu.toJSON(e));
@@ -397,10 +342,10 @@ export const SuperMenu: MessageFns<SuperMenu> = {
   },
   fromPartial<I extends Exact<DeepPartial<SuperMenu>, I>>(object: I): SuperMenu {
     const message = createBaseSuperMenu();
-    message.moduleId = object.moduleId ?? "";
     message.name = object.name ?? "";
     message.url = object.url ?? "";
     message.description = object.description ?? "";
+    message.icon = object.icon ?? undefined;
     message.menus = object.menus?.map((e) => Menu.fromPartial(e)) || [];
     return message;
   },
@@ -526,125 +471,8 @@ export const GetSuperMenuResponse: MessageFns<GetSuperMenuResponse> = {
   },
 };
 
-function createBaseGetMenusRequest(): GetMenusRequest {
-  return { userId: "" };
-}
-
-export const GetMenusRequest: MessageFns<GetMenusRequest> = {
-  encode(message: GetMenusRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.userId !== "") {
-      writer.uint32(10).string(message.userId);
-    }
-    return writer;
-  },
-
-  decode(input: BinaryReader | Uint8Array, length?: number): GetMenusRequest {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetMenusRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1: {
-          if (tag !== 10) {
-            break;
-          }
-
-          message.userId = reader.string();
-          continue;
-        }
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skip(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): GetMenusRequest {
-    return { userId: isSet(object.userId) ? globalThis.String(object.userId) : "" };
-  },
-
-  toJSON(message: GetMenusRequest): unknown {
-    const obj: any = {};
-    if (message.userId !== "") {
-      obj.userId = message.userId;
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<GetMenusRequest>, I>>(base?: I): GetMenusRequest {
-    return GetMenusRequest.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<GetMenusRequest>, I>>(object: I): GetMenusRequest {
-    const message = createBaseGetMenusRequest();
-    message.userId = object.userId ?? "";
-    return message;
-  },
-};
-
-function createBaseGetMenusResponse(): GetMenusResponse {
-  return { menus: [] };
-}
-
-export const GetMenusResponse: MessageFns<GetMenusResponse> = {
-  encode(message: GetMenusResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    for (const v of message.menus) {
-      Menu.encode(v!, writer.uint32(10).fork()).join();
-    }
-    return writer;
-  },
-
-  decode(input: BinaryReader | Uint8Array, length?: number): GetMenusResponse {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetMenusResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1: {
-          if (tag !== 10) {
-            break;
-          }
-
-          message.menus.push(Menu.decode(reader, reader.uint32()));
-          continue;
-        }
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skip(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): GetMenusResponse {
-    return { menus: globalThis.Array.isArray(object?.menus) ? object.menus.map((e: any) => Menu.fromJSON(e)) : [] };
-  },
-
-  toJSON(message: GetMenusResponse): unknown {
-    const obj: any = {};
-    if (message.menus?.length) {
-      obj.menus = message.menus.map((e) => Menu.toJSON(e));
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<GetMenusResponse>, I>>(base?: I): GetMenusResponse {
-    return GetMenusResponse.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<GetMenusResponse>, I>>(object: I): GetMenusResponse {
-    const message = createBaseGetMenusResponse();
-    message.menus = object.menus?.map((e) => Menu.fromPartial(e)) || [];
-    return message;
-  },
-};
-
 export interface MenuService {
   GetSuperMenus(request: GetSuperMenuRequest): Promise<GetSuperMenuResponse>;
-  GetMenus(request: GetMenusRequest): Promise<GetMenusResponse>;
 }
 
 export const MenuServiceServiceName = "menu.v1.MenuService";
@@ -655,18 +483,11 @@ export class MenuServiceClientImpl implements MenuService {
     this.service = opts?.service || MenuServiceServiceName;
     this.rpc = rpc;
     this.GetSuperMenus = this.GetSuperMenus.bind(this);
-    this.GetMenus = this.GetMenus.bind(this);
   }
   GetSuperMenus(request: GetSuperMenuRequest): Promise<GetSuperMenuResponse> {
     const data = GetSuperMenuRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "GetSuperMenus", data);
     return promise.then((data) => GetSuperMenuResponse.decode(new BinaryReader(data)));
-  }
-
-  GetMenus(request: GetMenusRequest): Promise<GetMenusResponse> {
-    const data = GetMenusRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "GetMenus", data);
-    return promise.then((data) => GetMenusResponse.decode(new BinaryReader(data)));
   }
 }
 

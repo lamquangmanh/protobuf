@@ -1,23 +1,20 @@
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 export declare const protobufPackage = "menu.v1";
 export interface SubMenu {
-    actionId: string;
     name: string;
     url: string;
-    method: string;
-    requestType: string;
 }
 export interface Menu {
-    resourceId: string;
     name: string;
     url: string;
+    icon?: string | undefined;
     subMenus: SubMenu[];
 }
 export interface SuperMenu {
-    moduleId: string;
     name: string;
     url: string;
     description: string;
+    icon?: string | undefined;
     menus: Menu[];
 }
 export interface GetSuperMenuRequest {
@@ -26,22 +23,13 @@ export interface GetSuperMenuRequest {
 export interface GetSuperMenuResponse {
     superMenus: SuperMenu[];
 }
-export interface GetMenusRequest {
-    userId: string;
-}
-export interface GetMenusResponse {
-    menus: Menu[];
-}
 export declare const SubMenu: MessageFns<SubMenu>;
 export declare const Menu: MessageFns<Menu>;
 export declare const SuperMenu: MessageFns<SuperMenu>;
 export declare const GetSuperMenuRequest: MessageFns<GetSuperMenuRequest>;
 export declare const GetSuperMenuResponse: MessageFns<GetSuperMenuResponse>;
-export declare const GetMenusRequest: MessageFns<GetMenusRequest>;
-export declare const GetMenusResponse: MessageFns<GetMenusResponse>;
 export interface MenuService {
     GetSuperMenus(request: GetSuperMenuRequest): Promise<GetSuperMenuResponse>;
-    GetMenus(request: GetMenusRequest): Promise<GetMenusResponse>;
 }
 export declare const MenuServiceServiceName = "menu.v1.MenuService";
 export declare class MenuServiceClientImpl implements MenuService {
@@ -51,7 +39,6 @@ export declare class MenuServiceClientImpl implements MenuService {
         service?: string;
     });
     GetSuperMenus(request: GetSuperMenuRequest): Promise<GetSuperMenuResponse>;
-    GetMenus(request: GetMenusRequest): Promise<GetMenusResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

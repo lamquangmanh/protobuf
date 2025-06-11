@@ -52,6 +52,18 @@ export interface CreateSuccess {
     permission?: Permission | undefined;
     error?: ErrorResponse | undefined;
 }
+export interface PermissionInfo {
+    name: string;
+    requestType: string;
+    method: string;
+    url: string;
+}
+export interface GetPermissionsByUserIdRequest {
+    userId: string;
+}
+export interface GetPermissionsByUserIdResponse {
+    permissions: PermissionInfo[];
+}
 export declare const Permission: MessageFns<Permission>;
 export declare const CreatePermissionData: MessageFns<CreatePermissionData>;
 export declare const UpdatePermissionData: MessageFns<UpdatePermissionData>;
@@ -62,12 +74,16 @@ export declare const CreatePermissionRequest: MessageFns<CreatePermissionRequest
 export declare const UpdatePermissionRequest: MessageFns<UpdatePermissionRequest>;
 export declare const DeletePermissionRequest: MessageFns<DeletePermissionRequest>;
 export declare const CreateSuccess: MessageFns<CreateSuccess>;
+export declare const PermissionInfo: MessageFns<PermissionInfo>;
+export declare const GetPermissionsByUserIdRequest: MessageFns<GetPermissionsByUserIdRequest>;
+export declare const GetPermissionsByUserIdResponse: MessageFns<GetPermissionsByUserIdResponse>;
 export interface PermissionService {
     GetPermission(request: GetPermissionRequest): Promise<Permission>;
     GetPermissions(request: GetPermissionsRequest): Promise<GetPermissionsResponse>;
     CreatePermission(request: CreatePermissionRequest): Promise<CreateSuccess>;
     UpdatePermission(request: UpdatePermissionRequest): Promise<UpdateSuccess>;
     DeletePermission(request: DeletePermissionRequest): Promise<DeleteSuccess>;
+    GetPermissionsByUserId(request: GetPermissionsByUserIdRequest): Promise<GetPermissionsByUserIdResponse>;
 }
 export declare const PermissionServiceServiceName = "permission.v1.PermissionService";
 export declare class PermissionServiceClientImpl implements PermissionService {
@@ -81,6 +97,7 @@ export declare class PermissionServiceClientImpl implements PermissionService {
     CreatePermission(request: CreatePermissionRequest): Promise<CreateSuccess>;
     UpdatePermission(request: UpdatePermissionRequest): Promise<UpdateSuccess>;
     DeletePermission(request: DeletePermissionRequest): Promise<DeleteSuccess>;
+    GetPermissionsByUserId(request: GetPermissionsByUserIdRequest): Promise<GetPermissionsByUserIdResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
