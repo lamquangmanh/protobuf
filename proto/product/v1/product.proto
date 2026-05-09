@@ -1,8 +1,10 @@
-
 syntax = "proto3";
-import "base/v1/base.proto";
 
-package product.v1;
+import "proto/base/v1/base.proto";
+
+package proto.product.v1;
+
+option go_package = "go-api/pkg/api/productpb;productpb";
 
 message Product {
   string product_id = 1;
@@ -38,13 +40,13 @@ message GetProductRequest {
 }
 
 message GetProductsRequest {
-  base.v1.PaginationRequest pagination = 1;
-  repeated base.v1.Sort sorts = 2;
-  repeated base.v1.Filter filters = 3;
+  proto.base.v1.PaginationRequest pagination = 1;
+  repeated proto.base.v1.Sort sorts = 2;
+  repeated proto.base.v1.Filter filters = 3;
 }
 
 message GetProductsResponse {
-  base.v1.PaginationResponse pagination = 1;
+  proto.base.v1.PaginationResponse pagination = 1;
   repeated Product data = 2;
 }
 
@@ -63,17 +65,46 @@ message DeleteProductRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
-  oneof result {
-    Product product = 1;
-    base.v1.ErrorResponse error = 2;
-  }
+message CreateProductResponse {
+  Product product = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
+message UpdateProductResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteProductResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message GetProductResponse {
+  Product product = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+// ProductService: manage products
 service ProductService {
-  rpc GetProduct (GetProductRequest) returns (Product) {}
-  rpc GetProducts (GetProductsRequest) returns (GetProductsResponse) {}
-  rpc CreateProduct (CreateProductRequest) returns (CreateSuccess) {}
-  rpc UpdateProduct (UpdateProductRequest) returns (base.v1.UpdateSuccess) {}
-  rpc DeleteProduct (DeleteProductRequest) returns (base.v1.DeleteSuccess) {}
+  // GetProduct returns a product by id
+  // Req example: { "product_id": "uuid" }
+  // Res example: { product: { "product_id": "...", "name": "..." } }
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse) {}
+
+  // GetProducts returns paginated products
+  // Req example: { "pagination": { "page":1, "limit":10 } }
+  rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {}
+
+  // CreateProduct creates a product
+  // Req example: { "product": { "name":"p" }, "user_id":"uuid" }
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {}
+
+  // UpdateProduct updates a product
+  // Req example: { "product": { "product_id":"uuid", "name":"new" }, "user_id":"uuid" }
+  rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse) {}
+
+  // DeleteProduct soft-deletes a product
+  // Req example: { "product_id":"uuid", "user_id":"uuid" }
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse) {}
 }

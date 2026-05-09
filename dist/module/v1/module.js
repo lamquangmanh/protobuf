@@ -15,8 +15,9 @@ function createBaseModule() {
         updatedUserId: "",
         deletedAt: "",
         deletedUserId: "",
-        productId: undefined,
+        productId: "",
         icon: undefined,
+        url: undefined,
     };
 }
 exports.Module = {
@@ -48,11 +49,14 @@ exports.Module = {
         if (message.deletedUserId !== "") {
             writer.uint32(74).string(message.deletedUserId);
         }
-        if (message.productId !== undefined) {
+        if (message.productId !== "") {
             writer.uint32(82).string(message.productId);
         }
         if (message.icon !== undefined) {
             writer.uint32(90).string(message.icon);
+        }
+        if (message.url !== undefined) {
+            writer.uint32(98).string(message.url);
         }
         return writer;
     },
@@ -140,6 +144,13 @@ exports.Module = {
                     message.icon = reader.string();
                     continue;
                 }
+                case 12: {
+                    if (tag !== 98) {
+                        break;
+                    }
+                    message.url = reader.string();
+                    continue;
+                }
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -159,8 +170,9 @@ exports.Module = {
             updatedUserId: isSet(object.updatedUserId) ? globalThis.String(object.updatedUserId) : "",
             deletedAt: isSet(object.deletedAt) ? globalThis.String(object.deletedAt) : "",
             deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
-            productId: isSet(object.productId) ? globalThis.String(object.productId) : undefined,
+            productId: isSet(object.productId) ? globalThis.String(object.productId) : "",
             icon: isSet(object.icon) ? globalThis.String(object.icon) : undefined,
+            url: isSet(object.url) ? globalThis.String(object.url) : undefined,
         };
     },
     toJSON(message) {
@@ -192,11 +204,14 @@ exports.Module = {
         if (message.deletedUserId !== "") {
             obj.deletedUserId = message.deletedUserId;
         }
-        if (message.productId !== undefined) {
+        if (message.productId !== "") {
             obj.productId = message.productId;
         }
         if (message.icon !== undefined) {
             obj.icon = message.icon;
+        }
+        if (message.url !== undefined) {
+            obj.url = message.url;
         }
         return obj;
     },
@@ -214,13 +229,14 @@ exports.Module = {
         message.updatedUserId = object.updatedUserId ?? "";
         message.deletedAt = object.deletedAt ?? "";
         message.deletedUserId = object.deletedUserId ?? "";
-        message.productId = object.productId ?? undefined;
+        message.productId = object.productId ?? "";
         message.icon = object.icon ?? undefined;
+        message.url = object.url ?? undefined;
         return message;
     },
 };
 function createBaseCreateModuleData() {
-    return { name: "", description: "", productId: undefined, icon: undefined };
+    return { name: "", description: "", productId: "", icon: undefined, url: undefined };
 }
 exports.CreateModuleData = {
     encode(message, writer = new wire_1.BinaryWriter()) {
@@ -230,11 +246,14 @@ exports.CreateModuleData = {
         if (message.description !== "") {
             writer.uint32(18).string(message.description);
         }
-        if (message.productId !== undefined) {
+        if (message.productId !== "") {
             writer.uint32(26).string(message.productId);
         }
         if (message.icon !== undefined) {
             writer.uint32(34).string(message.icon);
+        }
+        if (message.url !== undefined) {
+            writer.uint32(42).string(message.url);
         }
         return writer;
     },
@@ -273,6 +292,13 @@ exports.CreateModuleData = {
                     message.icon = reader.string();
                     continue;
                 }
+                case 5: {
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.url = reader.string();
+                    continue;
+                }
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -285,8 +311,9 @@ exports.CreateModuleData = {
         return {
             name: isSet(object.name) ? globalThis.String(object.name) : "",
             description: isSet(object.description) ? globalThis.String(object.description) : "",
-            productId: isSet(object.productId) ? globalThis.String(object.productId) : undefined,
+            productId: isSet(object.productId) ? globalThis.String(object.productId) : "",
             icon: isSet(object.icon) ? globalThis.String(object.icon) : undefined,
+            url: isSet(object.url) ? globalThis.String(object.url) : undefined,
         };
     },
     toJSON(message) {
@@ -297,11 +324,14 @@ exports.CreateModuleData = {
         if (message.description !== "") {
             obj.description = message.description;
         }
-        if (message.productId !== undefined) {
+        if (message.productId !== "") {
             obj.productId = message.productId;
         }
         if (message.icon !== undefined) {
             obj.icon = message.icon;
+        }
+        if (message.url !== undefined) {
+            obj.url = message.url;
         }
         return obj;
     },
@@ -312,13 +342,14 @@ exports.CreateModuleData = {
         const message = createBaseCreateModuleData();
         message.name = object.name ?? "";
         message.description = object.description ?? "";
-        message.productId = object.productId ?? undefined;
+        message.productId = object.productId ?? "";
         message.icon = object.icon ?? undefined;
+        message.url = object.url ?? undefined;
         return message;
     },
 };
 function createBaseUpdateModuleData() {
-    return { moduleId: "", name: "", description: "", productId: undefined, icon: undefined };
+    return { moduleId: "", name: "", description: "", productId: "", icon: undefined, url: undefined };
 }
 exports.UpdateModuleData = {
     encode(message, writer = new wire_1.BinaryWriter()) {
@@ -331,11 +362,14 @@ exports.UpdateModuleData = {
         if (message.description !== "") {
             writer.uint32(26).string(message.description);
         }
-        if (message.productId !== undefined) {
+        if (message.productId !== "") {
             writer.uint32(34).string(message.productId);
         }
         if (message.icon !== undefined) {
             writer.uint32(42).string(message.icon);
+        }
+        if (message.url !== undefined) {
+            writer.uint32(50).string(message.url);
         }
         return writer;
     },
@@ -381,6 +415,13 @@ exports.UpdateModuleData = {
                     message.icon = reader.string();
                     continue;
                 }
+                case 6: {
+                    if (tag !== 50) {
+                        break;
+                    }
+                    message.url = reader.string();
+                    continue;
+                }
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -394,8 +435,9 @@ exports.UpdateModuleData = {
             moduleId: isSet(object.moduleId) ? globalThis.String(object.moduleId) : "",
             name: isSet(object.name) ? globalThis.String(object.name) : "",
             description: isSet(object.description) ? globalThis.String(object.description) : "",
-            productId: isSet(object.productId) ? globalThis.String(object.productId) : undefined,
+            productId: isSet(object.productId) ? globalThis.String(object.productId) : "",
             icon: isSet(object.icon) ? globalThis.String(object.icon) : undefined,
+            url: isSet(object.url) ? globalThis.String(object.url) : undefined,
         };
     },
     toJSON(message) {
@@ -409,11 +451,14 @@ exports.UpdateModuleData = {
         if (message.description !== "") {
             obj.description = message.description;
         }
-        if (message.productId !== undefined) {
+        if (message.productId !== "") {
             obj.productId = message.productId;
         }
         if (message.icon !== undefined) {
             obj.icon = message.icon;
+        }
+        if (message.url !== undefined) {
+            obj.url = message.url;
         }
         return obj;
     },
@@ -425,8 +470,9 @@ exports.UpdateModuleData = {
         message.moduleId = object.moduleId ?? "";
         message.name = object.name ?? "";
         message.description = object.description ?? "";
-        message.productId = object.productId ?? undefined;
+        message.productId = object.productId ?? "";
         message.icon = object.icon ?? undefined;
+        message.url = object.url ?? undefined;
         return message;
     },
 };

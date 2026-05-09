@@ -11,21 +11,24 @@ export interface Module {
     updatedUserId: string;
     deletedAt: string;
     deletedUserId: string;
-    productId?: string | undefined;
+    productId: string;
     icon?: string | undefined;
+    url?: string | undefined;
 }
 export interface CreateModuleData {
     name: string;
     description: string;
-    productId?: string | undefined;
+    productId: string;
     icon?: string | undefined;
+    url?: string | undefined;
 }
 export interface UpdateModuleData {
     moduleId: string;
     name: string;
     description: string;
-    productId?: string | undefined;
+    productId: string;
     icon?: string | undefined;
+    url?: string | undefined;
 }
 export interface GetModuleRequest {
     moduleId: string;

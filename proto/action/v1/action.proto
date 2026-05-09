@@ -1,15 +1,18 @@
 
 syntax = "proto3";
-import "base/v1/base.proto";
+import "proto/base/v1/base.proto";
 
-package action.v1;
+package proto.action.v1;
+
+option go_package = "go-api/pkg/api/actionpb;actionpb";
 
 enum ActionRequestType {
-  VIEW = 0;
-  HTTP = 1;
-  GRAPHQL = 2;
-  GRPC = 3;
-  WEBSOCKET = 4;
+  ACTION_REQUEST_TYPE_UNSPECIFIED = 0;
+  ACTION_REQUEST_TYPE_VIEW = 1;
+  ACTION_REQUEST_TYPE_HTTP = 2;
+  ACTION_REQUEST_TYPE_GRAPHQL = 3;
+  ACTION_REQUEST_TYPE_GRPC = 4;
+  ACTION_REQUEST_TYPE_WEBSOCKET = 5;
 }
 
 message Action {
@@ -52,13 +55,13 @@ message GetActionRequest {
 }
 
 message GetActionsRequest {
-  base.v1.PaginationRequest pagination = 1;
-  repeated base.v1.Sort sorts = 2;
-  repeated base.v1.Filter filters = 3;
-}
+  proto.base.v1.PaginationRequest pagination = 1;
+  repeated proto.base.v1.Sort sorts = 2;
+  repeated proto.base.v1.Filter filters = 3;
 
+}
 message GetActionsResponse {
-  base.v1.PaginationResponse pagination = 1;
+  proto.base.v1.PaginationResponse pagination = 1;
   repeated Action data = 2;
 }
 
@@ -77,17 +80,52 @@ message DeleteActionRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
-  oneof result {
-    Action action = 1;
-    base.v1.ErrorResponse error = 2;
-  }
+message CreateActionResponse {
+  Action action = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
+message UpdateActionResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteActionResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message GetActionResponse {
+  Action action = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+// ActionService: manage actions for resources
+// Sample GetAction request: { "action_id": "uuid" }
+// Sample GetAction response: Action
 service ActionService {
-  rpc GetAction (GetActionRequest) returns (Action) {}
+  // GetAction returns a single Action by id
+  // Req example: { "action_id": "uuid" }
+  // Res example: { "action_id": "...", "name": "...", "request_type": HTTP }
+  rpc GetAction (GetActionRequest) returns (GetActionResponse) {}
+
+  // GetActions returns paginated actions
+  // Req example: { "pagination": { "page": 1, "limit": 10 } }
+  // Res example: { "pagination": { "page":1, "limit":10, "totalItems":0 }, "data": [] }
   rpc GetActions (GetActionsRequest) returns (GetActionsResponse) {}
-  rpc CreateAction (CreateActionRequest) returns (CreateSuccess) {}
-  rpc UpdateAction (UpdateActionRequest) returns (base.v1.UpdateSuccess) {}
-  rpc DeleteAction (DeleteActionRequest) returns (base.v1.DeleteSuccess) {}
+
+  // CreateAction creates a new action
+  // Req example: { "action": { "resource_id": "uuid", "name": "Read", "request_type": HTTP } }
+  // Res example: CreateActionResponse
+  rpc CreateAction (CreateActionRequest) returns (CreateActionResponse) {}
+
+  // UpdateAction updates an existing action
+  // Req example: { "action": { "action_id": "uuid", "name": "Updated" } }
+  // Res example: { result: { success: true } }
+  rpc UpdateAction (UpdateActionRequest) returns (UpdateActionResponse) {}
+
+  // DeleteAction performs soft delete
+  // Req example: { "action_id": "uuid", "user_id": "uuid" }
+  // Res example: { result: { success: true } }
+  rpc DeleteAction (DeleteActionRequest) returns (DeleteActionResponse) {}
 }

@@ -1,7 +1,9 @@
 
 syntax = "proto3";
 
-package menu.v1;
+package proto.menu.v1;
+
+option go_package = "go-api/pkg/api/menupb;menupb";
 
 message SubMenu {
   string name = 1;
@@ -12,7 +14,7 @@ message Menu {
   string name = 1;
   string url = 2;
   optional string icon = 3;
-  repeated SubMenu subMenus = 4; // Nested sub-menus
+  repeated SubMenu sub_menus = 4; // Nested sub-menus
 }
 
 message SuperMenu {
@@ -23,14 +25,18 @@ message SuperMenu {
   repeated Menu menus = 5; // Nested sub-menus
 }
 
-message GetSuperMenuRequest {
+message GetSuperMenusRequest {
   string user_id = 1;
 }
 
-message GetSuperMenuResponse {
+message GetSuperMenusResponse {
   repeated SuperMenu super_menus = 1;
 }
 
+// MenuService: retrieve hierarchical menu for a user
 service MenuService {
-  rpc GetSuperMenus (GetSuperMenuRequest) returns (GetSuperMenuResponse) {}
+  // GetSuperMenus returns full menu structure available to a user
+  // Req example: { "user_id": "uuid" }
+  // Res example: { "super_menus": [ { "name":"...", "menus": [...] } ] }
+  rpc GetSuperMenus (GetSuperMenusRequest) returns (GetSuperMenusResponse) {}
 }

@@ -76,6 +76,7 @@ export interface User {
   updatedUserId: string;
   deletedAt: string;
   deletedUserId: string;
+  roleIds: string[];
 }
 
 export interface CreateUserData {
@@ -152,6 +153,7 @@ function createBaseUser(): User {
     updatedUserId: "",
     deletedAt: "",
     deletedUserId: "",
+    roleIds: [],
   };
 }
 
@@ -192,6 +194,9 @@ export const User: MessageFns<User> = {
     }
     if (message.deletedUserId !== "") {
       writer.uint32(98).string(message.deletedUserId);
+    }
+    for (const v of message.roleIds) {
+      writer.uint32(106).string(v!);
     }
     return writer;
   },
@@ -299,6 +304,14 @@ export const User: MessageFns<User> = {
           message.deletedUserId = reader.string();
           continue;
         }
+        case 13: {
+          if (tag !== 106) {
+            break;
+          }
+
+          message.roleIds.push(reader.string());
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -322,6 +335,7 @@ export const User: MessageFns<User> = {
       updatedUserId: isSet(object.updatedUserId) ? globalThis.String(object.updatedUserId) : "",
       deletedAt: isSet(object.deletedAt) ? globalThis.String(object.deletedAt) : "",
       deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
+      roleIds: globalThis.Array.isArray(object?.roleIds) ? object.roleIds.map((e: any) => globalThis.String(e)) : [],
     };
   },
 
@@ -363,6 +377,9 @@ export const User: MessageFns<User> = {
     if (message.deletedUserId !== "") {
       obj.deletedUserId = message.deletedUserId;
     }
+    if (message.roleIds?.length) {
+      obj.roleIds = message.roleIds;
+    }
     return obj;
   },
 
@@ -383,6 +400,7 @@ export const User: MessageFns<User> = {
     message.updatedUserId = object.updatedUserId ?? "";
     message.deletedAt = object.deletedAt ?? "";
     message.deletedUserId = object.deletedUserId ?? "";
+    message.roleIds = object.roleIds?.map((e) => e) || [];
     return message;
   },
 };

@@ -1,8 +1,10 @@
-
 syntax = "proto3";
-import "base/v1/base.proto";
 
-package module.v1;
+import "proto/base/v1/base.proto";
+
+package proto.module.v1;
+
+option go_package = "go-api/pkg/api/modulepb;modulepb";
 
 message Module {
   string module_id = 1;
@@ -14,23 +16,26 @@ message Module {
   string updated_user_id = 7;
   string deleted_at = 8;
   string deleted_user_id = 9;
-  optional string product_id = 10;
+  string product_id = 10;
   optional string icon = 11;
+  optional string url = 12;
 }
 
 message CreateModuleData {
   string name = 1;
   string description = 2;
-  optional string product_id = 3;
+  string product_id = 3;
   optional string icon = 4;
+  optional string url = 5;
 }
 
 message UpdateModuleData {
   string module_id = 1;
   string name = 2;
   string description = 3;
-  optional string product_id = 4;
+  string product_id = 4;
   optional string icon = 5;
+  optional string url = 6;
 }
 
 message GetModuleRequest {
@@ -38,13 +43,13 @@ message GetModuleRequest {
 }
 
 message GetModulesRequest {
-  base.v1.PaginationRequest pagination = 1;
-  repeated base.v1.Sort sorts = 2;
-  repeated base.v1.Filter filters = 3;
-}
+  proto.base.v1.PaginationRequest pagination = 1;
+  repeated proto.base.v1.Sort sorts = 2;
+  repeated proto.base.v1.Filter filters = 3;
 
+}
 message GetModulesResponse {
-  base.v1.PaginationResponse pagination = 1;
+  proto.base.v1.PaginationResponse pagination = 1;
   repeated Module data = 2;
 }
 
@@ -63,17 +68,48 @@ message DeleteModuleRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
-  oneof result {
-    Module module = 1;
-    base.v1.ErrorResponse error = 2;
-  }
+message CreateModuleResponse {
+  Module module = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
+message UpdateModuleResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteModuleResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message GetModuleResponse {
+  Module module = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+// ModuleService: manage modules (grouping of resources)
+// Sample GetModule request: { "module_id": "uuid" }
 service ModuleService {
-  rpc GetModule (GetModuleRequest) returns (Module) {}
-  rpc GetModules (GetModulesRequest) returns (GetModulesResponse) {}
-  rpc CreateModule (CreateModuleRequest) returns (CreateSuccess) {}
-  rpc UpdateModule (UpdateModuleRequest) returns (base.v1.UpdateSuccess) {}
-  rpc DeleteModule (DeleteModuleRequest) returns (base.v1.DeleteSuccess) {}
+  // GetModule returns a single Module
+  // Req example: { "module_id": "..." }
+  // Res example: { "module_id": "...", "name": "..." }
+  rpc GetModule(GetModuleRequest) returns (GetModuleResponse) {}
+
+  // GetModules returns paginated modules
+  // Req example: { "pagination": { "page":1, "limit":10 } }
+  // Res example: { "pagination": { "page":1, "limit":10 }, "data": [] }
+  rpc GetModules(GetModulesRequest) returns (GetModulesResponse) {}
+
+  // CreateModule creates a new module
+  // Req example: { "module": { "name":"mod" }, "user_id":"uuid" }
+  rpc CreateModule(CreateModuleRequest) returns (CreateModuleResponse) {}
+
+  // UpdateModule updates a module
+  // Req example: { "module": { "module_id":"uuid", "name":"new" }, "user_id":"uuid" }
+  rpc UpdateModule(UpdateModuleRequest) returns (UpdateModuleResponse) {}
+
+  // DeleteModule soft-deletes a module
+  // Req example: { "module_id":"uuid", "user_id":"uuid" }
+  rpc DeleteModule(DeleteModuleRequest) returns (DeleteModuleResponse) {}
 }

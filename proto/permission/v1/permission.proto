@@ -1,8 +1,10 @@
 
 syntax = "proto3";
-import "base/v1/base.proto";
+import "proto/base/v1/base.proto";
 
-package permission.v1;
+package proto.permission.v1;
+
+option go_package = "go-api/pkg/api/permissionpb;permissionpb";
 
 message Permission {
   string permission_id = 1;
@@ -35,13 +37,13 @@ message GetPermissionRequest {
 }
 
 message GetPermissionsRequest {
-  base.v1.PaginationRequest pagination = 1;
-  repeated base.v1.Sort sorts = 2;
-  repeated base.v1.Filter filters = 3;
+  proto.base.v1.PaginationRequest pagination = 1;
+  repeated proto.base.v1.Sort sorts = 2;
+  repeated proto.base.v1.Filter filters = 3;
 }
 
 message GetPermissionsResponse {
-  base.v1.PaginationResponse pagination = 1;
+  proto.base.v1.PaginationResponse pagination = 1;
   repeated Permission data = 2;
 }
 
@@ -60,11 +62,24 @@ message DeletePermissionRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
-  oneof result {
-    Permission permission = 1;
-    base.v1.ErrorResponse error = 2;
-  }
+message CreatePermissionResponse {
+  Permission permission = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message GetPermissionResponse {
+  Permission permission = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message UpdatePermissionResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeletePermissionResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
 message PermissionInfo {
@@ -82,11 +97,30 @@ message GetPermissionsByUserIdResponse {
   repeated PermissionInfo permissions = 1;
 }
 
+// PermissionService: manage role-resource-action permissions
 service PermissionService {
-  rpc GetPermission (GetPermissionRequest) returns (Permission) {}
+  // GetPermission returns a single permission by id
+  // Req example: { "permission_id": "uuid" }
+  rpc GetPermission (GetPermissionRequest) returns (GetPermissionResponse) {}
+
+  // GetPermissions returns paginated permissions
+  // Req example: { "pagination": { "page":1, "limit":10 } }
   rpc GetPermissions (GetPermissionsRequest) returns (GetPermissionsResponse) {}
-  rpc CreatePermission (CreatePermissionRequest) returns (CreateSuccess) {}
-  rpc UpdatePermission (UpdatePermissionRequest) returns (base.v1.UpdateSuccess) {}
-  rpc DeletePermission (DeletePermissionRequest) returns (base.v1.DeleteSuccess) {}
+
+  // CreatePermission assigns permission for role-resource-action
+  // Req example: { "permission": { "role_id":"uuid", "resource_id":"uuid", "action_id":"uuid" }, "user_id":"uuid" }
+  rpc CreatePermission (CreatePermissionRequest) returns (CreatePermissionResponse) {}
+
+  // UpdatePermission updates a permission mapping
+  // Req example: { "permission": { "permission_id":"uuid", ... }, "user_id":"uuid" }
+  rpc UpdatePermission (UpdatePermissionRequest) returns (UpdatePermissionResponse) {}
+
+  // DeletePermission soft-deletes a permission
+  // Req example: { "permission_id":"uuid", "user_id":"uuid" }
+  rpc DeletePermission (DeletePermissionRequest) returns (DeletePermissionResponse) {}
+
+  // GetPermissionsByUserId returns permissions available to a user
+  // Req example: { "user_id":"uuid" }
+  // Res example: { "permissions": [ { "resource": {...}, "action": {...} } ] }
   rpc GetPermissionsByUserId (GetPermissionsByUserIdRequest) returns (GetPermissionsByUserIdResponse) {}
 }
