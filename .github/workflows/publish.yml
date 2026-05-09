@@ -6,7 +6,7 @@ on:
       - "v*"
 
 jobs:
-  publish-node:
+  publish-nodejs-package:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -34,6 +34,12 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Set Node package version from tag
+        run: |
+          PACKAGE_VERSION="${GITHUB_REF_NAME#v}"
+          npm version --no-git-tag-version "$PACKAGE_VERSION"
+          echo "Publishing @lamquangmanh/protobuf@$PACKAGE_VERSION"
+
       - name: Build Node package
         run: |
           go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
@@ -41,11 +47,17 @@ jobs:
           yarn build:ts
 
       - name: Publish Node package to GitHub Packages
-        run: npm publish
+        run: |
+          PACKAGE_VERSION="${GITHUB_REF_NAME#v}"
+          if npm view "@lamquangmanh/protobuf@$PACKAGE_VERSION" version >/dev/null 2>&1; then
+            echo "@lamquangmanh/protobuf@$PACKAGE_VERSION already exists in GitHub Packages, skipping publish"
+            exit 0
+          fi
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  release-go-artifacts:
+  publish-go-package:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -69,6 +81,18 @@ jobs:
 
       - name: Generate Go protobuf
         run: bash ./build_proto_go.sh
+
+      - name: Verify Go module in gen/go
+        run: |
+          cd gen/go
+          # Ensure go.mod has correct module path for pkg.go.dev discovery
+          if ! grep -q "^module github.com/lamquangmanh/protobuf" go.mod; then
+            echo "Updating module path in gen/go/go.mod"
+            sed -i 's/^module .*/module github.com\/lamquangmanh\/protobuf\/gen\/go/' go.mod
+          fi
+          go mod tidy
+          echo "Go module verified"
+          cat go.mod | head -5
 
       - name: Upload generated Go artifacts to release
         uses: softprops/action-gh-release@v2
