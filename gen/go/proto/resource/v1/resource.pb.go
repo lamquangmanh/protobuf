@@ -655,7 +655,7 @@ func (x *DeleteResourceRequest) GetUserId() string {
 	return ""
 }
 
-type CreateSuccess struct {
+type CreateResourceResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resource      *Resource              `protobuf:"bytes,1,opt,name=resource,proto3" json:"resource,omitempty"`
 	Errors        []*v11.ErrorMessage    `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
@@ -663,20 +663,20 @@ type CreateSuccess struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateSuccess) Reset() {
-	*x = CreateSuccess{}
+func (x *CreateResourceResponse) Reset() {
+	*x = CreateResourceResponse{}
 	mi := &file_proto_resource_v1_resource_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateSuccess) String() string {
+func (x *CreateResourceResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateSuccess) ProtoMessage() {}
+func (*CreateResourceResponse) ProtoMessage() {}
 
-func (x *CreateSuccess) ProtoReflect() protoreflect.Message {
+func (x *CreateResourceResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_resource_v1_resource_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -688,19 +688,123 @@ func (x *CreateSuccess) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateSuccess.ProtoReflect.Descriptor instead.
-func (*CreateSuccess) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateResourceResponse.ProtoReflect.Descriptor instead.
+func (*CreateResourceResponse) Descriptor() ([]byte, []int) {
 	return file_proto_resource_v1_resource_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *CreateSuccess) GetResource() *Resource {
+func (x *CreateResourceResponse) GetResource() *Resource {
 	if x != nil {
 		return x.Resource
 	}
 	return nil
 }
 
-func (x *CreateSuccess) GetErrors() []*v11.ErrorMessage {
+func (x *CreateResourceResponse) GetErrors() []*v11.ErrorMessage {
+	if x != nil {
+		return x.Errors
+	}
+	return nil
+}
+
+type UpdateResourceResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Errors        []*v11.ErrorMessage    `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateResourceResponse) Reset() {
+	*x = UpdateResourceResponse{}
+	mi := &file_proto_resource_v1_resource_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateResourceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateResourceResponse) ProtoMessage() {}
+
+func (x *UpdateResourceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_resource_v1_resource_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateResourceResponse.ProtoReflect.Descriptor instead.
+func (*UpdateResourceResponse) Descriptor() ([]byte, []int) {
+	return file_proto_resource_v1_resource_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *UpdateResourceResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *UpdateResourceResponse) GetErrors() []*v11.ErrorMessage {
+	if x != nil {
+		return x.Errors
+	}
+	return nil
+}
+
+type DeleteResourceResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Errors        []*v11.ErrorMessage    `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteResourceResponse) Reset() {
+	*x = DeleteResourceResponse{}
+	mi := &file_proto_resource_v1_resource_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteResourceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteResourceResponse) ProtoMessage() {}
+
+func (x *DeleteResourceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_resource_v1_resource_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteResourceResponse.ProtoReflect.Descriptor instead.
+func (*DeleteResourceResponse) Descriptor() ([]byte, []int) {
+	return file_proto_resource_v1_resource_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *DeleteResourceResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *DeleteResourceResponse) GetErrors() []*v11.ErrorMessage {
 	if x != nil {
 		return x.Errors
 	}
@@ -717,7 +821,7 @@ type GetResourceResponse struct {
 
 func (x *GetResourceResponse) Reset() {
 	*x = GetResourceResponse{}
-	mi := &file_proto_resource_v1_resource_proto_msgTypes[11]
+	mi := &file_proto_resource_v1_resource_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -729,7 +833,7 @@ func (x *GetResourceResponse) String() string {
 func (*GetResourceResponse) ProtoMessage() {}
 
 func (x *GetResourceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_resource_v1_resource_proto_msgTypes[11]
+	mi := &file_proto_resource_v1_resource_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -742,7 +846,7 @@ func (x *GetResourceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetResourceResponse.ProtoReflect.Descriptor instead.
 func (*GetResourceResponse) Descriptor() ([]byte, []int) {
-	return file_proto_resource_v1_resource_proto_rawDescGZIP(), []int{11}
+	return file_proto_resource_v1_resource_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetResourceResponse) GetResource() *Resource {
@@ -820,19 +924,25 @@ const file_proto_resource_v1_resource_proto_rawDesc = "" +
 	"\x15DeleteResourceRequest\x12\x1f\n" +
 	"\vresource_id\x18\x01 \x01(\tR\n" +
 	"resourceId\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\"}\n" +
-	"\rCreateSuccess\x127\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\"\x86\x01\n" +
+	"\x16CreateResourceResponse\x127\n" +
 	"\bresource\x18\x01 \x01(\v2\x1b.proto.resource.v1.ResourceR\bresource\x123\n" +
+	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors\"g\n" +
+	"\x16UpdateResourceResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x123\n" +
+	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors\"g\n" +
+	"\x16DeleteResourceResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x123\n" +
 	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors\"\x83\x01\n" +
 	"\x13GetResourceResponse\x127\n" +
 	"\bresource\x18\x01 \x01(\v2\x1b.proto.resource.v1.ResourceR\bresource\x123\n" +
-	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors2\xec\x03\n" +
+	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors2\x8f\x04\n" +
 	"\x0fResourceService\x12^\n" +
 	"\vGetResource\x12%.proto.resource.v1.GetResourceRequest\x1a&.proto.resource.v1.GetResourceResponse\"\x00\x12a\n" +
-	"\fGetResources\x12&.proto.resource.v1.GetResourcesRequest\x1a'.proto.resource.v1.GetResourcesResponse\"\x00\x12^\n" +
-	"\x0eCreateResource\x12(.proto.resource.v1.CreateResourceRequest\x1a .proto.resource.v1.CreateSuccess\"\x00\x12Z\n" +
-	"\x0eUpdateResource\x12(.proto.resource.v1.UpdateResourceRequest\x1a\x1c.proto.base.v1.UpdateSuccess\"\x00\x12Z\n" +
-	"\x0eDeleteResource\x12(.proto.resource.v1.DeleteResourceRequest\x1a\x1c.proto.base.v1.DeleteSuccess\"\x00B\xd2\x01\n" +
+	"\fGetResources\x12&.proto.resource.v1.GetResourcesRequest\x1a'.proto.resource.v1.GetResourcesResponse\"\x00\x12g\n" +
+	"\x0eCreateResource\x12(.proto.resource.v1.CreateResourceRequest\x1a).proto.resource.v1.CreateResourceResponse\"\x00\x12g\n" +
+	"\x0eUpdateResource\x12(.proto.resource.v1.UpdateResourceRequest\x1a).proto.resource.v1.UpdateResourceResponse\"\x00\x12g\n" +
+	"\x0eDeleteResource\x12(.proto.resource.v1.DeleteResourceRequest\x1a).proto.resource.v1.DeleteResourceResponse\"\x00B\xd2\x01\n" +
 	"\x15com.proto.resource.v1B\rResourceProtoP\x01ZDgithub.com/lamquangmanh/protobuf/gen/go/proto/resource/v1;resourcev1\xa2\x02\x03PRX\xaa\x02\x11Proto.Resource.V1\xca\x02\x11Proto\\Resource\\V1\xe2\x02\x1dProto\\Resource\\V1\\GPBMetadata\xea\x02\x13Proto::Resource::V1b\x06proto3"
 
 var (
@@ -847,7 +957,7 @@ func file_proto_resource_v1_resource_proto_rawDescGZIP() []byte {
 	return file_proto_resource_v1_resource_proto_rawDescData
 }
 
-var file_proto_resource_v1_resource_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_proto_resource_v1_resource_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_proto_resource_v1_resource_proto_goTypes = []any{
 	(*Resource)(nil),               // 0: proto.resource.v1.Resource
 	(*Action)(nil),                 // 1: proto.resource.v1.Action
@@ -859,47 +969,49 @@ var file_proto_resource_v1_resource_proto_goTypes = []any{
 	(*CreateResourceRequest)(nil),  // 7: proto.resource.v1.CreateResourceRequest
 	(*UpdateResourceRequest)(nil),  // 8: proto.resource.v1.UpdateResourceRequest
 	(*DeleteResourceRequest)(nil),  // 9: proto.resource.v1.DeleteResourceRequest
-	(*CreateSuccess)(nil),          // 10: proto.resource.v1.CreateSuccess
-	(*GetResourceResponse)(nil),    // 11: proto.resource.v1.GetResourceResponse
-	(v1.ActionRequestType)(0),      // 12: proto.action.v1.ActionRequestType
-	(*v11.PaginationRequest)(nil),  // 13: proto.base.v1.PaginationRequest
-	(*v11.Sort)(nil),               // 14: proto.base.v1.Sort
-	(*v11.Filter)(nil),             // 15: proto.base.v1.Filter
-	(*v11.PaginationResponse)(nil), // 16: proto.base.v1.PaginationResponse
-	(*v11.ErrorMessage)(nil),       // 17: proto.base.v1.ErrorMessage
-	(*v11.UpdateSuccess)(nil),      // 18: proto.base.v1.UpdateSuccess
-	(*v11.DeleteSuccess)(nil),      // 19: proto.base.v1.DeleteSuccess
+	(*CreateResourceResponse)(nil), // 10: proto.resource.v1.CreateResourceResponse
+	(*UpdateResourceResponse)(nil), // 11: proto.resource.v1.UpdateResourceResponse
+	(*DeleteResourceResponse)(nil), // 12: proto.resource.v1.DeleteResourceResponse
+	(*GetResourceResponse)(nil),    // 13: proto.resource.v1.GetResourceResponse
+	(v1.ActionRequestType)(0),      // 14: proto.action.v1.ActionRequestType
+	(*v11.PaginationRequest)(nil),  // 15: proto.base.v1.PaginationRequest
+	(*v11.Sort)(nil),               // 16: proto.base.v1.Sort
+	(*v11.Filter)(nil),             // 17: proto.base.v1.Filter
+	(*v11.PaginationResponse)(nil), // 18: proto.base.v1.PaginationResponse
+	(*v11.ErrorMessage)(nil),       // 19: proto.base.v1.ErrorMessage
 }
 var file_proto_resource_v1_resource_proto_depIdxs = []int32{
-	12, // 0: proto.resource.v1.Action.request_type:type_name -> proto.action.v1.ActionRequestType
+	14, // 0: proto.resource.v1.Action.request_type:type_name -> proto.action.v1.ActionRequestType
 	1,  // 1: proto.resource.v1.CreateResourceData.actions:type_name -> proto.resource.v1.Action
 	1,  // 2: proto.resource.v1.UpdateResourceData.actions:type_name -> proto.resource.v1.Action
-	13, // 3: proto.resource.v1.GetResourcesRequest.pagination:type_name -> proto.base.v1.PaginationRequest
-	14, // 4: proto.resource.v1.GetResourcesRequest.sorts:type_name -> proto.base.v1.Sort
-	15, // 5: proto.resource.v1.GetResourcesRequest.filters:type_name -> proto.base.v1.Filter
-	16, // 6: proto.resource.v1.GetResourcesResponse.pagination:type_name -> proto.base.v1.PaginationResponse
+	15, // 3: proto.resource.v1.GetResourcesRequest.pagination:type_name -> proto.base.v1.PaginationRequest
+	16, // 4: proto.resource.v1.GetResourcesRequest.sorts:type_name -> proto.base.v1.Sort
+	17, // 5: proto.resource.v1.GetResourcesRequest.filters:type_name -> proto.base.v1.Filter
+	18, // 6: proto.resource.v1.GetResourcesResponse.pagination:type_name -> proto.base.v1.PaginationResponse
 	0,  // 7: proto.resource.v1.GetResourcesResponse.data:type_name -> proto.resource.v1.Resource
 	2,  // 8: proto.resource.v1.CreateResourceRequest.resource:type_name -> proto.resource.v1.CreateResourceData
 	3,  // 9: proto.resource.v1.UpdateResourceRequest.resource:type_name -> proto.resource.v1.UpdateResourceData
-	0,  // 10: proto.resource.v1.CreateSuccess.resource:type_name -> proto.resource.v1.Resource
-	17, // 11: proto.resource.v1.CreateSuccess.errors:type_name -> proto.base.v1.ErrorMessage
-	0,  // 12: proto.resource.v1.GetResourceResponse.resource:type_name -> proto.resource.v1.Resource
-	17, // 13: proto.resource.v1.GetResourceResponse.errors:type_name -> proto.base.v1.ErrorMessage
-	4,  // 14: proto.resource.v1.ResourceService.GetResource:input_type -> proto.resource.v1.GetResourceRequest
-	5,  // 15: proto.resource.v1.ResourceService.GetResources:input_type -> proto.resource.v1.GetResourcesRequest
-	7,  // 16: proto.resource.v1.ResourceService.CreateResource:input_type -> proto.resource.v1.CreateResourceRequest
-	8,  // 17: proto.resource.v1.ResourceService.UpdateResource:input_type -> proto.resource.v1.UpdateResourceRequest
-	9,  // 18: proto.resource.v1.ResourceService.DeleteResource:input_type -> proto.resource.v1.DeleteResourceRequest
-	11, // 19: proto.resource.v1.ResourceService.GetResource:output_type -> proto.resource.v1.GetResourceResponse
-	6,  // 20: proto.resource.v1.ResourceService.GetResources:output_type -> proto.resource.v1.GetResourcesResponse
-	10, // 21: proto.resource.v1.ResourceService.CreateResource:output_type -> proto.resource.v1.CreateSuccess
-	18, // 22: proto.resource.v1.ResourceService.UpdateResource:output_type -> proto.base.v1.UpdateSuccess
-	19, // 23: proto.resource.v1.ResourceService.DeleteResource:output_type -> proto.base.v1.DeleteSuccess
-	19, // [19:24] is the sub-list for method output_type
-	14, // [14:19] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	0,  // 10: proto.resource.v1.CreateResourceResponse.resource:type_name -> proto.resource.v1.Resource
+	19, // 11: proto.resource.v1.CreateResourceResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	19, // 12: proto.resource.v1.UpdateResourceResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	19, // 13: proto.resource.v1.DeleteResourceResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	0,  // 14: proto.resource.v1.GetResourceResponse.resource:type_name -> proto.resource.v1.Resource
+	19, // 15: proto.resource.v1.GetResourceResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	4,  // 16: proto.resource.v1.ResourceService.GetResource:input_type -> proto.resource.v1.GetResourceRequest
+	5,  // 17: proto.resource.v1.ResourceService.GetResources:input_type -> proto.resource.v1.GetResourcesRequest
+	7,  // 18: proto.resource.v1.ResourceService.CreateResource:input_type -> proto.resource.v1.CreateResourceRequest
+	8,  // 19: proto.resource.v1.ResourceService.UpdateResource:input_type -> proto.resource.v1.UpdateResourceRequest
+	9,  // 20: proto.resource.v1.ResourceService.DeleteResource:input_type -> proto.resource.v1.DeleteResourceRequest
+	13, // 21: proto.resource.v1.ResourceService.GetResource:output_type -> proto.resource.v1.GetResourceResponse
+	6,  // 22: proto.resource.v1.ResourceService.GetResources:output_type -> proto.resource.v1.GetResourcesResponse
+	10, // 23: proto.resource.v1.ResourceService.CreateResource:output_type -> proto.resource.v1.CreateResourceResponse
+	11, // 24: proto.resource.v1.ResourceService.UpdateResource:output_type -> proto.resource.v1.UpdateResourceResponse
+	12, // 25: proto.resource.v1.ResourceService.DeleteResource:output_type -> proto.resource.v1.DeleteResourceResponse
+	21, // [21:26] is the sub-list for method output_type
+	16, // [16:21] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_proto_resource_v1_resource_proto_init() }
@@ -914,7 +1026,7 @@ func file_proto_resource_v1_resource_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_resource_v1_resource_proto_rawDesc), len(file_proto_resource_v1_resource_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

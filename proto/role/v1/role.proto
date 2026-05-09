@@ -116,8 +116,18 @@ message DeleteRoleRequest {
 }
 
 // CreateSuccess returns the created role and any validation errors.
-message CreateSuccess {
+message CreateRoleResponse {
   Role role = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message UpdateRoleResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteRoleResponse {
+  bool success = 1;
   repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
@@ -152,12 +162,12 @@ service RoleService {
   //   "role": { "name": "Viewer", "description": "Read-only", "module_id": "module-3" },
   //   "user_id": "user-42"
   // }
-  // Example Response (CreateSuccess):
+  // Example Response (CreateRoleResponse):
   // {
   //   "role": { "role_id": "role-124", "name": "Viewer", "module_id": "module-3" },
   //   "errors": []
   // }
-  rpc CreateRole (CreateRoleRequest) returns (CreateSuccess) {}
+  rpc CreateRole (CreateRoleRequest) returns (CreateRoleResponse) {}
 
   // UpdateRole updates an existing role. Returns UpdateSuccess indicating operation result.
   // Example Request:
@@ -167,12 +177,12 @@ service RoleService {
   // }
   // Example Response (proto.base.v1.UpdateSuccess):
   // { "success": true, "errors": [] }
-  rpc UpdateRole (UpdateRoleRequest) returns (proto.base.v1.UpdateSuccess) {}
+  rpc UpdateRole (UpdateRoleRequest) returns (UpdateRoleResponse) {}
 
   // DeleteRole marks a role as deleted. Returns DeleteSuccess indicating operation result.
   // Example Request:
   // { "role_id": "role-123", "user_id": "user-2" }
   // Example Response (proto.base.v1.DeleteSuccess):
   // { "success": true, "errors": [] }
-  rpc DeleteRole (DeleteRoleRequest) returns (proto.base.v1.DeleteSuccess) {}
+  rpc DeleteRole (DeleteRoleRequest) returns (DeleteRoleResponse) {}
 }

@@ -35,11 +35,11 @@ export interface SuperMenu {
   menus: Menu[];
 }
 
-export interface GetSuperMenuRequest {
+export interface GetSuperMenusRequest {
   userId: string;
 }
 
-export interface GetSuperMenuResponse {
+export interface GetSuperMenusResponse {
   superMenus: SuperMenu[];
 }
 
@@ -351,22 +351,22 @@ export const SuperMenu: MessageFns<SuperMenu> = {
   },
 };
 
-function createBaseGetSuperMenuRequest(): GetSuperMenuRequest {
+function createBaseGetSuperMenusRequest(): GetSuperMenusRequest {
   return { userId: "" };
 }
 
-export const GetSuperMenuRequest: MessageFns<GetSuperMenuRequest> = {
-  encode(message: GetSuperMenuRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const GetSuperMenusRequest: MessageFns<GetSuperMenusRequest> = {
+  encode(message: GetSuperMenusRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.userId !== "") {
       writer.uint32(10).string(message.userId);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): GetSuperMenuRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): GetSuperMenusRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetSuperMenuRequest();
+    const message = createBaseGetSuperMenusRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -387,11 +387,11 @@ export const GetSuperMenuRequest: MessageFns<GetSuperMenuRequest> = {
     return message;
   },
 
-  fromJSON(object: any): GetSuperMenuRequest {
+  fromJSON(object: any): GetSuperMenusRequest {
     return { userId: isSet(object.userId) ? globalThis.String(object.userId) : "" };
   },
 
-  toJSON(message: GetSuperMenuRequest): unknown {
+  toJSON(message: GetSuperMenusRequest): unknown {
     const obj: any = {};
     if (message.userId !== "") {
       obj.userId = message.userId;
@@ -399,32 +399,32 @@ export const GetSuperMenuRequest: MessageFns<GetSuperMenuRequest> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GetSuperMenuRequest>, I>>(base?: I): GetSuperMenuRequest {
-    return GetSuperMenuRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<GetSuperMenusRequest>, I>>(base?: I): GetSuperMenusRequest {
+    return GetSuperMenusRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GetSuperMenuRequest>, I>>(object: I): GetSuperMenuRequest {
-    const message = createBaseGetSuperMenuRequest();
+  fromPartial<I extends Exact<DeepPartial<GetSuperMenusRequest>, I>>(object: I): GetSuperMenusRequest {
+    const message = createBaseGetSuperMenusRequest();
     message.userId = object.userId ?? "";
     return message;
   },
 };
 
-function createBaseGetSuperMenuResponse(): GetSuperMenuResponse {
+function createBaseGetSuperMenusResponse(): GetSuperMenusResponse {
   return { superMenus: [] };
 }
 
-export const GetSuperMenuResponse: MessageFns<GetSuperMenuResponse> = {
-  encode(message: GetSuperMenuResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const GetSuperMenusResponse: MessageFns<GetSuperMenusResponse> = {
+  encode(message: GetSuperMenusResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     for (const v of message.superMenus) {
       SuperMenu.encode(v!, writer.uint32(10).fork()).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): GetSuperMenuResponse {
+  decode(input: BinaryReader | Uint8Array, length?: number): GetSuperMenusResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGetSuperMenuResponse();
+    const message = createBaseGetSuperMenusResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -445,7 +445,7 @@ export const GetSuperMenuResponse: MessageFns<GetSuperMenuResponse> = {
     return message;
   },
 
-  fromJSON(object: any): GetSuperMenuResponse {
+  fromJSON(object: any): GetSuperMenusResponse {
     return {
       superMenus: globalThis.Array.isArray(object?.superMenus)
         ? object.superMenus.map((e: any) => SuperMenu.fromJSON(e))
@@ -453,7 +453,7 @@ export const GetSuperMenuResponse: MessageFns<GetSuperMenuResponse> = {
     };
   },
 
-  toJSON(message: GetSuperMenuResponse): unknown {
+  toJSON(message: GetSuperMenusResponse): unknown {
     const obj: any = {};
     if (message.superMenus?.length) {
       obj.superMenus = message.superMenus.map((e) => SuperMenu.toJSON(e));
@@ -461,11 +461,11 @@ export const GetSuperMenuResponse: MessageFns<GetSuperMenuResponse> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<GetSuperMenuResponse>, I>>(base?: I): GetSuperMenuResponse {
-    return GetSuperMenuResponse.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<GetSuperMenusResponse>, I>>(base?: I): GetSuperMenusResponse {
+    return GetSuperMenusResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<GetSuperMenuResponse>, I>>(object: I): GetSuperMenuResponse {
-    const message = createBaseGetSuperMenuResponse();
+  fromPartial<I extends Exact<DeepPartial<GetSuperMenusResponse>, I>>(object: I): GetSuperMenusResponse {
+    const message = createBaseGetSuperMenusResponse();
     message.superMenus = object.superMenus?.map((e) => SuperMenu.fromPartial(e)) || [];
     return message;
   },
@@ -478,7 +478,7 @@ export interface MenuService {
    * Req example: { "user_id": "uuid" }
    * Res example: { "super_menus": [ { "name":"...", "menus": [...] } ] }
    */
-  GetSuperMenus(request: GetSuperMenuRequest): Promise<GetSuperMenuResponse>;
+  GetSuperMenus(request: GetSuperMenusRequest): Promise<GetSuperMenusResponse>;
 }
 
 export const MenuServiceServiceName = "proto.menu.v1.MenuService";
@@ -490,10 +490,10 @@ export class MenuServiceClientImpl implements MenuService {
     this.rpc = rpc;
     this.GetSuperMenus = this.GetSuperMenus.bind(this);
   }
-  GetSuperMenus(request: GetSuperMenuRequest): Promise<GetSuperMenuResponse> {
-    const data = GetSuperMenuRequest.encode(request).finish();
+  GetSuperMenus(request: GetSuperMenusRequest): Promise<GetSuperMenusResponse> {
+    const data = GetSuperMenusRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "GetSuperMenus", data);
-    return promise.then((data) => GetSuperMenuResponse.decode(new BinaryReader(data)));
+    return promise.then((data) => GetSuperMenusResponse.decode(new BinaryReader(data)));
   }
 }
 

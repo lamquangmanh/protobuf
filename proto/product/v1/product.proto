@@ -65,8 +65,18 @@ message DeleteProductRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
+message CreateProductResponse {
   Product product = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message UpdateProductResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteProductResponse {
+  bool success = 1;
   repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
@@ -88,13 +98,13 @@ service ProductService {
 
   // CreateProduct creates a product
   // Req example: { "product": { "name":"p" }, "user_id":"uuid" }
-  rpc CreateProduct(CreateProductRequest) returns (CreateSuccess) {}
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {}
 
   // UpdateProduct updates a product
   // Req example: { "product": { "product_id":"uuid", "name":"new" }, "user_id":"uuid" }
-  rpc UpdateProduct(UpdateProductRequest) returns (proto.base.v1.UpdateSuccess) {}
+  rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse) {}
 
   // DeleteProduct soft-deletes a product
   // Req example: { "product_id":"uuid", "user_id":"uuid" }
-  rpc DeleteProduct(DeleteProductRequest) returns (proto.base.v1.DeleteSuccess) {}
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse) {}
 }

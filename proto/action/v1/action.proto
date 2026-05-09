@@ -80,8 +80,18 @@ message DeleteActionRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
+message CreateActionResponse {
   Action action = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message UpdateActionResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteActionResponse {
+  bool success = 1;
   repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
@@ -106,16 +116,16 @@ service ActionService {
 
   // CreateAction creates a new action
   // Req example: { "action": { "resource_id": "uuid", "name": "Read", "request_type": HTTP } }
-  // Res example: CreateSuccess
-  rpc CreateAction (CreateActionRequest) returns (CreateSuccess) {}
+  // Res example: CreateActionResponse
+  rpc CreateAction (CreateActionRequest) returns (CreateActionResponse) {}
 
   // UpdateAction updates an existing action
   // Req example: { "action": { "action_id": "uuid", "name": "Updated" } }
   // Res example: { result: { success: true } }
-  rpc UpdateAction (UpdateActionRequest) returns (proto.base.v1.UpdateSuccess) {}
+  rpc UpdateAction (UpdateActionRequest) returns (UpdateActionResponse) {}
 
   // DeleteAction performs soft delete
   // Req example: { "action_id": "uuid", "user_id": "uuid" }
   // Res example: { result: { success: true } }
-  rpc DeleteAction (DeleteActionRequest) returns (proto.base.v1.DeleteSuccess) {}
+  rpc DeleteAction (DeleteActionRequest) returns (DeleteActionResponse) {}
 }

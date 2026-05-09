@@ -6,15 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import {
-  DeleteSuccess,
-  ErrorMessage,
-  Filter,
-  PaginationRequest,
-  PaginationResponse,
-  Sort,
-  UpdateSuccess,
-} from "../../base/v1/base";
+import { ErrorMessage, Filter, PaginationRequest, PaginationResponse, Sort } from "../../base/v1/base";
 
 export const protobufPackage = "proto.module.v1";
 
@@ -80,8 +72,18 @@ export interface DeleteModuleRequest {
   userId: string;
 }
 
-export interface CreateSuccess {
+export interface CreateModuleResponse {
   module: Module | undefined;
+  errors: ErrorMessage[];
+}
+
+export interface UpdateModuleResponse {
+  success: boolean;
+  errors: ErrorMessage[];
+}
+
+export interface DeleteModuleResponse {
+  success: boolean;
   errors: ErrorMessage[];
 }
 
@@ -1065,12 +1067,12 @@ export const DeleteModuleRequest: MessageFns<DeleteModuleRequest> = {
   },
 };
 
-function createBaseCreateSuccess(): CreateSuccess {
+function createBaseCreateModuleResponse(): CreateModuleResponse {
   return { module: undefined, errors: [] };
 }
 
-export const CreateSuccess: MessageFns<CreateSuccess> = {
-  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const CreateModuleResponse: MessageFns<CreateModuleResponse> = {
+  encode(message: CreateModuleResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.module !== undefined) {
       Module.encode(message.module, writer.uint32(10).fork()).join();
     }
@@ -1080,10 +1082,10 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateModuleResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreateSuccess();
+    const message = createBaseCreateModuleResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1112,14 +1114,14 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return message;
   },
 
-  fromJSON(object: any): CreateSuccess {
+  fromJSON(object: any): CreateModuleResponse {
     return {
       module: isSet(object.module) ? Module.fromJSON(object.module) : undefined,
       errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: CreateSuccess): unknown {
+  toJSON(message: CreateModuleResponse): unknown {
     const obj: any = {};
     if (message.module !== undefined) {
       obj.module = Module.toJSON(message.module);
@@ -1130,14 +1132,166 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
-    return CreateSuccess.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreateModuleResponse>, I>>(base?: I): CreateModuleResponse {
+    return CreateModuleResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
-    const message = createBaseCreateSuccess();
+  fromPartial<I extends Exact<DeepPartial<CreateModuleResponse>, I>>(object: I): CreateModuleResponse {
+    const message = createBaseCreateModuleResponse();
     message.module = (object.module !== undefined && object.module !== null)
       ? Module.fromPartial(object.module)
       : undefined;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateModuleResponse(): UpdateModuleResponse {
+  return { success: false, errors: [] };
+}
+
+export const UpdateModuleResponse: MessageFns<UpdateModuleResponse> = {
+  encode(message: UpdateModuleResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateModuleResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateModuleResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateModuleResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: UpdateModuleResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateModuleResponse>, I>>(base?: I): UpdateModuleResponse {
+    return UpdateModuleResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateModuleResponse>, I>>(object: I): UpdateModuleResponse {
+    const message = createBaseUpdateModuleResponse();
+    message.success = object.success ?? false;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseDeleteModuleResponse(): DeleteModuleResponse {
+  return { success: false, errors: [] };
+}
+
+export const DeleteModuleResponse: MessageFns<DeleteModuleResponse> = {
+  encode(message: DeleteModuleResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteModuleResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteModuleResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteModuleResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: DeleteModuleResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteModuleResponse>, I>>(base?: I): DeleteModuleResponse {
+    return DeleteModuleResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeleteModuleResponse>, I>>(object: I): DeleteModuleResponse {
+    const message = createBaseDeleteModuleResponse();
+    message.success = object.success ?? false;
     message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
     return message;
   },
@@ -1242,17 +1396,17 @@ export interface ModuleService {
    * CreateModule creates a new module
    * Req example: { "module": { "name":"mod" }, "user_id":"uuid" }
    */
-  CreateModule(request: CreateModuleRequest): Promise<CreateSuccess>;
+  CreateModule(request: CreateModuleRequest): Promise<CreateModuleResponse>;
   /**
    * UpdateModule updates a module
    * Req example: { "module": { "module_id":"uuid", "name":"new" }, "user_id":"uuid" }
    */
-  UpdateModule(request: UpdateModuleRequest): Promise<UpdateSuccess>;
+  UpdateModule(request: UpdateModuleRequest): Promise<UpdateModuleResponse>;
   /**
    * DeleteModule soft-deletes a module
    * Req example: { "module_id":"uuid", "user_id":"uuid" }
    */
-  DeleteModule(request: DeleteModuleRequest): Promise<DeleteSuccess>;
+  DeleteModule(request: DeleteModuleRequest): Promise<DeleteModuleResponse>;
 }
 
 export const ModuleServiceServiceName = "proto.module.v1.ModuleService";
@@ -1280,22 +1434,22 @@ export class ModuleServiceClientImpl implements ModuleService {
     return promise.then((data) => GetModulesResponse.decode(new BinaryReader(data)));
   }
 
-  CreateModule(request: CreateModuleRequest): Promise<CreateSuccess> {
+  CreateModule(request: CreateModuleRequest): Promise<CreateModuleResponse> {
     const data = CreateModuleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateModule", data);
-    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => CreateModuleResponse.decode(new BinaryReader(data)));
   }
 
-  UpdateModule(request: UpdateModuleRequest): Promise<UpdateSuccess> {
+  UpdateModule(request: UpdateModuleRequest): Promise<UpdateModuleResponse> {
     const data = UpdateModuleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateModule", data);
-    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => UpdateModuleResponse.decode(new BinaryReader(data)));
   }
 
-  DeleteModule(request: DeleteModuleRequest): Promise<DeleteSuccess> {
+  DeleteModule(request: DeleteModuleRequest): Promise<DeleteModuleResponse> {
     const data = DeleteModuleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteModule", data);
-    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => DeleteModuleResponse.decode(new BinaryReader(data)));
   }
 }
 

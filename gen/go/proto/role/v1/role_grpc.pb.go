@@ -8,7 +8,6 @@ package rolev1
 
 import (
 	context "context"
-	v1 "github.com/lamquangmanh/protobuf/gen/go/proto/base/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -60,13 +59,13 @@ type RoleServiceClient interface {
 	//	  "user_id": "user-42"
 	//	}
 	//
-	// Example Response (CreateSuccess):
+	// Example Response (CreateRoleResponse):
 	//
 	//	{
 	//	  "role": { "role_id": "role-124", "name": "Viewer", "module_id": "module-3" },
 	//	  "errors": []
 	//	}
-	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateSuccess, error)
+	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
 	// UpdateRole updates an existing role. Returns UpdateSuccess indicating operation result.
 	// Example Request:
 	//
@@ -77,13 +76,13 @@ type RoleServiceClient interface {
 	//
 	// Example Response (proto.base.v1.UpdateSuccess):
 	// { "success": true, "errors": [] }
-	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error)
+	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
 	// DeleteRole marks a role as deleted. Returns DeleteSuccess indicating operation result.
 	// Example Request:
 	// { "role_id": "role-123", "user_id": "user-2" }
 	// Example Response (proto.base.v1.DeleteSuccess):
 	// { "success": true, "errors": [] }
-	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error)
+	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
 }
 
 type roleServiceClient struct {
@@ -114,9 +113,9 @@ func (c *roleServiceClient) GetRoles(ctx context.Context, in *GetRolesRequest, o
 	return out, nil
 }
 
-func (c *roleServiceClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateSuccess, error) {
+func (c *roleServiceClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateSuccess)
+	out := new(CreateRoleResponse)
 	err := c.cc.Invoke(ctx, RoleService_CreateRole_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -124,9 +123,9 @@ func (c *roleServiceClient) CreateRole(ctx context.Context, in *CreateRoleReques
 	return out, nil
 }
 
-func (c *roleServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error) {
+func (c *roleServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.UpdateSuccess)
+	out := new(UpdateRoleResponse)
 	err := c.cc.Invoke(ctx, RoleService_UpdateRole_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -134,9 +133,9 @@ func (c *roleServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleReques
 	return out, nil
 }
 
-func (c *roleServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error) {
+func (c *roleServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.DeleteSuccess)
+	out := new(DeleteRoleResponse)
 	err := c.cc.Invoke(ctx, RoleService_DeleteRole_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -177,13 +176,13 @@ type RoleServiceServer interface {
 	//	  "user_id": "user-42"
 	//	}
 	//
-	// Example Response (CreateSuccess):
+	// Example Response (CreateRoleResponse):
 	//
 	//	{
 	//	  "role": { "role_id": "role-124", "name": "Viewer", "module_id": "module-3" },
 	//	  "errors": []
 	//	}
-	CreateRole(context.Context, *CreateRoleRequest) (*CreateSuccess, error)
+	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
 	// UpdateRole updates an existing role. Returns UpdateSuccess indicating operation result.
 	// Example Request:
 	//
@@ -194,13 +193,13 @@ type RoleServiceServer interface {
 	//
 	// Example Response (proto.base.v1.UpdateSuccess):
 	// { "success": true, "errors": [] }
-	UpdateRole(context.Context, *UpdateRoleRequest) (*v1.UpdateSuccess, error)
+	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
 	// DeleteRole marks a role as deleted. Returns DeleteSuccess indicating operation result.
 	// Example Request:
 	// { "role_id": "role-123", "user_id": "user-2" }
 	// Example Response (proto.base.v1.DeleteSuccess):
 	// { "success": true, "errors": [] }
-	DeleteRole(context.Context, *DeleteRoleRequest) (*v1.DeleteSuccess, error)
+	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
 	mustEmbedUnimplementedRoleServiceServer()
 }
 
@@ -217,13 +216,13 @@ func (UnimplementedRoleServiceServer) GetRole(context.Context, *GetRoleRequest) 
 func (UnimplementedRoleServiceServer) GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetRoles not implemented")
 }
-func (UnimplementedRoleServiceServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateSuccess, error) {
+func (UnimplementedRoleServiceServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateRole not implemented")
 }
-func (UnimplementedRoleServiceServer) UpdateRole(context.Context, *UpdateRoleRequest) (*v1.UpdateSuccess, error) {
+func (UnimplementedRoleServiceServer) UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateRole not implemented")
 }
-func (UnimplementedRoleServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*v1.DeleteSuccess, error) {
+func (UnimplementedRoleServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteRole not implemented")
 }
 func (UnimplementedRoleServiceServer) mustEmbedUnimplementedRoleServiceServer() {}

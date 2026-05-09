@@ -71,8 +71,18 @@ message DeleteResourceRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
+message CreateResourceResponse {
   Resource resource = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message UpdateResourceResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteResourceResponse {
+  bool success = 1;
   repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
@@ -97,16 +107,16 @@ service ResourceService {
 
   // CreateResource creates a resource with actions
   // Res example: { "resource": { "name":"res", "module_id":"uuid", "actions": [...] }, "user_id":"uuid" }
-  // Res example: CreateSuccess
-  rpc CreateResource (CreateResourceRequest) returns (CreateSuccess) {}
+  // Res example: CreateResourceResponse
+  rpc CreateResource (CreateResourceRequest) returns (CreateResourceResponse) {}
 
   // UpdateResource updates resource and its actions
   // Req example: { "resource": { "resource_id":"uuid", "name":"new" }, "user_id":"uuid" }
   // Res example: { result: { success: true } }
-  rpc UpdateResource (UpdateResourceRequest) returns (proto.base.v1.UpdateSuccess) {}
+  rpc UpdateResource (UpdateResourceRequest) returns (UpdateResourceResponse) {}
 
   // DeleteResource soft-deletes resource
   // Req example: { "resource_id":"uuid", "user_id":"uuid" }
   // Res example: { result: { success: true } }
-  rpc DeleteResource (DeleteResourceRequest) returns (proto.base.v1.DeleteSuccess) {}
+  rpc DeleteResource (DeleteResourceRequest) returns (DeleteResourceResponse) {}
 }

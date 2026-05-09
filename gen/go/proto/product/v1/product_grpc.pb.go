@@ -8,7 +8,6 @@ package productv1
 
 import (
 	context "context"
-	v1 "github.com/lamquangmanh/protobuf/gen/go/proto/base/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -42,13 +41,13 @@ type ProductServiceClient interface {
 	GetProducts(ctx context.Context, in *GetProductsRequest, opts ...grpc.CallOption) (*GetProductsResponse, error)
 	// CreateProduct creates a product
 	// Req example: { "product": { "name":"p" }, "user_id":"uuid" }
-	CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateSuccess, error)
+	CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateProductResponse, error)
 	// UpdateProduct updates a product
 	// Req example: { "product": { "product_id":"uuid", "name":"new" }, "user_id":"uuid" }
-	UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error)
+	UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*UpdateProductResponse, error)
 	// DeleteProduct soft-deletes a product
 	// Req example: { "product_id":"uuid", "user_id":"uuid" }
-	DeleteProduct(ctx context.Context, in *DeleteProductRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error)
+	DeleteProduct(ctx context.Context, in *DeleteProductRequest, opts ...grpc.CallOption) (*DeleteProductResponse, error)
 }
 
 type productServiceClient struct {
@@ -79,9 +78,9 @@ func (c *productServiceClient) GetProducts(ctx context.Context, in *GetProductsR
 	return out, nil
 }
 
-func (c *productServiceClient) CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateSuccess, error) {
+func (c *productServiceClient) CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateProductResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateSuccess)
+	out := new(CreateProductResponse)
 	err := c.cc.Invoke(ctx, ProductService_CreateProduct_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -89,9 +88,9 @@ func (c *productServiceClient) CreateProduct(ctx context.Context, in *CreateProd
 	return out, nil
 }
 
-func (c *productServiceClient) UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error) {
+func (c *productServiceClient) UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*UpdateProductResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.UpdateSuccess)
+	out := new(UpdateProductResponse)
 	err := c.cc.Invoke(ctx, ProductService_UpdateProduct_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -99,9 +98,9 @@ func (c *productServiceClient) UpdateProduct(ctx context.Context, in *UpdateProd
 	return out, nil
 }
 
-func (c *productServiceClient) DeleteProduct(ctx context.Context, in *DeleteProductRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error) {
+func (c *productServiceClient) DeleteProduct(ctx context.Context, in *DeleteProductRequest, opts ...grpc.CallOption) (*DeleteProductResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.DeleteSuccess)
+	out := new(DeleteProductResponse)
 	err := c.cc.Invoke(ctx, ProductService_DeleteProduct_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -124,13 +123,13 @@ type ProductServiceServer interface {
 	GetProducts(context.Context, *GetProductsRequest) (*GetProductsResponse, error)
 	// CreateProduct creates a product
 	// Req example: { "product": { "name":"p" }, "user_id":"uuid" }
-	CreateProduct(context.Context, *CreateProductRequest) (*CreateSuccess, error)
+	CreateProduct(context.Context, *CreateProductRequest) (*CreateProductResponse, error)
 	// UpdateProduct updates a product
 	// Req example: { "product": { "product_id":"uuid", "name":"new" }, "user_id":"uuid" }
-	UpdateProduct(context.Context, *UpdateProductRequest) (*v1.UpdateSuccess, error)
+	UpdateProduct(context.Context, *UpdateProductRequest) (*UpdateProductResponse, error)
 	// DeleteProduct soft-deletes a product
 	// Req example: { "product_id":"uuid", "user_id":"uuid" }
-	DeleteProduct(context.Context, *DeleteProductRequest) (*v1.DeleteSuccess, error)
+	DeleteProduct(context.Context, *DeleteProductRequest) (*DeleteProductResponse, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
 
@@ -147,13 +146,13 @@ func (UnimplementedProductServiceServer) GetProduct(context.Context, *GetProduct
 func (UnimplementedProductServiceServer) GetProducts(context.Context, *GetProductsRequest) (*GetProductsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProducts not implemented")
 }
-func (UnimplementedProductServiceServer) CreateProduct(context.Context, *CreateProductRequest) (*CreateSuccess, error) {
+func (UnimplementedProductServiceServer) CreateProduct(context.Context, *CreateProductRequest) (*CreateProductResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateProduct not implemented")
 }
-func (UnimplementedProductServiceServer) UpdateProduct(context.Context, *UpdateProductRequest) (*v1.UpdateSuccess, error) {
+func (UnimplementedProductServiceServer) UpdateProduct(context.Context, *UpdateProductRequest) (*UpdateProductResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateProduct not implemented")
 }
-func (UnimplementedProductServiceServer) DeleteProduct(context.Context, *DeleteProductRequest) (*v1.DeleteSuccess, error) {
+func (UnimplementedProductServiceServer) DeleteProduct(context.Context, *DeleteProductRequest) (*DeleteProductResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteProduct not implemented")
 }
 func (UnimplementedProductServiceServer) mustEmbedUnimplementedProductServiceServer() {}

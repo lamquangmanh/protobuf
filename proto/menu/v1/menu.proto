@@ -25,11 +25,11 @@ message SuperMenu {
   repeated Menu menus = 5; // Nested sub-menus
 }
 
-message GetSuperMenuRequest {
+message GetSuperMenusRequest {
   string user_id = 1;
 }
 
-message GetSuperMenuResponse {
+message GetSuperMenusResponse {
   repeated SuperMenu super_menus = 1;
 }
 
@@ -38,5 +38,5 @@ service MenuService {
   // GetSuperMenus returns full menu structure available to a user
   // Req example: { "user_id": "uuid" }
   // Res example: { "super_menus": [ { "name":"...", "menus": [...] } ] }
-  rpc GetSuperMenus (GetSuperMenuRequest) returns (GetSuperMenuResponse) {}
+  rpc GetSuperMenus (GetSuperMenusRequest) returns (GetSuperMenusResponse) {}
 }

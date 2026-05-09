@@ -6,15 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import {
-  DeleteSuccess,
-  ErrorMessage,
-  Filter,
-  PaginationRequest,
-  PaginationResponse,
-  Sort,
-  UpdateSuccess,
-} from "../../base/v1/base";
+import { ErrorMessage, Filter, PaginationRequest, PaginationResponse, Sort } from "../../base/v1/base";
 
 export const protobufPackage = "proto.user.v1";
 
@@ -177,8 +169,23 @@ export interface DeleteUserRequest {
 }
 
 /** CreateSuccess returns the created user and any validation errors. */
-export interface CreateSuccess {
+export interface CreateUserResponse {
   user: User | undefined;
+  errors: ErrorMessage[];
+}
+
+export interface UpdateUserResponse {
+  success: boolean;
+  errors: ErrorMessage[];
+}
+
+export interface DeleteUserResponse {
+  success: boolean;
+  errors: ErrorMessage[];
+}
+
+export interface ChangePasswordResponse {
+  success: boolean;
   errors: ErrorMessage[];
 }
 
@@ -1236,12 +1243,12 @@ export const DeleteUserRequest: MessageFns<DeleteUserRequest> = {
   },
 };
 
-function createBaseCreateSuccess(): CreateSuccess {
+function createBaseCreateUserResponse(): CreateUserResponse {
   return { user: undefined, errors: [] };
 }
 
-export const CreateSuccess: MessageFns<CreateSuccess> = {
-  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const CreateUserResponse: MessageFns<CreateUserResponse> = {
+  encode(message: CreateUserResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.user !== undefined) {
       User.encode(message.user, writer.uint32(10).fork()).join();
     }
@@ -1251,10 +1258,10 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateUserResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreateSuccess();
+    const message = createBaseCreateUserResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1283,14 +1290,14 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return message;
   },
 
-  fromJSON(object: any): CreateSuccess {
+  fromJSON(object: any): CreateUserResponse {
     return {
       user: isSet(object.user) ? User.fromJSON(object.user) : undefined,
       errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: CreateSuccess): unknown {
+  toJSON(message: CreateUserResponse): unknown {
     const obj: any = {};
     if (message.user !== undefined) {
       obj.user = User.toJSON(message.user);
@@ -1301,12 +1308,240 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
-    return CreateSuccess.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreateUserResponse>, I>>(base?: I): CreateUserResponse {
+    return CreateUserResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
-    const message = createBaseCreateSuccess();
+  fromPartial<I extends Exact<DeepPartial<CreateUserResponse>, I>>(object: I): CreateUserResponse {
+    const message = createBaseCreateUserResponse();
     message.user = (object.user !== undefined && object.user !== null) ? User.fromPartial(object.user) : undefined;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateUserResponse(): UpdateUserResponse {
+  return { success: false, errors: [] };
+}
+
+export const UpdateUserResponse: MessageFns<UpdateUserResponse> = {
+  encode(message: UpdateUserResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateUserResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateUserResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateUserResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: UpdateUserResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateUserResponse>, I>>(base?: I): UpdateUserResponse {
+    return UpdateUserResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateUserResponse>, I>>(object: I): UpdateUserResponse {
+    const message = createBaseUpdateUserResponse();
+    message.success = object.success ?? false;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseDeleteUserResponse(): DeleteUserResponse {
+  return { success: false, errors: [] };
+}
+
+export const DeleteUserResponse: MessageFns<DeleteUserResponse> = {
+  encode(message: DeleteUserResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteUserResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteUserResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteUserResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: DeleteUserResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteUserResponse>, I>>(base?: I): DeleteUserResponse {
+    return DeleteUserResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeleteUserResponse>, I>>(object: I): DeleteUserResponse {
+    const message = createBaseDeleteUserResponse();
+    message.success = object.success ?? false;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseChangePasswordResponse(): ChangePasswordResponse {
+  return { success: false, errors: [] };
+}
+
+export const ChangePasswordResponse: MessageFns<ChangePasswordResponse> = {
+  encode(message: ChangePasswordResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ChangePasswordResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseChangePasswordResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ChangePasswordResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: ChangePasswordResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ChangePasswordResponse>, I>>(base?: I): ChangePasswordResponse {
+    return ChangePasswordResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<ChangePasswordResponse>, I>>(object: I): ChangePasswordResponse {
+    const message = createBaseChangePasswordResponse();
+    message.success = object.success ?? false;
     message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
     return message;
   },
@@ -1483,28 +1718,28 @@ export interface UserService {
   /**
    * CreateUser creates a new user. `user_id` is the actor performing the action.
    * Request: CreateUserRequest (see CreateUserRequest example)
-   * Response: CreateSuccess containing created `User`.
+   * Response: CreateUserResponse containing created `User`.
    */
-  CreateUser(request: CreateUserRequest): Promise<CreateSuccess>;
+  CreateUser(request: CreateUserRequest): Promise<CreateUserResponse>;
   /**
    * UpdateUser updates an existing user. Returns UpdateSuccess.
    * Request example:
    * { "user": { "user_id": "user-1", "username": "newname" }, "user_id": "admin-1" }
    * Response: { "success": true, "errors": [] }
    */
-  UpdateUser(request: UpdateUserRequest): Promise<UpdateSuccess>;
+  UpdateUser(request: UpdateUserRequest): Promise<UpdateUserResponse>;
   /**
    * DeleteUser marks a user as deleted.
    * Request: { "user_id": "user-1", "deleted_user_id": "admin-1" }
    * Response: { "success": true, "errors": [] }
    */
-  DeleteUser(request: DeleteUserRequest): Promise<DeleteSuccess>;
+  DeleteUser(request: DeleteUserRequest): Promise<DeleteUserResponse>;
   /**
    * ChangePassword updates the user's password.
    * Request: { "user_id": "user-1", "password": "newpass" }
    * Response: { "success": true, "errors": [] }
    */
-  ChangePassword(request: ChangePasswordRequest): Promise<UpdateSuccess>;
+  ChangePassword(request: ChangePasswordRequest): Promise<ChangePasswordResponse>;
 }
 
 export const UserServiceServiceName = "proto.user.v1.UserService";
@@ -1533,28 +1768,28 @@ export class UserServiceClientImpl implements UserService {
     return promise.then((data) => GetUsersResponse.decode(new BinaryReader(data)));
   }
 
-  CreateUser(request: CreateUserRequest): Promise<CreateSuccess> {
+  CreateUser(request: CreateUserRequest): Promise<CreateUserResponse> {
     const data = CreateUserRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateUser", data);
-    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => CreateUserResponse.decode(new BinaryReader(data)));
   }
 
-  UpdateUser(request: UpdateUserRequest): Promise<UpdateSuccess> {
+  UpdateUser(request: UpdateUserRequest): Promise<UpdateUserResponse> {
     const data = UpdateUserRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateUser", data);
-    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => UpdateUserResponse.decode(new BinaryReader(data)));
   }
 
-  DeleteUser(request: DeleteUserRequest): Promise<DeleteSuccess> {
+  DeleteUser(request: DeleteUserRequest): Promise<DeleteUserResponse> {
     const data = DeleteUserRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteUser", data);
-    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => DeleteUserResponse.decode(new BinaryReader(data)));
   }
 
-  ChangePassword(request: ChangePasswordRequest): Promise<UpdateSuccess> {
+  ChangePassword(request: ChangePasswordRequest): Promise<ChangePasswordResponse> {
     const data = ChangePasswordRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "ChangePassword", data);
-    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => ChangePasswordResponse.decode(new BinaryReader(data)));
   }
 }
 

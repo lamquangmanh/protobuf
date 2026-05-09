@@ -119,8 +119,23 @@ message DeleteUserRequest {
 }
 
 // CreateSuccess returns the created user and any validation errors.
-message CreateSuccess {
+message CreateUserResponse {
   User user = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message UpdateUserResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteUserResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message ChangePasswordResponse {
+  bool success = 1;
   repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
@@ -152,22 +167,22 @@ service UserService {
 
   // CreateUser creates a new user. `user_id` is the actor performing the action.
   // Request: CreateUserRequest (see CreateUserRequest example)
-  // Response: CreateSuccess containing created `User`.
-  rpc CreateUser (CreateUserRequest) returns (CreateSuccess) {}
+  // Response: CreateUserResponse containing created `User`.
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {}
 
   // UpdateUser updates an existing user. Returns UpdateSuccess.
   // Request example:
   // { "user": { "user_id": "user-1", "username": "newname" }, "user_id": "admin-1" }
   // Response: { "success": true, "errors": [] }
-  rpc UpdateUser (UpdateUserRequest) returns (proto.base.v1.UpdateSuccess) {}
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse) {}
 
   // DeleteUser marks a user as deleted.
   // Request: { "user_id": "user-1", "deleted_user_id": "admin-1" }
   // Response: { "success": true, "errors": [] }
-  rpc DeleteUser (DeleteUserRequest) returns (proto.base.v1.DeleteSuccess) {}
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse) {}
 
   // ChangePassword updates the user's password.
   // Request: { "user_id": "user-1", "password": "newpass" }
   // Response: { "success": true, "errors": [] }
-  rpc ChangePassword (ChangePasswordRequest) returns (proto.base.v1.UpdateSuccess) {}
+  rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse) {}
 }

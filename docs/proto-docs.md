@@ -7,14 +7,16 @@
     - [Action](#proto-action-v1-Action)
     - [CreateActionData](#proto-action-v1-CreateActionData)
     - [CreateActionRequest](#proto-action-v1-CreateActionRequest)
-    - [CreateSuccess](#proto-action-v1-CreateSuccess)
+    - [CreateActionResponse](#proto-action-v1-CreateActionResponse)
     - [DeleteActionRequest](#proto-action-v1-DeleteActionRequest)
+    - [DeleteActionResponse](#proto-action-v1-DeleteActionResponse)
     - [GetActionRequest](#proto-action-v1-GetActionRequest)
     - [GetActionResponse](#proto-action-v1-GetActionResponse)
     - [GetActionsRequest](#proto-action-v1-GetActionsRequest)
     - [GetActionsResponse](#proto-action-v1-GetActionsResponse)
     - [UpdateActionData](#proto-action-v1-UpdateActionData)
     - [UpdateActionRequest](#proto-action-v1-UpdateActionRequest)
+    - [UpdateActionResponse](#proto-action-v1-UpdateActionResponse)
   
     - [ActionRequestType](#proto-action-v1-ActionRequestType)
   
@@ -46,8 +48,8 @@
     - [SortOrder](#proto-base-v1-SortOrder)
   
 - [proto/menu/v1/menu.proto](#proto_menu_v1_menu-proto)
-    - [GetSuperMenuRequest](#proto-menu-v1-GetSuperMenuRequest)
-    - [GetSuperMenuResponse](#proto-menu-v1-GetSuperMenuResponse)
+    - [GetSuperMenusRequest](#proto-menu-v1-GetSuperMenusRequest)
+    - [GetSuperMenusResponse](#proto-menu-v1-GetSuperMenusResponse)
     - [Menu](#proto-menu-v1-Menu)
     - [SubMenu](#proto-menu-v1-SubMenu)
     - [SuperMenu](#proto-menu-v1-SuperMenu)
@@ -57,8 +59,9 @@
 - [proto/module/v1/module.proto](#proto_module_v1_module-proto)
     - [CreateModuleData](#proto-module-v1-CreateModuleData)
     - [CreateModuleRequest](#proto-module-v1-CreateModuleRequest)
-    - [CreateSuccess](#proto-module-v1-CreateSuccess)
+    - [CreateModuleResponse](#proto-module-v1-CreateModuleResponse)
     - [DeleteModuleRequest](#proto-module-v1-DeleteModuleRequest)
+    - [DeleteModuleResponse](#proto-module-v1-DeleteModuleResponse)
     - [GetModuleRequest](#proto-module-v1-GetModuleRequest)
     - [GetModuleResponse](#proto-module-v1-GetModuleResponse)
     - [GetModulesRequest](#proto-module-v1-GetModulesRequest)
@@ -66,15 +69,18 @@
     - [Module](#proto-module-v1-Module)
     - [UpdateModuleData](#proto-module-v1-UpdateModuleData)
     - [UpdateModuleRequest](#proto-module-v1-UpdateModuleRequest)
+    - [UpdateModuleResponse](#proto-module-v1-UpdateModuleResponse)
   
     - [ModuleService](#proto-module-v1-ModuleService)
   
 - [proto/permission/v1/permission.proto](#proto_permission_v1_permission-proto)
     - [CreatePermissionData](#proto-permission-v1-CreatePermissionData)
     - [CreatePermissionRequest](#proto-permission-v1-CreatePermissionRequest)
-    - [CreateSuccess](#proto-permission-v1-CreateSuccess)
+    - [CreatePermissionResponse](#proto-permission-v1-CreatePermissionResponse)
     - [DeletePermissionRequest](#proto-permission-v1-DeletePermissionRequest)
+    - [DeletePermissionResponse](#proto-permission-v1-DeletePermissionResponse)
     - [GetPermissionRequest](#proto-permission-v1-GetPermissionRequest)
+    - [GetPermissionResponse](#proto-permission-v1-GetPermissionResponse)
     - [GetPermissionsByUserIdRequest](#proto-permission-v1-GetPermissionsByUserIdRequest)
     - [GetPermissionsByUserIdResponse](#proto-permission-v1-GetPermissionsByUserIdResponse)
     - [GetPermissionsRequest](#proto-permission-v1-GetPermissionsRequest)
@@ -83,14 +89,16 @@
     - [PermissionInfo](#proto-permission-v1-PermissionInfo)
     - [UpdatePermissionData](#proto-permission-v1-UpdatePermissionData)
     - [UpdatePermissionRequest](#proto-permission-v1-UpdatePermissionRequest)
+    - [UpdatePermissionResponse](#proto-permission-v1-UpdatePermissionResponse)
   
     - [PermissionService](#proto-permission-v1-PermissionService)
   
 - [proto/product/v1/product.proto](#proto_product_v1_product-proto)
     - [CreateProductData](#proto-product-v1-CreateProductData)
     - [CreateProductRequest](#proto-product-v1-CreateProductRequest)
-    - [CreateSuccess](#proto-product-v1-CreateSuccess)
+    - [CreateProductResponse](#proto-product-v1-CreateProductResponse)
     - [DeleteProductRequest](#proto-product-v1-DeleteProductRequest)
+    - [DeleteProductResponse](#proto-product-v1-DeleteProductResponse)
     - [GetProductRequest](#proto-product-v1-GetProductRequest)
     - [GetProductResponse](#proto-product-v1-GetProductResponse)
     - [GetProductsRequest](#proto-product-v1-GetProductsRequest)
@@ -98,6 +106,7 @@
     - [Product](#proto-product-v1-Product)
     - [UpdateProductData](#proto-product-v1-UpdateProductData)
     - [UpdateProductRequest](#proto-product-v1-UpdateProductRequest)
+    - [UpdateProductResponse](#proto-product-v1-UpdateProductResponse)
   
     - [ProductService](#proto-product-v1-ProductService)
   
@@ -105,8 +114,9 @@
     - [Action](#proto-resource-v1-Action)
     - [CreateResourceData](#proto-resource-v1-CreateResourceData)
     - [CreateResourceRequest](#proto-resource-v1-CreateResourceRequest)
-    - [CreateSuccess](#proto-resource-v1-CreateSuccess)
+    - [CreateResourceResponse](#proto-resource-v1-CreateResourceResponse)
     - [DeleteResourceRequest](#proto-resource-v1-DeleteResourceRequest)
+    - [DeleteResourceResponse](#proto-resource-v1-DeleteResourceResponse)
     - [GetResourceRequest](#proto-resource-v1-GetResourceRequest)
     - [GetResourceResponse](#proto-resource-v1-GetResourceResponse)
     - [GetResourcesRequest](#proto-resource-v1-GetResourcesRequest)
@@ -114,14 +124,16 @@
     - [Resource](#proto-resource-v1-Resource)
     - [UpdateResourceData](#proto-resource-v1-UpdateResourceData)
     - [UpdateResourceRequest](#proto-resource-v1-UpdateResourceRequest)
+    - [UpdateResourceResponse](#proto-resource-v1-UpdateResourceResponse)
   
     - [ResourceService](#proto-resource-v1-ResourceService)
   
 - [proto/role/v1/role.proto](#proto_role_v1_role-proto)
     - [CreateRoleData](#proto-role-v1-CreateRoleData)
     - [CreateRoleRequest](#proto-role-v1-CreateRoleRequest)
-    - [CreateSuccess](#proto-role-v1-CreateSuccess)
+    - [CreateRoleResponse](#proto-role-v1-CreateRoleResponse)
     - [DeleteRoleRequest](#proto-role-v1-DeleteRoleRequest)
+    - [DeleteRoleResponse](#proto-role-v1-DeleteRoleResponse)
     - [GetRoleRequest](#proto-role-v1-GetRoleRequest)
     - [GetRoleResponse](#proto-role-v1-GetRoleResponse)
     - [GetRolesRequest](#proto-role-v1-GetRolesRequest)
@@ -130,40 +142,47 @@
     - [Role](#proto-role-v1-Role)
     - [UpdateRoleData](#proto-role-v1-UpdateRoleData)
     - [UpdateRoleRequest](#proto-role-v1-UpdateRoleRequest)
+    - [UpdateRoleResponse](#proto-role-v1-UpdateRoleResponse)
   
     - [RoleService](#proto-role-v1-RoleService)
   
-- [proto/user-role/v1/user-role.proto](#proto_user-role_v1_user-role-proto)
-    - [CreateSuccess](#proto-user_role-v1-CreateSuccess)
-    - [CreateUserRoleData](#proto-user_role-v1-CreateUserRoleData)
-    - [CreateUserRoleRequest](#proto-user_role-v1-CreateUserRoleRequest)
-    - [DeleteUserRoleRequest](#proto-user_role-v1-DeleteUserRoleRequest)
-    - [GetUserRoleRequest](#proto-user_role-v1-GetUserRoleRequest)
-    - [GetUserRolesRequest](#proto-user_role-v1-GetUserRolesRequest)
-    - [GetUserRolesResponse](#proto-user_role-v1-GetUserRolesResponse)
-    - [UpdateUserRoleData](#proto-user_role-v1-UpdateUserRoleData)
-    - [UpdateUserRoleRequest](#proto-user_role-v1-UpdateUserRoleRequest)
-    - [UserRole](#proto-user_role-v1-UserRole)
-  
-    - [UserRoleService](#proto-user_role-v1-UserRoleService)
-  
 - [proto/user/v1/user.proto](#proto_user_v1_user-proto)
     - [ChangePasswordRequest](#proto-user-v1-ChangePasswordRequest)
-    - [CreateSuccess](#proto-user-v1-CreateSuccess)
+    - [ChangePasswordResponse](#proto-user-v1-ChangePasswordResponse)
     - [CreateUserData](#proto-user-v1-CreateUserData)
     - [CreateUserRequest](#proto-user-v1-CreateUserRequest)
+    - [CreateUserResponse](#proto-user-v1-CreateUserResponse)
     - [DeleteUserRequest](#proto-user-v1-DeleteUserRequest)
+    - [DeleteUserResponse](#proto-user-v1-DeleteUserResponse)
     - [GetUserRequest](#proto-user-v1-GetUserRequest)
     - [GetUserResponse](#proto-user-v1-GetUserResponse)
     - [GetUsersRequest](#proto-user-v1-GetUsersRequest)
     - [GetUsersResponse](#proto-user-v1-GetUsersResponse)
     - [UpdateUserData](#proto-user-v1-UpdateUserData)
     - [UpdateUserRequest](#proto-user-v1-UpdateUserRequest)
+    - [UpdateUserResponse](#proto-user-v1-UpdateUserResponse)
     - [User](#proto-user-v1-User)
   
     - [UserStatus](#proto-user-v1-UserStatus)
   
     - [UserService](#proto-user-v1-UserService)
+  
+- [proto/user_role/v1/user_role.proto](#proto_user_role_v1_user_role-proto)
+    - [CreateUserRoleData](#proto-user_role-v1-CreateUserRoleData)
+    - [CreateUserRoleRequest](#proto-user_role-v1-CreateUserRoleRequest)
+    - [CreateUserRoleResponse](#proto-user_role-v1-CreateUserRoleResponse)
+    - [DeleteUserRoleRequest](#proto-user_role-v1-DeleteUserRoleRequest)
+    - [DeleteUserRoleResponse](#proto-user_role-v1-DeleteUserRoleResponse)
+    - [GetUserRoleRequest](#proto-user_role-v1-GetUserRoleRequest)
+    - [GetUserRoleResponse](#proto-user_role-v1-GetUserRoleResponse)
+    - [GetUserRolesRequest](#proto-user_role-v1-GetUserRolesRequest)
+    - [GetUserRolesResponse](#proto-user_role-v1-GetUserRolesResponse)
+    - [UpdateUserRoleData](#proto-user_role-v1-UpdateUserRoleData)
+    - [UpdateUserRoleRequest](#proto-user_role-v1-UpdateUserRoleRequest)
+    - [UpdateUserRoleResponse](#proto-user_role-v1-UpdateUserRoleResponse)
+    - [UserRole](#proto-user_role-v1-UserRole)
+  
+    - [UserRoleService](#proto-user_role-v1-UserRoleService)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -239,9 +258,9 @@
 
 
 
-<a name="proto-action-v1-CreateSuccess"></a>
+<a name="proto-action-v1-CreateActionResponse"></a>
 
-### CreateSuccess
+### CreateActionResponse
 
 
 
@@ -265,6 +284,22 @@
 | ----- | ---- | ----- | ----------- |
 | action_id | [string](#string) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-action-v1-DeleteActionResponse"></a>
+
+### DeleteActionResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
@@ -371,6 +406,22 @@
 
 
 
+
+<a name="proto-action-v1-UpdateActionResponse"></a>
+
+### UpdateActionResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
  
 
 
@@ -405,9 +456,9 @@ Sample GetAction response: Action
 | ----------- | ------------ | ------------- | ------------|
 | GetAction | [GetActionRequest](#proto-action-v1-GetActionRequest) | [GetActionResponse](#proto-action-v1-GetActionResponse) | GetAction returns a single Action by id Req example: { &#34;action_id&#34;: &#34;uuid&#34; } Res example: { &#34;action_id&#34;: &#34;...&#34;, &#34;name&#34;: &#34;...&#34;, &#34;request_type&#34;: HTTP } |
 | GetActions | [GetActionsRequest](#proto-action-v1-GetActionsRequest) | [GetActionsResponse](#proto-action-v1-GetActionsResponse) | GetActions returns paginated actions Req example: { &#34;pagination&#34;: { &#34;page&#34;: 1, &#34;limit&#34;: 10 } } Res example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10, &#34;totalItems&#34;:0 }, &#34;data&#34;: [] } |
-| CreateAction | [CreateActionRequest](#proto-action-v1-CreateActionRequest) | [CreateSuccess](#proto-action-v1-CreateSuccess) | CreateAction creates a new action Req example: { &#34;action&#34;: { &#34;resource_id&#34;: &#34;uuid&#34;, &#34;name&#34;: &#34;Read&#34;, &#34;request_type&#34;: HTTP } } Res example: CreateSuccess |
-| UpdateAction | [UpdateActionRequest](#proto-action-v1-UpdateActionRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateAction updates an existing action Req example: { &#34;action&#34;: { &#34;action_id&#34;: &#34;uuid&#34;, &#34;name&#34;: &#34;Updated&#34; } } Res example: { result: { success: true } } |
-| DeleteAction | [DeleteActionRequest](#proto-action-v1-DeleteActionRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteAction performs soft delete Req example: { &#34;action_id&#34;: &#34;uuid&#34;, &#34;user_id&#34;: &#34;uuid&#34; } Res example: { result: { success: true } } |
+| CreateAction | [CreateActionRequest](#proto-action-v1-CreateActionRequest) | [CreateActionResponse](#proto-action-v1-CreateActionResponse) | CreateAction creates a new action Req example: { &#34;action&#34;: { &#34;resource_id&#34;: &#34;uuid&#34;, &#34;name&#34;: &#34;Read&#34;, &#34;request_type&#34;: HTTP } } Res example: CreateActionResponse |
+| UpdateAction | [UpdateActionRequest](#proto-action-v1-UpdateActionRequest) | [UpdateActionResponse](#proto-action-v1-UpdateActionResponse) | UpdateAction updates an existing action Req example: { &#34;action&#34;: { &#34;action_id&#34;: &#34;uuid&#34;, &#34;name&#34;: &#34;Updated&#34; } } Res example: { result: { success: true } } |
+| DeleteAction | [DeleteActionRequest](#proto-action-v1-DeleteActionRequest) | [DeleteActionResponse](#proto-action-v1-DeleteActionResponse) | DeleteAction performs soft delete Req example: { &#34;action_id&#34;: &#34;uuid&#34;, &#34;user_id&#34;: &#34;uuid&#34; } Res example: { result: { success: true } } |
 
  
 
@@ -768,9 +819,9 @@ define enum
 
 
 
-<a name="proto-menu-v1-GetSuperMenuRequest"></a>
+<a name="proto-menu-v1-GetSuperMenusRequest"></a>
 
-### GetSuperMenuRequest
+### GetSuperMenusRequest
 
 
 
@@ -783,9 +834,9 @@ define enum
 
 
 
-<a name="proto-menu-v1-GetSuperMenuResponse"></a>
+<a name="proto-menu-v1-GetSuperMenusResponse"></a>
 
-### GetSuperMenuResponse
+### GetSuperMenusResponse
 
 
 
@@ -864,7 +915,7 @@ MenuService: retrieve hierarchical menu for a user
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetSuperMenus | [GetSuperMenuRequest](#proto-menu-v1-GetSuperMenuRequest) | [GetSuperMenuResponse](#proto-menu-v1-GetSuperMenuResponse) | GetSuperMenus returns full menu structure available to a user Req example: { &#34;user_id&#34;: &#34;uuid&#34; } Res example: { &#34;super_menus&#34;: [ { &#34;name&#34;:&#34;...&#34;, &#34;menus&#34;: [...] } ] } |
+| GetSuperMenus | [GetSuperMenusRequest](#proto-menu-v1-GetSuperMenusRequest) | [GetSuperMenusResponse](#proto-menu-v1-GetSuperMenusResponse) | GetSuperMenus returns full menu structure available to a user Req example: { &#34;user_id&#34;: &#34;uuid&#34; } Res example: { &#34;super_menus&#34;: [ { &#34;name&#34;:&#34;...&#34;, &#34;menus&#34;: [...] } ] } |
 
  
 
@@ -912,9 +963,9 @@ MenuService: retrieve hierarchical menu for a user
 
 
 
-<a name="proto-module-v1-CreateSuccess"></a>
+<a name="proto-module-v1-CreateModuleResponse"></a>
 
-### CreateSuccess
+### CreateModuleResponse
 
 
 
@@ -938,6 +989,22 @@ MenuService: retrieve hierarchical menu for a user
 | ----- | ---- | ----- | ----------- |
 | module_id | [string](#string) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-module-v1-DeleteModuleResponse"></a>
+
+### DeleteModuleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
@@ -1069,6 +1136,22 @@ MenuService: retrieve hierarchical menu for a user
 
 
 
+
+<a name="proto-module-v1-UpdateModuleResponse"></a>
+
+### UpdateModuleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
  
 
  
@@ -1086,9 +1169,9 @@ Sample GetModule request: { &#34;module_id&#34;: &#34;uuid&#34; }
 | ----------- | ------------ | ------------- | ------------|
 | GetModule | [GetModuleRequest](#proto-module-v1-GetModuleRequest) | [GetModuleResponse](#proto-module-v1-GetModuleResponse) | GetModule returns a single Module Req example: { &#34;module_id&#34;: &#34;...&#34; } Res example: { &#34;module_id&#34;: &#34;...&#34;, &#34;name&#34;: &#34;...&#34; } |
 | GetModules | [GetModulesRequest](#proto-module-v1-GetModulesRequest) | [GetModulesResponse](#proto-module-v1-GetModulesResponse) | GetModules returns paginated modules Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } Res example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 }, &#34;data&#34;: [] } |
-| CreateModule | [CreateModuleRequest](#proto-module-v1-CreateModuleRequest) | [CreateSuccess](#proto-module-v1-CreateSuccess) | CreateModule creates a new module Req example: { &#34;module&#34;: { &#34;name&#34;:&#34;mod&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
-| UpdateModule | [UpdateModuleRequest](#proto-module-v1-UpdateModuleRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateModule updates a module Req example: { &#34;module&#34;: { &#34;module_id&#34;:&#34;uuid&#34;, &#34;name&#34;:&#34;new&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
-| DeleteModule | [DeleteModuleRequest](#proto-module-v1-DeleteModuleRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteModule soft-deletes a module Req example: { &#34;module_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
+| CreateModule | [CreateModuleRequest](#proto-module-v1-CreateModuleRequest) | [CreateModuleResponse](#proto-module-v1-CreateModuleResponse) | CreateModule creates a new module Req example: { &#34;module&#34;: { &#34;name&#34;:&#34;mod&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| UpdateModule | [UpdateModuleRequest](#proto-module-v1-UpdateModuleRequest) | [UpdateModuleResponse](#proto-module-v1-UpdateModuleResponse) | UpdateModule updates a module Req example: { &#34;module&#34;: { &#34;module_id&#34;:&#34;uuid&#34;, &#34;name&#34;:&#34;new&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| DeleteModule | [DeleteModuleRequest](#proto-module-v1-DeleteModuleRequest) | [DeleteModuleResponse](#proto-module-v1-DeleteModuleResponse) | DeleteModule soft-deletes a module Req example: { &#34;module_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
 
  
 
@@ -1134,9 +1217,9 @@ Sample GetModule request: { &#34;module_id&#34;: &#34;uuid&#34; }
 
 
 
-<a name="proto-permission-v1-CreateSuccess"></a>
+<a name="proto-permission-v1-CreatePermissionResponse"></a>
 
-### CreateSuccess
+### CreatePermissionResponse
 
 
 
@@ -1166,6 +1249,22 @@ Sample GetModule request: { &#34;module_id&#34;: &#34;uuid&#34; }
 
 
 
+<a name="proto-permission-v1-DeletePermissionResponse"></a>
+
+### DeletePermissionResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
 <a name="proto-permission-v1-GetPermissionRequest"></a>
 
 ### GetPermissionRequest
@@ -1175,6 +1274,22 @@ Sample GetModule request: { &#34;module_id&#34;: &#34;uuid&#34; }
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | permission_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-permission-v1-GetPermissionResponse"></a>
+
+### GetPermissionResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| permission | [Permission](#proto-permission-v1-Permission) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
@@ -1319,6 +1434,22 @@ Sample GetModule request: { &#34;module_id&#34;: &#34;uuid&#34; }
 
 
 
+
+<a name="proto-permission-v1-UpdatePermissionResponse"></a>
+
+### UpdatePermissionResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
  
 
  
@@ -1333,11 +1464,11 @@ PermissionService: manage role-resource-action permissions
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetPermission | [GetPermissionRequest](#proto-permission-v1-GetPermissionRequest) | [Permission](#proto-permission-v1-Permission) | GetPermission returns a single permission by id Req example: { &#34;permission_id&#34;: &#34;uuid&#34; } |
+| GetPermission | [GetPermissionRequest](#proto-permission-v1-GetPermissionRequest) | [GetPermissionResponse](#proto-permission-v1-GetPermissionResponse) | GetPermission returns a single permission by id Req example: { &#34;permission_id&#34;: &#34;uuid&#34; } |
 | GetPermissions | [GetPermissionsRequest](#proto-permission-v1-GetPermissionsRequest) | [GetPermissionsResponse](#proto-permission-v1-GetPermissionsResponse) | GetPermissions returns paginated permissions Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } |
-| CreatePermission | [CreatePermissionRequest](#proto-permission-v1-CreatePermissionRequest) | [CreateSuccess](#proto-permission-v1-CreateSuccess) | CreatePermission assigns permission for role-resource-action Req example: { &#34;permission&#34;: { &#34;role_id&#34;:&#34;uuid&#34;, &#34;resource_id&#34;:&#34;uuid&#34;, &#34;action_id&#34;:&#34;uuid&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
-| UpdatePermission | [UpdatePermissionRequest](#proto-permission-v1-UpdatePermissionRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdatePermission updates a permission mapping Req example: { &#34;permission&#34;: { &#34;permission_id&#34;:&#34;uuid&#34;, ... }, &#34;user_id&#34;:&#34;uuid&#34; } |
-| DeletePermission | [DeletePermissionRequest](#proto-permission-v1-DeletePermissionRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeletePermission soft-deletes a permission Req example: { &#34;permission_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
+| CreatePermission | [CreatePermissionRequest](#proto-permission-v1-CreatePermissionRequest) | [CreatePermissionResponse](#proto-permission-v1-CreatePermissionResponse) | CreatePermission assigns permission for role-resource-action Req example: { &#34;permission&#34;: { &#34;role_id&#34;:&#34;uuid&#34;, &#34;resource_id&#34;:&#34;uuid&#34;, &#34;action_id&#34;:&#34;uuid&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| UpdatePermission | [UpdatePermissionRequest](#proto-permission-v1-UpdatePermissionRequest) | [UpdatePermissionResponse](#proto-permission-v1-UpdatePermissionResponse) | UpdatePermission updates a permission mapping Req example: { &#34;permission&#34;: { &#34;permission_id&#34;:&#34;uuid&#34;, ... }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| DeletePermission | [DeletePermissionRequest](#proto-permission-v1-DeletePermissionRequest) | [DeletePermissionResponse](#proto-permission-v1-DeletePermissionResponse) | DeletePermission soft-deletes a permission Req example: { &#34;permission_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
 | GetPermissionsByUserId | [GetPermissionsByUserIdRequest](#proto-permission-v1-GetPermissionsByUserIdRequest) | [GetPermissionsByUserIdResponse](#proto-permission-v1-GetPermissionsByUserIdResponse) | GetPermissionsByUserId returns permissions available to a user Req example: { &#34;user_id&#34;:&#34;uuid&#34; } Res example: { &#34;permissions&#34;: [ { &#34;resource&#34;: {...}, &#34;action&#34;: {...} } ] } |
 
  
@@ -1385,9 +1516,9 @@ PermissionService: manage role-resource-action permissions
 
 
 
-<a name="proto-product-v1-CreateSuccess"></a>
+<a name="proto-product-v1-CreateProductResponse"></a>
 
-### CreateSuccess
+### CreateProductResponse
 
 
 
@@ -1411,6 +1542,22 @@ PermissionService: manage role-resource-action permissions
 | ----- | ---- | ----- | ----------- |
 | product_id | [string](#string) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-product-v1-DeleteProductResponse"></a>
+
+### DeleteProductResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
@@ -1540,6 +1687,22 @@ PermissionService: manage role-resource-action permissions
 
 
 
+
+<a name="proto-product-v1-UpdateProductResponse"></a>
+
+### UpdateProductResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
  
 
  
@@ -1556,9 +1719,9 @@ ProductService: manage products
 | ----------- | ------------ | ------------- | ------------|
 | GetProduct | [GetProductRequest](#proto-product-v1-GetProductRequest) | [GetProductResponse](#proto-product-v1-GetProductResponse) | GetProduct returns a product by id Req example: { &#34;product_id&#34;: &#34;uuid&#34; } Res example: { product: { &#34;product_id&#34;: &#34;...&#34;, &#34;name&#34;: &#34;...&#34; } } |
 | GetProducts | [GetProductsRequest](#proto-product-v1-GetProductsRequest) | [GetProductsResponse](#proto-product-v1-GetProductsResponse) | GetProducts returns paginated products Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } |
-| CreateProduct | [CreateProductRequest](#proto-product-v1-CreateProductRequest) | [CreateSuccess](#proto-product-v1-CreateSuccess) | CreateProduct creates a product Req example: { &#34;product&#34;: { &#34;name&#34;:&#34;p&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
-| UpdateProduct | [UpdateProductRequest](#proto-product-v1-UpdateProductRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateProduct updates a product Req example: { &#34;product&#34;: { &#34;product_id&#34;:&#34;uuid&#34;, &#34;name&#34;:&#34;new&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
-| DeleteProduct | [DeleteProductRequest](#proto-product-v1-DeleteProductRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteProduct soft-deletes a product Req example: { &#34;product_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
+| CreateProduct | [CreateProductRequest](#proto-product-v1-CreateProductRequest) | [CreateProductResponse](#proto-product-v1-CreateProductResponse) | CreateProduct creates a product Req example: { &#34;product&#34;: { &#34;name&#34;:&#34;p&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| UpdateProduct | [UpdateProductRequest](#proto-product-v1-UpdateProductRequest) | [UpdateProductResponse](#proto-product-v1-UpdateProductResponse) | UpdateProduct updates a product Req example: { &#34;product&#34;: { &#34;product_id&#34;:&#34;uuid&#34;, &#34;name&#34;:&#34;new&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| DeleteProduct | [DeleteProductRequest](#proto-product-v1-DeleteProductRequest) | [DeleteProductResponse](#proto-product-v1-DeleteProductResponse) | DeleteProduct soft-deletes a product Req example: { &#34;product_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
 
  
 
@@ -1624,9 +1787,9 @@ ProductService: manage products
 
 
 
-<a name="proto-resource-v1-CreateSuccess"></a>
+<a name="proto-resource-v1-CreateResourceResponse"></a>
 
-### CreateSuccess
+### CreateResourceResponse
 
 
 
@@ -1650,6 +1813,22 @@ ProductService: manage products
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-resource-v1-DeleteResourceResponse"></a>
+
+### DeleteResourceResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
@@ -1776,6 +1955,22 @@ ProductService: manage products
 
 
 
+
+<a name="proto-resource-v1-UpdateResourceResponse"></a>
+
+### UpdateResourceResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
  
 
  
@@ -1794,9 +1989,9 @@ Sample GetResource response: Resource
 | ----------- | ------------ | ------------- | ------------|
 | GetResource | [GetResourceRequest](#proto-resource-v1-GetResourceRequest) | [GetResourceResponse](#proto-resource-v1-GetResourceResponse) | GetResource returns a single Resource Req example: { &#34;resource_id&#34;: &#34;...&#34; } Res example: { &#34;resource_id&#34;: &#34;...&#34;, &#34;name&#34;: &#34;...&#34; } |
 | GetResources | [GetResourcesRequest](#proto-resource-v1-GetResourcesRequest) | [GetResourcesResponse](#proto-resource-v1-GetResourcesResponse) | GetResources returns paginated resources Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } Res example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10, &#34;totalItems&#34;:0 }, &#34;data&#34;: [] } |
-| CreateResource | [CreateResourceRequest](#proto-resource-v1-CreateResourceRequest) | [CreateSuccess](#proto-resource-v1-CreateSuccess) | CreateResource creates a resource with actions Res example: { &#34;resource&#34;: { &#34;name&#34;:&#34;res&#34;, &#34;module_id&#34;:&#34;uuid&#34;, &#34;actions&#34;: [...] }, &#34;user_id&#34;:&#34;uuid&#34; } Res example: CreateSuccess |
-| UpdateResource | [UpdateResourceRequest](#proto-resource-v1-UpdateResourceRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateResource updates resource and its actions Req example: { &#34;resource&#34;: { &#34;resource_id&#34;:&#34;uuid&#34;, &#34;name&#34;:&#34;new&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } Res example: { result: { success: true } } |
-| DeleteResource | [DeleteResourceRequest](#proto-resource-v1-DeleteResourceRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteResource soft-deletes resource Req example: { &#34;resource_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } Res example: { result: { success: true } } |
+| CreateResource | [CreateResourceRequest](#proto-resource-v1-CreateResourceRequest) | [CreateResourceResponse](#proto-resource-v1-CreateResourceResponse) | CreateResource creates a resource with actions Res example: { &#34;resource&#34;: { &#34;name&#34;:&#34;res&#34;, &#34;module_id&#34;:&#34;uuid&#34;, &#34;actions&#34;: [...] }, &#34;user_id&#34;:&#34;uuid&#34; } Res example: CreateResourceResponse |
+| UpdateResource | [UpdateResourceRequest](#proto-resource-v1-UpdateResourceRequest) | [UpdateResourceResponse](#proto-resource-v1-UpdateResourceResponse) | UpdateResource updates resource and its actions Req example: { &#34;resource&#34;: { &#34;resource_id&#34;:&#34;uuid&#34;, &#34;name&#34;:&#34;new&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } Res example: { result: { success: true } } |
+| DeleteResource | [DeleteResourceRequest](#proto-resource-v1-DeleteResourceRequest) | [DeleteResourceResponse](#proto-resource-v1-DeleteResourceResponse) | DeleteResource soft-deletes resource Req example: { &#34;resource_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } Res example: { result: { success: true } } |
 
  
 
@@ -1855,9 +2050,9 @@ Example Request:
 
 
 
-<a name="proto-role-v1-CreateSuccess"></a>
+<a name="proto-role-v1-CreateRoleResponse"></a>
 
-### CreateSuccess
+### CreateRoleResponse
 CreateSuccess returns the created role and any validation errors.
 
 
@@ -1881,6 +2076,22 @@ DeleteRoleRequest indicates which role to delete and who requested it.
 | ----- | ---- | ----- | ----------- |
 | role_id | [string](#string) |  |  |
 | user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-role-v1-DeleteRoleResponse"></a>
+
+### DeleteRoleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
@@ -2049,6 +2260,22 @@ UpdateRoleRequest contains the changes and acting user id.
 
 
 
+
+<a name="proto-role-v1-UpdateRoleResponse"></a>
+
+### UpdateRoleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
  
 
  
@@ -2065,206 +2292,9 @@ Role service provides basic CRUD operations for roles.
 | ----------- | ------------ | ------------- | ------------|
 | GetRole | [GetRoleRequest](#proto-role-v1-GetRoleRequest) | [GetRoleResponse](#proto-role-v1-GetRoleResponse) | GetRole returns a single Role identified by `role_id`. Example Request: { &#34;role_id&#34;: &#34;role-123&#34; } |
 | GetRoles | [GetRolesRequest](#proto-role-v1-GetRolesRequest) | [GetRolesResponse](#proto-role-v1-GetRolesResponse) | GetRoles returns a paginated list of roles with optional filters and sorts. Example Request: { &#34;pagination&#34;: { &#34;page&#34;: 1, &#34;limit&#34;: 20 }, &#34;sorts&#34;: [ { &#34;field&#34;: &#34;created_at&#34;, &#34;order&#34;: 1 } ] } Example Response (GetRolesResponse): { &#34;pagination&#34;: { &#34;page&#34;: 1, &#34;limit&#34;: 20, &#34;total_items&#34;: 100, &#34;total_pages&#34;: 5, &#34;item_count&#34;: 20 }, &#34;data&#34;: [ { /* Role objects */ } ] } |
-| CreateRole | [CreateRoleRequest](#proto-role-v1-CreateRoleRequest) | [CreateSuccess](#proto-role-v1-CreateSuccess) | CreateRole creates a new role. `user_id` is the actor performing the operation. Example Request: { &#34;role&#34;: { &#34;name&#34;: &#34;Viewer&#34;, &#34;description&#34;: &#34;Read-only&#34;, &#34;module_id&#34;: &#34;module-3&#34; }, &#34;user_id&#34;: &#34;user-42&#34; } Example Response (CreateSuccess): { &#34;role&#34;: { &#34;role_id&#34;: &#34;role-124&#34;, &#34;name&#34;: &#34;Viewer&#34;, &#34;module_id&#34;: &#34;module-3&#34; }, &#34;errors&#34;: [] } |
-| UpdateRole | [UpdateRoleRequest](#proto-role-v1-UpdateRoleRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateRole updates an existing role. Returns UpdateSuccess indicating operation result. Example Request: { &#34;role&#34;: { &#34;role_id&#34;: &#34;role-123&#34;, &#34;name&#34;: &#34;Manager&#34; }, &#34;user_id&#34;: &#34;user-2&#34; } Example Response (proto.base.v1.UpdateSuccess): { &#34;success&#34;: true, &#34;errors&#34;: [] } |
-| DeleteRole | [DeleteRoleRequest](#proto-role-v1-DeleteRoleRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteRole marks a role as deleted. Returns DeleteSuccess indicating operation result. Example Request: { &#34;role_id&#34;: &#34;role-123&#34;, &#34;user_id&#34;: &#34;user-2&#34; } Example Response (proto.base.v1.DeleteSuccess): { &#34;success&#34;: true, &#34;errors&#34;: [] } |
-
- 
-
-
-
-<a name="proto_user-role_v1_user-role-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## proto/user-role/v1/user-role.proto
-
-
-
-<a name="proto-user_role-v1-CreateSuccess"></a>
-
-### CreateSuccess
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_role | [UserRole](#proto-user_role-v1-UserRole) |  |  |
-| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
-
-
-
-
-
-
-<a name="proto-user_role-v1-CreateUserRoleData"></a>
-
-### CreateUserRoleData
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_id | [string](#string) |  |  |
-| role_id | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="proto-user_role-v1-CreateUserRoleRequest"></a>
-
-### CreateUserRoleRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_role | [CreateUserRoleData](#proto-user_role-v1-CreateUserRoleData) |  |  |
-| user_id | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="proto-user_role-v1-DeleteUserRoleRequest"></a>
-
-### DeleteUserRoleRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_role_id | [string](#string) |  |  |
-| user_id | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="proto-user_role-v1-GetUserRoleRequest"></a>
-
-### GetUserRoleRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_role_id | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="proto-user_role-v1-GetUserRolesRequest"></a>
-
-### GetUserRolesRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
-| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
-| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
-
-
-
-
-
-
-<a name="proto-user_role-v1-GetUserRolesResponse"></a>
-
-### GetUserRolesResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
-| data | [UserRole](#proto-user_role-v1-UserRole) | repeated |  |
-
-
-
-
-
-
-<a name="proto-user_role-v1-UpdateUserRoleData"></a>
-
-### UpdateUserRoleData
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_id | [string](#string) |  |  |
-| role_id | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="proto-user_role-v1-UpdateUserRoleRequest"></a>
-
-### UpdateUserRoleRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_role | [UpdateUserRoleData](#proto-user_role-v1-UpdateUserRoleData) |  |  |
-| user_id | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="proto-user_role-v1-UserRole"></a>
-
-### UserRole
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_role_id | [string](#string) |  |  |
-| user_id | [string](#string) |  |  |
-| role_id | [string](#string) |  |  |
-| created_user_id | [string](#string) |  |  |
-| updated_at | [string](#string) |  |  |
-| updated_user_id | [string](#string) |  |  |
-| deleted_at | [string](#string) |  |  |
-| deleted_user_id | [string](#string) |  |  |
-| created_at | [string](#string) |  |  |
-
-
-
-
-
- 
-
- 
-
- 
-
-
-<a name="proto-user_role-v1-UserRoleService"></a>
-
-### UserRoleService
-UserRoleService: manage user role assignments
-
-| Method Name | Request Type | Response Type | Description |
-| ----------- | ------------ | ------------- | ------------|
-| GetUserRole | [GetUserRoleRequest](#proto-user_role-v1-GetUserRoleRequest) | [UserRole](#proto-user_role-v1-UserRole) | GetUserRole returns a single user_role Req example: { &#34;user_role_id&#34;: &#34;uuid&#34; } |
-| GetUserRoles | [GetUserRolesRequest](#proto-user_role-v1-GetUserRolesRequest) | [GetUserRolesRequest](#proto-user_role-v1-GetUserRolesRequest) | GetUserRoles returns paginated user_role list Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } |
-| CreateUserRole | [CreateUserRoleRequest](#proto-user_role-v1-CreateUserRoleRequest) | [CreateSuccess](#proto-user_role-v1-CreateSuccess) | CreateUserRole assigns a role to a user Req example: { &#34;user_role&#34;: { &#34;user_id&#34;:&#34;uuid&#34;, &#34;role_id&#34;:&#34;uuid&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
-| UpdateUserRole | [UpdateUserRoleRequest](#proto-user_role-v1-UpdateUserRoleRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateUserRole updates an assignment Req example: { &#34;user_role&#34;: { &#34;user_id&#34;:&#34;uuid&#34;, &#34;role_id&#34;:&#34;uuid&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
-| DeleteUserRole | [DeleteUserRoleRequest](#proto-user_role-v1-DeleteUserRoleRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteUserRole removes assignment Req example: { &#34;user_role_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
+| CreateRole | [CreateRoleRequest](#proto-role-v1-CreateRoleRequest) | [CreateRoleResponse](#proto-role-v1-CreateRoleResponse) | CreateRole creates a new role. `user_id` is the actor performing the operation. Example Request: { &#34;role&#34;: { &#34;name&#34;: &#34;Viewer&#34;, &#34;description&#34;: &#34;Read-only&#34;, &#34;module_id&#34;: &#34;module-3&#34; }, &#34;user_id&#34;: &#34;user-42&#34; } Example Response (CreateRoleResponse): { &#34;role&#34;: { &#34;role_id&#34;: &#34;role-124&#34;, &#34;name&#34;: &#34;Viewer&#34;, &#34;module_id&#34;: &#34;module-3&#34; }, &#34;errors&#34;: [] } |
+| UpdateRole | [UpdateRoleRequest](#proto-role-v1-UpdateRoleRequest) | [UpdateRoleResponse](#proto-role-v1-UpdateRoleResponse) | UpdateRole updates an existing role. Returns UpdateSuccess indicating operation result. Example Request: { &#34;role&#34;: { &#34;role_id&#34;: &#34;role-123&#34;, &#34;name&#34;: &#34;Manager&#34; }, &#34;user_id&#34;: &#34;user-2&#34; } Example Response (proto.base.v1.UpdateSuccess): { &#34;success&#34;: true, &#34;errors&#34;: [] } |
+| DeleteRole | [DeleteRoleRequest](#proto-role-v1-DeleteRoleRequest) | [DeleteRoleResponse](#proto-role-v1-DeleteRoleResponse) | DeleteRole marks a role as deleted. Returns DeleteSuccess indicating operation result. Example Request: { &#34;role_id&#34;: &#34;role-123&#34;, &#34;user_id&#34;: &#34;user-2&#34; } Example Response (proto.base.v1.DeleteSuccess): { &#34;success&#34;: true, &#34;errors&#34;: [] } |
 
  
 
@@ -2294,15 +2324,15 @@ Example Request: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;password&#34;: &#34
 
 
 
-<a name="proto-user-v1-CreateSuccess"></a>
+<a name="proto-user-v1-ChangePasswordResponse"></a>
 
-### CreateSuccess
-CreateSuccess returns the created user and any validation errors.
+### ChangePasswordResponse
+
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user | [User](#proto-user-v1-User) |  |  |
+| success | [bool](#bool) |  |  |
 | errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
@@ -2360,6 +2390,22 @@ Example Request:
 
 
 
+<a name="proto-user-v1-CreateUserResponse"></a>
+
+### CreateUserResponse
+CreateSuccess returns the created user and any validation errors.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#proto-user-v1-User) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
 <a name="proto-user-v1-DeleteUserRequest"></a>
 
 ### DeleteUserRequest
@@ -2370,6 +2416,22 @@ DeleteUserRequest indicates which user to delete and who requested it.
 | ----- | ---- | ----- | ----------- |
 | user_id | [string](#string) |  |  |
 | deleted_user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-user-v1-DeleteUserResponse"></a>
+
+### DeleteUserResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
@@ -2478,6 +2540,22 @@ UpdateUserRequest includes the changes and actor id.
 
 
 
+<a name="proto-user-v1-UpdateUserResponse"></a>
+
+### UpdateUserResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
 <a name="proto-user-v1-User"></a>
 
 ### User
@@ -2550,10 +2628,255 @@ UserService provides CRUD operations for users and password management.
 | ----------- | ------------ | ------------- | ------------|
 | GetUser | [GetUserRequest](#proto-user-v1-GetUserRequest) | [GetUserResponse](#proto-user-v1-GetUserResponse) | GetUser returns a single user by id. Request: { &#34;user_id&#34;: &#34;user-1&#34; } Response: GetUserResponse (see User example above) |
 | GetUsers | [GetUsersRequest](#proto-user-v1-GetUsersRequest) | [GetUsersResponse](#proto-user-v1-GetUsersResponse) | GetUsers returns paginated users. Request example: { &#34;pagination&#34;: { &#34;page&#34;: 1, &#34;limit&#34;: 20 } } Response example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:20, &#34;total_items&#34;:100, &#34;total_pages&#34;:5, &#34;item_count&#34;:20 }, &#34;data&#34;: [ /* User */ ] } |
-| CreateUser | [CreateUserRequest](#proto-user-v1-CreateUserRequest) | [CreateSuccess](#proto-user-v1-CreateSuccess) | CreateUser creates a new user. `user_id` is the actor performing the action. Request: CreateUserRequest (see CreateUserRequest example) Response: CreateSuccess containing created `User`. |
-| UpdateUser | [UpdateUserRequest](#proto-user-v1-UpdateUserRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateUser updates an existing user. Returns UpdateSuccess. Request example: { &#34;user&#34;: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;username&#34;: &#34;newname&#34; }, &#34;user_id&#34;: &#34;admin-1&#34; } Response: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
-| DeleteUser | [DeleteUserRequest](#proto-user-v1-DeleteUserRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteUser marks a user as deleted. Request: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;deleted_user_id&#34;: &#34;admin-1&#34; } Response: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
-| ChangePassword | [ChangePasswordRequest](#proto-user-v1-ChangePasswordRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | ChangePassword updates the user&#39;s password. Request: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;password&#34;: &#34;newpass&#34; } Response: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
+| CreateUser | [CreateUserRequest](#proto-user-v1-CreateUserRequest) | [CreateUserResponse](#proto-user-v1-CreateUserResponse) | CreateUser creates a new user. `user_id` is the actor performing the action. Request: CreateUserRequest (see CreateUserRequest example) Response: CreateUserResponse containing created `User`. |
+| UpdateUser | [UpdateUserRequest](#proto-user-v1-UpdateUserRequest) | [UpdateUserResponse](#proto-user-v1-UpdateUserResponse) | UpdateUser updates an existing user. Returns UpdateSuccess. Request example: { &#34;user&#34;: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;username&#34;: &#34;newname&#34; }, &#34;user_id&#34;: &#34;admin-1&#34; } Response: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
+| DeleteUser | [DeleteUserRequest](#proto-user-v1-DeleteUserRequest) | [DeleteUserResponse](#proto-user-v1-DeleteUserResponse) | DeleteUser marks a user as deleted. Request: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;deleted_user_id&#34;: &#34;admin-1&#34; } Response: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
+| ChangePassword | [ChangePasswordRequest](#proto-user-v1-ChangePasswordRequest) | [ChangePasswordResponse](#proto-user-v1-ChangePasswordResponse) | ChangePassword updates the user&#39;s password. Request: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;password&#34;: &#34;newpass&#34; } Response: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
+
+ 
+
+
+
+<a name="proto_user_role_v1_user_role-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## proto/user_role/v1/user_role.proto
+
+
+
+<a name="proto-user_role-v1-CreateUserRoleData"></a>
+
+### CreateUserRoleData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+| role_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-CreateUserRoleRequest"></a>
+
+### CreateUserRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role | [CreateUserRoleData](#proto-user_role-v1-CreateUserRoleData) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-CreateUserRoleResponse"></a>
+
+### CreateUserRoleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role | [UserRole](#proto-user_role-v1-UserRole) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-DeleteUserRoleRequest"></a>
+
+### DeleteUserRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-DeleteUserRoleResponse"></a>
+
+### DeleteUserRoleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-GetUserRoleRequest"></a>
+
+### GetUserRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-GetUserRoleResponse"></a>
+
+### GetUserRoleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role | [UserRole](#proto-user_role-v1-UserRole) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-GetUserRolesRequest"></a>
+
+### GetUserRolesRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
+| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
+| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-GetUserRolesResponse"></a>
+
+### GetUserRolesResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
+| data | [UserRole](#proto-user_role-v1-UserRole) | repeated |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-UpdateUserRoleData"></a>
+
+### UpdateUserRoleData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+| role_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-UpdateUserRoleRequest"></a>
+
+### UpdateUserRoleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role | [UpdateUserRoleData](#proto-user_role-v1-UpdateUserRoleData) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-UpdateUserRoleResponse"></a>
+
+### UpdateUserRoleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-user_role-v1-UserRole"></a>
+
+### UserRole
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_role_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+| role_id | [string](#string) |  |  |
+| created_user_id | [string](#string) |  |  |
+| updated_at | [string](#string) |  |  |
+| updated_user_id | [string](#string) |  |  |
+| deleted_at | [string](#string) |  |  |
+| deleted_user_id | [string](#string) |  |  |
+| created_at | [string](#string) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="proto-user_role-v1-UserRoleService"></a>
+
+### UserRoleService
+UserRoleService: manage user role assignments
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetUserRole | [GetUserRoleRequest](#proto-user_role-v1-GetUserRoleRequest) | [GetUserRoleResponse](#proto-user_role-v1-GetUserRoleResponse) | GetUserRole returns a single user_role Req example: { &#34;user_role_id&#34;: &#34;uuid&#34; } |
+| GetUserRoles | [GetUserRolesRequest](#proto-user_role-v1-GetUserRolesRequest) | [GetUserRolesResponse](#proto-user_role-v1-GetUserRolesResponse) | GetUserRoles returns paginated user_role list Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } |
+| CreateUserRole | [CreateUserRoleRequest](#proto-user_role-v1-CreateUserRoleRequest) | [CreateUserRoleResponse](#proto-user_role-v1-CreateUserRoleResponse) | CreateUserRole assigns a role to a user Req example: { &#34;user_role&#34;: { &#34;user_id&#34;:&#34;uuid&#34;, &#34;role_id&#34;:&#34;uuid&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| UpdateUserRole | [UpdateUserRoleRequest](#proto-user_role-v1-UpdateUserRoleRequest) | [UpdateUserRoleResponse](#proto-user_role-v1-UpdateUserRoleResponse) | UpdateUserRole updates an assignment Req example: { &#34;user_role&#34;: { &#34;user_id&#34;:&#34;uuid&#34;, &#34;role_id&#34;:&#34;uuid&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| DeleteUserRole | [DeleteUserRoleRequest](#proto-user_role-v1-DeleteUserRoleRequest) | [DeleteUserRoleResponse](#proto-user_role-v1-DeleteUserRoleResponse) | DeleteUserRole removes assignment Req example: { &#34;user_role_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
 
  
 

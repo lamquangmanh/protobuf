@@ -8,7 +8,6 @@ package permissionv1
 
 import (
 	context "context"
-	v1 "github.com/lamquangmanh/protobuf/gen/go/proto/base/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -36,19 +35,19 @@ const (
 type PermissionServiceClient interface {
 	// GetPermission returns a single permission by id
 	// Req example: { "permission_id": "uuid" }
-	GetPermission(ctx context.Context, in *GetPermissionRequest, opts ...grpc.CallOption) (*Permission, error)
+	GetPermission(ctx context.Context, in *GetPermissionRequest, opts ...grpc.CallOption) (*GetPermissionResponse, error)
 	// GetPermissions returns paginated permissions
 	// Req example: { "pagination": { "page":1, "limit":10 } }
 	GetPermissions(ctx context.Context, in *GetPermissionsRequest, opts ...grpc.CallOption) (*GetPermissionsResponse, error)
 	// CreatePermission assigns permission for role-resource-action
 	// Req example: { "permission": { "role_id":"uuid", "resource_id":"uuid", "action_id":"uuid" }, "user_id":"uuid" }
-	CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreateSuccess, error)
+	CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error)
 	// UpdatePermission updates a permission mapping
 	// Req example: { "permission": { "permission_id":"uuid", ... }, "user_id":"uuid" }
-	UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error)
+	UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*UpdatePermissionResponse, error)
 	// DeletePermission soft-deletes a permission
 	// Req example: { "permission_id":"uuid", "user_id":"uuid" }
-	DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error)
+	DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*DeletePermissionResponse, error)
 	// GetPermissionsByUserId returns permissions available to a user
 	// Req example: { "user_id":"uuid" }
 	// Res example: { "permissions": [ { "resource": {...}, "action": {...} } ] }
@@ -63,9 +62,9 @@ func NewPermissionServiceClient(cc grpc.ClientConnInterface) PermissionServiceCl
 	return &permissionServiceClient{cc}
 }
 
-func (c *permissionServiceClient) GetPermission(ctx context.Context, in *GetPermissionRequest, opts ...grpc.CallOption) (*Permission, error) {
+func (c *permissionServiceClient) GetPermission(ctx context.Context, in *GetPermissionRequest, opts ...grpc.CallOption) (*GetPermissionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Permission)
+	out := new(GetPermissionResponse)
 	err := c.cc.Invoke(ctx, PermissionService_GetPermission_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -83,9 +82,9 @@ func (c *permissionServiceClient) GetPermissions(ctx context.Context, in *GetPer
 	return out, nil
 }
 
-func (c *permissionServiceClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreateSuccess, error) {
+func (c *permissionServiceClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateSuccess)
+	out := new(CreatePermissionResponse)
 	err := c.cc.Invoke(ctx, PermissionService_CreatePermission_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -93,9 +92,9 @@ func (c *permissionServiceClient) CreatePermission(ctx context.Context, in *Crea
 	return out, nil
 }
 
-func (c *permissionServiceClient) UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error) {
+func (c *permissionServiceClient) UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*UpdatePermissionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.UpdateSuccess)
+	out := new(UpdatePermissionResponse)
 	err := c.cc.Invoke(ctx, PermissionService_UpdatePermission_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -103,9 +102,9 @@ func (c *permissionServiceClient) UpdatePermission(ctx context.Context, in *Upda
 	return out, nil
 }
 
-func (c *permissionServiceClient) DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error) {
+func (c *permissionServiceClient) DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*DeletePermissionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.DeleteSuccess)
+	out := new(DeletePermissionResponse)
 	err := c.cc.Invoke(ctx, PermissionService_DeletePermission_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -131,19 +130,19 @@ func (c *permissionServiceClient) GetPermissionsByUserId(ctx context.Context, in
 type PermissionServiceServer interface {
 	// GetPermission returns a single permission by id
 	// Req example: { "permission_id": "uuid" }
-	GetPermission(context.Context, *GetPermissionRequest) (*Permission, error)
+	GetPermission(context.Context, *GetPermissionRequest) (*GetPermissionResponse, error)
 	// GetPermissions returns paginated permissions
 	// Req example: { "pagination": { "page":1, "limit":10 } }
 	GetPermissions(context.Context, *GetPermissionsRequest) (*GetPermissionsResponse, error)
 	// CreatePermission assigns permission for role-resource-action
 	// Req example: { "permission": { "role_id":"uuid", "resource_id":"uuid", "action_id":"uuid" }, "user_id":"uuid" }
-	CreatePermission(context.Context, *CreatePermissionRequest) (*CreateSuccess, error)
+	CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error)
 	// UpdatePermission updates a permission mapping
 	// Req example: { "permission": { "permission_id":"uuid", ... }, "user_id":"uuid" }
-	UpdatePermission(context.Context, *UpdatePermissionRequest) (*v1.UpdateSuccess, error)
+	UpdatePermission(context.Context, *UpdatePermissionRequest) (*UpdatePermissionResponse, error)
 	// DeletePermission soft-deletes a permission
 	// Req example: { "permission_id":"uuid", "user_id":"uuid" }
-	DeletePermission(context.Context, *DeletePermissionRequest) (*v1.DeleteSuccess, error)
+	DeletePermission(context.Context, *DeletePermissionRequest) (*DeletePermissionResponse, error)
 	// GetPermissionsByUserId returns permissions available to a user
 	// Req example: { "user_id":"uuid" }
 	// Res example: { "permissions": [ { "resource": {...}, "action": {...} } ] }
@@ -158,19 +157,19 @@ type PermissionServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPermissionServiceServer struct{}
 
-func (UnimplementedPermissionServiceServer) GetPermission(context.Context, *GetPermissionRequest) (*Permission, error) {
+func (UnimplementedPermissionServiceServer) GetPermission(context.Context, *GetPermissionRequest) (*GetPermissionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetPermission not implemented")
 }
 func (UnimplementedPermissionServiceServer) GetPermissions(context.Context, *GetPermissionsRequest) (*GetPermissionsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetPermissions not implemented")
 }
-func (UnimplementedPermissionServiceServer) CreatePermission(context.Context, *CreatePermissionRequest) (*CreateSuccess, error) {
+func (UnimplementedPermissionServiceServer) CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreatePermission not implemented")
 }
-func (UnimplementedPermissionServiceServer) UpdatePermission(context.Context, *UpdatePermissionRequest) (*v1.UpdateSuccess, error) {
+func (UnimplementedPermissionServiceServer) UpdatePermission(context.Context, *UpdatePermissionRequest) (*UpdatePermissionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdatePermission not implemented")
 }
-func (UnimplementedPermissionServiceServer) DeletePermission(context.Context, *DeletePermissionRequest) (*v1.DeleteSuccess, error) {
+func (UnimplementedPermissionServiceServer) DeletePermission(context.Context, *DeletePermissionRequest) (*DeletePermissionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeletePermission not implemented")
 }
 func (UnimplementedPermissionServiceServer) GetPermissionsByUserId(context.Context, *GetPermissionsByUserIdRequest) (*GetPermissionsByUserIdResponse, error) {

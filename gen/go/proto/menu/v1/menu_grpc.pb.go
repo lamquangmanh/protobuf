@@ -31,7 +31,7 @@ type MenuServiceClient interface {
 	// GetSuperMenus returns full menu structure available to a user
 	// Req example: { "user_id": "uuid" }
 	// Res example: { "super_menus": [ { "name":"...", "menus": [...] } ] }
-	GetSuperMenus(ctx context.Context, in *GetSuperMenuRequest, opts ...grpc.CallOption) (*GetSuperMenuResponse, error)
+	GetSuperMenus(ctx context.Context, in *GetSuperMenusRequest, opts ...grpc.CallOption) (*GetSuperMenusResponse, error)
 }
 
 type menuServiceClient struct {
@@ -42,9 +42,9 @@ func NewMenuServiceClient(cc grpc.ClientConnInterface) MenuServiceClient {
 	return &menuServiceClient{cc}
 }
 
-func (c *menuServiceClient) GetSuperMenus(ctx context.Context, in *GetSuperMenuRequest, opts ...grpc.CallOption) (*GetSuperMenuResponse, error) {
+func (c *menuServiceClient) GetSuperMenus(ctx context.Context, in *GetSuperMenusRequest, opts ...grpc.CallOption) (*GetSuperMenusResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetSuperMenuResponse)
+	out := new(GetSuperMenusResponse)
 	err := c.cc.Invoke(ctx, MenuService_GetSuperMenus_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -61,7 +61,7 @@ type MenuServiceServer interface {
 	// GetSuperMenus returns full menu structure available to a user
 	// Req example: { "user_id": "uuid" }
 	// Res example: { "super_menus": [ { "name":"...", "menus": [...] } ] }
-	GetSuperMenus(context.Context, *GetSuperMenuRequest) (*GetSuperMenuResponse, error)
+	GetSuperMenus(context.Context, *GetSuperMenusRequest) (*GetSuperMenusResponse, error)
 	mustEmbedUnimplementedMenuServiceServer()
 }
 
@@ -72,7 +72,7 @@ type MenuServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedMenuServiceServer struct{}
 
-func (UnimplementedMenuServiceServer) GetSuperMenus(context.Context, *GetSuperMenuRequest) (*GetSuperMenuResponse, error) {
+func (UnimplementedMenuServiceServer) GetSuperMenus(context.Context, *GetSuperMenusRequest) (*GetSuperMenusResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetSuperMenus not implemented")
 }
 func (UnimplementedMenuServiceServer) mustEmbedUnimplementedMenuServiceServer() {}
@@ -97,7 +97,7 @@ func RegisterMenuServiceServer(s grpc.ServiceRegistrar, srv MenuServiceServer) {
 }
 
 func _MenuService_GetSuperMenus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetSuperMenuRequest)
+	in := new(GetSuperMenusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func _MenuService_GetSuperMenus_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: MenuService_GetSuperMenus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MenuServiceServer).GetSuperMenus(ctx, req.(*GetSuperMenuRequest))
+		return srv.(MenuServiceServer).GetSuperMenus(ctx, req.(*GetSuperMenusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

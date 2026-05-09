@@ -6,15 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import {
-  DeleteSuccess,
-  ErrorMessage,
-  Filter,
-  PaginationRequest,
-  PaginationResponse,
-  Sort,
-  UpdateSuccess,
-} from "../../base/v1/base";
+import { ErrorMessage, Filter, PaginationRequest, PaginationResponse, Sort } from "../../base/v1/base";
 
 export const protobufPackage = "proto.product.v1";
 
@@ -77,8 +69,18 @@ export interface DeleteProductRequest {
   userId: string;
 }
 
-export interface CreateSuccess {
+export interface CreateProductResponse {
   product: Product | undefined;
+  errors: ErrorMessage[];
+}
+
+export interface UpdateProductResponse {
+  success: boolean;
+  errors: ErrorMessage[];
+}
+
+export interface DeleteProductResponse {
+  success: boolean;
   errors: ErrorMessage[];
 }
 
@@ -1013,12 +1015,12 @@ export const DeleteProductRequest: MessageFns<DeleteProductRequest> = {
   },
 };
 
-function createBaseCreateSuccess(): CreateSuccess {
+function createBaseCreateProductResponse(): CreateProductResponse {
   return { product: undefined, errors: [] };
 }
 
-export const CreateSuccess: MessageFns<CreateSuccess> = {
-  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const CreateProductResponse: MessageFns<CreateProductResponse> = {
+  encode(message: CreateProductResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.product !== undefined) {
       Product.encode(message.product, writer.uint32(10).fork()).join();
     }
@@ -1028,10 +1030,10 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateProductResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreateSuccess();
+    const message = createBaseCreateProductResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1060,14 +1062,14 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return message;
   },
 
-  fromJSON(object: any): CreateSuccess {
+  fromJSON(object: any): CreateProductResponse {
     return {
       product: isSet(object.product) ? Product.fromJSON(object.product) : undefined,
       errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: CreateSuccess): unknown {
+  toJSON(message: CreateProductResponse): unknown {
     const obj: any = {};
     if (message.product !== undefined) {
       obj.product = Product.toJSON(message.product);
@@ -1078,14 +1080,166 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
-    return CreateSuccess.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreateProductResponse>, I>>(base?: I): CreateProductResponse {
+    return CreateProductResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
-    const message = createBaseCreateSuccess();
+  fromPartial<I extends Exact<DeepPartial<CreateProductResponse>, I>>(object: I): CreateProductResponse {
+    const message = createBaseCreateProductResponse();
     message.product = (object.product !== undefined && object.product !== null)
       ? Product.fromPartial(object.product)
       : undefined;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateProductResponse(): UpdateProductResponse {
+  return { success: false, errors: [] };
+}
+
+export const UpdateProductResponse: MessageFns<UpdateProductResponse> = {
+  encode(message: UpdateProductResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateProductResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateProductResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateProductResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: UpdateProductResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateProductResponse>, I>>(base?: I): UpdateProductResponse {
+    return UpdateProductResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateProductResponse>, I>>(object: I): UpdateProductResponse {
+    const message = createBaseUpdateProductResponse();
+    message.success = object.success ?? false;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseDeleteProductResponse(): DeleteProductResponse {
+  return { success: false, errors: [] };
+}
+
+export const DeleteProductResponse: MessageFns<DeleteProductResponse> = {
+  encode(message: DeleteProductResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteProductResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteProductResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteProductResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: DeleteProductResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteProductResponse>, I>>(base?: I): DeleteProductResponse {
+    return DeleteProductResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeleteProductResponse>, I>>(object: I): DeleteProductResponse {
+    const message = createBaseDeleteProductResponse();
+    message.success = object.success ?? false;
     message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
     return message;
   },
@@ -1186,17 +1340,17 @@ export interface ProductService {
    * CreateProduct creates a product
    * Req example: { "product": { "name":"p" }, "user_id":"uuid" }
    */
-  CreateProduct(request: CreateProductRequest): Promise<CreateSuccess>;
+  CreateProduct(request: CreateProductRequest): Promise<CreateProductResponse>;
   /**
    * UpdateProduct updates a product
    * Req example: { "product": { "product_id":"uuid", "name":"new" }, "user_id":"uuid" }
    */
-  UpdateProduct(request: UpdateProductRequest): Promise<UpdateSuccess>;
+  UpdateProduct(request: UpdateProductRequest): Promise<UpdateProductResponse>;
   /**
    * DeleteProduct soft-deletes a product
    * Req example: { "product_id":"uuid", "user_id":"uuid" }
    */
-  DeleteProduct(request: DeleteProductRequest): Promise<DeleteSuccess>;
+  DeleteProduct(request: DeleteProductRequest): Promise<DeleteProductResponse>;
 }
 
 export const ProductServiceServiceName = "proto.product.v1.ProductService";
@@ -1224,22 +1378,22 @@ export class ProductServiceClientImpl implements ProductService {
     return promise.then((data) => GetProductsResponse.decode(new BinaryReader(data)));
   }
 
-  CreateProduct(request: CreateProductRequest): Promise<CreateSuccess> {
+  CreateProduct(request: CreateProductRequest): Promise<CreateProductResponse> {
     const data = CreateProductRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateProduct", data);
-    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => CreateProductResponse.decode(new BinaryReader(data)));
   }
 
-  UpdateProduct(request: UpdateProductRequest): Promise<UpdateSuccess> {
+  UpdateProduct(request: UpdateProductRequest): Promise<UpdateProductResponse> {
     const data = UpdateProductRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateProduct", data);
-    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => UpdateProductResponse.decode(new BinaryReader(data)));
   }
 
-  DeleteProduct(request: DeleteProductRequest): Promise<DeleteSuccess> {
+  DeleteProduct(request: DeleteProductRequest): Promise<DeleteProductResponse> {
     const data = DeleteProductRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteProduct", data);
-    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => DeleteProductResponse.decode(new BinaryReader(data)));
   }
 }
 

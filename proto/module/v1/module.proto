@@ -68,8 +68,18 @@ message DeleteModuleRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
+message CreateModuleResponse {
   Module module = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message UpdateModuleResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteModuleResponse {
+  bool success = 1;
   repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
@@ -93,13 +103,13 @@ service ModuleService {
 
   // CreateModule creates a new module
   // Req example: { "module": { "name":"mod" }, "user_id":"uuid" }
-  rpc CreateModule(CreateModuleRequest) returns (CreateSuccess) {}
+  rpc CreateModule(CreateModuleRequest) returns (CreateModuleResponse) {}
 
   // UpdateModule updates a module
   // Req example: { "module": { "module_id":"uuid", "name":"new" }, "user_id":"uuid" }
-  rpc UpdateModule(UpdateModuleRequest) returns (proto.base.v1.UpdateSuccess) {}
+  rpc UpdateModule(UpdateModuleRequest) returns (UpdateModuleResponse) {}
 
   // DeleteModule soft-deletes a module
   // Req example: { "module_id":"uuid", "user_id":"uuid" }
-  rpc DeleteModule(DeleteModuleRequest) returns (proto.base.v1.DeleteSuccess) {}
+  rpc DeleteModule(DeleteModuleRequest) returns (DeleteModuleResponse) {}
 }

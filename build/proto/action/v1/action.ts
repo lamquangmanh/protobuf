@@ -6,15 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import {
-  DeleteSuccess,
-  ErrorMessage,
-  Filter,
-  PaginationRequest,
-  PaginationResponse,
-  Sort,
-  UpdateSuccess,
-} from "../../base/v1/base";
+import { ErrorMessage, Filter, PaginationRequest, PaginationResponse, Sort } from "../../base/v1/base";
 
 export const protobufPackage = "proto.action.v1";
 
@@ -140,8 +132,18 @@ export interface DeleteActionRequest {
   userId: string;
 }
 
-export interface CreateSuccess {
+export interface CreateActionResponse {
   action: Action | undefined;
+  errors: ErrorMessage[];
+}
+
+export interface UpdateActionResponse {
+  success: boolean;
+  errors: ErrorMessage[];
+}
+
+export interface DeleteActionResponse {
+  success: boolean;
   errors: ErrorMessage[];
 }
 
@@ -1174,12 +1176,12 @@ export const DeleteActionRequest: MessageFns<DeleteActionRequest> = {
   },
 };
 
-function createBaseCreateSuccess(): CreateSuccess {
+function createBaseCreateActionResponse(): CreateActionResponse {
   return { action: undefined, errors: [] };
 }
 
-export const CreateSuccess: MessageFns<CreateSuccess> = {
-  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const CreateActionResponse: MessageFns<CreateActionResponse> = {
+  encode(message: CreateActionResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.action !== undefined) {
       Action.encode(message.action, writer.uint32(10).fork()).join();
     }
@@ -1189,10 +1191,10 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateActionResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreateSuccess();
+    const message = createBaseCreateActionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1221,14 +1223,14 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return message;
   },
 
-  fromJSON(object: any): CreateSuccess {
+  fromJSON(object: any): CreateActionResponse {
     return {
       action: isSet(object.action) ? Action.fromJSON(object.action) : undefined,
       errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: CreateSuccess): unknown {
+  toJSON(message: CreateActionResponse): unknown {
     const obj: any = {};
     if (message.action !== undefined) {
       obj.action = Action.toJSON(message.action);
@@ -1239,14 +1241,166 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
-    return CreateSuccess.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreateActionResponse>, I>>(base?: I): CreateActionResponse {
+    return CreateActionResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
-    const message = createBaseCreateSuccess();
+  fromPartial<I extends Exact<DeepPartial<CreateActionResponse>, I>>(object: I): CreateActionResponse {
+    const message = createBaseCreateActionResponse();
     message.action = (object.action !== undefined && object.action !== null)
       ? Action.fromPartial(object.action)
       : undefined;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateActionResponse(): UpdateActionResponse {
+  return { success: false, errors: [] };
+}
+
+export const UpdateActionResponse: MessageFns<UpdateActionResponse> = {
+  encode(message: UpdateActionResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateActionResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateActionResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateActionResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: UpdateActionResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateActionResponse>, I>>(base?: I): UpdateActionResponse {
+    return UpdateActionResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateActionResponse>, I>>(object: I): UpdateActionResponse {
+    const message = createBaseUpdateActionResponse();
+    message.success = object.success ?? false;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseDeleteActionResponse(): DeleteActionResponse {
+  return { success: false, errors: [] };
+}
+
+export const DeleteActionResponse: MessageFns<DeleteActionResponse> = {
+  encode(message: DeleteActionResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteActionResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteActionResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteActionResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: DeleteActionResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteActionResponse>, I>>(base?: I): DeleteActionResponse {
+    return DeleteActionResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeleteActionResponse>, I>>(object: I): DeleteActionResponse {
+    const message = createBaseDeleteActionResponse();
+    message.success = object.success ?? false;
     message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
     return message;
   },
@@ -1351,21 +1505,21 @@ export interface ActionService {
   /**
    * CreateAction creates a new action
    * Req example: { "action": { "resource_id": "uuid", "name": "Read", "request_type": HTTP } }
-   * Res example: CreateSuccess
+   * Res example: CreateActionResponse
    */
-  CreateAction(request: CreateActionRequest): Promise<CreateSuccess>;
+  CreateAction(request: CreateActionRequest): Promise<CreateActionResponse>;
   /**
    * UpdateAction updates an existing action
    * Req example: { "action": { "action_id": "uuid", "name": "Updated" } }
    * Res example: { result: { success: true } }
    */
-  UpdateAction(request: UpdateActionRequest): Promise<UpdateSuccess>;
+  UpdateAction(request: UpdateActionRequest): Promise<UpdateActionResponse>;
   /**
    * DeleteAction performs soft delete
    * Req example: { "action_id": "uuid", "user_id": "uuid" }
    * Res example: { result: { success: true } }
    */
-  DeleteAction(request: DeleteActionRequest): Promise<DeleteSuccess>;
+  DeleteAction(request: DeleteActionRequest): Promise<DeleteActionResponse>;
 }
 
 export const ActionServiceServiceName = "proto.action.v1.ActionService";
@@ -1393,22 +1547,22 @@ export class ActionServiceClientImpl implements ActionService {
     return promise.then((data) => GetActionsResponse.decode(new BinaryReader(data)));
   }
 
-  CreateAction(request: CreateActionRequest): Promise<CreateSuccess> {
+  CreateAction(request: CreateActionRequest): Promise<CreateActionResponse> {
     const data = CreateActionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateAction", data);
-    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => CreateActionResponse.decode(new BinaryReader(data)));
   }
 
-  UpdateAction(request: UpdateActionRequest): Promise<UpdateSuccess> {
+  UpdateAction(request: UpdateActionRequest): Promise<UpdateActionResponse> {
     const data = UpdateActionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateAction", data);
-    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => UpdateActionResponse.decode(new BinaryReader(data)));
   }
 
-  DeleteAction(request: DeleteActionRequest): Promise<DeleteSuccess> {
+  DeleteAction(request: DeleteActionRequest): Promise<DeleteActionResponse> {
     const data = DeleteActionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteAction", data);
-    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => DeleteActionResponse.decode(new BinaryReader(data)));
   }
 }
 

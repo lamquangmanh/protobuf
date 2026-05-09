@@ -6,15 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import {
-  DeleteSuccess,
-  ErrorMessage,
-  Filter,
-  PaginationRequest,
-  PaginationResponse,
-  Sort,
-  UpdateSuccess,
-} from "../../base/v1/base";
+import { ErrorMessage, Filter, PaginationRequest, PaginationResponse, Sort } from "../../base/v1/base";
 
 export const protobufPackage = "proto.role.v1";
 
@@ -138,8 +130,18 @@ export interface DeleteRoleRequest {
 }
 
 /** CreateSuccess returns the created role and any validation errors. */
-export interface CreateSuccess {
+export interface CreateRoleResponse {
   role: Role | undefined;
+  errors: ErrorMessage[];
+}
+
+export interface UpdateRoleResponse {
+  success: boolean;
+  errors: ErrorMessage[];
+}
+
+export interface DeleteRoleResponse {
+  success: boolean;
   errors: ErrorMessage[];
 }
 
@@ -1153,12 +1155,12 @@ export const DeleteRoleRequest: MessageFns<DeleteRoleRequest> = {
   },
 };
 
-function createBaseCreateSuccess(): CreateSuccess {
+function createBaseCreateRoleResponse(): CreateRoleResponse {
   return { role: undefined, errors: [] };
 }
 
-export const CreateSuccess: MessageFns<CreateSuccess> = {
-  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const CreateRoleResponse: MessageFns<CreateRoleResponse> = {
+  encode(message: CreateRoleResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.role !== undefined) {
       Role.encode(message.role, writer.uint32(10).fork()).join();
     }
@@ -1168,10 +1170,10 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateRoleResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreateSuccess();
+    const message = createBaseCreateRoleResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1200,14 +1202,14 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return message;
   },
 
-  fromJSON(object: any): CreateSuccess {
+  fromJSON(object: any): CreateRoleResponse {
     return {
       role: isSet(object.role) ? Role.fromJSON(object.role) : undefined,
       errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: CreateSuccess): unknown {
+  toJSON(message: CreateRoleResponse): unknown {
     const obj: any = {};
     if (message.role !== undefined) {
       obj.role = Role.toJSON(message.role);
@@ -1218,12 +1220,164 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
-    return CreateSuccess.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreateRoleResponse>, I>>(base?: I): CreateRoleResponse {
+    return CreateRoleResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
-    const message = createBaseCreateSuccess();
+  fromPartial<I extends Exact<DeepPartial<CreateRoleResponse>, I>>(object: I): CreateRoleResponse {
+    const message = createBaseCreateRoleResponse();
     message.role = (object.role !== undefined && object.role !== null) ? Role.fromPartial(object.role) : undefined;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateRoleResponse(): UpdateRoleResponse {
+  return { success: false, errors: [] };
+}
+
+export const UpdateRoleResponse: MessageFns<UpdateRoleResponse> = {
+  encode(message: UpdateRoleResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateRoleResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateRoleResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateRoleResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: UpdateRoleResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateRoleResponse>, I>>(base?: I): UpdateRoleResponse {
+    return UpdateRoleResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateRoleResponse>, I>>(object: I): UpdateRoleResponse {
+    const message = createBaseUpdateRoleResponse();
+    message.success = object.success ?? false;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseDeleteRoleResponse(): DeleteRoleResponse {
+  return { success: false, errors: [] };
+}
+
+export const DeleteRoleResponse: MessageFns<DeleteRoleResponse> = {
+  encode(message: DeleteRoleResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteRoleResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteRoleResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteRoleResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: DeleteRoleResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteRoleResponse>, I>>(base?: I): DeleteRoleResponse {
+    return DeleteRoleResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeleteRoleResponse>, I>>(object: I): DeleteRoleResponse {
+    const message = createBaseDeleteRoleResponse();
+    message.success = object.success ?? false;
     message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
     return message;
   },
@@ -1334,13 +1488,13 @@ export interface RoleService {
    *   "role": { "name": "Viewer", "description": "Read-only", "module_id": "module-3" },
    *   "user_id": "user-42"
    * }
-   * Example Response (CreateSuccess):
+   * Example Response (CreateRoleResponse):
    * {
    *   "role": { "role_id": "role-124", "name": "Viewer", "module_id": "module-3" },
    *   "errors": []
    * }
    */
-  CreateRole(request: CreateRoleRequest): Promise<CreateSuccess>;
+  CreateRole(request: CreateRoleRequest): Promise<CreateRoleResponse>;
   /**
    * UpdateRole updates an existing role. Returns UpdateSuccess indicating operation result.
    * Example Request:
@@ -1351,7 +1505,7 @@ export interface RoleService {
    * Example Response (proto.base.v1.UpdateSuccess):
    * { "success": true, "errors": [] }
    */
-  UpdateRole(request: UpdateRoleRequest): Promise<UpdateSuccess>;
+  UpdateRole(request: UpdateRoleRequest): Promise<UpdateRoleResponse>;
   /**
    * DeleteRole marks a role as deleted. Returns DeleteSuccess indicating operation result.
    * Example Request:
@@ -1359,7 +1513,7 @@ export interface RoleService {
    * Example Response (proto.base.v1.DeleteSuccess):
    * { "success": true, "errors": [] }
    */
-  DeleteRole(request: DeleteRoleRequest): Promise<DeleteSuccess>;
+  DeleteRole(request: DeleteRoleRequest): Promise<DeleteRoleResponse>;
 }
 
 export const RoleServiceServiceName = "proto.role.v1.RoleService";
@@ -1387,22 +1541,22 @@ export class RoleServiceClientImpl implements RoleService {
     return promise.then((data) => GetRolesResponse.decode(new BinaryReader(data)));
   }
 
-  CreateRole(request: CreateRoleRequest): Promise<CreateSuccess> {
+  CreateRole(request: CreateRoleRequest): Promise<CreateRoleResponse> {
     const data = CreateRoleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateRole", data);
-    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => CreateRoleResponse.decode(new BinaryReader(data)));
   }
 
-  UpdateRole(request: UpdateRoleRequest): Promise<UpdateSuccess> {
+  UpdateRole(request: UpdateRoleRequest): Promise<UpdateRoleResponse> {
     const data = UpdateRoleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateRole", data);
-    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => UpdateRoleResponse.decode(new BinaryReader(data)));
   }
 
-  DeleteRole(request: DeleteRoleRequest): Promise<DeleteSuccess> {
+  DeleteRole(request: DeleteRoleRequest): Promise<DeleteRoleResponse> {
     const data = DeleteRoleRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteRole", data);
-    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => DeleteRoleResponse.decode(new BinaryReader(data)));
   }
 }
 

@@ -7,15 +7,7 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 import { ActionRequestType, actionRequestTypeFromJSON, actionRequestTypeToJSON } from "../../action/v1/action";
-import {
-  DeleteSuccess,
-  ErrorMessage,
-  Filter,
-  PaginationRequest,
-  PaginationResponse,
-  Sort,
-  UpdateSuccess,
-} from "../../base/v1/base";
+import { ErrorMessage, Filter, PaginationRequest, PaginationResponse, Sort } from "../../base/v1/base";
 
 export const protobufPackage = "proto.resource.v1";
 
@@ -83,8 +75,18 @@ export interface DeleteResourceRequest {
   userId: string;
 }
 
-export interface CreateSuccess {
+export interface CreateResourceResponse {
   resource: Resource | undefined;
+  errors: ErrorMessage[];
+}
+
+export interface UpdateResourceResponse {
+  success: boolean;
+  errors: ErrorMessage[];
+}
+
+export interface DeleteResourceResponse {
+  success: boolean;
   errors: ErrorMessage[];
 }
 
@@ -1093,12 +1095,12 @@ export const DeleteResourceRequest: MessageFns<DeleteResourceRequest> = {
   },
 };
 
-function createBaseCreateSuccess(): CreateSuccess {
+function createBaseCreateResourceResponse(): CreateResourceResponse {
   return { resource: undefined, errors: [] };
 }
 
-export const CreateSuccess: MessageFns<CreateSuccess> = {
-  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const CreateResourceResponse: MessageFns<CreateResourceResponse> = {
+  encode(message: CreateResourceResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.resource !== undefined) {
       Resource.encode(message.resource, writer.uint32(10).fork()).join();
     }
@@ -1108,10 +1110,10 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateResourceResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreateSuccess();
+    const message = createBaseCreateResourceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1140,14 +1142,14 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return message;
   },
 
-  fromJSON(object: any): CreateSuccess {
+  fromJSON(object: any): CreateResourceResponse {
     return {
       resource: isSet(object.resource) ? Resource.fromJSON(object.resource) : undefined,
       errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: CreateSuccess): unknown {
+  toJSON(message: CreateResourceResponse): unknown {
     const obj: any = {};
     if (message.resource !== undefined) {
       obj.resource = Resource.toJSON(message.resource);
@@ -1158,14 +1160,166 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
-    return CreateSuccess.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreateResourceResponse>, I>>(base?: I): CreateResourceResponse {
+    return CreateResourceResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
-    const message = createBaseCreateSuccess();
+  fromPartial<I extends Exact<DeepPartial<CreateResourceResponse>, I>>(object: I): CreateResourceResponse {
+    const message = createBaseCreateResourceResponse();
     message.resource = (object.resource !== undefined && object.resource !== null)
       ? Resource.fromPartial(object.resource)
       : undefined;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateResourceResponse(): UpdateResourceResponse {
+  return { success: false, errors: [] };
+}
+
+export const UpdateResourceResponse: MessageFns<UpdateResourceResponse> = {
+  encode(message: UpdateResourceResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateResourceResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateResourceResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateResourceResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: UpdateResourceResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateResourceResponse>, I>>(base?: I): UpdateResourceResponse {
+    return UpdateResourceResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateResourceResponse>, I>>(object: I): UpdateResourceResponse {
+    const message = createBaseUpdateResourceResponse();
+    message.success = object.success ?? false;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseDeleteResourceResponse(): DeleteResourceResponse {
+  return { success: false, errors: [] };
+}
+
+export const DeleteResourceResponse: MessageFns<DeleteResourceResponse> = {
+  encode(message: DeleteResourceResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeleteResourceResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteResourceResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteResourceResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: DeleteResourceResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteResourceResponse>, I>>(base?: I): DeleteResourceResponse {
+    return DeleteResourceResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeleteResourceResponse>, I>>(object: I): DeleteResourceResponse {
+    const message = createBaseDeleteResourceResponse();
+    message.success = object.success ?? false;
     message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
     return message;
   },
@@ -1270,21 +1424,21 @@ export interface ResourceService {
   /**
    * CreateResource creates a resource with actions
    * Res example: { "resource": { "name":"res", "module_id":"uuid", "actions": [...] }, "user_id":"uuid" }
-   * Res example: CreateSuccess
+   * Res example: CreateResourceResponse
    */
-  CreateResource(request: CreateResourceRequest): Promise<CreateSuccess>;
+  CreateResource(request: CreateResourceRequest): Promise<CreateResourceResponse>;
   /**
    * UpdateResource updates resource and its actions
    * Req example: { "resource": { "resource_id":"uuid", "name":"new" }, "user_id":"uuid" }
    * Res example: { result: { success: true } }
    */
-  UpdateResource(request: UpdateResourceRequest): Promise<UpdateSuccess>;
+  UpdateResource(request: UpdateResourceRequest): Promise<UpdateResourceResponse>;
   /**
    * DeleteResource soft-deletes resource
    * Req example: { "resource_id":"uuid", "user_id":"uuid" }
    * Res example: { result: { success: true } }
    */
-  DeleteResource(request: DeleteResourceRequest): Promise<DeleteSuccess>;
+  DeleteResource(request: DeleteResourceRequest): Promise<DeleteResourceResponse>;
 }
 
 export const ResourceServiceServiceName = "proto.resource.v1.ResourceService";
@@ -1312,22 +1466,22 @@ export class ResourceServiceClientImpl implements ResourceService {
     return promise.then((data) => GetResourcesResponse.decode(new BinaryReader(data)));
   }
 
-  CreateResource(request: CreateResourceRequest): Promise<CreateSuccess> {
+  CreateResource(request: CreateResourceRequest): Promise<CreateResourceResponse> {
     const data = CreateResourceRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateResource", data);
-    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => CreateResourceResponse.decode(new BinaryReader(data)));
   }
 
-  UpdateResource(request: UpdateResourceRequest): Promise<UpdateSuccess> {
+  UpdateResource(request: UpdateResourceRequest): Promise<UpdateResourceResponse> {
     const data = UpdateResourceRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateResource", data);
-    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => UpdateResourceResponse.decode(new BinaryReader(data)));
   }
 
-  DeleteResource(request: DeleteResourceRequest): Promise<DeleteSuccess> {
+  DeleteResource(request: DeleteResourceRequest): Promise<DeleteResourceResponse> {
     const data = DeleteResourceRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteResource", data);
-    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => DeleteResourceResponse.decode(new BinaryReader(data)));
   }
 }
 

@@ -217,27 +217,27 @@ func (x *SuperMenu) GetMenus() []*Menu {
 	return nil
 }
 
-type GetSuperMenuRequest struct {
+type GetSuperMenusRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetSuperMenuRequest) Reset() {
-	*x = GetSuperMenuRequest{}
+func (x *GetSuperMenusRequest) Reset() {
+	*x = GetSuperMenusRequest{}
 	mi := &file_proto_menu_v1_menu_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetSuperMenuRequest) String() string {
+func (x *GetSuperMenusRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetSuperMenuRequest) ProtoMessage() {}
+func (*GetSuperMenusRequest) ProtoMessage() {}
 
-func (x *GetSuperMenuRequest) ProtoReflect() protoreflect.Message {
+func (x *GetSuperMenusRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_menu_v1_menu_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -249,39 +249,39 @@ func (x *GetSuperMenuRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetSuperMenuRequest.ProtoReflect.Descriptor instead.
-func (*GetSuperMenuRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetSuperMenusRequest.ProtoReflect.Descriptor instead.
+func (*GetSuperMenusRequest) Descriptor() ([]byte, []int) {
 	return file_proto_menu_v1_menu_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetSuperMenuRequest) GetUserId() string {
+func (x *GetSuperMenusRequest) GetUserId() string {
 	if x != nil {
 		return x.UserId
 	}
 	return ""
 }
 
-type GetSuperMenuResponse struct {
+type GetSuperMenusResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	SuperMenus    []*SuperMenu           `protobuf:"bytes,1,rep,name=super_menus,json=superMenus,proto3" json:"super_menus,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetSuperMenuResponse) Reset() {
-	*x = GetSuperMenuResponse{}
+func (x *GetSuperMenusResponse) Reset() {
+	*x = GetSuperMenusResponse{}
 	mi := &file_proto_menu_v1_menu_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetSuperMenuResponse) String() string {
+func (x *GetSuperMenusResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetSuperMenuResponse) ProtoMessage() {}
+func (*GetSuperMenusResponse) ProtoMessage() {}
 
-func (x *GetSuperMenuResponse) ProtoReflect() protoreflect.Message {
+func (x *GetSuperMenusResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_menu_v1_menu_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -293,12 +293,12 @@ func (x *GetSuperMenuResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetSuperMenuResponse.ProtoReflect.Descriptor instead.
-func (*GetSuperMenuResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetSuperMenusResponse.ProtoReflect.Descriptor instead.
+func (*GetSuperMenusResponse) Descriptor() ([]byte, []int) {
 	return file_proto_menu_v1_menu_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *GetSuperMenuResponse) GetSuperMenus() []*SuperMenu {
+func (x *GetSuperMenusResponse) GetSuperMenus() []*SuperMenu {
 	if x != nil {
 		return x.SuperMenus
 	}
@@ -325,14 +325,14 @@ const file_proto_menu_v1_menu_proto_rawDesc = "" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x17\n" +
 	"\x04icon\x18\x04 \x01(\tH\x00R\x04icon\x88\x01\x01\x12)\n" +
 	"\x05menus\x18\x05 \x03(\v2\x13.proto.menu.v1.MenuR\x05menusB\a\n" +
-	"\x05_icon\".\n" +
-	"\x13GetSuperMenuRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\"Q\n" +
-	"\x14GetSuperMenuResponse\x129\n" +
+	"\x05_icon\"/\n" +
+	"\x14GetSuperMenusRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"R\n" +
+	"\x15GetSuperMenusResponse\x129\n" +
 	"\vsuper_menus\x18\x01 \x03(\v2\x18.proto.menu.v1.SuperMenuR\n" +
-	"superMenus2i\n" +
-	"\vMenuService\x12Z\n" +
-	"\rGetSuperMenus\x12\".proto.menu.v1.GetSuperMenuRequest\x1a#.proto.menu.v1.GetSuperMenuResponse\"\x00B\xb2\x01\n" +
+	"superMenus2k\n" +
+	"\vMenuService\x12\\\n" +
+	"\rGetSuperMenus\x12#.proto.menu.v1.GetSuperMenusRequest\x1a$.proto.menu.v1.GetSuperMenusResponse\"\x00B\xb2\x01\n" +
 	"\x11com.proto.menu.v1B\tMenuProtoP\x01Z<github.com/lamquangmanh/protobuf/gen/go/proto/menu/v1;menuv1\xa2\x02\x03PMX\xaa\x02\rProto.Menu.V1\xca\x02\rProto\\Menu\\V1\xe2\x02\x19Proto\\Menu\\V1\\GPBMetadata\xea\x02\x0fProto::Menu::V1b\x06proto3"
 
 var (
@@ -349,18 +349,18 @@ func file_proto_menu_v1_menu_proto_rawDescGZIP() []byte {
 
 var file_proto_menu_v1_menu_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_proto_menu_v1_menu_proto_goTypes = []any{
-	(*SubMenu)(nil),              // 0: proto.menu.v1.SubMenu
-	(*Menu)(nil),                 // 1: proto.menu.v1.Menu
-	(*SuperMenu)(nil),            // 2: proto.menu.v1.SuperMenu
-	(*GetSuperMenuRequest)(nil),  // 3: proto.menu.v1.GetSuperMenuRequest
-	(*GetSuperMenuResponse)(nil), // 4: proto.menu.v1.GetSuperMenuResponse
+	(*SubMenu)(nil),               // 0: proto.menu.v1.SubMenu
+	(*Menu)(nil),                  // 1: proto.menu.v1.Menu
+	(*SuperMenu)(nil),             // 2: proto.menu.v1.SuperMenu
+	(*GetSuperMenusRequest)(nil),  // 3: proto.menu.v1.GetSuperMenusRequest
+	(*GetSuperMenusResponse)(nil), // 4: proto.menu.v1.GetSuperMenusResponse
 }
 var file_proto_menu_v1_menu_proto_depIdxs = []int32{
 	0, // 0: proto.menu.v1.Menu.sub_menus:type_name -> proto.menu.v1.SubMenu
 	1, // 1: proto.menu.v1.SuperMenu.menus:type_name -> proto.menu.v1.Menu
-	2, // 2: proto.menu.v1.GetSuperMenuResponse.super_menus:type_name -> proto.menu.v1.SuperMenu
-	3, // 3: proto.menu.v1.MenuService.GetSuperMenus:input_type -> proto.menu.v1.GetSuperMenuRequest
-	4, // 4: proto.menu.v1.MenuService.GetSuperMenus:output_type -> proto.menu.v1.GetSuperMenuResponse
+	2, // 2: proto.menu.v1.GetSuperMenusResponse.super_menus:type_name -> proto.menu.v1.SuperMenu
+	3, // 3: proto.menu.v1.MenuService.GetSuperMenus:input_type -> proto.menu.v1.GetSuperMenusRequest
+	4, // 4: proto.menu.v1.MenuService.GetSuperMenus:output_type -> proto.menu.v1.GetSuperMenusResponse
 	4, // [4:5] is the sub-list for method output_type
 	3, // [3:4] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name

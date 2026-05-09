@@ -708,7 +708,7 @@ func (x *DeleteActionRequest) GetUserId() string {
 	return ""
 }
 
-type CreateSuccess struct {
+type CreateActionResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Action        *Action                `protobuf:"bytes,1,opt,name=action,proto3" json:"action,omitempty"`
 	Errors        []*v1.ErrorMessage     `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
@@ -716,20 +716,20 @@ type CreateSuccess struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateSuccess) Reset() {
-	*x = CreateSuccess{}
+func (x *CreateActionResponse) Reset() {
+	*x = CreateActionResponse{}
 	mi := &file_proto_action_v1_action_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateSuccess) String() string {
+func (x *CreateActionResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateSuccess) ProtoMessage() {}
+func (*CreateActionResponse) ProtoMessage() {}
 
-func (x *CreateSuccess) ProtoReflect() protoreflect.Message {
+func (x *CreateActionResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_action_v1_action_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -741,19 +741,123 @@ func (x *CreateSuccess) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateSuccess.ProtoReflect.Descriptor instead.
-func (*CreateSuccess) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateActionResponse.ProtoReflect.Descriptor instead.
+func (*CreateActionResponse) Descriptor() ([]byte, []int) {
 	return file_proto_action_v1_action_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *CreateSuccess) GetAction() *Action {
+func (x *CreateActionResponse) GetAction() *Action {
 	if x != nil {
 		return x.Action
 	}
 	return nil
 }
 
-func (x *CreateSuccess) GetErrors() []*v1.ErrorMessage {
+func (x *CreateActionResponse) GetErrors() []*v1.ErrorMessage {
+	if x != nil {
+		return x.Errors
+	}
+	return nil
+}
+
+type UpdateActionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Errors        []*v1.ErrorMessage     `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateActionResponse) Reset() {
+	*x = UpdateActionResponse{}
+	mi := &file_proto_action_v1_action_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateActionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateActionResponse) ProtoMessage() {}
+
+func (x *UpdateActionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_action_v1_action_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateActionResponse.ProtoReflect.Descriptor instead.
+func (*UpdateActionResponse) Descriptor() ([]byte, []int) {
+	return file_proto_action_v1_action_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *UpdateActionResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *UpdateActionResponse) GetErrors() []*v1.ErrorMessage {
+	if x != nil {
+		return x.Errors
+	}
+	return nil
+}
+
+type DeleteActionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Errors        []*v1.ErrorMessage     `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteActionResponse) Reset() {
+	*x = DeleteActionResponse{}
+	mi := &file_proto_action_v1_action_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteActionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteActionResponse) ProtoMessage() {}
+
+func (x *DeleteActionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_action_v1_action_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteActionResponse.ProtoReflect.Descriptor instead.
+func (*DeleteActionResponse) Descriptor() ([]byte, []int) {
+	return file_proto_action_v1_action_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *DeleteActionResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *DeleteActionResponse) GetErrors() []*v1.ErrorMessage {
 	if x != nil {
 		return x.Errors
 	}
@@ -770,7 +874,7 @@ type GetActionResponse struct {
 
 func (x *GetActionResponse) Reset() {
 	*x = GetActionResponse{}
-	mi := &file_proto_action_v1_action_proto_msgTypes[10]
+	mi := &file_proto_action_v1_action_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -782,7 +886,7 @@ func (x *GetActionResponse) String() string {
 func (*GetActionResponse) ProtoMessage() {}
 
 func (x *GetActionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_action_v1_action_proto_msgTypes[10]
+	mi := &file_proto_action_v1_action_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -795,7 +899,7 @@ func (x *GetActionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetActionResponse.ProtoReflect.Descriptor instead.
 func (*GetActionResponse) Descriptor() ([]byte, []int) {
-	return file_proto_action_v1_action_proto_rawDescGZIP(), []int{10}
+	return file_proto_action_v1_action_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetActionResponse) GetAction() *Action {
@@ -874,9 +978,15 @@ const file_proto_action_v1_action_proto_rawDesc = "" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\"K\n" +
 	"\x13DeleteActionRequest\x12\x1b\n" +
 	"\taction_id\x18\x01 \x01(\tR\bactionId\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\"u\n" +
-	"\rCreateSuccess\x12/\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\"|\n" +
+	"\x14CreateActionResponse\x12/\n" +
 	"\x06action\x18\x01 \x01(\v2\x17.proto.action.v1.ActionR\x06action\x123\n" +
+	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors\"e\n" +
+	"\x14UpdateActionResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x123\n" +
+	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors\"e\n" +
+	"\x14DeleteActionResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x123\n" +
 	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors\"y\n" +
 	"\x11GetActionResponse\x12/\n" +
 	"\x06action\x18\x01 \x01(\v2\x17.proto.action.v1.ActionR\x06action\x123\n" +
@@ -887,14 +997,14 @@ const file_proto_action_v1_action_proto_rawDesc = "" +
 	"\x18ACTION_REQUEST_TYPE_HTTP\x10\x02\x12\x1f\n" +
 	"\x1bACTION_REQUEST_TYPE_GRAPHQL\x10\x03\x12\x1c\n" +
 	"\x18ACTION_REQUEST_TYPE_GRPC\x10\x04\x12!\n" +
-	"\x1dACTION_REQUEST_TYPE_WEBSOCKET\x10\x052\xc2\x03\n" +
+	"\x1dACTION_REQUEST_TYPE_WEBSOCKET\x10\x052\xdb\x03\n" +
 	"\rActionService\x12T\n" +
 	"\tGetAction\x12!.proto.action.v1.GetActionRequest\x1a\".proto.action.v1.GetActionResponse\"\x00\x12W\n" +
 	"\n" +
-	"GetActions\x12\".proto.action.v1.GetActionsRequest\x1a#.proto.action.v1.GetActionsResponse\"\x00\x12V\n" +
-	"\fCreateAction\x12$.proto.action.v1.CreateActionRequest\x1a\x1e.proto.action.v1.CreateSuccess\"\x00\x12T\n" +
-	"\fUpdateAction\x12$.proto.action.v1.UpdateActionRequest\x1a\x1c.proto.base.v1.UpdateSuccess\"\x00\x12T\n" +
-	"\fDeleteAction\x12$.proto.action.v1.DeleteActionRequest\x1a\x1c.proto.base.v1.DeleteSuccess\"\x00B\xc2\x01\n" +
+	"GetActions\x12\".proto.action.v1.GetActionsRequest\x1a#.proto.action.v1.GetActionsResponse\"\x00\x12]\n" +
+	"\fCreateAction\x12$.proto.action.v1.CreateActionRequest\x1a%.proto.action.v1.CreateActionResponse\"\x00\x12]\n" +
+	"\fUpdateAction\x12$.proto.action.v1.UpdateActionRequest\x1a%.proto.action.v1.UpdateActionResponse\"\x00\x12]\n" +
+	"\fDeleteAction\x12$.proto.action.v1.DeleteActionRequest\x1a%.proto.action.v1.DeleteActionResponse\"\x00B\xc2\x01\n" +
 	"\x13com.proto.action.v1B\vActionProtoP\x01Z@github.com/lamquangmanh/protobuf/gen/go/proto/action/v1;actionv1\xa2\x02\x03PAX\xaa\x02\x0fProto.Action.V1\xca\x02\x0fProto\\Action\\V1\xe2\x02\x1bProto\\Action\\V1\\GPBMetadata\xea\x02\x11Proto::Action::V1b\x06proto3"
 
 var (
@@ -910,7 +1020,7 @@ func file_proto_action_v1_action_proto_rawDescGZIP() []byte {
 }
 
 var file_proto_action_v1_action_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_proto_action_v1_action_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_proto_action_v1_action_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_proto_action_v1_action_proto_goTypes = []any{
 	(ActionRequestType)(0),        // 0: proto.action.v1.ActionRequestType
 	(*Action)(nil),                // 1: proto.action.v1.Action
@@ -922,46 +1032,48 @@ var file_proto_action_v1_action_proto_goTypes = []any{
 	(*CreateActionRequest)(nil),   // 7: proto.action.v1.CreateActionRequest
 	(*UpdateActionRequest)(nil),   // 8: proto.action.v1.UpdateActionRequest
 	(*DeleteActionRequest)(nil),   // 9: proto.action.v1.DeleteActionRequest
-	(*CreateSuccess)(nil),         // 10: proto.action.v1.CreateSuccess
-	(*GetActionResponse)(nil),     // 11: proto.action.v1.GetActionResponse
-	(*v1.PaginationRequest)(nil),  // 12: proto.base.v1.PaginationRequest
-	(*v1.Sort)(nil),               // 13: proto.base.v1.Sort
-	(*v1.Filter)(nil),             // 14: proto.base.v1.Filter
-	(*v1.PaginationResponse)(nil), // 15: proto.base.v1.PaginationResponse
-	(*v1.ErrorMessage)(nil),       // 16: proto.base.v1.ErrorMessage
-	(*v1.UpdateSuccess)(nil),      // 17: proto.base.v1.UpdateSuccess
-	(*v1.DeleteSuccess)(nil),      // 18: proto.base.v1.DeleteSuccess
+	(*CreateActionResponse)(nil),  // 10: proto.action.v1.CreateActionResponse
+	(*UpdateActionResponse)(nil),  // 11: proto.action.v1.UpdateActionResponse
+	(*DeleteActionResponse)(nil),  // 12: proto.action.v1.DeleteActionResponse
+	(*GetActionResponse)(nil),     // 13: proto.action.v1.GetActionResponse
+	(*v1.PaginationRequest)(nil),  // 14: proto.base.v1.PaginationRequest
+	(*v1.Sort)(nil),               // 15: proto.base.v1.Sort
+	(*v1.Filter)(nil),             // 16: proto.base.v1.Filter
+	(*v1.PaginationResponse)(nil), // 17: proto.base.v1.PaginationResponse
+	(*v1.ErrorMessage)(nil),       // 18: proto.base.v1.ErrorMessage
 }
 var file_proto_action_v1_action_proto_depIdxs = []int32{
 	0,  // 0: proto.action.v1.Action.request_type:type_name -> proto.action.v1.ActionRequestType
 	0,  // 1: proto.action.v1.CreateActionData.request_type:type_name -> proto.action.v1.ActionRequestType
 	0,  // 2: proto.action.v1.UpdateActionData.request_type:type_name -> proto.action.v1.ActionRequestType
-	12, // 3: proto.action.v1.GetActionsRequest.pagination:type_name -> proto.base.v1.PaginationRequest
-	13, // 4: proto.action.v1.GetActionsRequest.sorts:type_name -> proto.base.v1.Sort
-	14, // 5: proto.action.v1.GetActionsRequest.filters:type_name -> proto.base.v1.Filter
-	15, // 6: proto.action.v1.GetActionsResponse.pagination:type_name -> proto.base.v1.PaginationResponse
+	14, // 3: proto.action.v1.GetActionsRequest.pagination:type_name -> proto.base.v1.PaginationRequest
+	15, // 4: proto.action.v1.GetActionsRequest.sorts:type_name -> proto.base.v1.Sort
+	16, // 5: proto.action.v1.GetActionsRequest.filters:type_name -> proto.base.v1.Filter
+	17, // 6: proto.action.v1.GetActionsResponse.pagination:type_name -> proto.base.v1.PaginationResponse
 	1,  // 7: proto.action.v1.GetActionsResponse.data:type_name -> proto.action.v1.Action
 	2,  // 8: proto.action.v1.CreateActionRequest.action:type_name -> proto.action.v1.CreateActionData
 	3,  // 9: proto.action.v1.UpdateActionRequest.action:type_name -> proto.action.v1.UpdateActionData
-	1,  // 10: proto.action.v1.CreateSuccess.action:type_name -> proto.action.v1.Action
-	16, // 11: proto.action.v1.CreateSuccess.errors:type_name -> proto.base.v1.ErrorMessage
-	1,  // 12: proto.action.v1.GetActionResponse.action:type_name -> proto.action.v1.Action
-	16, // 13: proto.action.v1.GetActionResponse.errors:type_name -> proto.base.v1.ErrorMessage
-	4,  // 14: proto.action.v1.ActionService.GetAction:input_type -> proto.action.v1.GetActionRequest
-	5,  // 15: proto.action.v1.ActionService.GetActions:input_type -> proto.action.v1.GetActionsRequest
-	7,  // 16: proto.action.v1.ActionService.CreateAction:input_type -> proto.action.v1.CreateActionRequest
-	8,  // 17: proto.action.v1.ActionService.UpdateAction:input_type -> proto.action.v1.UpdateActionRequest
-	9,  // 18: proto.action.v1.ActionService.DeleteAction:input_type -> proto.action.v1.DeleteActionRequest
-	11, // 19: proto.action.v1.ActionService.GetAction:output_type -> proto.action.v1.GetActionResponse
-	6,  // 20: proto.action.v1.ActionService.GetActions:output_type -> proto.action.v1.GetActionsResponse
-	10, // 21: proto.action.v1.ActionService.CreateAction:output_type -> proto.action.v1.CreateSuccess
-	17, // 22: proto.action.v1.ActionService.UpdateAction:output_type -> proto.base.v1.UpdateSuccess
-	18, // 23: proto.action.v1.ActionService.DeleteAction:output_type -> proto.base.v1.DeleteSuccess
-	19, // [19:24] is the sub-list for method output_type
-	14, // [14:19] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	1,  // 10: proto.action.v1.CreateActionResponse.action:type_name -> proto.action.v1.Action
+	18, // 11: proto.action.v1.CreateActionResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	18, // 12: proto.action.v1.UpdateActionResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	18, // 13: proto.action.v1.DeleteActionResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	1,  // 14: proto.action.v1.GetActionResponse.action:type_name -> proto.action.v1.Action
+	18, // 15: proto.action.v1.GetActionResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	4,  // 16: proto.action.v1.ActionService.GetAction:input_type -> proto.action.v1.GetActionRequest
+	5,  // 17: proto.action.v1.ActionService.GetActions:input_type -> proto.action.v1.GetActionsRequest
+	7,  // 18: proto.action.v1.ActionService.CreateAction:input_type -> proto.action.v1.CreateActionRequest
+	8,  // 19: proto.action.v1.ActionService.UpdateAction:input_type -> proto.action.v1.UpdateActionRequest
+	9,  // 20: proto.action.v1.ActionService.DeleteAction:input_type -> proto.action.v1.DeleteActionRequest
+	13, // 21: proto.action.v1.ActionService.GetAction:output_type -> proto.action.v1.GetActionResponse
+	6,  // 22: proto.action.v1.ActionService.GetActions:output_type -> proto.action.v1.GetActionsResponse
+	10, // 23: proto.action.v1.ActionService.CreateAction:output_type -> proto.action.v1.CreateActionResponse
+	11, // 24: proto.action.v1.ActionService.UpdateAction:output_type -> proto.action.v1.UpdateActionResponse
+	12, // 25: proto.action.v1.ActionService.DeleteAction:output_type -> proto.action.v1.DeleteActionResponse
+	21, // [21:26] is the sub-list for method output_type
+	16, // [16:21] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_proto_action_v1_action_proto_init() }
@@ -975,7 +1087,7 @@ func file_proto_action_v1_action_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_action_v1_action_proto_rawDesc), len(file_proto_action_v1_action_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   11,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

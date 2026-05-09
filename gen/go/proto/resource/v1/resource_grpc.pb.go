@@ -8,7 +8,6 @@ package resourcev1
 
 import (
 	context "context"
-	v1 "github.com/lamquangmanh/protobuf/gen/go/proto/base/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -45,16 +44,16 @@ type ResourceServiceClient interface {
 	GetResources(ctx context.Context, in *GetResourcesRequest, opts ...grpc.CallOption) (*GetResourcesResponse, error)
 	// CreateResource creates a resource with actions
 	// Res example: { "resource": { "name":"res", "module_id":"uuid", "actions": [...] }, "user_id":"uuid" }
-	// Res example: CreateSuccess
-	CreateResource(ctx context.Context, in *CreateResourceRequest, opts ...grpc.CallOption) (*CreateSuccess, error)
+	// Res example: CreateResourceResponse
+	CreateResource(ctx context.Context, in *CreateResourceRequest, opts ...grpc.CallOption) (*CreateResourceResponse, error)
 	// UpdateResource updates resource and its actions
 	// Req example: { "resource": { "resource_id":"uuid", "name":"new" }, "user_id":"uuid" }
 	// Res example: { result: { success: true } }
-	UpdateResource(ctx context.Context, in *UpdateResourceRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error)
+	UpdateResource(ctx context.Context, in *UpdateResourceRequest, opts ...grpc.CallOption) (*UpdateResourceResponse, error)
 	// DeleteResource soft-deletes resource
 	// Req example: { "resource_id":"uuid", "user_id":"uuid" }
 	// Res example: { result: { success: true } }
-	DeleteResource(ctx context.Context, in *DeleteResourceRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error)
+	DeleteResource(ctx context.Context, in *DeleteResourceRequest, opts ...grpc.CallOption) (*DeleteResourceResponse, error)
 }
 
 type resourceServiceClient struct {
@@ -85,9 +84,9 @@ func (c *resourceServiceClient) GetResources(ctx context.Context, in *GetResourc
 	return out, nil
 }
 
-func (c *resourceServiceClient) CreateResource(ctx context.Context, in *CreateResourceRequest, opts ...grpc.CallOption) (*CreateSuccess, error) {
+func (c *resourceServiceClient) CreateResource(ctx context.Context, in *CreateResourceRequest, opts ...grpc.CallOption) (*CreateResourceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateSuccess)
+	out := new(CreateResourceResponse)
 	err := c.cc.Invoke(ctx, ResourceService_CreateResource_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -95,9 +94,9 @@ func (c *resourceServiceClient) CreateResource(ctx context.Context, in *CreateRe
 	return out, nil
 }
 
-func (c *resourceServiceClient) UpdateResource(ctx context.Context, in *UpdateResourceRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error) {
+func (c *resourceServiceClient) UpdateResource(ctx context.Context, in *UpdateResourceRequest, opts ...grpc.CallOption) (*UpdateResourceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.UpdateSuccess)
+	out := new(UpdateResourceResponse)
 	err := c.cc.Invoke(ctx, ResourceService_UpdateResource_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -105,9 +104,9 @@ func (c *resourceServiceClient) UpdateResource(ctx context.Context, in *UpdateRe
 	return out, nil
 }
 
-func (c *resourceServiceClient) DeleteResource(ctx context.Context, in *DeleteResourceRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error) {
+func (c *resourceServiceClient) DeleteResource(ctx context.Context, in *DeleteResourceRequest, opts ...grpc.CallOption) (*DeleteResourceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.DeleteSuccess)
+	out := new(DeleteResourceResponse)
 	err := c.cc.Invoke(ctx, ResourceService_DeleteResource_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -133,16 +132,16 @@ type ResourceServiceServer interface {
 	GetResources(context.Context, *GetResourcesRequest) (*GetResourcesResponse, error)
 	// CreateResource creates a resource with actions
 	// Res example: { "resource": { "name":"res", "module_id":"uuid", "actions": [...] }, "user_id":"uuid" }
-	// Res example: CreateSuccess
-	CreateResource(context.Context, *CreateResourceRequest) (*CreateSuccess, error)
+	// Res example: CreateResourceResponse
+	CreateResource(context.Context, *CreateResourceRequest) (*CreateResourceResponse, error)
 	// UpdateResource updates resource and its actions
 	// Req example: { "resource": { "resource_id":"uuid", "name":"new" }, "user_id":"uuid" }
 	// Res example: { result: { success: true } }
-	UpdateResource(context.Context, *UpdateResourceRequest) (*v1.UpdateSuccess, error)
+	UpdateResource(context.Context, *UpdateResourceRequest) (*UpdateResourceResponse, error)
 	// DeleteResource soft-deletes resource
 	// Req example: { "resource_id":"uuid", "user_id":"uuid" }
 	// Res example: { result: { success: true } }
-	DeleteResource(context.Context, *DeleteResourceRequest) (*v1.DeleteSuccess, error)
+	DeleteResource(context.Context, *DeleteResourceRequest) (*DeleteResourceResponse, error)
 	mustEmbedUnimplementedResourceServiceServer()
 }
 
@@ -159,13 +158,13 @@ func (UnimplementedResourceServiceServer) GetResource(context.Context, *GetResou
 func (UnimplementedResourceServiceServer) GetResources(context.Context, *GetResourcesRequest) (*GetResourcesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetResources not implemented")
 }
-func (UnimplementedResourceServiceServer) CreateResource(context.Context, *CreateResourceRequest) (*CreateSuccess, error) {
+func (UnimplementedResourceServiceServer) CreateResource(context.Context, *CreateResourceRequest) (*CreateResourceResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateResource not implemented")
 }
-func (UnimplementedResourceServiceServer) UpdateResource(context.Context, *UpdateResourceRequest) (*v1.UpdateSuccess, error) {
+func (UnimplementedResourceServiceServer) UpdateResource(context.Context, *UpdateResourceRequest) (*UpdateResourceResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateResource not implemented")
 }
-func (UnimplementedResourceServiceServer) DeleteResource(context.Context, *DeleteResourceRequest) (*v1.DeleteSuccess, error) {
+func (UnimplementedResourceServiceServer) DeleteResource(context.Context, *DeleteResourceRequest) (*DeleteResourceResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteResource not implemented")
 }
 func (UnimplementedResourceServiceServer) mustEmbedUnimplementedResourceServiceServer() {}

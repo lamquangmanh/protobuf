@@ -6,15 +6,7 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import {
-  DeleteSuccess,
-  ErrorMessage,
-  Filter,
-  PaginationRequest,
-  PaginationResponse,
-  Sort,
-  UpdateSuccess,
-} from "../../base/v1/base";
+import { ErrorMessage, Filter, PaginationRequest, PaginationResponse, Sort } from "../../base/v1/base";
 
 export const protobufPackage = "proto.permission.v1";
 
@@ -74,8 +66,23 @@ export interface DeletePermissionRequest {
   userId: string;
 }
 
-export interface CreateSuccess {
+export interface CreatePermissionResponse {
   permission: Permission | undefined;
+  errors: ErrorMessage[];
+}
+
+export interface GetPermissionResponse {
+  permission: Permission | undefined;
+  errors: ErrorMessage[];
+}
+
+export interface UpdatePermissionResponse {
+  success: boolean;
+  errors: ErrorMessage[];
+}
+
+export interface DeletePermissionResponse {
+  success: boolean;
   errors: ErrorMessage[];
 }
 
@@ -971,12 +978,12 @@ export const DeletePermissionRequest: MessageFns<DeletePermissionRequest> = {
   },
 };
 
-function createBaseCreateSuccess(): CreateSuccess {
+function createBaseCreatePermissionResponse(): CreatePermissionResponse {
   return { permission: undefined, errors: [] };
 }
 
-export const CreateSuccess: MessageFns<CreateSuccess> = {
-  encode(message: CreateSuccess, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+export const CreatePermissionResponse: MessageFns<CreatePermissionResponse> = {
+  encode(message: CreatePermissionResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.permission !== undefined) {
       Permission.encode(message.permission, writer.uint32(10).fork()).join();
     }
@@ -986,10 +993,10 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): CreateSuccess {
+  decode(input: BinaryReader | Uint8Array, length?: number): CreatePermissionResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCreateSuccess();
+    const message = createBaseCreatePermissionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1018,14 +1025,14 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return message;
   },
 
-  fromJSON(object: any): CreateSuccess {
+  fromJSON(object: any): CreatePermissionResponse {
     return {
       permission: isSet(object.permission) ? Permission.fromJSON(object.permission) : undefined,
       errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
     };
   },
 
-  toJSON(message: CreateSuccess): unknown {
+  toJSON(message: CreatePermissionResponse): unknown {
     const obj: any = {};
     if (message.permission !== undefined) {
       obj.permission = Permission.toJSON(message.permission);
@@ -1036,14 +1043,244 @@ export const CreateSuccess: MessageFns<CreateSuccess> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CreateSuccess>, I>>(base?: I): CreateSuccess {
-    return CreateSuccess.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CreatePermissionResponse>, I>>(base?: I): CreatePermissionResponse {
+    return CreatePermissionResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<CreateSuccess>, I>>(object: I): CreateSuccess {
-    const message = createBaseCreateSuccess();
+  fromPartial<I extends Exact<DeepPartial<CreatePermissionResponse>, I>>(object: I): CreatePermissionResponse {
+    const message = createBaseCreatePermissionResponse();
     message.permission = (object.permission !== undefined && object.permission !== null)
       ? Permission.fromPartial(object.permission)
       : undefined;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseGetPermissionResponse(): GetPermissionResponse {
+  return { permission: undefined, errors: [] };
+}
+
+export const GetPermissionResponse: MessageFns<GetPermissionResponse> = {
+  encode(message: GetPermissionResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.permission !== undefined) {
+      Permission.encode(message.permission, writer.uint32(10).fork()).join();
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): GetPermissionResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetPermissionResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.permission = Permission.decode(reader, reader.uint32());
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetPermissionResponse {
+    return {
+      permission: isSet(object.permission) ? Permission.fromJSON(object.permission) : undefined,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: GetPermissionResponse): unknown {
+    const obj: any = {};
+    if (message.permission !== undefined) {
+      obj.permission = Permission.toJSON(message.permission);
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetPermissionResponse>, I>>(base?: I): GetPermissionResponse {
+    return GetPermissionResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<GetPermissionResponse>, I>>(object: I): GetPermissionResponse {
+    const message = createBaseGetPermissionResponse();
+    message.permission = (object.permission !== undefined && object.permission !== null)
+      ? Permission.fromPartial(object.permission)
+      : undefined;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdatePermissionResponse(): UpdatePermissionResponse {
+  return { success: false, errors: [] };
+}
+
+export const UpdatePermissionResponse: MessageFns<UpdatePermissionResponse> = {
+  encode(message: UpdatePermissionResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdatePermissionResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdatePermissionResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdatePermissionResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: UpdatePermissionResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdatePermissionResponse>, I>>(base?: I): UpdatePermissionResponse {
+    return UpdatePermissionResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdatePermissionResponse>, I>>(object: I): UpdatePermissionResponse {
+    const message = createBaseUpdatePermissionResponse();
+    message.success = object.success ?? false;
+    message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseDeletePermissionResponse(): DeletePermissionResponse {
+  return { success: false, errors: [] };
+}
+
+export const DeletePermissionResponse: MessageFns<DeletePermissionResponse> = {
+  encode(message: DeletePermissionResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.success !== false) {
+      writer.uint32(8).bool(message.success);
+    }
+    for (const v of message.errors) {
+      ErrorMessage.encode(v!, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): DeletePermissionResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeletePermissionResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.success = reader.bool();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.errors.push(ErrorMessage.decode(reader, reader.uint32()));
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeletePermissionResponse {
+    return {
+      success: isSet(object.success) ? globalThis.Boolean(object.success) : false,
+      errors: globalThis.Array.isArray(object?.errors) ? object.errors.map((e: any) => ErrorMessage.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: DeletePermissionResponse): unknown {
+    const obj: any = {};
+    if (message.success !== false) {
+      obj.success = message.success;
+    }
+    if (message.errors?.length) {
+      obj.errors = message.errors.map((e) => ErrorMessage.toJSON(e));
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeletePermissionResponse>, I>>(base?: I): DeletePermissionResponse {
+    return DeletePermissionResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<DeletePermissionResponse>, I>>(object: I): DeletePermissionResponse {
+    const message = createBaseDeletePermissionResponse();
+    message.success = object.success ?? false;
     message.errors = object.errors?.map((e) => ErrorMessage.fromPartial(e)) || [];
     return message;
   },
@@ -1287,7 +1524,7 @@ export interface PermissionService {
    * GetPermission returns a single permission by id
    * Req example: { "permission_id": "uuid" }
    */
-  GetPermission(request: GetPermissionRequest): Promise<Permission>;
+  GetPermission(request: GetPermissionRequest): Promise<GetPermissionResponse>;
   /**
    * GetPermissions returns paginated permissions
    * Req example: { "pagination": { "page":1, "limit":10 } }
@@ -1297,17 +1534,17 @@ export interface PermissionService {
    * CreatePermission assigns permission for role-resource-action
    * Req example: { "permission": { "role_id":"uuid", "resource_id":"uuid", "action_id":"uuid" }, "user_id":"uuid" }
    */
-  CreatePermission(request: CreatePermissionRequest): Promise<CreateSuccess>;
+  CreatePermission(request: CreatePermissionRequest): Promise<CreatePermissionResponse>;
   /**
    * UpdatePermission updates a permission mapping
    * Req example: { "permission": { "permission_id":"uuid", ... }, "user_id":"uuid" }
    */
-  UpdatePermission(request: UpdatePermissionRequest): Promise<UpdateSuccess>;
+  UpdatePermission(request: UpdatePermissionRequest): Promise<UpdatePermissionResponse>;
   /**
    * DeletePermission soft-deletes a permission
    * Req example: { "permission_id":"uuid", "user_id":"uuid" }
    */
-  DeletePermission(request: DeletePermissionRequest): Promise<DeleteSuccess>;
+  DeletePermission(request: DeletePermissionRequest): Promise<DeletePermissionResponse>;
   /**
    * GetPermissionsByUserId returns permissions available to a user
    * Req example: { "user_id":"uuid" }
@@ -1330,10 +1567,10 @@ export class PermissionServiceClientImpl implements PermissionService {
     this.DeletePermission = this.DeletePermission.bind(this);
     this.GetPermissionsByUserId = this.GetPermissionsByUserId.bind(this);
   }
-  GetPermission(request: GetPermissionRequest): Promise<Permission> {
+  GetPermission(request: GetPermissionRequest): Promise<GetPermissionResponse> {
     const data = GetPermissionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "GetPermission", data);
-    return promise.then((data) => Permission.decode(new BinaryReader(data)));
+    return promise.then((data) => GetPermissionResponse.decode(new BinaryReader(data)));
   }
 
   GetPermissions(request: GetPermissionsRequest): Promise<GetPermissionsResponse> {
@@ -1342,22 +1579,22 @@ export class PermissionServiceClientImpl implements PermissionService {
     return promise.then((data) => GetPermissionsResponse.decode(new BinaryReader(data)));
   }
 
-  CreatePermission(request: CreatePermissionRequest): Promise<CreateSuccess> {
+  CreatePermission(request: CreatePermissionRequest): Promise<CreatePermissionResponse> {
     const data = CreatePermissionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreatePermission", data);
-    return promise.then((data) => CreateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => CreatePermissionResponse.decode(new BinaryReader(data)));
   }
 
-  UpdatePermission(request: UpdatePermissionRequest): Promise<UpdateSuccess> {
+  UpdatePermission(request: UpdatePermissionRequest): Promise<UpdatePermissionResponse> {
     const data = UpdatePermissionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdatePermission", data);
-    return promise.then((data) => UpdateSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => UpdatePermissionResponse.decode(new BinaryReader(data)));
   }
 
-  DeletePermission(request: DeletePermissionRequest): Promise<DeleteSuccess> {
+  DeletePermission(request: DeletePermissionRequest): Promise<DeletePermissionResponse> {
     const data = DeletePermissionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeletePermission", data);
-    return promise.then((data) => DeleteSuccess.decode(new BinaryReader(data)));
+    return promise.then((data) => DeletePermissionResponse.decode(new BinaryReader(data)));
   }
 
   GetPermissionsByUserId(request: GetPermissionsByUserIdRequest): Promise<GetPermissionsByUserIdResponse> {

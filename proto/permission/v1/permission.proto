@@ -62,8 +62,23 @@ message DeletePermissionRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
+message CreatePermissionResponse {
   Permission permission = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message GetPermissionResponse {
+  Permission permission = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message UpdatePermissionResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeletePermissionResponse {
+  bool success = 1;
   repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
@@ -86,7 +101,7 @@ message GetPermissionsByUserIdResponse {
 service PermissionService {
   // GetPermission returns a single permission by id
   // Req example: { "permission_id": "uuid" }
-  rpc GetPermission (GetPermissionRequest) returns (Permission) {}
+  rpc GetPermission (GetPermissionRequest) returns (GetPermissionResponse) {}
 
   // GetPermissions returns paginated permissions
   // Req example: { "pagination": { "page":1, "limit":10 } }
@@ -94,15 +109,15 @@ service PermissionService {
 
   // CreatePermission assigns permission for role-resource-action
   // Req example: { "permission": { "role_id":"uuid", "resource_id":"uuid", "action_id":"uuid" }, "user_id":"uuid" }
-  rpc CreatePermission (CreatePermissionRequest) returns (CreateSuccess) {}
+  rpc CreatePermission (CreatePermissionRequest) returns (CreatePermissionResponse) {}
 
   // UpdatePermission updates a permission mapping
   // Req example: { "permission": { "permission_id":"uuid", ... }, "user_id":"uuid" }
-  rpc UpdatePermission (UpdatePermissionRequest) returns (proto.base.v1.UpdateSuccess) {}
+  rpc UpdatePermission (UpdatePermissionRequest) returns (UpdatePermissionResponse) {}
 
   // DeletePermission soft-deletes a permission
   // Req example: { "permission_id":"uuid", "user_id":"uuid" }
-  rpc DeletePermission (DeletePermissionRequest) returns (proto.base.v1.DeleteSuccess) {}
+  rpc DeletePermission (DeletePermissionRequest) returns (DeletePermissionResponse) {}
 
   // GetPermissionsByUserId returns permissions available to a user
   // Req example: { "user_id":"uuid" }

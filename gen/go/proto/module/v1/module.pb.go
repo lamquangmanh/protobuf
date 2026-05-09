@@ -626,7 +626,7 @@ func (x *DeleteModuleRequest) GetUserId() string {
 	return ""
 }
 
-type CreateSuccess struct {
+type CreateModuleResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Module        *Module                `protobuf:"bytes,1,opt,name=module,proto3" json:"module,omitempty"`
 	Errors        []*v1.ErrorMessage     `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
@@ -634,20 +634,20 @@ type CreateSuccess struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateSuccess) Reset() {
-	*x = CreateSuccess{}
+func (x *CreateModuleResponse) Reset() {
+	*x = CreateModuleResponse{}
 	mi := &file_proto_module_v1_module_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateSuccess) String() string {
+func (x *CreateModuleResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateSuccess) ProtoMessage() {}
+func (*CreateModuleResponse) ProtoMessage() {}
 
-func (x *CreateSuccess) ProtoReflect() protoreflect.Message {
+func (x *CreateModuleResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_module_v1_module_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -659,19 +659,123 @@ func (x *CreateSuccess) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateSuccess.ProtoReflect.Descriptor instead.
-func (*CreateSuccess) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateModuleResponse.ProtoReflect.Descriptor instead.
+func (*CreateModuleResponse) Descriptor() ([]byte, []int) {
 	return file_proto_module_v1_module_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *CreateSuccess) GetModule() *Module {
+func (x *CreateModuleResponse) GetModule() *Module {
 	if x != nil {
 		return x.Module
 	}
 	return nil
 }
 
-func (x *CreateSuccess) GetErrors() []*v1.ErrorMessage {
+func (x *CreateModuleResponse) GetErrors() []*v1.ErrorMessage {
+	if x != nil {
+		return x.Errors
+	}
+	return nil
+}
+
+type UpdateModuleResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Errors        []*v1.ErrorMessage     `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateModuleResponse) Reset() {
+	*x = UpdateModuleResponse{}
+	mi := &file_proto_module_v1_module_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateModuleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateModuleResponse) ProtoMessage() {}
+
+func (x *UpdateModuleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_module_v1_module_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateModuleResponse.ProtoReflect.Descriptor instead.
+func (*UpdateModuleResponse) Descriptor() ([]byte, []int) {
+	return file_proto_module_v1_module_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *UpdateModuleResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *UpdateModuleResponse) GetErrors() []*v1.ErrorMessage {
+	if x != nil {
+		return x.Errors
+	}
+	return nil
+}
+
+type DeleteModuleResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Errors        []*v1.ErrorMessage     `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteModuleResponse) Reset() {
+	*x = DeleteModuleResponse{}
+	mi := &file_proto_module_v1_module_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteModuleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteModuleResponse) ProtoMessage() {}
+
+func (x *DeleteModuleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_module_v1_module_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteModuleResponse.ProtoReflect.Descriptor instead.
+func (*DeleteModuleResponse) Descriptor() ([]byte, []int) {
+	return file_proto_module_v1_module_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *DeleteModuleResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *DeleteModuleResponse) GetErrors() []*v1.ErrorMessage {
 	if x != nil {
 		return x.Errors
 	}
@@ -688,7 +792,7 @@ type GetModuleResponse struct {
 
 func (x *GetModuleResponse) Reset() {
 	*x = GetModuleResponse{}
-	mi := &file_proto_module_v1_module_proto_msgTypes[10]
+	mi := &file_proto_module_v1_module_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -700,7 +804,7 @@ func (x *GetModuleResponse) String() string {
 func (*GetModuleResponse) ProtoMessage() {}
 
 func (x *GetModuleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_module_v1_module_proto_msgTypes[10]
+	mi := &file_proto_module_v1_module_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -713,7 +817,7 @@ func (x *GetModuleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetModuleResponse.ProtoReflect.Descriptor instead.
 func (*GetModuleResponse) Descriptor() ([]byte, []int) {
-	return file_proto_module_v1_module_proto_rawDescGZIP(), []int{10}
+	return file_proto_module_v1_module_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetModuleResponse) GetModule() *Module {
@@ -795,20 +899,26 @@ const file_proto_module_v1_module_proto_rawDesc = "" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\"K\n" +
 	"\x13DeleteModuleRequest\x12\x1b\n" +
 	"\tmodule_id\x18\x01 \x01(\tR\bmoduleId\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\"u\n" +
-	"\rCreateSuccess\x12/\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\"|\n" +
+	"\x14CreateModuleResponse\x12/\n" +
 	"\x06module\x18\x01 \x01(\v2\x17.proto.module.v1.ModuleR\x06module\x123\n" +
+	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors\"e\n" +
+	"\x14UpdateModuleResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x123\n" +
+	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors\"e\n" +
+	"\x14DeleteModuleResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x123\n" +
 	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors\"y\n" +
 	"\x11GetModuleResponse\x12/\n" +
 	"\x06module\x18\x01 \x01(\v2\x17.proto.module.v1.ModuleR\x06module\x123\n" +
-	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors2\xc2\x03\n" +
+	"\x06errors\x18\x02 \x03(\v2\x1b.proto.base.v1.ErrorMessageR\x06errors2\xdb\x03\n" +
 	"\rModuleService\x12T\n" +
 	"\tGetModule\x12!.proto.module.v1.GetModuleRequest\x1a\".proto.module.v1.GetModuleResponse\"\x00\x12W\n" +
 	"\n" +
-	"GetModules\x12\".proto.module.v1.GetModulesRequest\x1a#.proto.module.v1.GetModulesResponse\"\x00\x12V\n" +
-	"\fCreateModule\x12$.proto.module.v1.CreateModuleRequest\x1a\x1e.proto.module.v1.CreateSuccess\"\x00\x12T\n" +
-	"\fUpdateModule\x12$.proto.module.v1.UpdateModuleRequest\x1a\x1c.proto.base.v1.UpdateSuccess\"\x00\x12T\n" +
-	"\fDeleteModule\x12$.proto.module.v1.DeleteModuleRequest\x1a\x1c.proto.base.v1.DeleteSuccess\"\x00B\xc2\x01\n" +
+	"GetModules\x12\".proto.module.v1.GetModulesRequest\x1a#.proto.module.v1.GetModulesResponse\"\x00\x12]\n" +
+	"\fCreateModule\x12$.proto.module.v1.CreateModuleRequest\x1a%.proto.module.v1.CreateModuleResponse\"\x00\x12]\n" +
+	"\fUpdateModule\x12$.proto.module.v1.UpdateModuleRequest\x1a%.proto.module.v1.UpdateModuleResponse\"\x00\x12]\n" +
+	"\fDeleteModule\x12$.proto.module.v1.DeleteModuleRequest\x1a%.proto.module.v1.DeleteModuleResponse\"\x00B\xc2\x01\n" +
 	"\x13com.proto.module.v1B\vModuleProtoP\x01Z@github.com/lamquangmanh/protobuf/gen/go/proto/module/v1;modulev1\xa2\x02\x03PMX\xaa\x02\x0fProto.Module.V1\xca\x02\x0fProto\\Module\\V1\xe2\x02\x1bProto\\Module\\V1\\GPBMetadata\xea\x02\x11Proto::Module::V1b\x06proto3"
 
 var (
@@ -823,7 +933,7 @@ func file_proto_module_v1_module_proto_rawDescGZIP() []byte {
 	return file_proto_module_v1_module_proto_rawDescData
 }
 
-var file_proto_module_v1_module_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_proto_module_v1_module_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_proto_module_v1_module_proto_goTypes = []any{
 	(*Module)(nil),                // 0: proto.module.v1.Module
 	(*CreateModuleData)(nil),      // 1: proto.module.v1.CreateModuleData
@@ -834,43 +944,45 @@ var file_proto_module_v1_module_proto_goTypes = []any{
 	(*CreateModuleRequest)(nil),   // 6: proto.module.v1.CreateModuleRequest
 	(*UpdateModuleRequest)(nil),   // 7: proto.module.v1.UpdateModuleRequest
 	(*DeleteModuleRequest)(nil),   // 8: proto.module.v1.DeleteModuleRequest
-	(*CreateSuccess)(nil),         // 9: proto.module.v1.CreateSuccess
-	(*GetModuleResponse)(nil),     // 10: proto.module.v1.GetModuleResponse
-	(*v1.PaginationRequest)(nil),  // 11: proto.base.v1.PaginationRequest
-	(*v1.Sort)(nil),               // 12: proto.base.v1.Sort
-	(*v1.Filter)(nil),             // 13: proto.base.v1.Filter
-	(*v1.PaginationResponse)(nil), // 14: proto.base.v1.PaginationResponse
-	(*v1.ErrorMessage)(nil),       // 15: proto.base.v1.ErrorMessage
-	(*v1.UpdateSuccess)(nil),      // 16: proto.base.v1.UpdateSuccess
-	(*v1.DeleteSuccess)(nil),      // 17: proto.base.v1.DeleteSuccess
+	(*CreateModuleResponse)(nil),  // 9: proto.module.v1.CreateModuleResponse
+	(*UpdateModuleResponse)(nil),  // 10: proto.module.v1.UpdateModuleResponse
+	(*DeleteModuleResponse)(nil),  // 11: proto.module.v1.DeleteModuleResponse
+	(*GetModuleResponse)(nil),     // 12: proto.module.v1.GetModuleResponse
+	(*v1.PaginationRequest)(nil),  // 13: proto.base.v1.PaginationRequest
+	(*v1.Sort)(nil),               // 14: proto.base.v1.Sort
+	(*v1.Filter)(nil),             // 15: proto.base.v1.Filter
+	(*v1.PaginationResponse)(nil), // 16: proto.base.v1.PaginationResponse
+	(*v1.ErrorMessage)(nil),       // 17: proto.base.v1.ErrorMessage
 }
 var file_proto_module_v1_module_proto_depIdxs = []int32{
-	11, // 0: proto.module.v1.GetModulesRequest.pagination:type_name -> proto.base.v1.PaginationRequest
-	12, // 1: proto.module.v1.GetModulesRequest.sorts:type_name -> proto.base.v1.Sort
-	13, // 2: proto.module.v1.GetModulesRequest.filters:type_name -> proto.base.v1.Filter
-	14, // 3: proto.module.v1.GetModulesResponse.pagination:type_name -> proto.base.v1.PaginationResponse
+	13, // 0: proto.module.v1.GetModulesRequest.pagination:type_name -> proto.base.v1.PaginationRequest
+	14, // 1: proto.module.v1.GetModulesRequest.sorts:type_name -> proto.base.v1.Sort
+	15, // 2: proto.module.v1.GetModulesRequest.filters:type_name -> proto.base.v1.Filter
+	16, // 3: proto.module.v1.GetModulesResponse.pagination:type_name -> proto.base.v1.PaginationResponse
 	0,  // 4: proto.module.v1.GetModulesResponse.data:type_name -> proto.module.v1.Module
 	1,  // 5: proto.module.v1.CreateModuleRequest.module:type_name -> proto.module.v1.CreateModuleData
 	2,  // 6: proto.module.v1.UpdateModuleRequest.module:type_name -> proto.module.v1.UpdateModuleData
-	0,  // 7: proto.module.v1.CreateSuccess.module:type_name -> proto.module.v1.Module
-	15, // 8: proto.module.v1.CreateSuccess.errors:type_name -> proto.base.v1.ErrorMessage
-	0,  // 9: proto.module.v1.GetModuleResponse.module:type_name -> proto.module.v1.Module
-	15, // 10: proto.module.v1.GetModuleResponse.errors:type_name -> proto.base.v1.ErrorMessage
-	3,  // 11: proto.module.v1.ModuleService.GetModule:input_type -> proto.module.v1.GetModuleRequest
-	4,  // 12: proto.module.v1.ModuleService.GetModules:input_type -> proto.module.v1.GetModulesRequest
-	6,  // 13: proto.module.v1.ModuleService.CreateModule:input_type -> proto.module.v1.CreateModuleRequest
-	7,  // 14: proto.module.v1.ModuleService.UpdateModule:input_type -> proto.module.v1.UpdateModuleRequest
-	8,  // 15: proto.module.v1.ModuleService.DeleteModule:input_type -> proto.module.v1.DeleteModuleRequest
-	10, // 16: proto.module.v1.ModuleService.GetModule:output_type -> proto.module.v1.GetModuleResponse
-	5,  // 17: proto.module.v1.ModuleService.GetModules:output_type -> proto.module.v1.GetModulesResponse
-	9,  // 18: proto.module.v1.ModuleService.CreateModule:output_type -> proto.module.v1.CreateSuccess
-	16, // 19: proto.module.v1.ModuleService.UpdateModule:output_type -> proto.base.v1.UpdateSuccess
-	17, // 20: proto.module.v1.ModuleService.DeleteModule:output_type -> proto.base.v1.DeleteSuccess
-	16, // [16:21] is the sub-list for method output_type
-	11, // [11:16] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	0,  // 7: proto.module.v1.CreateModuleResponse.module:type_name -> proto.module.v1.Module
+	17, // 8: proto.module.v1.CreateModuleResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	17, // 9: proto.module.v1.UpdateModuleResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	17, // 10: proto.module.v1.DeleteModuleResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	0,  // 11: proto.module.v1.GetModuleResponse.module:type_name -> proto.module.v1.Module
+	17, // 12: proto.module.v1.GetModuleResponse.errors:type_name -> proto.base.v1.ErrorMessage
+	3,  // 13: proto.module.v1.ModuleService.GetModule:input_type -> proto.module.v1.GetModuleRequest
+	4,  // 14: proto.module.v1.ModuleService.GetModules:input_type -> proto.module.v1.GetModulesRequest
+	6,  // 15: proto.module.v1.ModuleService.CreateModule:input_type -> proto.module.v1.CreateModuleRequest
+	7,  // 16: proto.module.v1.ModuleService.UpdateModule:input_type -> proto.module.v1.UpdateModuleRequest
+	8,  // 17: proto.module.v1.ModuleService.DeleteModule:input_type -> proto.module.v1.DeleteModuleRequest
+	12, // 18: proto.module.v1.ModuleService.GetModule:output_type -> proto.module.v1.GetModuleResponse
+	5,  // 19: proto.module.v1.ModuleService.GetModules:output_type -> proto.module.v1.GetModulesResponse
+	9,  // 20: proto.module.v1.ModuleService.CreateModule:output_type -> proto.module.v1.CreateModuleResponse
+	10, // 21: proto.module.v1.ModuleService.UpdateModule:output_type -> proto.module.v1.UpdateModuleResponse
+	11, // 22: proto.module.v1.ModuleService.DeleteModule:output_type -> proto.module.v1.DeleteModuleResponse
+	18, // [18:23] is the sub-list for method output_type
+	13, // [13:18] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_proto_module_v1_module_proto_init() }
@@ -887,7 +999,7 @@ func file_proto_module_v1_module_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_module_v1_module_proto_rawDesc), len(file_proto_module_v1_module_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

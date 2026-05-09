@@ -43,6 +43,11 @@ message GetUserRolesResponse {
   repeated UserRole data = 2;
 }
 
+message GetUserRoleResponse {
+  UserRole user_role = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
 message CreateUserRoleRequest {
   CreateUserRoleData user_role = 1;
   string user_id = 2;
@@ -58,8 +63,18 @@ message DeleteUserRoleRequest {
   string user_id = 2;
 }
 
-message CreateSuccess {
+message CreateUserRoleResponse {
   UserRole user_role = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message UpdateUserRoleResponse {
+  bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
+}
+
+message DeleteUserRoleResponse {
+  bool success = 1;
   repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
@@ -67,21 +82,21 @@ message CreateSuccess {
 service UserRoleService {
   // GetUserRole returns a single user_role
   // Req example: { "user_role_id": "uuid" }
-  rpc GetUserRole(GetUserRoleRequest) returns (UserRole) {}
+  rpc GetUserRole(GetUserRoleRequest) returns (GetUserRoleResponse) {}
 
   // GetUserRoles returns paginated user_role list
   // Req example: { "pagination": { "page":1, "limit":10 } }
-  rpc GetUserRoles(GetUserRolesRequest) returns (GetUserRolesRequest) {}
+  rpc GetUserRoles(GetUserRolesRequest) returns (GetUserRolesResponse) {}
 
   // CreateUserRole assigns a role to a user
   // Req example: { "user_role": { "user_id":"uuid", "role_id":"uuid" }, "user_id":"uuid" }
-  rpc CreateUserRole(CreateUserRoleRequest) returns (CreateSuccess) {}
+  rpc CreateUserRole(CreateUserRoleRequest) returns (CreateUserRoleResponse) {}
 
   // UpdateUserRole updates an assignment
   // Req example: { "user_role": { "user_id":"uuid", "role_id":"uuid" }, "user_id":"uuid" }
-  rpc UpdateUserRole(UpdateUserRoleRequest) returns (proto.base.v1.UpdateSuccess) {}
+  rpc UpdateUserRole(UpdateUserRoleRequest) returns (UpdateUserRoleResponse) {}
 
   // DeleteUserRole removes assignment
   // Req example: { "user_role_id":"uuid", "user_id":"uuid" }
-  rpc DeleteUserRole(DeleteUserRoleRequest) returns (proto.base.v1.DeleteSuccess) {}
+  rpc DeleteUserRole(DeleteUserRoleRequest) returns (DeleteUserRoleResponse) {}
 }

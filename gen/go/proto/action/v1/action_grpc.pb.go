@@ -8,7 +8,6 @@ package actionv1
 
 import (
 	context "context"
-	v1 "github.com/lamquangmanh/protobuf/gen/go/proto/base/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -45,16 +44,16 @@ type ActionServiceClient interface {
 	GetActions(ctx context.Context, in *GetActionsRequest, opts ...grpc.CallOption) (*GetActionsResponse, error)
 	// CreateAction creates a new action
 	// Req example: { "action": { "resource_id": "uuid", "name": "Read", "request_type": HTTP } }
-	// Res example: CreateSuccess
-	CreateAction(ctx context.Context, in *CreateActionRequest, opts ...grpc.CallOption) (*CreateSuccess, error)
+	// Res example: CreateActionResponse
+	CreateAction(ctx context.Context, in *CreateActionRequest, opts ...grpc.CallOption) (*CreateActionResponse, error)
 	// UpdateAction updates an existing action
 	// Req example: { "action": { "action_id": "uuid", "name": "Updated" } }
 	// Res example: { result: { success: true } }
-	UpdateAction(ctx context.Context, in *UpdateActionRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error)
+	UpdateAction(ctx context.Context, in *UpdateActionRequest, opts ...grpc.CallOption) (*UpdateActionResponse, error)
 	// DeleteAction performs soft delete
 	// Req example: { "action_id": "uuid", "user_id": "uuid" }
 	// Res example: { result: { success: true } }
-	DeleteAction(ctx context.Context, in *DeleteActionRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error)
+	DeleteAction(ctx context.Context, in *DeleteActionRequest, opts ...grpc.CallOption) (*DeleteActionResponse, error)
 }
 
 type actionServiceClient struct {
@@ -85,9 +84,9 @@ func (c *actionServiceClient) GetActions(ctx context.Context, in *GetActionsRequ
 	return out, nil
 }
 
-func (c *actionServiceClient) CreateAction(ctx context.Context, in *CreateActionRequest, opts ...grpc.CallOption) (*CreateSuccess, error) {
+func (c *actionServiceClient) CreateAction(ctx context.Context, in *CreateActionRequest, opts ...grpc.CallOption) (*CreateActionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateSuccess)
+	out := new(CreateActionResponse)
 	err := c.cc.Invoke(ctx, ActionService_CreateAction_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -95,9 +94,9 @@ func (c *actionServiceClient) CreateAction(ctx context.Context, in *CreateAction
 	return out, nil
 }
 
-func (c *actionServiceClient) UpdateAction(ctx context.Context, in *UpdateActionRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error) {
+func (c *actionServiceClient) UpdateAction(ctx context.Context, in *UpdateActionRequest, opts ...grpc.CallOption) (*UpdateActionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.UpdateSuccess)
+	out := new(UpdateActionResponse)
 	err := c.cc.Invoke(ctx, ActionService_UpdateAction_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -105,9 +104,9 @@ func (c *actionServiceClient) UpdateAction(ctx context.Context, in *UpdateAction
 	return out, nil
 }
 
-func (c *actionServiceClient) DeleteAction(ctx context.Context, in *DeleteActionRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error) {
+func (c *actionServiceClient) DeleteAction(ctx context.Context, in *DeleteActionRequest, opts ...grpc.CallOption) (*DeleteActionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.DeleteSuccess)
+	out := new(DeleteActionResponse)
 	err := c.cc.Invoke(ctx, ActionService_DeleteAction_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -133,16 +132,16 @@ type ActionServiceServer interface {
 	GetActions(context.Context, *GetActionsRequest) (*GetActionsResponse, error)
 	// CreateAction creates a new action
 	// Req example: { "action": { "resource_id": "uuid", "name": "Read", "request_type": HTTP } }
-	// Res example: CreateSuccess
-	CreateAction(context.Context, *CreateActionRequest) (*CreateSuccess, error)
+	// Res example: CreateActionResponse
+	CreateAction(context.Context, *CreateActionRequest) (*CreateActionResponse, error)
 	// UpdateAction updates an existing action
 	// Req example: { "action": { "action_id": "uuid", "name": "Updated" } }
 	// Res example: { result: { success: true } }
-	UpdateAction(context.Context, *UpdateActionRequest) (*v1.UpdateSuccess, error)
+	UpdateAction(context.Context, *UpdateActionRequest) (*UpdateActionResponse, error)
 	// DeleteAction performs soft delete
 	// Req example: { "action_id": "uuid", "user_id": "uuid" }
 	// Res example: { result: { success: true } }
-	DeleteAction(context.Context, *DeleteActionRequest) (*v1.DeleteSuccess, error)
+	DeleteAction(context.Context, *DeleteActionRequest) (*DeleteActionResponse, error)
 	mustEmbedUnimplementedActionServiceServer()
 }
 
@@ -159,13 +158,13 @@ func (UnimplementedActionServiceServer) GetAction(context.Context, *GetActionReq
 func (UnimplementedActionServiceServer) GetActions(context.Context, *GetActionsRequest) (*GetActionsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetActions not implemented")
 }
-func (UnimplementedActionServiceServer) CreateAction(context.Context, *CreateActionRequest) (*CreateSuccess, error) {
+func (UnimplementedActionServiceServer) CreateAction(context.Context, *CreateActionRequest) (*CreateActionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateAction not implemented")
 }
-func (UnimplementedActionServiceServer) UpdateAction(context.Context, *UpdateActionRequest) (*v1.UpdateSuccess, error) {
+func (UnimplementedActionServiceServer) UpdateAction(context.Context, *UpdateActionRequest) (*UpdateActionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateAction not implemented")
 }
-func (UnimplementedActionServiceServer) DeleteAction(context.Context, *DeleteActionRequest) (*v1.DeleteSuccess, error) {
+func (UnimplementedActionServiceServer) DeleteAction(context.Context, *DeleteActionRequest) (*DeleteActionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteAction not implemented")
 }
 func (UnimplementedActionServiceServer) mustEmbedUnimplementedActionServiceServer() {}

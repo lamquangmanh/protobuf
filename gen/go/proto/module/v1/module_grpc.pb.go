@@ -8,7 +8,6 @@ package modulev1
 
 import (
 	context "context"
-	v1 "github.com/lamquangmanh/protobuf/gen/go/proto/base/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -44,13 +43,13 @@ type ModuleServiceClient interface {
 	GetModules(ctx context.Context, in *GetModulesRequest, opts ...grpc.CallOption) (*GetModulesResponse, error)
 	// CreateModule creates a new module
 	// Req example: { "module": { "name":"mod" }, "user_id":"uuid" }
-	CreateModule(ctx context.Context, in *CreateModuleRequest, opts ...grpc.CallOption) (*CreateSuccess, error)
+	CreateModule(ctx context.Context, in *CreateModuleRequest, opts ...grpc.CallOption) (*CreateModuleResponse, error)
 	// UpdateModule updates a module
 	// Req example: { "module": { "module_id":"uuid", "name":"new" }, "user_id":"uuid" }
-	UpdateModule(ctx context.Context, in *UpdateModuleRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error)
+	UpdateModule(ctx context.Context, in *UpdateModuleRequest, opts ...grpc.CallOption) (*UpdateModuleResponse, error)
 	// DeleteModule soft-deletes a module
 	// Req example: { "module_id":"uuid", "user_id":"uuid" }
-	DeleteModule(ctx context.Context, in *DeleteModuleRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error)
+	DeleteModule(ctx context.Context, in *DeleteModuleRequest, opts ...grpc.CallOption) (*DeleteModuleResponse, error)
 }
 
 type moduleServiceClient struct {
@@ -81,9 +80,9 @@ func (c *moduleServiceClient) GetModules(ctx context.Context, in *GetModulesRequ
 	return out, nil
 }
 
-func (c *moduleServiceClient) CreateModule(ctx context.Context, in *CreateModuleRequest, opts ...grpc.CallOption) (*CreateSuccess, error) {
+func (c *moduleServiceClient) CreateModule(ctx context.Context, in *CreateModuleRequest, opts ...grpc.CallOption) (*CreateModuleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateSuccess)
+	out := new(CreateModuleResponse)
 	err := c.cc.Invoke(ctx, ModuleService_CreateModule_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -91,9 +90,9 @@ func (c *moduleServiceClient) CreateModule(ctx context.Context, in *CreateModule
 	return out, nil
 }
 
-func (c *moduleServiceClient) UpdateModule(ctx context.Context, in *UpdateModuleRequest, opts ...grpc.CallOption) (*v1.UpdateSuccess, error) {
+func (c *moduleServiceClient) UpdateModule(ctx context.Context, in *UpdateModuleRequest, opts ...grpc.CallOption) (*UpdateModuleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.UpdateSuccess)
+	out := new(UpdateModuleResponse)
 	err := c.cc.Invoke(ctx, ModuleService_UpdateModule_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -101,9 +100,9 @@ func (c *moduleServiceClient) UpdateModule(ctx context.Context, in *UpdateModule
 	return out, nil
 }
 
-func (c *moduleServiceClient) DeleteModule(ctx context.Context, in *DeleteModuleRequest, opts ...grpc.CallOption) (*v1.DeleteSuccess, error) {
+func (c *moduleServiceClient) DeleteModule(ctx context.Context, in *DeleteModuleRequest, opts ...grpc.CallOption) (*DeleteModuleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(v1.DeleteSuccess)
+	out := new(DeleteModuleResponse)
 	err := c.cc.Invoke(ctx, ModuleService_DeleteModule_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -128,13 +127,13 @@ type ModuleServiceServer interface {
 	GetModules(context.Context, *GetModulesRequest) (*GetModulesResponse, error)
 	// CreateModule creates a new module
 	// Req example: { "module": { "name":"mod" }, "user_id":"uuid" }
-	CreateModule(context.Context, *CreateModuleRequest) (*CreateSuccess, error)
+	CreateModule(context.Context, *CreateModuleRequest) (*CreateModuleResponse, error)
 	// UpdateModule updates a module
 	// Req example: { "module": { "module_id":"uuid", "name":"new" }, "user_id":"uuid" }
-	UpdateModule(context.Context, *UpdateModuleRequest) (*v1.UpdateSuccess, error)
+	UpdateModule(context.Context, *UpdateModuleRequest) (*UpdateModuleResponse, error)
 	// DeleteModule soft-deletes a module
 	// Req example: { "module_id":"uuid", "user_id":"uuid" }
-	DeleteModule(context.Context, *DeleteModuleRequest) (*v1.DeleteSuccess, error)
+	DeleteModule(context.Context, *DeleteModuleRequest) (*DeleteModuleResponse, error)
 	mustEmbedUnimplementedModuleServiceServer()
 }
 
@@ -151,13 +150,13 @@ func (UnimplementedModuleServiceServer) GetModule(context.Context, *GetModuleReq
 func (UnimplementedModuleServiceServer) GetModules(context.Context, *GetModulesRequest) (*GetModulesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetModules not implemented")
 }
-func (UnimplementedModuleServiceServer) CreateModule(context.Context, *CreateModuleRequest) (*CreateSuccess, error) {
+func (UnimplementedModuleServiceServer) CreateModule(context.Context, *CreateModuleRequest) (*CreateModuleResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateModule not implemented")
 }
-func (UnimplementedModuleServiceServer) UpdateModule(context.Context, *UpdateModuleRequest) (*v1.UpdateSuccess, error) {
+func (UnimplementedModuleServiceServer) UpdateModule(context.Context, *UpdateModuleRequest) (*UpdateModuleResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateModule not implemented")
 }
-func (UnimplementedModuleServiceServer) DeleteModule(context.Context, *DeleteModuleRequest) (*v1.DeleteSuccess, error) {
+func (UnimplementedModuleServiceServer) DeleteModule(context.Context, *DeleteModuleRequest) (*DeleteModuleResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteModule not implemented")
 }
 func (UnimplementedModuleServiceServer) mustEmbedUnimplementedModuleServiceServer() {}
