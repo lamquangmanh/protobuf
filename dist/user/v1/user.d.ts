@@ -23,6 +23,7 @@ export interface User {
     updatedUserId: string;
     deletedAt: string;
     deletedUserId: string;
+    roleIds: string[];
 }
 export interface CreateUserData {
     username: string;

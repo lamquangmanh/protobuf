@@ -1,5 +1,7 @@
 syntax = "proto3";
-package base.v1;
+package proto.base.v1;
+
+option go_package = "go-api/pkg/api/basepb;basepb";
 
 // import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
@@ -9,21 +11,21 @@ enum FilterOperator {
   // this one is best practice to define <name>_UNSPECIFIED
   // read more: https://protobuf.dev/programming-guides/style/#enums
   FILTER_OPERATOR_UNSPECIFIED = 0;
-  EQUAL = 1;
-  NOT_EQUAL = 2;
-  GREATER_THAN = 3;
-  LESS_THAN = 4;
-  GREATER_THAN_OR_EQUAL = 5;
-  LESS_THAN_OR_EQUAL = 6;
-  LIKE = 7;
-  IN = 8;
-  NOT_IN = 9;
+  FILTER_OPERATOR_EQUAL = 1;
+  FILTER_OPERATOR_NOT_EQUAL = 2;
+  FILTER_OPERATOR_GREATER_THAN = 3;
+  FILTER_OPERATOR_LESS_THAN = 4;
+  FILTER_OPERATOR_GREATER_THAN_OR_EQUAL = 5;
+  FILTER_OPERATOR_LESS_THAN_OR_EQUAL = 6;
+  FILTER_OPERATOR_LIKE = 7;
+  FILTER_OPERATOR_IN = 8;
+  FILTER_OPERATOR_NOT_IN = 9;
 }
 
 enum SortOrder {
   SORT_ORDER_UNSPECIFIED = 0;
-  ASC = 1;
-  DESC = 2;
+  SORT_ORDER_ASC = 1;
+  SORT_ORDER_DESC = 2;
 }
 
 // define message
@@ -35,9 +37,9 @@ message PaginationRequest {
 message PaginationResponse {
   int32 page = 1;
   int32 limit = 2;
-  int32 totalItems = 3;
-  int32 totalPages = 4;
-  int32 itemCount = 5;
+  int32 total_items = 3;
+  int32 total_pages = 4;
+  int32 item_count = 5;
 }
 
 message Sort {
@@ -57,29 +59,23 @@ message Filter {
   // google.protobuf.Value value = 9; // dynamic key-value object
 }
 
-message ErrorResponse {
+message ErrorMessage {
   int32 code = 1;
   string message = 2;
   google.protobuf.Struct extra = 3; // dynamic key-value object
 }
 
 message CreateSuccess {
-  oneof result {
-    bool success = 1;
-    ErrorResponse error = 2;
-  }
+  bool success = 1;
+  repeated ErrorMessage errors = 2;
 }
 
 message UpdateSuccess {
-  oneof result {
-    bool success = 1;
-    ErrorResponse error = 2;
-  }
+  bool success = 1;
+  repeated ErrorMessage errors = 2;
 }
 
 message DeleteSuccess {
-  oneof result {
-    bool success = 1;
-    ErrorResponse error = 2;
-  }
+  bool success = 1;
+  repeated ErrorMessage errors = 2;
 }

@@ -1,0 +1,16 @@
+version: v2
+modules:
+  - path: .
+    excludes:
+      - node_modules
+      - build
+      - dist
+      - docs
+
+lint:
+  use:
+    - STANDARD
+
+breaking:
+  use:
+    - FILE

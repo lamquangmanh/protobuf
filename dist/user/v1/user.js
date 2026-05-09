@@ -63,6 +63,7 @@ function createBaseUser() {
         updatedUserId: "",
         deletedAt: "",
         deletedUserId: "",
+        roleIds: [],
     };
 }
 exports.User = {
@@ -102,6 +103,9 @@ exports.User = {
         }
         if (message.deletedUserId !== "") {
             writer.uint32(98).string(message.deletedUserId);
+        }
+        for (const v of message.roleIds) {
+            writer.uint32(106).string(v);
         }
         return writer;
     },
@@ -196,6 +200,13 @@ exports.User = {
                     message.deletedUserId = reader.string();
                     continue;
                 }
+                case 13: {
+                    if (tag !== 106) {
+                        break;
+                    }
+                    message.roleIds.push(reader.string());
+                    continue;
+                }
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -218,6 +229,7 @@ exports.User = {
             updatedUserId: isSet(object.updatedUserId) ? globalThis.String(object.updatedUserId) : "",
             deletedAt: isSet(object.deletedAt) ? globalThis.String(object.deletedAt) : "",
             deletedUserId: isSet(object.deletedUserId) ? globalThis.String(object.deletedUserId) : "",
+            roleIds: globalThis.Array.isArray(object?.roleIds) ? object.roleIds.map((e) => globalThis.String(e)) : [],
         };
     },
     toJSON(message) {
@@ -258,6 +270,9 @@ exports.User = {
         if (message.deletedUserId !== "") {
             obj.deletedUserId = message.deletedUserId;
         }
+        if (message.roleIds?.length) {
+            obj.roleIds = message.roleIds;
+        }
         return obj;
     },
     create(base) {
@@ -277,6 +292,7 @@ exports.User = {
         message.updatedUserId = object.updatedUserId ?? "";
         message.deletedAt = object.deletedAt ?? "";
         message.deletedUserId = object.deletedUserId ?? "";
+        message.roleIds = object.roleIds?.map((e) => e) || [];
         return message;
     },
 };

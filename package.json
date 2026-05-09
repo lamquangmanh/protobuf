@@ -1,6 +1,6 @@
 {
   "name": "@lamquangmanh/protobuf",
-  "version": "0.0.32",
+  "version": "0.0.37",
   "description": "protobuf",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,13 +17,15 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "build:proto": "./build_proto.sh",
+    "build:proto": "yarn build:proto:node && yarn build:proto:go",
+    "build:proto:node": "bash ./build_proto_node.sh",
+    "build:proto:go": "bash ./build_proto_go.sh",
     "publish": "npm publish --access public",
-    "build:ts": "yarn build:proto && npx tsc -p tsconfig.json"
+    "build:ts": "yarn build:proto:node && npx tsc -p tsconfig.json"
   },
   "dependencies": {
     "@bufbuild/protobuf": "^2.2.5",
-    "@lamquangmanh/protobuf": "^0.0.21",
+    "@lamquangmanh/protobuf": "^0.0.34",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",

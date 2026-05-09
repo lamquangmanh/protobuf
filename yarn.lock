@@ -872,6 +872,21 @@
     ts-proto "^2.7.0"
     ts-protoc-gen "^0.15.0"
 
+"@lamquangmanh/protobuf@^0.0.34":
+  version "0.0.34"
+  resolved "https://npm.pkg.github.com/download/@lamquangmanh/protobuf/0.0.34/4407346277d506f5bf85becbf9da87b663483501#4407346277d506f5bf85becbf9da87b663483501"
+  integrity sha512-CtE9eEw6xDyD8X0+wZTQlC0WbPCTMo/f3BMz3v7zvm5AN7MCiU5ugfBHi5OXufrcb7WJ2zw0Xe8MNMDllDZ1Jg==
+  dependencies:
+    "@bufbuild/protobuf" "^2.2.5"
+    "@lamquangmanh/protobuf" "^0.0.21"
+    "@nestjs/common" "^11.0.1"
+    "@nestjs/core" "^11.0.1"
+    "@nestjs/platform-express" "^11.0.1"
+    reflect-metadata "^0.2.2"
+    rxjs "^7.8.1"
+    ts-proto "^2.7.0"
+    ts-protoc-gen "^0.15.0"
+
 "@lukeed/csprng@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@lukeed/csprng/-/csprng-1.1.0.tgz#1e3e4bd05c1cc7a0b2ddbd8a03f39f6e4b5e6cfe"

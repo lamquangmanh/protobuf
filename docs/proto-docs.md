@@ -3,172 +3,180 @@
 
 ## Table of Contents
 
-- [action/v1/action.proto](#action_v1_action-proto)
-    - [Action](#action-v1-Action)
-    - [CreateActionData](#action-v1-CreateActionData)
-    - [CreateActionRequest](#action-v1-CreateActionRequest)
-    - [CreateSuccess](#action-v1-CreateSuccess)
-    - [DeleteActionRequest](#action-v1-DeleteActionRequest)
-    - [GetActionRequest](#action-v1-GetActionRequest)
-    - [GetActionsRequest](#action-v1-GetActionsRequest)
-    - [GetActionsResponse](#action-v1-GetActionsResponse)
-    - [UpdateActionData](#action-v1-UpdateActionData)
-    - [UpdateActionRequest](#action-v1-UpdateActionRequest)
+- [proto/action/v1/action.proto](#proto_action_v1_action-proto)
+    - [Action](#proto-action-v1-Action)
+    - [CreateActionData](#proto-action-v1-CreateActionData)
+    - [CreateActionRequest](#proto-action-v1-CreateActionRequest)
+    - [CreateSuccess](#proto-action-v1-CreateSuccess)
+    - [DeleteActionRequest](#proto-action-v1-DeleteActionRequest)
+    - [GetActionRequest](#proto-action-v1-GetActionRequest)
+    - [GetActionResponse](#proto-action-v1-GetActionResponse)
+    - [GetActionsRequest](#proto-action-v1-GetActionsRequest)
+    - [GetActionsResponse](#proto-action-v1-GetActionsResponse)
+    - [UpdateActionData](#proto-action-v1-UpdateActionData)
+    - [UpdateActionRequest](#proto-action-v1-UpdateActionRequest)
   
-    - [ActionRequestType](#action-v1-ActionRequestType)
+    - [ActionRequestType](#proto-action-v1-ActionRequestType)
   
-    - [ActionService](#action-v1-ActionService)
+    - [ActionService](#proto-action-v1-ActionService)
   
-- [auth/v1/auth.proto](#auth_v1_auth-proto)
-    - [GetMeRequest](#auth-v1-GetMeRequest)
-    - [GetMeResponse](#auth-v1-GetMeResponse)
-    - [LoginRequest](#auth-v1-LoginRequest)
-    - [LoginResponse](#auth-v1-LoginResponse)
-    - [VerifyRequest](#auth-v1-VerifyRequest)
-    - [VerifyResponse](#auth-v1-VerifyResponse)
+- [proto/auth/v1/auth.proto](#proto_auth_v1_auth-proto)
+    - [Auth](#proto-auth-v1-Auth)
+    - [GetMeRequest](#proto-auth-v1-GetMeRequest)
+    - [GetMeResponse](#proto-auth-v1-GetMeResponse)
+    - [LoginRequest](#proto-auth-v1-LoginRequest)
+    - [LoginResponse](#proto-auth-v1-LoginResponse)
+    - [User](#proto-auth-v1-User)
+    - [VerifyRequest](#proto-auth-v1-VerifyRequest)
+    - [VerifyResponse](#proto-auth-v1-VerifyResponse)
   
-    - [AuthService](#auth-v1-AuthService)
+    - [AuthService](#proto-auth-v1-AuthService)
   
-- [base/v1/base.proto](#base_v1_base-proto)
-    - [CreateSuccess](#base-v1-CreateSuccess)
-    - [DeleteSuccess](#base-v1-DeleteSuccess)
-    - [ErrorResponse](#base-v1-ErrorResponse)
-    - [Filter](#base-v1-Filter)
-    - [PaginationRequest](#base-v1-PaginationRequest)
-    - [PaginationResponse](#base-v1-PaginationResponse)
-    - [Sort](#base-v1-Sort)
-    - [UpdateSuccess](#base-v1-UpdateSuccess)
+- [proto/base/v1/base.proto](#proto_base_v1_base-proto)
+    - [CreateSuccess](#proto-base-v1-CreateSuccess)
+    - [DeleteSuccess](#proto-base-v1-DeleteSuccess)
+    - [ErrorMessage](#proto-base-v1-ErrorMessage)
+    - [Filter](#proto-base-v1-Filter)
+    - [PaginationRequest](#proto-base-v1-PaginationRequest)
+    - [PaginationResponse](#proto-base-v1-PaginationResponse)
+    - [Sort](#proto-base-v1-Sort)
+    - [UpdateSuccess](#proto-base-v1-UpdateSuccess)
   
-    - [FilterOperator](#base-v1-FilterOperator)
-    - [SortOrder](#base-v1-SortOrder)
+    - [FilterOperator](#proto-base-v1-FilterOperator)
+    - [SortOrder](#proto-base-v1-SortOrder)
   
-- [menu/v1/menu.proto](#menu_v1_menu-proto)
-    - [GetSuperMenuRequest](#menu-v1-GetSuperMenuRequest)
-    - [GetSuperMenuResponse](#menu-v1-GetSuperMenuResponse)
-    - [Menu](#menu-v1-Menu)
-    - [SubMenu](#menu-v1-SubMenu)
-    - [SuperMenu](#menu-v1-SuperMenu)
+- [proto/menu/v1/menu.proto](#proto_menu_v1_menu-proto)
+    - [GetSuperMenuRequest](#proto-menu-v1-GetSuperMenuRequest)
+    - [GetSuperMenuResponse](#proto-menu-v1-GetSuperMenuResponse)
+    - [Menu](#proto-menu-v1-Menu)
+    - [SubMenu](#proto-menu-v1-SubMenu)
+    - [SuperMenu](#proto-menu-v1-SuperMenu)
   
-    - [MenuService](#menu-v1-MenuService)
+    - [MenuService](#proto-menu-v1-MenuService)
   
-- [module/v1/module.proto](#module_v1_module-proto)
-    - [CreateModuleData](#module-v1-CreateModuleData)
-    - [CreateModuleRequest](#module-v1-CreateModuleRequest)
-    - [CreateSuccess](#module-v1-CreateSuccess)
-    - [DeleteModuleRequest](#module-v1-DeleteModuleRequest)
-    - [GetModuleRequest](#module-v1-GetModuleRequest)
-    - [GetModulesRequest](#module-v1-GetModulesRequest)
-    - [GetModulesResponse](#module-v1-GetModulesResponse)
-    - [Module](#module-v1-Module)
-    - [UpdateModuleData](#module-v1-UpdateModuleData)
-    - [UpdateModuleRequest](#module-v1-UpdateModuleRequest)
+- [proto/module/v1/module.proto](#proto_module_v1_module-proto)
+    - [CreateModuleData](#proto-module-v1-CreateModuleData)
+    - [CreateModuleRequest](#proto-module-v1-CreateModuleRequest)
+    - [CreateSuccess](#proto-module-v1-CreateSuccess)
+    - [DeleteModuleRequest](#proto-module-v1-DeleteModuleRequest)
+    - [GetModuleRequest](#proto-module-v1-GetModuleRequest)
+    - [GetModuleResponse](#proto-module-v1-GetModuleResponse)
+    - [GetModulesRequest](#proto-module-v1-GetModulesRequest)
+    - [GetModulesResponse](#proto-module-v1-GetModulesResponse)
+    - [Module](#proto-module-v1-Module)
+    - [UpdateModuleData](#proto-module-v1-UpdateModuleData)
+    - [UpdateModuleRequest](#proto-module-v1-UpdateModuleRequest)
   
-    - [ModuleService](#module-v1-ModuleService)
+    - [ModuleService](#proto-module-v1-ModuleService)
   
-- [permission/v1/permission.proto](#permission_v1_permission-proto)
-    - [CreatePermissionData](#permission-v1-CreatePermissionData)
-    - [CreatePermissionRequest](#permission-v1-CreatePermissionRequest)
-    - [CreateSuccess](#permission-v1-CreateSuccess)
-    - [DeletePermissionRequest](#permission-v1-DeletePermissionRequest)
-    - [GetPermissionRequest](#permission-v1-GetPermissionRequest)
-    - [GetPermissionsByUserIdRequest](#permission-v1-GetPermissionsByUserIdRequest)
-    - [GetPermissionsByUserIdResponse](#permission-v1-GetPermissionsByUserIdResponse)
-    - [GetPermissionsRequest](#permission-v1-GetPermissionsRequest)
-    - [GetPermissionsResponse](#permission-v1-GetPermissionsResponse)
-    - [Permission](#permission-v1-Permission)
-    - [PermissionInfo](#permission-v1-PermissionInfo)
-    - [UpdatePermissionData](#permission-v1-UpdatePermissionData)
-    - [UpdatePermissionRequest](#permission-v1-UpdatePermissionRequest)
+- [proto/permission/v1/permission.proto](#proto_permission_v1_permission-proto)
+    - [CreatePermissionData](#proto-permission-v1-CreatePermissionData)
+    - [CreatePermissionRequest](#proto-permission-v1-CreatePermissionRequest)
+    - [CreateSuccess](#proto-permission-v1-CreateSuccess)
+    - [DeletePermissionRequest](#proto-permission-v1-DeletePermissionRequest)
+    - [GetPermissionRequest](#proto-permission-v1-GetPermissionRequest)
+    - [GetPermissionsByUserIdRequest](#proto-permission-v1-GetPermissionsByUserIdRequest)
+    - [GetPermissionsByUserIdResponse](#proto-permission-v1-GetPermissionsByUserIdResponse)
+    - [GetPermissionsRequest](#proto-permission-v1-GetPermissionsRequest)
+    - [GetPermissionsResponse](#proto-permission-v1-GetPermissionsResponse)
+    - [Permission](#proto-permission-v1-Permission)
+    - [PermissionInfo](#proto-permission-v1-PermissionInfo)
+    - [UpdatePermissionData](#proto-permission-v1-UpdatePermissionData)
+    - [UpdatePermissionRequest](#proto-permission-v1-UpdatePermissionRequest)
   
-    - [PermissionService](#permission-v1-PermissionService)
+    - [PermissionService](#proto-permission-v1-PermissionService)
   
-- [product/v1/product.proto](#product_v1_product-proto)
-    - [CreateProductData](#product-v1-CreateProductData)
-    - [CreateProductRequest](#product-v1-CreateProductRequest)
-    - [CreateSuccess](#product-v1-CreateSuccess)
-    - [DeleteProductRequest](#product-v1-DeleteProductRequest)
-    - [GetProductRequest](#product-v1-GetProductRequest)
-    - [GetProductsRequest](#product-v1-GetProductsRequest)
-    - [GetProductsResponse](#product-v1-GetProductsResponse)
-    - [Product](#product-v1-Product)
-    - [UpdateProductData](#product-v1-UpdateProductData)
-    - [UpdateProductRequest](#product-v1-UpdateProductRequest)
+- [proto/product/v1/product.proto](#proto_product_v1_product-proto)
+    - [CreateProductData](#proto-product-v1-CreateProductData)
+    - [CreateProductRequest](#proto-product-v1-CreateProductRequest)
+    - [CreateSuccess](#proto-product-v1-CreateSuccess)
+    - [DeleteProductRequest](#proto-product-v1-DeleteProductRequest)
+    - [GetProductRequest](#proto-product-v1-GetProductRequest)
+    - [GetProductResponse](#proto-product-v1-GetProductResponse)
+    - [GetProductsRequest](#proto-product-v1-GetProductsRequest)
+    - [GetProductsResponse](#proto-product-v1-GetProductsResponse)
+    - [Product](#proto-product-v1-Product)
+    - [UpdateProductData](#proto-product-v1-UpdateProductData)
+    - [UpdateProductRequest](#proto-product-v1-UpdateProductRequest)
   
-    - [ProductService](#product-v1-ProductService)
+    - [ProductService](#proto-product-v1-ProductService)
   
-- [resource/v1/resource.proto](#resource_v1_resource-proto)
-    - [Action](#resource-v1-Action)
-    - [CreateResourceData](#resource-v1-CreateResourceData)
-    - [CreateResourceRequest](#resource-v1-CreateResourceRequest)
-    - [CreateSuccess](#resource-v1-CreateSuccess)
-    - [DeleteResourceRequest](#resource-v1-DeleteResourceRequest)
-    - [GetResourceRequest](#resource-v1-GetResourceRequest)
-    - [GetResourcesRequest](#resource-v1-GetResourcesRequest)
-    - [GetResourcesResponse](#resource-v1-GetResourcesResponse)
-    - [Resource](#resource-v1-Resource)
-    - [UpdateResourceData](#resource-v1-UpdateResourceData)
-    - [UpdateResourceRequest](#resource-v1-UpdateResourceRequest)
+- [proto/resource/v1/resource.proto](#proto_resource_v1_resource-proto)
+    - [Action](#proto-resource-v1-Action)
+    - [CreateResourceData](#proto-resource-v1-CreateResourceData)
+    - [CreateResourceRequest](#proto-resource-v1-CreateResourceRequest)
+    - [CreateSuccess](#proto-resource-v1-CreateSuccess)
+    - [DeleteResourceRequest](#proto-resource-v1-DeleteResourceRequest)
+    - [GetResourceRequest](#proto-resource-v1-GetResourceRequest)
+    - [GetResourceResponse](#proto-resource-v1-GetResourceResponse)
+    - [GetResourcesRequest](#proto-resource-v1-GetResourcesRequest)
+    - [GetResourcesResponse](#proto-resource-v1-GetResourcesResponse)
+    - [Resource](#proto-resource-v1-Resource)
+    - [UpdateResourceData](#proto-resource-v1-UpdateResourceData)
+    - [UpdateResourceRequest](#proto-resource-v1-UpdateResourceRequest)
   
-    - [ResourceService](#resource-v1-ResourceService)
+    - [ResourceService](#proto-resource-v1-ResourceService)
   
-- [role/v1/role.proto](#role_v1_role-proto)
-    - [CreateRoleData](#role-v1-CreateRoleData)
-    - [CreateRoleRequest](#role-v1-CreateRoleRequest)
-    - [CreateSuccess](#role-v1-CreateSuccess)
-    - [DeleteRoleRequest](#role-v1-DeleteRoleRequest)
-    - [GetRoleRequest](#role-v1-GetRoleRequest)
-    - [GetRolesRequest](#role-v1-GetRolesRequest)
-    - [GetRolesResponse](#role-v1-GetRolesResponse)
-    - [Permission](#role-v1-Permission)
-    - [Role](#role-v1-Role)
-    - [UpdateRoleData](#role-v1-UpdateRoleData)
-    - [UpdateRoleRequest](#role-v1-UpdateRoleRequest)
+- [proto/role/v1/role.proto](#proto_role_v1_role-proto)
+    - [CreateRoleData](#proto-role-v1-CreateRoleData)
+    - [CreateRoleRequest](#proto-role-v1-CreateRoleRequest)
+    - [CreateSuccess](#proto-role-v1-CreateSuccess)
+    - [DeleteRoleRequest](#proto-role-v1-DeleteRoleRequest)
+    - [GetRoleRequest](#proto-role-v1-GetRoleRequest)
+    - [GetRoleResponse](#proto-role-v1-GetRoleResponse)
+    - [GetRolesRequest](#proto-role-v1-GetRolesRequest)
+    - [GetRolesResponse](#proto-role-v1-GetRolesResponse)
+    - [Permission](#proto-role-v1-Permission)
+    - [Role](#proto-role-v1-Role)
+    - [UpdateRoleData](#proto-role-v1-UpdateRoleData)
+    - [UpdateRoleRequest](#proto-role-v1-UpdateRoleRequest)
   
-    - [RoleService](#role-v1-RoleService)
+    - [RoleService](#proto-role-v1-RoleService)
   
-- [user-role/v1/user-role.proto](#user-role_v1_user-role-proto)
-    - [CreateSuccess](#user_role-v1-CreateSuccess)
-    - [CreateUserRoleData](#user_role-v1-CreateUserRoleData)
-    - [CreateUserRoleRequest](#user_role-v1-CreateUserRoleRequest)
-    - [DeleteUserRoleRequest](#user_role-v1-DeleteUserRoleRequest)
-    - [GetUserRoleRequest](#user_role-v1-GetUserRoleRequest)
-    - [GetUserRolesRequest](#user_role-v1-GetUserRolesRequest)
-    - [GetUserRolesResponse](#user_role-v1-GetUserRolesResponse)
-    - [UpdateUserRoleData](#user_role-v1-UpdateUserRoleData)
-    - [UpdateUserRoleRequest](#user_role-v1-UpdateUserRoleRequest)
-    - [UserRole](#user_role-v1-UserRole)
+- [proto/user-role/v1/user-role.proto](#proto_user-role_v1_user-role-proto)
+    - [CreateSuccess](#proto-user_role-v1-CreateSuccess)
+    - [CreateUserRoleData](#proto-user_role-v1-CreateUserRoleData)
+    - [CreateUserRoleRequest](#proto-user_role-v1-CreateUserRoleRequest)
+    - [DeleteUserRoleRequest](#proto-user_role-v1-DeleteUserRoleRequest)
+    - [GetUserRoleRequest](#proto-user_role-v1-GetUserRoleRequest)
+    - [GetUserRolesRequest](#proto-user_role-v1-GetUserRolesRequest)
+    - [GetUserRolesResponse](#proto-user_role-v1-GetUserRolesResponse)
+    - [UpdateUserRoleData](#proto-user_role-v1-UpdateUserRoleData)
+    - [UpdateUserRoleRequest](#proto-user_role-v1-UpdateUserRoleRequest)
+    - [UserRole](#proto-user_role-v1-UserRole)
   
-    - [UserRoleService](#user_role-v1-UserRoleService)
+    - [UserRoleService](#proto-user_role-v1-UserRoleService)
   
-- [user/v1/user.proto](#user_v1_user-proto)
-    - [ChangePasswordRequest](#user-v1-ChangePasswordRequest)
-    - [CreateSuccess](#user-v1-CreateSuccess)
-    - [CreateUserData](#user-v1-CreateUserData)
-    - [CreateUserRequest](#user-v1-CreateUserRequest)
-    - [DeleteUserRequest](#user-v1-DeleteUserRequest)
-    - [GetUserRequest](#user-v1-GetUserRequest)
-    - [GetUsersRequest](#user-v1-GetUsersRequest)
-    - [GetUsersResponse](#user-v1-GetUsersResponse)
-    - [UpdateUserData](#user-v1-UpdateUserData)
-    - [UpdateUserRequest](#user-v1-UpdateUserRequest)
-    - [User](#user-v1-User)
+- [proto/user/v1/user.proto](#proto_user_v1_user-proto)
+    - [ChangePasswordRequest](#proto-user-v1-ChangePasswordRequest)
+    - [CreateSuccess](#proto-user-v1-CreateSuccess)
+    - [CreateUserData](#proto-user-v1-CreateUserData)
+    - [CreateUserRequest](#proto-user-v1-CreateUserRequest)
+    - [DeleteUserRequest](#proto-user-v1-DeleteUserRequest)
+    - [GetUserRequest](#proto-user-v1-GetUserRequest)
+    - [GetUserResponse](#proto-user-v1-GetUserResponse)
+    - [GetUsersRequest](#proto-user-v1-GetUsersRequest)
+    - [GetUsersResponse](#proto-user-v1-GetUsersResponse)
+    - [UpdateUserData](#proto-user-v1-UpdateUserData)
+    - [UpdateUserRequest](#proto-user-v1-UpdateUserRequest)
+    - [User](#proto-user-v1-User)
   
-    - [UserStatus](#user-v1-UserStatus)
+    - [UserStatus](#proto-user-v1-UserStatus)
   
-    - [UserService](#user-v1-UserService)
+    - [UserService](#proto-user-v1-UserService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="action_v1_action-proto"></a>
+<a name="proto_action_v1_action-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## action/v1/action.proto
+## proto/action/v1/action.proto
 
 
 
-<a name="action-v1-Action"></a>
+<a name="proto-action-v1-Action"></a>
 
 ### Action
 
@@ -180,7 +188,7 @@
 | resource_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
-| request_type | [ActionRequestType](#action-v1-ActionRequestType) |  |  |
+| request_type | [ActionRequestType](#proto-action-v1-ActionRequestType) |  |  |
 | url | [string](#string) |  |  |
 | method | [string](#string) |  |  |
 | created_at | [string](#string) |  |  |
@@ -195,7 +203,7 @@
 
 
 
-<a name="action-v1-CreateActionData"></a>
+<a name="proto-action-v1-CreateActionData"></a>
 
 ### CreateActionData
 
@@ -206,7 +214,7 @@
 | resource_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
-| request_type | [ActionRequestType](#action-v1-ActionRequestType) |  |  |
+| request_type | [ActionRequestType](#proto-action-v1-ActionRequestType) |  |  |
 | url | [string](#string) |  |  |
 | method | [string](#string) |  |  |
 
@@ -215,7 +223,7 @@
 
 
 
-<a name="action-v1-CreateActionRequest"></a>
+<a name="proto-action-v1-CreateActionRequest"></a>
 
 ### CreateActionRequest
 
@@ -223,7 +231,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| action | [CreateActionData](#action-v1-CreateActionData) |  |  |
+| action | [CreateActionData](#proto-action-v1-CreateActionData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -231,7 +239,7 @@
 
 
 
-<a name="action-v1-CreateSuccess"></a>
+<a name="proto-action-v1-CreateSuccess"></a>
 
 ### CreateSuccess
 
@@ -239,15 +247,15 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| action | [Action](#action-v1-Action) |  |  |
-| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| action | [Action](#proto-action-v1-Action) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="action-v1-DeleteActionRequest"></a>
+<a name="proto-action-v1-DeleteActionRequest"></a>
 
 ### DeleteActionRequest
 
@@ -263,7 +271,7 @@
 
 
 
-<a name="action-v1-GetActionRequest"></a>
+<a name="proto-action-v1-GetActionRequest"></a>
 
 ### GetActionRequest
 
@@ -278,7 +286,23 @@
 
 
 
-<a name="action-v1-GetActionsRequest"></a>
+<a name="proto-action-v1-GetActionResponse"></a>
+
+### GetActionResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| action | [Action](#proto-action-v1-Action) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-action-v1-GetActionsRequest"></a>
 
 ### GetActionsRequest
 
@@ -286,16 +310,16 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
+| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
+| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
 
 
 
 
 
 
-<a name="action-v1-GetActionsResponse"></a>
+<a name="proto-action-v1-GetActionsResponse"></a>
 
 ### GetActionsResponse
 
@@ -303,15 +327,15 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
-| data | [Action](#action-v1-Action) | repeated |  |
+| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
+| data | [Action](#proto-action-v1-Action) | repeated |  |
 
 
 
 
 
 
-<a name="action-v1-UpdateActionData"></a>
+<a name="proto-action-v1-UpdateActionData"></a>
 
 ### UpdateActionData
 
@@ -323,7 +347,7 @@
 | resource_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
-| request_type | [ActionRequestType](#action-v1-ActionRequestType) |  |  |
+| request_type | [ActionRequestType](#proto-action-v1-ActionRequestType) |  |  |
 | url | [string](#string) |  |  |
 | method | [string](#string) |  |  |
 
@@ -332,7 +356,7 @@
 
 
 
-<a name="action-v1-UpdateActionRequest"></a>
+<a name="proto-action-v1-UpdateActionRequest"></a>
 
 ### UpdateActionRequest
 
@@ -340,7 +364,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| action | [UpdateActionData](#action-v1-UpdateActionData) |  |  |
+| action | [UpdateActionData](#proto-action-v1-UpdateActionData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -350,18 +374,19 @@
  
 
 
-<a name="action-v1-ActionRequestType"></a>
+<a name="proto-action-v1-ActionRequestType"></a>
 
 ### ActionRequestType
 
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| VIEW | 0 |  |
-| HTTP | 1 |  |
-| GRAPHQL | 2 |  |
-| GRPC | 3 |  |
-| WEBSOCKET | 4 |  |
+| ACTION_REQUEST_TYPE_UNSPECIFIED | 0 |  |
+| ACTION_REQUEST_TYPE_VIEW | 1 |  |
+| ACTION_REQUEST_TYPE_HTTP | 2 |  |
+| ACTION_REQUEST_TYPE_GRAPHQL | 3 |  |
+| ACTION_REQUEST_TYPE_GRPC | 4 |  |
+| ACTION_REQUEST_TYPE_WEBSOCKET | 5 |  |
 
 
  
@@ -369,31 +394,49 @@
  
 
 
-<a name="action-v1-ActionService"></a>
+<a name="proto-action-v1-ActionService"></a>
 
 ### ActionService
-
+ActionService: manage actions for resources
+Sample GetAction request: { &#34;action_id&#34;: &#34;uuid&#34; }
+Sample GetAction response: Action
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetAction | [GetActionRequest](#action-v1-GetActionRequest) | [Action](#action-v1-Action) |  |
-| GetActions | [GetActionsRequest](#action-v1-GetActionsRequest) | [GetActionsResponse](#action-v1-GetActionsResponse) |  |
-| CreateAction | [CreateActionRequest](#action-v1-CreateActionRequest) | [CreateSuccess](#action-v1-CreateSuccess) |  |
-| UpdateAction | [UpdateActionRequest](#action-v1-UpdateActionRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteAction | [DeleteActionRequest](#action-v1-DeleteActionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| GetAction | [GetActionRequest](#proto-action-v1-GetActionRequest) | [GetActionResponse](#proto-action-v1-GetActionResponse) | GetAction returns a single Action by id Req example: { &#34;action_id&#34;: &#34;uuid&#34; } Res example: { &#34;action_id&#34;: &#34;...&#34;, &#34;name&#34;: &#34;...&#34;, &#34;request_type&#34;: HTTP } |
+| GetActions | [GetActionsRequest](#proto-action-v1-GetActionsRequest) | [GetActionsResponse](#proto-action-v1-GetActionsResponse) | GetActions returns paginated actions Req example: { &#34;pagination&#34;: { &#34;page&#34;: 1, &#34;limit&#34;: 10 } } Res example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10, &#34;totalItems&#34;:0 }, &#34;data&#34;: [] } |
+| CreateAction | [CreateActionRequest](#proto-action-v1-CreateActionRequest) | [CreateSuccess](#proto-action-v1-CreateSuccess) | CreateAction creates a new action Req example: { &#34;action&#34;: { &#34;resource_id&#34;: &#34;uuid&#34;, &#34;name&#34;: &#34;Read&#34;, &#34;request_type&#34;: HTTP } } Res example: CreateSuccess |
+| UpdateAction | [UpdateActionRequest](#proto-action-v1-UpdateActionRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateAction updates an existing action Req example: { &#34;action&#34;: { &#34;action_id&#34;: &#34;uuid&#34;, &#34;name&#34;: &#34;Updated&#34; } } Res example: { result: { success: true } } |
+| DeleteAction | [DeleteActionRequest](#proto-action-v1-DeleteActionRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteAction performs soft delete Req example: { &#34;action_id&#34;: &#34;uuid&#34;, &#34;user_id&#34;: &#34;uuid&#34; } Res example: { result: { success: true } } |
 
  
 
 
 
-<a name="auth_v1_auth-proto"></a>
+<a name="proto_auth_v1_auth-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## auth/v1/auth.proto
+## proto/auth/v1/auth.proto
 
 
 
-<a name="auth-v1-GetMeRequest"></a>
+<a name="proto-auth-v1-Auth"></a>
+
+### Auth
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| access_token | [string](#string) |  |  |
+| refresh_token | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-auth-v1-GetMeRequest"></a>
 
 ### GetMeRequest
 
@@ -408,9 +451,57 @@
 
 
 
-<a name="auth-v1-GetMeResponse"></a>
+<a name="proto-auth-v1-GetMeResponse"></a>
 
 ### GetMeResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#proto-auth-v1-User) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-auth-v1-LoginRequest"></a>
+
+### LoginRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| email | [string](#string) |  |  |
+| password | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="proto-auth-v1-LoginResponse"></a>
+
+### LoginResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| auth | [Auth](#proto-auth-v1-Auth) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-auth-v1-User"></a>
+
+### User
 
 
 
@@ -428,39 +519,7 @@
 
 
 
-<a name="auth-v1-LoginRequest"></a>
-
-### LoginRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| email | [string](#string) |  |  |
-| password | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="auth-v1-LoginResponse"></a>
-
-### LoginResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| access_token | [string](#string) |  |  |
-| refresh_token | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="auth-v1-VerifyRequest"></a>
+<a name="proto-auth-v1-VerifyRequest"></a>
 
 ### VerifyRequest
 
@@ -478,7 +537,7 @@
 
 
 
-<a name="auth-v1-VerifyResponse"></a>
+<a name="proto-auth-v1-VerifyResponse"></a>
 
 ### VerifyResponse
 
@@ -487,6 +546,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | success | [bool](#bool) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
@@ -499,29 +559,29 @@
  
 
 
-<a name="auth-v1-AuthService"></a>
+<a name="proto-auth-v1-AuthService"></a>
 
 ### AuthService
-
+AuthService: authentication and token verification
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| Login | [LoginRequest](#auth-v1-LoginRequest) | [LoginResponse](#auth-v1-LoginResponse) |  |
-| GetMe | [GetMeRequest](#auth-v1-GetMeRequest) | [GetMeResponse](#auth-v1-GetMeResponse) |  |
-| Verify | [VerifyRequest](#auth-v1-VerifyRequest) | [VerifyResponse](#auth-v1-VerifyResponse) |  |
+| Login | [LoginRequest](#proto-auth-v1-LoginRequest) | [LoginResponse](#proto-auth-v1-LoginResponse) | Login authenticates user and returns tokens Req example: { &#34;email&#34;: &#34;a@b.com&#34;, &#34;password&#34;: &#34;secret&#34; } Res example: { &#34;auth&#34;: { &#34;access_token&#34;: &#34;...&#34;, &#34;refresh_token&#34;: &#34;...&#34; }, &#34;errors&#34;: [] } |
+| GetMe | [GetMeRequest](#proto-auth-v1-GetMeRequest) | [GetMeResponse](#proto-auth-v1-GetMeResponse) | GetMe returns current user profile Req example: { &#34;user_id&#34;: &#34;uuid&#34; } Res example: { &#34;user&#34;: { &#34;user_id&#34;: &#34;...&#34;, &#34;email&#34;: &#34;...&#34;, &#34;username&#34;: &#34;...&#34;, &#34;avatar&#34;: &#34;...&#34;, &#34;phone&#34;: &#34;...&#34;, &#34;status&#34;: &#34;ACTIVE&#34; }, &#34;errors&#34;: [] } |
+| Verify | [VerifyRequest](#proto-auth-v1-VerifyRequest) | [VerifyResponse](#proto-auth-v1-VerifyResponse) | Verify checks token and permission Req example: { &#34;token&#34;:&#34;...&#34;, &#34;request_type&#34;:&#34;HTTP&#34;, &#34;method&#34;:&#34;GET&#34;, &#34;url&#34;:&#34;/api&#34; } Res example: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
 
  
 
 
 
-<a name="base_v1_base-proto"></a>
+<a name="proto_base_v1_base-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## base/v1/base.proto
+## proto/base/v1/base.proto
 
 
 
-<a name="base-v1-CreateSuccess"></a>
+<a name="proto-base-v1-CreateSuccess"></a>
 
 ### CreateSuccess
 
@@ -530,14 +590,14 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | success | [bool](#bool) |  |  |
-| error | [ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| errors | [ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="base-v1-DeleteSuccess"></a>
+<a name="proto-base-v1-DeleteSuccess"></a>
 
 ### DeleteSuccess
 
@@ -546,16 +606,16 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | success | [bool](#bool) |  |  |
-| error | [ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| errors | [ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="base-v1-ErrorResponse"></a>
+<a name="proto-base-v1-ErrorMessage"></a>
 
-### ErrorResponse
+### ErrorMessage
 
 
 
@@ -570,7 +630,7 @@
 
 
 
-<a name="base-v1-Filter"></a>
+<a name="proto-base-v1-Filter"></a>
 
 ### Filter
 
@@ -579,7 +639,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | field | [string](#string) |  |  |
-| operator | [FilterOperator](#base-v1-FilterOperator) |  |  |
+| operator | [FilterOperator](#proto-base-v1-FilterOperator) |  |  |
 | string_value | [string](#string) | optional |  |
 | number_value | [string](#string) | optional |  |
 | bool_value | [string](#string) | optional |  |
@@ -592,7 +652,7 @@
 
 
 
-<a name="base-v1-PaginationRequest"></a>
+<a name="proto-base-v1-PaginationRequest"></a>
 
 ### PaginationRequest
 define message
@@ -608,7 +668,7 @@ define message
 
 
 
-<a name="base-v1-PaginationResponse"></a>
+<a name="proto-base-v1-PaginationResponse"></a>
 
 ### PaginationResponse
 
@@ -618,16 +678,16 @@ define message
 | ----- | ---- | ----- | ----------- |
 | page | [int32](#int32) |  |  |
 | limit | [int32](#int32) |  |  |
-| totalItems | [int32](#int32) |  |  |
-| totalPages | [int32](#int32) |  |  |
-| itemCount | [int32](#int32) |  |  |
+| total_items | [int32](#int32) |  |  |
+| total_pages | [int32](#int32) |  |  |
+| item_count | [int32](#int32) |  |  |
 
 
 
 
 
 
-<a name="base-v1-Sort"></a>
+<a name="proto-base-v1-Sort"></a>
 
 ### Sort
 
@@ -636,14 +696,14 @@ define message
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | field | [string](#string) |  | created_at, updated_at |
-| order | [SortOrder](#base-v1-SortOrder) |  | &#34;ASC&#34; or &#34;DESC&#34; |
+| order | [SortOrder](#proto-base-v1-SortOrder) |  | &#34;ASC&#34; or &#34;DESC&#34; |
 
 
 
 
 
 
-<a name="base-v1-UpdateSuccess"></a>
+<a name="proto-base-v1-UpdateSuccess"></a>
 
 ### UpdateSuccess
 
@@ -652,7 +712,7 @@ define message
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | success | [bool](#bool) |  |  |
-| error | [ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| errors | [ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
@@ -661,7 +721,7 @@ define message
  
 
 
-<a name="base-v1-FilterOperator"></a>
+<a name="proto-base-v1-FilterOperator"></a>
 
 ### FilterOperator
 define enum
@@ -669,19 +729,19 @@ define enum
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | FILTER_OPERATOR_UNSPECIFIED | 0 | this one is best practice to define &lt;name&gt;_UNSPECIFIED read more: https://protobuf.dev/programming-guides/style/#enums |
-| EQUAL | 1 |  |
-| NOT_EQUAL | 2 |  |
-| GREATER_THAN | 3 |  |
-| LESS_THAN | 4 |  |
-| GREATER_THAN_OR_EQUAL | 5 |  |
-| LESS_THAN_OR_EQUAL | 6 |  |
-| LIKE | 7 |  |
-| IN | 8 |  |
-| NOT_IN | 9 |  |
+| FILTER_OPERATOR_EQUAL | 1 |  |
+| FILTER_OPERATOR_NOT_EQUAL | 2 |  |
+| FILTER_OPERATOR_GREATER_THAN | 3 |  |
+| FILTER_OPERATOR_LESS_THAN | 4 |  |
+| FILTER_OPERATOR_GREATER_THAN_OR_EQUAL | 5 |  |
+| FILTER_OPERATOR_LESS_THAN_OR_EQUAL | 6 |  |
+| FILTER_OPERATOR_LIKE | 7 |  |
+| FILTER_OPERATOR_IN | 8 |  |
+| FILTER_OPERATOR_NOT_IN | 9 |  |
 
 
 
-<a name="base-v1-SortOrder"></a>
+<a name="proto-base-v1-SortOrder"></a>
 
 ### SortOrder
 
@@ -689,8 +749,8 @@ define enum
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | SORT_ORDER_UNSPECIFIED | 0 |  |
-| ASC | 1 |  |
-| DESC | 2 |  |
+| SORT_ORDER_ASC | 1 |  |
+| SORT_ORDER_DESC | 2 |  |
 
 
  
@@ -701,14 +761,14 @@ define enum
 
 
 
-<a name="menu_v1_menu-proto"></a>
+<a name="proto_menu_v1_menu-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## menu/v1/menu.proto
+## proto/menu/v1/menu.proto
 
 
 
-<a name="menu-v1-GetSuperMenuRequest"></a>
+<a name="proto-menu-v1-GetSuperMenuRequest"></a>
 
 ### GetSuperMenuRequest
 
@@ -723,7 +783,7 @@ define enum
 
 
 
-<a name="menu-v1-GetSuperMenuResponse"></a>
+<a name="proto-menu-v1-GetSuperMenuResponse"></a>
 
 ### GetSuperMenuResponse
 
@@ -731,14 +791,14 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| super_menus | [SuperMenu](#menu-v1-SuperMenu) | repeated |  |
+| super_menus | [SuperMenu](#proto-menu-v1-SuperMenu) | repeated |  |
 
 
 
 
 
 
-<a name="menu-v1-Menu"></a>
+<a name="proto-menu-v1-Menu"></a>
 
 ### Menu
 
@@ -749,14 +809,14 @@ define enum
 | name | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | icon | [string](#string) | optional |  |
-| subMenus | [SubMenu](#menu-v1-SubMenu) | repeated | Nested sub-menus |
+| sub_menus | [SubMenu](#proto-menu-v1-SubMenu) | repeated | Nested sub-menus |
 
 
 
 
 
 
-<a name="menu-v1-SubMenu"></a>
+<a name="proto-menu-v1-SubMenu"></a>
 
 ### SubMenu
 
@@ -772,7 +832,7 @@ define enum
 
 
 
-<a name="menu-v1-SuperMenu"></a>
+<a name="proto-menu-v1-SuperMenu"></a>
 
 ### SuperMenu
 
@@ -784,7 +844,7 @@ define enum
 | url | [string](#string) |  |  |
 | description | [string](#string) |  |  |
 | icon | [string](#string) | optional |  |
-| menus | [Menu](#menu-v1-Menu) | repeated | Nested sub-menus |
+| menus | [Menu](#proto-menu-v1-Menu) | repeated | Nested sub-menus |
 
 
 
@@ -797,27 +857,27 @@ define enum
  
 
 
-<a name="menu-v1-MenuService"></a>
+<a name="proto-menu-v1-MenuService"></a>
 
 ### MenuService
-
+MenuService: retrieve hierarchical menu for a user
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetSuperMenus | [GetSuperMenuRequest](#menu-v1-GetSuperMenuRequest) | [GetSuperMenuResponse](#menu-v1-GetSuperMenuResponse) |  |
+| GetSuperMenus | [GetSuperMenuRequest](#proto-menu-v1-GetSuperMenuRequest) | [GetSuperMenuResponse](#proto-menu-v1-GetSuperMenuResponse) | GetSuperMenus returns full menu structure available to a user Req example: { &#34;user_id&#34;: &#34;uuid&#34; } Res example: { &#34;super_menus&#34;: [ { &#34;name&#34;:&#34;...&#34;, &#34;menus&#34;: [...] } ] } |
 
  
 
 
 
-<a name="module_v1_module-proto"></a>
+<a name="proto_module_v1_module-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## module/v1/module.proto
+## proto/module/v1/module.proto
 
 
 
-<a name="module-v1-CreateModuleData"></a>
+<a name="proto-module-v1-CreateModuleData"></a>
 
 ### CreateModuleData
 
@@ -827,15 +887,16 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
-| product_id | [string](#string) | optional |  |
+| product_id | [string](#string) |  |  |
 | icon | [string](#string) | optional |  |
+| url | [string](#string) | optional |  |
 
 
 
 
 
 
-<a name="module-v1-CreateModuleRequest"></a>
+<a name="proto-module-v1-CreateModuleRequest"></a>
 
 ### CreateModuleRequest
 
@@ -843,7 +904,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| module | [CreateModuleData](#module-v1-CreateModuleData) |  |  |
+| module | [CreateModuleData](#proto-module-v1-CreateModuleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -851,7 +912,7 @@ define enum
 
 
 
-<a name="module-v1-CreateSuccess"></a>
+<a name="proto-module-v1-CreateSuccess"></a>
 
 ### CreateSuccess
 
@@ -859,15 +920,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| module | [Module](#module-v1-Module) |  |  |
-| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| module | [Module](#proto-module-v1-Module) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="module-v1-DeleteModuleRequest"></a>
+<a name="proto-module-v1-DeleteModuleRequest"></a>
 
 ### DeleteModuleRequest
 
@@ -883,7 +944,7 @@ define enum
 
 
 
-<a name="module-v1-GetModuleRequest"></a>
+<a name="proto-module-v1-GetModuleRequest"></a>
 
 ### GetModuleRequest
 
@@ -898,7 +959,23 @@ define enum
 
 
 
-<a name="module-v1-GetModulesRequest"></a>
+<a name="proto-module-v1-GetModuleResponse"></a>
+
+### GetModuleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| module | [Module](#proto-module-v1-Module) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-module-v1-GetModulesRequest"></a>
 
 ### GetModulesRequest
 
@@ -906,16 +983,16 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
+| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
+| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
 
 
 
 
 
 
-<a name="module-v1-GetModulesResponse"></a>
+<a name="proto-module-v1-GetModulesResponse"></a>
 
 ### GetModulesResponse
 
@@ -923,15 +1000,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
-| data | [Module](#module-v1-Module) | repeated |  |
+| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
+| data | [Module](#proto-module-v1-Module) | repeated |  |
 
 
 
 
 
 
-<a name="module-v1-Module"></a>
+<a name="proto-module-v1-Module"></a>
 
 ### Module
 
@@ -948,15 +1025,16 @@ define enum
 | updated_user_id | [string](#string) |  |  |
 | deleted_at | [string](#string) |  |  |
 | deleted_user_id | [string](#string) |  |  |
-| product_id | [string](#string) | optional |  |
+| product_id | [string](#string) |  |  |
 | icon | [string](#string) | optional |  |
+| url | [string](#string) | optional |  |
 
 
 
 
 
 
-<a name="module-v1-UpdateModuleData"></a>
+<a name="proto-module-v1-UpdateModuleData"></a>
 
 ### UpdateModuleData
 
@@ -967,15 +1045,16 @@ define enum
 | module_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
-| product_id | [string](#string) | optional |  |
+| product_id | [string](#string) |  |  |
 | icon | [string](#string) | optional |  |
+| url | [string](#string) | optional |  |
 
 
 
 
 
 
-<a name="module-v1-UpdateModuleRequest"></a>
+<a name="proto-module-v1-UpdateModuleRequest"></a>
 
 ### UpdateModuleRequest
 
@@ -983,7 +1062,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| module | [UpdateModuleData](#module-v1-UpdateModuleData) |  |  |
+| module | [UpdateModuleData](#proto-module-v1-UpdateModuleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -997,31 +1076,32 @@ define enum
  
 
 
-<a name="module-v1-ModuleService"></a>
+<a name="proto-module-v1-ModuleService"></a>
 
 ### ModuleService
-
+ModuleService: manage modules (grouping of resources)
+Sample GetModule request: { &#34;module_id&#34;: &#34;uuid&#34; }
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetModule | [GetModuleRequest](#module-v1-GetModuleRequest) | [Module](#module-v1-Module) |  |
-| GetModules | [GetModulesRequest](#module-v1-GetModulesRequest) | [GetModulesResponse](#module-v1-GetModulesResponse) |  |
-| CreateModule | [CreateModuleRequest](#module-v1-CreateModuleRequest) | [CreateSuccess](#module-v1-CreateSuccess) |  |
-| UpdateModule | [UpdateModuleRequest](#module-v1-UpdateModuleRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteModule | [DeleteModuleRequest](#module-v1-DeleteModuleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| GetModule | [GetModuleRequest](#proto-module-v1-GetModuleRequest) | [GetModuleResponse](#proto-module-v1-GetModuleResponse) | GetModule returns a single Module Req example: { &#34;module_id&#34;: &#34;...&#34; } Res example: { &#34;module_id&#34;: &#34;...&#34;, &#34;name&#34;: &#34;...&#34; } |
+| GetModules | [GetModulesRequest](#proto-module-v1-GetModulesRequest) | [GetModulesResponse](#proto-module-v1-GetModulesResponse) | GetModules returns paginated modules Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } Res example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 }, &#34;data&#34;: [] } |
+| CreateModule | [CreateModuleRequest](#proto-module-v1-CreateModuleRequest) | [CreateSuccess](#proto-module-v1-CreateSuccess) | CreateModule creates a new module Req example: { &#34;module&#34;: { &#34;name&#34;:&#34;mod&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| UpdateModule | [UpdateModuleRequest](#proto-module-v1-UpdateModuleRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateModule updates a module Req example: { &#34;module&#34;: { &#34;module_id&#34;:&#34;uuid&#34;, &#34;name&#34;:&#34;new&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| DeleteModule | [DeleteModuleRequest](#proto-module-v1-DeleteModuleRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteModule soft-deletes a module Req example: { &#34;module_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
 
  
 
 
 
-<a name="permission_v1_permission-proto"></a>
+<a name="proto_permission_v1_permission-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## permission/v1/permission.proto
+## proto/permission/v1/permission.proto
 
 
 
-<a name="permission-v1-CreatePermissionData"></a>
+<a name="proto-permission-v1-CreatePermissionData"></a>
 
 ### CreatePermissionData
 
@@ -1038,7 +1118,7 @@ define enum
 
 
 
-<a name="permission-v1-CreatePermissionRequest"></a>
+<a name="proto-permission-v1-CreatePermissionRequest"></a>
 
 ### CreatePermissionRequest
 
@@ -1046,7 +1126,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| permission | [CreatePermissionData](#permission-v1-CreatePermissionData) |  |  |
+| permission | [CreatePermissionData](#proto-permission-v1-CreatePermissionData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1054,7 +1134,7 @@ define enum
 
 
 
-<a name="permission-v1-CreateSuccess"></a>
+<a name="proto-permission-v1-CreateSuccess"></a>
 
 ### CreateSuccess
 
@@ -1062,15 +1142,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| permission | [Permission](#permission-v1-Permission) |  |  |
-| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| permission | [Permission](#proto-permission-v1-Permission) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="permission-v1-DeletePermissionRequest"></a>
+<a name="proto-permission-v1-DeletePermissionRequest"></a>
 
 ### DeletePermissionRequest
 
@@ -1086,7 +1166,7 @@ define enum
 
 
 
-<a name="permission-v1-GetPermissionRequest"></a>
+<a name="proto-permission-v1-GetPermissionRequest"></a>
 
 ### GetPermissionRequest
 
@@ -1101,7 +1181,7 @@ define enum
 
 
 
-<a name="permission-v1-GetPermissionsByUserIdRequest"></a>
+<a name="proto-permission-v1-GetPermissionsByUserIdRequest"></a>
 
 ### GetPermissionsByUserIdRequest
 
@@ -1116,7 +1196,7 @@ define enum
 
 
 
-<a name="permission-v1-GetPermissionsByUserIdResponse"></a>
+<a name="proto-permission-v1-GetPermissionsByUserIdResponse"></a>
 
 ### GetPermissionsByUserIdResponse
 
@@ -1124,14 +1204,14 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| permissions | [PermissionInfo](#permission-v1-PermissionInfo) | repeated |  |
+| permissions | [PermissionInfo](#proto-permission-v1-PermissionInfo) | repeated |  |
 
 
 
 
 
 
-<a name="permission-v1-GetPermissionsRequest"></a>
+<a name="proto-permission-v1-GetPermissionsRequest"></a>
 
 ### GetPermissionsRequest
 
@@ -1139,16 +1219,16 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
+| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
+| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
 
 
 
 
 
 
-<a name="permission-v1-GetPermissionsResponse"></a>
+<a name="proto-permission-v1-GetPermissionsResponse"></a>
 
 ### GetPermissionsResponse
 
@@ -1156,15 +1236,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
-| data | [Permission](#permission-v1-Permission) | repeated |  |
+| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
+| data | [Permission](#proto-permission-v1-Permission) | repeated |  |
 
 
 
 
 
 
-<a name="permission-v1-Permission"></a>
+<a name="proto-permission-v1-Permission"></a>
 
 ### Permission
 
@@ -1188,7 +1268,7 @@ define enum
 
 
 
-<a name="permission-v1-PermissionInfo"></a>
+<a name="proto-permission-v1-PermissionInfo"></a>
 
 ### PermissionInfo
 
@@ -1206,7 +1286,7 @@ define enum
 
 
 
-<a name="permission-v1-UpdatePermissionData"></a>
+<a name="proto-permission-v1-UpdatePermissionData"></a>
 
 ### UpdatePermissionData
 
@@ -1224,7 +1304,7 @@ define enum
 
 
 
-<a name="permission-v1-UpdatePermissionRequest"></a>
+<a name="proto-permission-v1-UpdatePermissionRequest"></a>
 
 ### UpdatePermissionRequest
 
@@ -1232,7 +1312,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| permission | [UpdatePermissionData](#permission-v1-UpdatePermissionData) |  |  |
+| permission | [UpdatePermissionData](#proto-permission-v1-UpdatePermissionData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1246,32 +1326,32 @@ define enum
  
 
 
-<a name="permission-v1-PermissionService"></a>
+<a name="proto-permission-v1-PermissionService"></a>
 
 ### PermissionService
-
+PermissionService: manage role-resource-action permissions
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetPermission | [GetPermissionRequest](#permission-v1-GetPermissionRequest) | [Permission](#permission-v1-Permission) |  |
-| GetPermissions | [GetPermissionsRequest](#permission-v1-GetPermissionsRequest) | [GetPermissionsResponse](#permission-v1-GetPermissionsResponse) |  |
-| CreatePermission | [CreatePermissionRequest](#permission-v1-CreatePermissionRequest) | [CreateSuccess](#permission-v1-CreateSuccess) |  |
-| UpdatePermission | [UpdatePermissionRequest](#permission-v1-UpdatePermissionRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeletePermission | [DeletePermissionRequest](#permission-v1-DeletePermissionRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
-| GetPermissionsByUserId | [GetPermissionsByUserIdRequest](#permission-v1-GetPermissionsByUserIdRequest) | [GetPermissionsByUserIdResponse](#permission-v1-GetPermissionsByUserIdResponse) |  |
+| GetPermission | [GetPermissionRequest](#proto-permission-v1-GetPermissionRequest) | [Permission](#proto-permission-v1-Permission) | GetPermission returns a single permission by id Req example: { &#34;permission_id&#34;: &#34;uuid&#34; } |
+| GetPermissions | [GetPermissionsRequest](#proto-permission-v1-GetPermissionsRequest) | [GetPermissionsResponse](#proto-permission-v1-GetPermissionsResponse) | GetPermissions returns paginated permissions Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } |
+| CreatePermission | [CreatePermissionRequest](#proto-permission-v1-CreatePermissionRequest) | [CreateSuccess](#proto-permission-v1-CreateSuccess) | CreatePermission assigns permission for role-resource-action Req example: { &#34;permission&#34;: { &#34;role_id&#34;:&#34;uuid&#34;, &#34;resource_id&#34;:&#34;uuid&#34;, &#34;action_id&#34;:&#34;uuid&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| UpdatePermission | [UpdatePermissionRequest](#proto-permission-v1-UpdatePermissionRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdatePermission updates a permission mapping Req example: { &#34;permission&#34;: { &#34;permission_id&#34;:&#34;uuid&#34;, ... }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| DeletePermission | [DeletePermissionRequest](#proto-permission-v1-DeletePermissionRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeletePermission soft-deletes a permission Req example: { &#34;permission_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
+| GetPermissionsByUserId | [GetPermissionsByUserIdRequest](#proto-permission-v1-GetPermissionsByUserIdRequest) | [GetPermissionsByUserIdResponse](#proto-permission-v1-GetPermissionsByUserIdResponse) | GetPermissionsByUserId returns permissions available to a user Req example: { &#34;user_id&#34;:&#34;uuid&#34; } Res example: { &#34;permissions&#34;: [ { &#34;resource&#34;: {...}, &#34;action&#34;: {...} } ] } |
 
  
 
 
 
-<a name="product_v1_product-proto"></a>
+<a name="proto_product_v1_product-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## product/v1/product.proto
+## proto/product/v1/product.proto
 
 
 
-<a name="product-v1-CreateProductData"></a>
+<a name="proto-product-v1-CreateProductData"></a>
 
 ### CreateProductData
 
@@ -1289,7 +1369,7 @@ define enum
 
 
 
-<a name="product-v1-CreateProductRequest"></a>
+<a name="proto-product-v1-CreateProductRequest"></a>
 
 ### CreateProductRequest
 
@@ -1297,7 +1377,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| product | [CreateProductData](#product-v1-CreateProductData) |  |  |
+| product | [CreateProductData](#proto-product-v1-CreateProductData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1305,7 +1385,7 @@ define enum
 
 
 
-<a name="product-v1-CreateSuccess"></a>
+<a name="proto-product-v1-CreateSuccess"></a>
 
 ### CreateSuccess
 
@@ -1313,15 +1393,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| product | [Product](#product-v1-Product) |  |  |
-| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| product | [Product](#proto-product-v1-Product) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="product-v1-DeleteProductRequest"></a>
+<a name="proto-product-v1-DeleteProductRequest"></a>
 
 ### DeleteProductRequest
 
@@ -1337,7 +1417,7 @@ define enum
 
 
 
-<a name="product-v1-GetProductRequest"></a>
+<a name="proto-product-v1-GetProductRequest"></a>
 
 ### GetProductRequest
 
@@ -1352,7 +1432,23 @@ define enum
 
 
 
-<a name="product-v1-GetProductsRequest"></a>
+<a name="proto-product-v1-GetProductResponse"></a>
+
+### GetProductResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| product | [Product](#proto-product-v1-Product) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-product-v1-GetProductsRequest"></a>
 
 ### GetProductsRequest
 
@@ -1360,16 +1456,16 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
+| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
+| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
 
 
 
 
 
 
-<a name="product-v1-GetProductsResponse"></a>
+<a name="proto-product-v1-GetProductsResponse"></a>
 
 ### GetProductsResponse
 
@@ -1377,15 +1473,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
-| data | [Product](#product-v1-Product) | repeated |  |
+| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
+| data | [Product](#proto-product-v1-Product) | repeated |  |
 
 
 
 
 
 
-<a name="product-v1-Product"></a>
+<a name="proto-product-v1-Product"></a>
 
 ### Product
 
@@ -1410,7 +1506,7 @@ define enum
 
 
 
-<a name="product-v1-UpdateProductData"></a>
+<a name="proto-product-v1-UpdateProductData"></a>
 
 ### UpdateProductData
 
@@ -1429,7 +1525,7 @@ define enum
 
 
 
-<a name="product-v1-UpdateProductRequest"></a>
+<a name="proto-product-v1-UpdateProductRequest"></a>
 
 ### UpdateProductRequest
 
@@ -1437,7 +1533,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| product | [UpdateProductData](#product-v1-UpdateProductData) |  |  |
+| product | [UpdateProductData](#proto-product-v1-UpdateProductData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1451,31 +1547,31 @@ define enum
  
 
 
-<a name="product-v1-ProductService"></a>
+<a name="proto-product-v1-ProductService"></a>
 
 ### ProductService
-
+ProductService: manage products
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetProduct | [GetProductRequest](#product-v1-GetProductRequest) | [Product](#product-v1-Product) |  |
-| GetProducts | [GetProductsRequest](#product-v1-GetProductsRequest) | [GetProductsResponse](#product-v1-GetProductsResponse) |  |
-| CreateProduct | [CreateProductRequest](#product-v1-CreateProductRequest) | [CreateSuccess](#product-v1-CreateSuccess) |  |
-| UpdateProduct | [UpdateProductRequest](#product-v1-UpdateProductRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteProduct | [DeleteProductRequest](#product-v1-DeleteProductRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| GetProduct | [GetProductRequest](#proto-product-v1-GetProductRequest) | [GetProductResponse](#proto-product-v1-GetProductResponse) | GetProduct returns a product by id Req example: { &#34;product_id&#34;: &#34;uuid&#34; } Res example: { product: { &#34;product_id&#34;: &#34;...&#34;, &#34;name&#34;: &#34;...&#34; } } |
+| GetProducts | [GetProductsRequest](#proto-product-v1-GetProductsRequest) | [GetProductsResponse](#proto-product-v1-GetProductsResponse) | GetProducts returns paginated products Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } |
+| CreateProduct | [CreateProductRequest](#proto-product-v1-CreateProductRequest) | [CreateSuccess](#proto-product-v1-CreateSuccess) | CreateProduct creates a product Req example: { &#34;product&#34;: { &#34;name&#34;:&#34;p&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| UpdateProduct | [UpdateProductRequest](#proto-product-v1-UpdateProductRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateProduct updates a product Req example: { &#34;product&#34;: { &#34;product_id&#34;:&#34;uuid&#34;, &#34;name&#34;:&#34;new&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| DeleteProduct | [DeleteProductRequest](#proto-product-v1-DeleteProductRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteProduct soft-deletes a product Req example: { &#34;product_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
 
  
 
 
 
-<a name="resource_v1_resource-proto"></a>
+<a name="proto_resource_v1_resource-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## resource/v1/resource.proto
+## proto/resource/v1/resource.proto
 
 
 
-<a name="resource-v1-Action"></a>
+<a name="proto-resource-v1-Action"></a>
 
 ### Action
 
@@ -1485,7 +1581,7 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
-| request_type | [action.v1.ActionRequestType](#action-v1-ActionRequestType) |  |  |
+| request_type | [proto.action.v1.ActionRequestType](#proto-action-v1-ActionRequestType) |  |  |
 | url | [string](#string) |  |  |
 | method | [string](#string) |  |  |
 | action_id | [string](#string) | optional |  |
@@ -1495,7 +1591,7 @@ define enum
 
 
 
-<a name="resource-v1-CreateResourceData"></a>
+<a name="proto-resource-v1-CreateResourceData"></a>
 
 ### CreateResourceData
 
@@ -1505,14 +1601,14 @@ define enum
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | module_id | [string](#string) |  |  |
-| actions | [Action](#resource-v1-Action) | repeated |  |
+| actions | [Action](#proto-resource-v1-Action) | repeated |  |
 
 
 
 
 
 
-<a name="resource-v1-CreateResourceRequest"></a>
+<a name="proto-resource-v1-CreateResourceRequest"></a>
 
 ### CreateResourceRequest
 
@@ -1520,7 +1616,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource | [CreateResourceData](#resource-v1-CreateResourceData) |  |  |
+| resource | [CreateResourceData](#proto-resource-v1-CreateResourceData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1528,7 +1624,7 @@ define enum
 
 
 
-<a name="resource-v1-CreateSuccess"></a>
+<a name="proto-resource-v1-CreateSuccess"></a>
 
 ### CreateSuccess
 
@@ -1536,15 +1632,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource | [Resource](#resource-v1-Resource) |  |  |
-| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| resource | [Resource](#proto-resource-v1-Resource) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="resource-v1-DeleteResourceRequest"></a>
+<a name="proto-resource-v1-DeleteResourceRequest"></a>
 
 ### DeleteResourceRequest
 
@@ -1560,7 +1656,7 @@ define enum
 
 
 
-<a name="resource-v1-GetResourceRequest"></a>
+<a name="proto-resource-v1-GetResourceRequest"></a>
 
 ### GetResourceRequest
 
@@ -1575,7 +1671,23 @@ define enum
 
 
 
-<a name="resource-v1-GetResourcesRequest"></a>
+<a name="proto-resource-v1-GetResourceResponse"></a>
+
+### GetResourceResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource | [Resource](#proto-resource-v1-Resource) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-resource-v1-GetResourcesRequest"></a>
 
 ### GetResourcesRequest
 
@@ -1583,16 +1695,16 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
+| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
+| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
 
 
 
 
 
 
-<a name="resource-v1-GetResourcesResponse"></a>
+<a name="proto-resource-v1-GetResourcesResponse"></a>
 
 ### GetResourcesResponse
 
@@ -1600,15 +1712,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
-| data | [Resource](#resource-v1-Resource) | repeated |  |
+| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
+| data | [Resource](#proto-resource-v1-Resource) | repeated |  |
 
 
 
 
 
 
-<a name="resource-v1-Resource"></a>
+<a name="proto-resource-v1-Resource"></a>
 
 ### Resource
 
@@ -1631,7 +1743,7 @@ define enum
 
 
 
-<a name="resource-v1-UpdateResourceData"></a>
+<a name="proto-resource-v1-UpdateResourceData"></a>
 
 ### UpdateResourceData
 
@@ -1642,14 +1754,14 @@ define enum
 | resource_id | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | module_id | [string](#string) |  |  |
-| actions | [Action](#resource-v1-Action) | repeated |  |
+| actions | [Action](#proto-resource-v1-Action) | repeated |  |
 
 
 
 
 
 
-<a name="resource-v1-UpdateResourceRequest"></a>
+<a name="proto-resource-v1-UpdateResourceRequest"></a>
 
 ### UpdateResourceRequest
 
@@ -1657,7 +1769,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource | [UpdateResourceData](#resource-v1-UpdateResourceData) |  |  |
+| resource | [UpdateResourceData](#proto-resource-v1-UpdateResourceData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1671,34 +1783,43 @@ define enum
  
 
 
-<a name="resource-v1-ResourceService"></a>
+<a name="proto-resource-v1-ResourceService"></a>
 
 ### ResourceService
-
+ResourceService: manage resources and their actions
+Sample GetResource request: { &#34;resource_id&#34;: &#34;uuid&#34; }
+Sample GetResource response: Resource
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetResource | [GetResourceRequest](#resource-v1-GetResourceRequest) | [Resource](#resource-v1-Resource) |  |
-| GetResources | [GetResourcesRequest](#resource-v1-GetResourcesRequest) | [GetResourcesResponse](#resource-v1-GetResourcesResponse) |  |
-| CreateResource | [CreateResourceRequest](#resource-v1-CreateResourceRequest) | [CreateSuccess](#resource-v1-CreateSuccess) |  |
-| UpdateResource | [UpdateResourceRequest](#resource-v1-UpdateResourceRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteResource | [DeleteResourceRequest](#resource-v1-DeleteResourceRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| GetResource | [GetResourceRequest](#proto-resource-v1-GetResourceRequest) | [GetResourceResponse](#proto-resource-v1-GetResourceResponse) | GetResource returns a single Resource Req example: { &#34;resource_id&#34;: &#34;...&#34; } Res example: { &#34;resource_id&#34;: &#34;...&#34;, &#34;name&#34;: &#34;...&#34; } |
+| GetResources | [GetResourcesRequest](#proto-resource-v1-GetResourcesRequest) | [GetResourcesResponse](#proto-resource-v1-GetResourcesResponse) | GetResources returns paginated resources Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } Res example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10, &#34;totalItems&#34;:0 }, &#34;data&#34;: [] } |
+| CreateResource | [CreateResourceRequest](#proto-resource-v1-CreateResourceRequest) | [CreateSuccess](#proto-resource-v1-CreateSuccess) | CreateResource creates a resource with actions Res example: { &#34;resource&#34;: { &#34;name&#34;:&#34;res&#34;, &#34;module_id&#34;:&#34;uuid&#34;, &#34;actions&#34;: [...] }, &#34;user_id&#34;:&#34;uuid&#34; } Res example: CreateSuccess |
+| UpdateResource | [UpdateResourceRequest](#proto-resource-v1-UpdateResourceRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateResource updates resource and its actions Req example: { &#34;resource&#34;: { &#34;resource_id&#34;:&#34;uuid&#34;, &#34;name&#34;:&#34;new&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } Res example: { result: { success: true } } |
+| DeleteResource | [DeleteResourceRequest](#proto-resource-v1-DeleteResourceRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteResource soft-deletes resource Req example: { &#34;resource_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } Res example: { result: { success: true } } |
 
  
 
 
 
-<a name="role_v1_role-proto"></a>
+<a name="proto_role_v1_role-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## role/v1/role.proto
+## proto/role/v1/role.proto
 
 
 
-<a name="role-v1-CreateRoleData"></a>
+<a name="proto-role-v1-CreateRoleData"></a>
 
 ### CreateRoleData
-
+Payload used to create a role (excluding metadata fields).
+Example (CreateRoleRequest.role):
+{
+  &#34;name&#34;: &#34;Editor&#34;,
+  &#34;description&#34;: &#34;Can edit content&#34;,
+  &#34;module_id&#34;: &#34;module-2&#34;,
+  &#34;permissions&#34;: [ { &#34;resource_id&#34;: &#34;res-1&#34;, &#34;action_id&#34;: &#34;edit&#34; } ]
+}
 
 
 | Field | Type | Label | Description |
@@ -1706,22 +1827,27 @@ define enum
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
 | module_id | [string](#string) |  |  |
-| permissions | [Permission](#role-v1-Permission) | repeated |  |
+| permissions | [Permission](#proto-role-v1-Permission) | repeated |  |
 
 
 
 
 
 
-<a name="role-v1-CreateRoleRequest"></a>
+<a name="proto-role-v1-CreateRoleRequest"></a>
 
 ### CreateRoleRequest
-
+CreateRoleRequest wraps role data and the acting user id.
+Example Request:
+{
+  &#34;role&#34;: { &#34;name&#34;: &#34;Viewer&#34;, &#34;description&#34;: &#34;Read-only&#34;, &#34;module_id&#34;: &#34;module-3&#34; },
+  &#34;user_id&#34;: &#34;user-42&#34;
+}
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| role | [CreateRoleData](#role-v1-CreateRoleData) |  |  |
+| role | [CreateRoleData](#proto-role-v1-CreateRoleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1729,26 +1855,26 @@ define enum
 
 
 
-<a name="role-v1-CreateSuccess"></a>
+<a name="proto-role-v1-CreateSuccess"></a>
 
 ### CreateSuccess
-
+CreateSuccess returns the created role and any validation errors.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| role | [Role](#role-v1-Role) |  |  |
-| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| role | [Role](#proto-role-v1-Role) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="role-v1-DeleteRoleRequest"></a>
+<a name="proto-role-v1-DeleteRoleRequest"></a>
 
 ### DeleteRoleRequest
-
+DeleteRoleRequest indicates which role to delete and who requested it.
 
 
 | Field | Type | Label | Description |
@@ -1761,10 +1887,12 @@ define enum
 
 
 
-<a name="role-v1-GetRoleRequest"></a>
+<a name="proto-role-v1-GetRoleRequest"></a>
 
 ### GetRoleRequest
-
+Request to fetch a single role by id.
+Example Request:
+{ &#34;role_id&#34;: &#34;role-123&#34; }
 
 
 | Field | Type | Label | Description |
@@ -1776,43 +1904,61 @@ define enum
 
 
 
-<a name="role-v1-GetRolesRequest"></a>
+<a name="proto-role-v1-GetRoleResponse"></a>
+
+### GetRoleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| role | [Role](#proto-role-v1-Role) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-role-v1-GetRolesRequest"></a>
 
 ### GetRolesRequest
-
+Request to fetch a paginated list of roles.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
+| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
+| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
 
 
 
 
 
 
-<a name="role-v1-GetRolesResponse"></a>
+<a name="proto-role-v1-GetRolesResponse"></a>
 
 ### GetRolesResponse
-
+Response for list queries containing pagination and role entries.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
-| data | [Role](#role-v1-Role) | repeated |  |
+| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
+| data | [Role](#proto-role-v1-Role) | repeated |  |
 
 
 
 
 
 
-<a name="role-v1-Permission"></a>
+<a name="proto-role-v1-Permission"></a>
 
 ### Permission
-
+Permission pairs a resource with an action and optional id.
+Example:
+{ &#34;resource_id&#34;: &#34;res-1&#34;, &#34;action_id&#34;: &#34;act-1&#34; }
 
 
 | Field | Type | Label | Description |
@@ -1826,10 +1972,29 @@ define enum
 
 
 
-<a name="role-v1-Role"></a>
+<a name="proto-role-v1-Role"></a>
 
 ### Role
+Role represents a permission role in the system.
+Fields:
+- role_id: unique identifier for the role
+- name: display name of the role
+- description: human-readable description
+- module_id: the module this role belongs to
+- created_user_id: user who created the role
+- updated_at / updated_user_id: last update info
+- deleted_at / deleted_user_id: deletion info
+- created_at: creation timestamp
 
+Example (GetRole response):
+{
+  &#34;role_id&#34;: &#34;role-123&#34;,
+  &#34;name&#34;: &#34;Admin&#34;,
+  &#34;description&#34;: &#34;Administrator role&#34;,
+  &#34;module_id&#34;: &#34;module-1&#34;,
+  &#34;created_user_id&#34;: &#34;user-1&#34;,
+  &#34;created_at&#34;: &#34;2024-01-01T00:00:00Z&#34;
+}
 
 
 | Field | Type | Label | Description |
@@ -1850,10 +2015,10 @@ define enum
 
 
 
-<a name="role-v1-UpdateRoleData"></a>
+<a name="proto-role-v1-UpdateRoleData"></a>
 
 ### UpdateRoleData
-
+Payload used to update an existing role.
 
 
 | Field | Type | Label | Description |
@@ -1862,22 +2027,22 @@ define enum
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
 | module_id | [string](#string) |  |  |
-| permissions | [Permission](#role-v1-Permission) | repeated |  |
+| permissions | [Permission](#proto-role-v1-Permission) | repeated |  |
 
 
 
 
 
 
-<a name="role-v1-UpdateRoleRequest"></a>
+<a name="proto-role-v1-UpdateRoleRequest"></a>
 
 ### UpdateRoleRequest
-
+UpdateRoleRequest contains the changes and acting user id.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| role | [UpdateRoleData](#role-v1-UpdateRoleData) |  |  |
+| role | [UpdateRoleData](#proto-role-v1-UpdateRoleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1891,31 +2056,31 @@ define enum
  
 
 
-<a name="role-v1-RoleService"></a>
+<a name="proto-role-v1-RoleService"></a>
 
 ### RoleService
-
+Role service provides basic CRUD operations for roles.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetRole | [GetRoleRequest](#role-v1-GetRoleRequest) | [Role](#role-v1-Role) |  |
-| GetRoles | [GetRolesRequest](#role-v1-GetRolesRequest) | [GetRolesResponse](#role-v1-GetRolesResponse) |  |
-| CreateRole | [CreateRoleRequest](#role-v1-CreateRoleRequest) | [CreateSuccess](#role-v1-CreateSuccess) |  |
-| UpdateRole | [UpdateRoleRequest](#role-v1-UpdateRoleRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteRole | [DeleteRoleRequest](#role-v1-DeleteRoleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| GetRole | [GetRoleRequest](#proto-role-v1-GetRoleRequest) | [GetRoleResponse](#proto-role-v1-GetRoleResponse) | GetRole returns a single Role identified by `role_id`. Example Request: { &#34;role_id&#34;: &#34;role-123&#34; } |
+| GetRoles | [GetRolesRequest](#proto-role-v1-GetRolesRequest) | [GetRolesResponse](#proto-role-v1-GetRolesResponse) | GetRoles returns a paginated list of roles with optional filters and sorts. Example Request: { &#34;pagination&#34;: { &#34;page&#34;: 1, &#34;limit&#34;: 20 }, &#34;sorts&#34;: [ { &#34;field&#34;: &#34;created_at&#34;, &#34;order&#34;: 1 } ] } Example Response (GetRolesResponse): { &#34;pagination&#34;: { &#34;page&#34;: 1, &#34;limit&#34;: 20, &#34;total_items&#34;: 100, &#34;total_pages&#34;: 5, &#34;item_count&#34;: 20 }, &#34;data&#34;: [ { /* Role objects */ } ] } |
+| CreateRole | [CreateRoleRequest](#proto-role-v1-CreateRoleRequest) | [CreateSuccess](#proto-role-v1-CreateSuccess) | CreateRole creates a new role. `user_id` is the actor performing the operation. Example Request: { &#34;role&#34;: { &#34;name&#34;: &#34;Viewer&#34;, &#34;description&#34;: &#34;Read-only&#34;, &#34;module_id&#34;: &#34;module-3&#34; }, &#34;user_id&#34;: &#34;user-42&#34; } Example Response (CreateSuccess): { &#34;role&#34;: { &#34;role_id&#34;: &#34;role-124&#34;, &#34;name&#34;: &#34;Viewer&#34;, &#34;module_id&#34;: &#34;module-3&#34; }, &#34;errors&#34;: [] } |
+| UpdateRole | [UpdateRoleRequest](#proto-role-v1-UpdateRoleRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateRole updates an existing role. Returns UpdateSuccess indicating operation result. Example Request: { &#34;role&#34;: { &#34;role_id&#34;: &#34;role-123&#34;, &#34;name&#34;: &#34;Manager&#34; }, &#34;user_id&#34;: &#34;user-2&#34; } Example Response (proto.base.v1.UpdateSuccess): { &#34;success&#34;: true, &#34;errors&#34;: [] } |
+| DeleteRole | [DeleteRoleRequest](#proto-role-v1-DeleteRoleRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteRole marks a role as deleted. Returns DeleteSuccess indicating operation result. Example Request: { &#34;role_id&#34;: &#34;role-123&#34;, &#34;user_id&#34;: &#34;user-2&#34; } Example Response (proto.base.v1.DeleteSuccess): { &#34;success&#34;: true, &#34;errors&#34;: [] } |
 
  
 
 
 
-<a name="user-role_v1_user-role-proto"></a>
+<a name="proto_user-role_v1_user-role-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## user-role/v1/user-role.proto
+## proto/user-role/v1/user-role.proto
 
 
 
-<a name="user_role-v1-CreateSuccess"></a>
+<a name="proto-user_role-v1-CreateSuccess"></a>
 
 ### CreateSuccess
 
@@ -1923,15 +2088,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_role | [UserRole](#user_role-v1-UserRole) |  |  |
-| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| user_role | [UserRole](#proto-user_role-v1-UserRole) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="user_role-v1-CreateUserRoleData"></a>
+<a name="proto-user_role-v1-CreateUserRoleData"></a>
 
 ### CreateUserRoleData
 
@@ -1947,7 +2112,7 @@ define enum
 
 
 
-<a name="user_role-v1-CreateUserRoleRequest"></a>
+<a name="proto-user_role-v1-CreateUserRoleRequest"></a>
 
 ### CreateUserRoleRequest
 
@@ -1955,7 +2120,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_role | [CreateUserRoleData](#user_role-v1-CreateUserRoleData) |  |  |
+| user_role | [CreateUserRoleData](#proto-user_role-v1-CreateUserRoleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -1963,7 +2128,7 @@ define enum
 
 
 
-<a name="user_role-v1-DeleteUserRoleRequest"></a>
+<a name="proto-user_role-v1-DeleteUserRoleRequest"></a>
 
 ### DeleteUserRoleRequest
 
@@ -1979,7 +2144,7 @@ define enum
 
 
 
-<a name="user_role-v1-GetUserRoleRequest"></a>
+<a name="proto-user_role-v1-GetUserRoleRequest"></a>
 
 ### GetUserRoleRequest
 
@@ -1994,7 +2159,7 @@ define enum
 
 
 
-<a name="user_role-v1-GetUserRolesRequest"></a>
+<a name="proto-user_role-v1-GetUserRolesRequest"></a>
 
 ### GetUserRolesRequest
 
@@ -2002,16 +2167,16 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
+| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
+| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
 
 
 
 
 
 
-<a name="user_role-v1-GetUserRolesResponse"></a>
+<a name="proto-user_role-v1-GetUserRolesResponse"></a>
 
 ### GetUserRolesResponse
 
@@ -2019,15 +2184,15 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
-| data | [UserRole](#user_role-v1-UserRole) | repeated |  |
+| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
+| data | [UserRole](#proto-user_role-v1-UserRole) | repeated |  |
 
 
 
 
 
 
-<a name="user_role-v1-UpdateUserRoleData"></a>
+<a name="proto-user_role-v1-UpdateUserRoleData"></a>
 
 ### UpdateUserRoleData
 
@@ -2043,7 +2208,7 @@ define enum
 
 
 
-<a name="user_role-v1-UpdateUserRoleRequest"></a>
+<a name="proto-user_role-v1-UpdateUserRoleRequest"></a>
 
 ### UpdateUserRoleRequest
 
@@ -2051,7 +2216,7 @@ define enum
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_role | [UpdateUserRoleData](#user_role-v1-UpdateUserRoleData) |  |  |
+| user_role | [UpdateUserRoleData](#proto-user_role-v1-UpdateUserRoleData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -2059,7 +2224,7 @@ define enum
 
 
 
-<a name="user_role-v1-UserRole"></a>
+<a name="proto-user_role-v1-UserRole"></a>
 
 ### UserRole
 
@@ -2088,34 +2253,35 @@ define enum
  
 
 
-<a name="user_role-v1-UserRoleService"></a>
+<a name="proto-user_role-v1-UserRoleService"></a>
 
 ### UserRoleService
-
+UserRoleService: manage user role assignments
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetUserRole | [GetUserRoleRequest](#user_role-v1-GetUserRoleRequest) | [UserRole](#user_role-v1-UserRole) |  |
-| GetUserRoles | [GetUserRolesRequest](#user_role-v1-GetUserRolesRequest) | [GetUserRolesRequest](#user_role-v1-GetUserRolesRequest) |  |
-| CreateUserRole | [CreateUserRoleRequest](#user_role-v1-CreateUserRoleRequest) | [CreateSuccess](#user_role-v1-CreateSuccess) |  |
-| UpdateUserRole | [UpdateUserRoleRequest](#user_role-v1-UpdateUserRoleRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteUserRole | [DeleteUserRoleRequest](#user_role-v1-DeleteUserRoleRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
+| GetUserRole | [GetUserRoleRequest](#proto-user_role-v1-GetUserRoleRequest) | [UserRole](#proto-user_role-v1-UserRole) | GetUserRole returns a single user_role Req example: { &#34;user_role_id&#34;: &#34;uuid&#34; } |
+| GetUserRoles | [GetUserRolesRequest](#proto-user_role-v1-GetUserRolesRequest) | [GetUserRolesRequest](#proto-user_role-v1-GetUserRolesRequest) | GetUserRoles returns paginated user_role list Req example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:10 } } |
+| CreateUserRole | [CreateUserRoleRequest](#proto-user_role-v1-CreateUserRoleRequest) | [CreateSuccess](#proto-user_role-v1-CreateSuccess) | CreateUserRole assigns a role to a user Req example: { &#34;user_role&#34;: { &#34;user_id&#34;:&#34;uuid&#34;, &#34;role_id&#34;:&#34;uuid&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| UpdateUserRole | [UpdateUserRoleRequest](#proto-user_role-v1-UpdateUserRoleRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateUserRole updates an assignment Req example: { &#34;user_role&#34;: { &#34;user_id&#34;:&#34;uuid&#34;, &#34;role_id&#34;:&#34;uuid&#34; }, &#34;user_id&#34;:&#34;uuid&#34; } |
+| DeleteUserRole | [DeleteUserRoleRequest](#proto-user_role-v1-DeleteUserRoleRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteUserRole removes assignment Req example: { &#34;user_role_id&#34;:&#34;uuid&#34;, &#34;user_id&#34;:&#34;uuid&#34; } |
 
  
 
 
 
-<a name="user_v1_user-proto"></a>
+<a name="proto_user_v1_user-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## user/v1/user.proto
+## proto/user/v1/user.proto
 
 
 
-<a name="user-v1-ChangePasswordRequest"></a>
+<a name="proto-user-v1-ChangePasswordRequest"></a>
 
 ### ChangePasswordRequest
-
+ChangePasswordRequest contains user id and new password.
+Example Request: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;password&#34;: &#34;newpass&#34; }
 
 
 | Field | Type | Label | Description |
@@ -2128,26 +2294,34 @@ define enum
 
 
 
-<a name="user-v1-CreateSuccess"></a>
+<a name="proto-user-v1-CreateSuccess"></a>
 
 ### CreateSuccess
-
+CreateSuccess returns the created user and any validation errors.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user | [User](#user-v1-User) |  |  |
-| error | [base.v1.ErrorResponse](#base-v1-ErrorResponse) |  |  |
+| user | [User](#proto-user-v1-User) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
 
 
 
 
 
 
-<a name="user-v1-CreateUserData"></a>
+<a name="proto-user-v1-CreateUserData"></a>
 
 ### CreateUserData
-
+Payload used to create a new user.
+Example:
+{
+  &#34;username&#34;: &#34;alice&#34;,
+  &#34;email&#34;: &#34;alice@example.com&#34;,
+  &#34;password&#34;: &#34;s3cret&#34;,
+  &#34;phone&#34;: &#34;&#43;84901112233&#34;,
+  &#34;role_ids&#34;: [&#34;role-2&#34;]
+}
 
 
 | Field | Type | Label | Description |
@@ -2157,7 +2331,7 @@ define enum
 | password | [string](#string) |  |  |
 | phone | [string](#string) |  |  |
 | avatar | [string](#string) |  |  |
-| status | [UserStatus](#user-v1-UserStatus) |  |  |
+| status | [UserStatus](#proto-user-v1-UserStatus) |  |  |
 | role_ids | [string](#string) | repeated |  |
 
 
@@ -2165,15 +2339,20 @@ define enum
 
 
 
-<a name="user-v1-CreateUserRequest"></a>
+<a name="proto-user-v1-CreateUserRequest"></a>
 
 ### CreateUserRequest
-
+CreateUserRequest includes the data and actor id performing creation.
+Example Request:
+{
+  &#34;user&#34;: { &#34;username&#34;: &#34;bob&#34;, &#34;email&#34;: &#34;bob@example.com&#34;, &#34;password&#34;: &#34;pwd&#34; },
+  &#34;user_id&#34;: &#34;admin-1&#34;
+}
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user | [CreateUserData](#user-v1-CreateUserData) |  |  |
+| user | [CreateUserData](#proto-user-v1-CreateUserData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -2181,10 +2360,10 @@ define enum
 
 
 
-<a name="user-v1-DeleteUserRequest"></a>
+<a name="proto-user-v1-DeleteUserRequest"></a>
 
 ### DeleteUserRequest
-
+DeleteUserRequest indicates which user to delete and who requested it.
 
 
 | Field | Type | Label | Description |
@@ -2197,10 +2376,11 @@ define enum
 
 
 
-<a name="user-v1-GetUserRequest"></a>
+<a name="proto-user-v1-GetUserRequest"></a>
 
 ### GetUserRequest
-
+GetUserRequest requests a single user by id.
+Example Request: { &#34;user_id&#34;: &#34;user-1&#34; }
 
 
 | Field | Type | Label | Description |
@@ -2212,43 +2392,59 @@ define enum
 
 
 
-<a name="user-v1-GetUsersRequest"></a>
+<a name="proto-user-v1-GetUserResponse"></a>
+
+### GetUserResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#proto-user-v1-User) |  |  |
+| errors | [proto.base.v1.ErrorMessage](#proto-base-v1-ErrorMessage) | repeated |  |
+
+
+
+
+
+
+<a name="proto-user-v1-GetUsersRequest"></a>
 
 ### GetUsersRequest
-
+GetUsersRequest supports pagination, sorting and filtering.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationRequest](#base-v1-PaginationRequest) |  |  |
-| sorts | [base.v1.Sort](#base-v1-Sort) | repeated |  |
-| filters | [base.v1.Filter](#base-v1-Filter) | repeated |  |
+| pagination | [proto.base.v1.PaginationRequest](#proto-base-v1-PaginationRequest) |  |  |
+| sorts | [proto.base.v1.Sort](#proto-base-v1-Sort) | repeated |  |
+| filters | [proto.base.v1.Filter](#proto-base-v1-Filter) | repeated |  |
 
 
 
 
 
 
-<a name="user-v1-GetUsersResponse"></a>
+<a name="proto-user-v1-GetUsersResponse"></a>
 
 ### GetUsersResponse
-
+GetUsersResponse returns paginated user results.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pagination | [base.v1.PaginationResponse](#base-v1-PaginationResponse) |  |  |
-| data | [User](#user-v1-User) | repeated |  |
+| pagination | [proto.base.v1.PaginationResponse](#proto-base-v1-PaginationResponse) |  |  |
+| data | [User](#proto-user-v1-User) | repeated |  |
 
 
 
 
 
 
-<a name="user-v1-UpdateUserData"></a>
+<a name="proto-user-v1-UpdateUserData"></a>
 
 ### UpdateUserData
-
+Payload used to update user profile or roles.
 
 
 | Field | Type | Label | Description |
@@ -2257,7 +2453,7 @@ define enum
 | email | [string](#string) |  |  |
 | phone | [string](#string) |  |  |
 | avatar | [string](#string) |  |  |
-| status | [UserStatus](#user-v1-UserStatus) |  |  |
+| status | [UserStatus](#proto-user-v1-UserStatus) |  |  |
 | role_ids | [string](#string) | repeated |  |
 | user_id | [string](#string) |  |  |
 
@@ -2266,15 +2462,15 @@ define enum
 
 
 
-<a name="user-v1-UpdateUserRequest"></a>
+<a name="proto-user-v1-UpdateUserRequest"></a>
 
 ### UpdateUserRequest
-
+UpdateUserRequest includes the changes and actor id.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user | [UpdateUserData](#user-v1-UpdateUserData) |  |  |
+| user | [UpdateUserData](#proto-user-v1-UpdateUserData) |  |  |
 | user_id | [string](#string) |  |  |
 
 
@@ -2282,10 +2478,26 @@ define enum
 
 
 
-<a name="user-v1-User"></a>
+<a name="proto-user-v1-User"></a>
 
 ### User
+User represents a system user and related metadata.
+Fields:
+- user_id: unique identifier
+- username, email, phone, avatar: profile fields
+- status: account status (active, deactivated, deleted)
+- created_at/created_user_id, updated_at/updated_user_id, deleted_at/deleted_user_id: audit fields
+- role_ids: assigned role identifiers
 
+Example (GetUser response):
+{
+  &#34;user_id&#34;: &#34;user-1&#34;,
+  &#34;username&#34;: &#34;jdoe&#34;,
+  &#34;email&#34;: &#34;jdoe@example.com&#34;,
+  &#34;phone&#34;: &#34;&#43;84901234567&#34;,
+  &#34;status&#34;: 1,
+  &#34;role_ids&#34;: [&#34;role-1&#34;]
+}
 
 
 | Field | Type | Label | Description |
@@ -2295,13 +2507,14 @@ define enum
 | email | [string](#string) |  |  |
 | phone | [string](#string) |  |  |
 | avatar | [string](#string) |  |  |
-| status | [UserStatus](#user-v1-UserStatus) |  |  |
+| status | [UserStatus](#proto-user-v1-UserStatus) |  |  |
 | created_at | [string](#string) |  |  |
 | created_user_id | [string](#string) |  |  |
 | updated_at | [string](#string) |  |  |
 | updated_user_id | [string](#string) |  |  |
 | deleted_at | [string](#string) |  |  |
 | deleted_user_id | [string](#string) |  |  |
+| role_ids | [string](#string) | repeated |  |
 
 
 
@@ -2310,7 +2523,7 @@ define enum
  
 
 
-<a name="user-v1-UserStatus"></a>
+<a name="proto-user-v1-UserStatus"></a>
 
 ### UserStatus
 
@@ -2318,9 +2531,9 @@ define enum
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | USER_STATUS_UNSPECIFIED | 0 |  |
-| ACTIVE | 1 |  |
-| DEACTIVATED | 2 |  |
-| DELETED | 3 |  |
+| USER_STATUS_ACTIVE | 1 |  |
+| USER_STATUS_DEACTIVATED | 2 |  |
+| USER_STATUS_DELETED | 3 |  |
 
 
  
@@ -2328,19 +2541,19 @@ define enum
  
 
 
-<a name="user-v1-UserService"></a>
+<a name="proto-user-v1-UserService"></a>
 
 ### UserService
-
+UserService provides CRUD operations for users and password management.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetUser | [GetUserRequest](#user-v1-GetUserRequest) | [User](#user-v1-User) |  |
-| GetUsers | [GetUsersRequest](#user-v1-GetUsersRequest) | [GetUsersResponse](#user-v1-GetUsersResponse) |  |
-| CreateUser | [CreateUserRequest](#user-v1-CreateUserRequest) | [CreateSuccess](#user-v1-CreateSuccess) |  |
-| UpdateUser | [UpdateUserRequest](#user-v1-UpdateUserRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
-| DeleteUser | [DeleteUserRequest](#user-v1-DeleteUserRequest) | [.base.v1.DeleteSuccess](#base-v1-DeleteSuccess) |  |
-| ChangePassword | [ChangePasswordRequest](#user-v1-ChangePasswordRequest) | [.base.v1.UpdateSuccess](#base-v1-UpdateSuccess) |  |
+| GetUser | [GetUserRequest](#proto-user-v1-GetUserRequest) | [GetUserResponse](#proto-user-v1-GetUserResponse) | GetUser returns a single user by id. Request: { &#34;user_id&#34;: &#34;user-1&#34; } Response: GetUserResponse (see User example above) |
+| GetUsers | [GetUsersRequest](#proto-user-v1-GetUsersRequest) | [GetUsersResponse](#proto-user-v1-GetUsersResponse) | GetUsers returns paginated users. Request example: { &#34;pagination&#34;: { &#34;page&#34;: 1, &#34;limit&#34;: 20 } } Response example: { &#34;pagination&#34;: { &#34;page&#34;:1, &#34;limit&#34;:20, &#34;total_items&#34;:100, &#34;total_pages&#34;:5, &#34;item_count&#34;:20 }, &#34;data&#34;: [ /* User */ ] } |
+| CreateUser | [CreateUserRequest](#proto-user-v1-CreateUserRequest) | [CreateSuccess](#proto-user-v1-CreateSuccess) | CreateUser creates a new user. `user_id` is the actor performing the action. Request: CreateUserRequest (see CreateUserRequest example) Response: CreateSuccess containing created `User`. |
+| UpdateUser | [UpdateUserRequest](#proto-user-v1-UpdateUserRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | UpdateUser updates an existing user. Returns UpdateSuccess. Request example: { &#34;user&#34;: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;username&#34;: &#34;newname&#34; }, &#34;user_id&#34;: &#34;admin-1&#34; } Response: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
+| DeleteUser | [DeleteUserRequest](#proto-user-v1-DeleteUserRequest) | [.proto.base.v1.DeleteSuccess](#proto-base-v1-DeleteSuccess) | DeleteUser marks a user as deleted. Request: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;deleted_user_id&#34;: &#34;admin-1&#34; } Response: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
+| ChangePassword | [ChangePasswordRequest](#proto-user-v1-ChangePasswordRequest) | [.proto.base.v1.UpdateSuccess](#proto-base-v1-UpdateSuccess) | ChangePassword updates the user&#39;s password. Request: { &#34;user_id&#34;: &#34;user-1&#34;, &#34;password&#34;: &#34;newpass&#34; } Response: { &#34;success&#34;: true, &#34;errors&#34;: [] } |
 
  
 

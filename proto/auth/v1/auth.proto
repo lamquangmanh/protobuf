@@ -1,7 +1,24 @@
 
 syntax = "proto3";
 
-package auth.v1;
+import "proto/base/v1/base.proto";
+package proto.auth.v1;
+
+option go_package = "go-api/pkg/api/authpb;authpb";
+
+message User {
+  string user_id = 1;
+  string email = 2;
+  string username = 3;
+  optional string avatar = 4;
+  optional string phone = 5;
+  string status = 6;
+}
+
+message Auth {
+  string access_token = 1;
+  string refresh_token = 2;
+}
 
 message LoginRequest {
   string email = 1;
@@ -9,8 +26,8 @@ message LoginRequest {
 }
 
 message LoginResponse {
-  string access_token = 1;
-  string refresh_token = 2;
+  Auth auth = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
 message GetMeRequest {
@@ -18,12 +35,8 @@ message GetMeRequest {
 }
 
 message GetMeResponse {
-  string user_id = 1;
-  string email = 2;
-  string username = 3;
-  optional string avatar = 4;
-  optional string phone = 5;
-  string status = 6;
+  User user = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
 message VerifyRequest {
@@ -35,10 +48,23 @@ message VerifyRequest {
 
 message VerifyResponse {
   bool success = 1;
+  repeated proto.base.v1.ErrorMessage errors = 2;
 }
 
+// AuthService: authentication and token verification
 service AuthService {
+  // Login authenticates user and returns tokens
+  // Req example: { "email": "a@b.com", "password": "secret" }
+  // Res example: { "auth": { "access_token": "...", "refresh_token": "..." }, "errors": [] }
   rpc Login (LoginRequest) returns (LoginResponse) {}
+
+  // GetMe returns current user profile
+  // Req example: { "user_id": "uuid" }
+  // Res example: { "user": { "user_id": "...", "email": "...", "username": "...", "avatar": "...", "phone": "...", "status": "ACTIVE" }, "errors": [] }
   rpc GetMe (GetMeRequest) returns (GetMeResponse) {}
+
+  // Verify checks token and permission
+  // Req example: { "token":"...", "request_type":"HTTP", "method":"GET", "url":"/api" }
+  // Res example: { "success": true, "errors": [] }
   rpc Verify (VerifyRequest) returns (VerifyResponse) {}
 }
