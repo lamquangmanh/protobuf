@@ -49,11 +49,11 @@ jobs:
       - name: Publish Node package to GitHub Packages
         run: |
           PACKAGE_VERSION="${GITHUB_REF_NAME#v}"
-          if npm view "@lamquangmanh/protobuf@$PACKAGE_VERSION" version >/dev/null 2>&1; then
+          if npm view "@lamquangmanh/protobuf@$PACKAGE_VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
             echo "@lamquangmanh/protobuf@$PACKAGE_VERSION already exists in GitHub Packages, skipping publish"
             exit 0
           fi
-          npm publish
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

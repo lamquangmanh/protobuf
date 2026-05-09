@@ -20,7 +20,7 @@
     "build:proto": "yarn build:proto:node && yarn build:proto:go",
     "build:proto:node": "bash ./build_proto_node.sh",
     "build:proto:go": "bash ./build_proto_go.sh",
-    "publish": "npm publish --access public",
+    "publish:pkg": "npm publish --access public",
     "build:ts": "yarn build:proto:node && npx tsc -p tsconfig.json"
   },
   "dependencies": {
