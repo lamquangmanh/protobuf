@@ -42,12 +42,12 @@ jobs:
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
 
       # creates a .npmrc file in the home directory of the runner.
-      - name: Create .npmrc securely
-        run: |
-          echo "@lamquangmanh:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
-          echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> $HOME/.npmrc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GIT_PAT }}
+      # - name: Create .npmrc securely
+      #   run: |
+      #     echo "@lamquangmanh:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
+      #     echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> $HOME/.npmrc
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.GIT_PAT }}
 
       - name: Install Node dependencies
         run: yarn install --frozen-lockfile
