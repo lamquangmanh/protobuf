@@ -80,7 +80,7 @@ jobs:
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
 
       - name: Generate Go protobuf
-        run: bash ./build_proto_go.sh
+        run: bash ./scripts/build_proto_go.sh
 
       - name: Verify Go module in gen/go
         run: |
