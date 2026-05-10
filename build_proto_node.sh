@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+rm -rf ./build
+mkdir -p ./build
+
 PROTO_FILES=$(find proto -name "*.proto" | sort)
 
 protoc \
   -I=. \
   --plugin="$(pwd)/node_modules/.bin/protoc-gen-ts_proto" \
   --ts_proto_opt=esModuleInterop=true \
+  --ts_proto_opt=stripEnumPrefix=false \
   --ts_proto_out="./build" \
   ${PROTO_FILES}
 
@@ -15,6 +19,7 @@ if command -v protoc-gen-doc >/dev/null 2>&1; then
     -I=. \
     --plugin="$(pwd)/node_modules/.bin/protoc-gen-ts_proto" \
     --ts_proto_opt=esModuleInterop=true \
+    --ts_proto_opt=stripEnumPrefix=false \
     --doc_out=./docs \
     --doc_opt=markdown,proto-docs.md \
     ${PROTO_FILES}

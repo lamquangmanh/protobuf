@@ -86,13 +86,16 @@ Publish pipeline:
 ```text
 Tag vX.Y.Z
     |
-    |-- Job publish-node
+    |-- Job publish-nodejs-package
     |     -> build Node package
     |     -> npm publish to GitHub Packages
+    |     -> available at @lamquangmanh/protobuf@vX.Y.Z
     |
-    |-- Job release-go-artifacts
+    |-- Job publish-go-package
           -> generate Go stubs (gen/go)
-          -> attach gen/go to GitHub Release for that tag
+          -> verify gen/go/go.mod for pkg.go.dev
+          -> pkg.go.dev auto-indexes tag
+          -> available at github.com/lamquangmanh/protobuf/gen/go@vX.Y.Z
 ```
 
 ---
@@ -102,32 +105,63 @@ Tag vX.Y.Z
 ### NodeJS app (demo-bff)
 
 ```text
-Install package from GitHub Packages
--> import generated TS protobuf code
--> use in BFF
+Version published to GitHub Packages (@lamquangmanh/protobuf)
+    |
+    v
+Install via npm install @lamquangmanh/protobuf@vX.Y.Z
+    |
+    v
+Import generated TS protobuf code from node_modules
+    |
+    v
+Use in BFF application
 ```
 
 ### Golang app (go-api)
 
 ```text
-Get generated code from gen/go (repo or release artifact)
--> import generated Go package
--> compile Go service
+Version published to pkg.go.dev (github.com/lamquangmanh/protobuf/gen/go@vX.Y.Z)
+    |
+    v
+Update go.mod: go get github.com/lamquangmanh/protobuf/gen/go@vX.Y.Z
+    |
+    v
+Import generated Go protobuf code from go module
+    |
+    v
+Use in Go API service
 ```
 
 ---
 
 ## 5) Quick checklist for every proto update
 
+**Proto Repository (protobuf/):**
+
 ```text
-[ ] Sync go-api/proto -> protobuf/proto
-[ ] Run yarn build:proto
-[ ] Check build/, gen/go/, docs/
-[ ] Commit + push branch
-[ ] Open PR to main (CI verify)
-[ ] Create tag vX.Y.Z to publish
-[ ] Update demo-bff with new generated code
-[ ] Update go-api with new generated code
+[ ] Sync go-api/proto -> protobuf/proto (if updates came from go-api)
+[ ] Run yarn build:proto (generates build/ and gen/go/)
+[ ] Check artifacts: build/, gen/go/, docs/proto-docs.md
+[ ] Commit changes to proto/
+[ ] Push branch and open PR to main
+[ ] After PR merged, create tag vX.Y.Z
+[ ] Push tag: git push origin vX.Y.Z
+[ ] Verify publish workflow succeeds (both Node and Go jobs)
+```
+
+**Consumer Apps:**
+
+```text
+[ ] demo-bff: npm install @lamquangmanh/protobuf@vX.Y.Z
+[ ] demo-bff: Verify TypeScript compiles (yarn build)
+[ ] demo-bff: Update import paths if message types changed
+[ ] demo-bff: Run tests (yarn test)
+
+[ ] go-api: go get github.com/lamquangmanh/protobuf/gen/go@vX.Y.Z
+[ ] go-api: go mod tidy
+[ ] go-api: Verify Go compiles (make build)
+[ ] go-api: Update import paths if message types changed
+[ ] go-api: Run tests (make test)
 ```
 
 ---
@@ -166,50 +200,36 @@ import { CreateUserRequest, CreateUserResponse } from '@lamquangmanh/protobuf';
 
 ### 6.2 Update go-api (Go app)
 
-After new tag is published to GitHub Release:
-
-**Option A: Pull latest from protobuf repo**
+After a new tag is pushed, update go-api to the matching Go module version from `protobuf/gen/go`:
 
 ```bash
-cd /Users/jun/Documents/Projects/lamquangmanh-github/protobuf
-
-# Get latest gen/go artifacts
-git pull origin main
-
-# Check generated files
-ls -la gen/go/proto/
-```
-
-Then copy to go-api or reference as Go module.
-
-**Option B: Copy gen/go/ artifacts to go-api**
-
-```bash
-# Copy generated Go stubs
-cp -r /Users/jun/Documents/Projects/lamquangmanh-github/protobuf/gen/go/proto/ \
-      /Users/jun/Documents/Projects/lamquangmanh-github/go-api/pkg/proto/
-
-# Run go mod tidy to update dependencies
 cd /Users/jun/Documents/Projects/lamquangmanh-github/go-api
+
+# Pin to a specific proto version
+go get github.com/lamquangmanh/protobuf/gen/go@vX.Y.Z
+
+# Or always use the latest published version
+go get github.com/lamquangmanh/protobuf/gen/go@latest
+
+# Refresh module metadata
 go mod tidy
 ```
 
-Then update handlers/services in code:
+Then update imports and references in code:
 
 ```go
-// Check for message struct changes in generated code
-import "github.com/lamquangmanh/go-api/pkg/proto/user/v1"
+import userv1 "github.com/lamquangmanh/protobuf/gen/go/proto/user/v1"
 
-// Update handlers to use new message types
-// Search for old message names and replace with new ones
+// Use generated types from the versioned module
+req := &userv1.CreateUserRequest{}
 ```
 
 **Key points:**
 
-- Generated Go files located in `gen/go/proto/`
-- Each proto package generates `*.pb.go` and `*_grpc.pb.go` files
-- Check go.mod for protobuf dependency compatibility
-- Rebuild and test services after updating
+- The canonical Go module is `github.com/lamquangmanh/protobuf/gen/go`
+- Versioning follows the protobuf repo tag, for example `v0.0.39`
+- No manual copying from `gen/go/` into go-api is needed
+- Rebuild and test go-api after bumping the module version
 
 ### 6.3 Verify compatibility
 
@@ -232,7 +252,7 @@ cd /Users/jun/Documents/Projects/lamquangmanh-github/go-api
 make test
 ```
 
-If compilation errors occur, check proto changelog for breaking changes and update code accordingly.
+If compilation errors occur, check the proto changelog for breaking changes and update the Go imports or request/response types accordingly.
 
 ---
 
