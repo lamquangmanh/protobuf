@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package proto.error.v1;
+option go_package = "go-api/pkg/api/errorpb;errorpb";
+
+import "google/protobuf/struct.proto";
+
+message ErrorItem {
+  int32 code = 1;
+  string message = 2;
+  google.protobuf.Struct extra_data = 3;
+}
+
+message ErrorList {
+  repeated ErrorItem errors = 1;
+}
