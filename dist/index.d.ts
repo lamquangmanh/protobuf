@@ -11,6 +11,9 @@ export * from './proto/auth/v1/auth';
 // base/v1/base
 export * from './proto/base/v1/base';
 
+// error/v1/error
+export * from './proto/error/v1/error';
+
 // menu/v1/menu
 export * from './proto/menu/v1/menu';
 
@@ -29,8 +32,8 @@ export * from './proto/resource/v1/resource';
 // role/v1/role
 export * from './proto/role/v1/role';
 
-// user/v1/user
-export * from './proto/user/v1/user';
-
 // user_role/v1/user_role
 export * from './proto/user_role/v1/user_role';
+
+// user/v1/user
+export * from './proto/user/v1/user';
